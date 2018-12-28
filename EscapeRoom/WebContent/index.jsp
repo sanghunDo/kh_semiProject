@@ -35,7 +35,7 @@ header{
 	top: 3%;
 	text-align: center;
 }
-div{color: white;font-family: 'Do Hyeon', sans-serif;}
+div{color: white; font-family: 'Do Hyeon', sans-serif;}
 div#title{
 	font-size : 135px;
 	font-family: 'Charm', cursive;
@@ -45,7 +45,8 @@ div#title{
 	position: relative;
 	width: 80%;
 	margin: 0 auto;
-	opacity: .8;
+	/* opacity: .8; */
+	color: lightgray;
 }
 div#login{float: right; margin-right: 25px; font-size: 20px; opacity: .7; cursor: pointer;}
 div#login:hover{opacity:1; border-bottom: 2px solid white;}
@@ -54,13 +55,18 @@ nav#menu ul li{
 	display: inline; 
 	opacity: .8; 
 	margin-right: 10px; 
-	font-weight: bold; 
-	font-size: 30px;
+	font-size: 22px;
 	font-family: 'Do Hyeon', sans-serif;
 	color: #910303;
+	border-bottom: 1px solid #910303;
 }
 nav#menu ul li>a:link, ul li>a:visited, ul li>a:hover{color: #910303;text-decoration: none;}
-nav#menu ul li:hover{border-bottom: 2px solid #910303; opacity: 1;}
+
+nav#menu ul li:hover{
+	border-bottom: 2px solid #910303; 
+	opacity: 1;
+	text-shadow: 2px 2px 2px gray;
+}
 </style>
 <script>
 $(function(){
@@ -71,7 +77,7 @@ $(function(){
 	$("#title").fadeIn(4000).on('mouseenter', function(){
 		$("#menu").fadeIn(2000);
 	});
-	
+		
 	//배경 깜빡거리는 효과
 	setInterval(function(){
 		$("#backGround").removeClass("on");
@@ -91,13 +97,14 @@ $(function(){
 <body>
 <div id="backGround" class="on">
 	<header>
-		<div id="login">로그인</div>
+		<div id="login">LOGIN</div>
 		<div id="title">EscapeRoom</div>
 		<nav id="menu">
 			<ul>
-				<li><a href="#">공지사항</a></li>
-				<li><a href="#">랭킹보기</a></li>
-				<li><a href="#">자유게시판</a></li>
+				<li ><a href="#">HOME</a></li>
+				<li ><a href="#">NOTICE</a></li>
+				<li ><a href="#">RANKING</a></li>
+				<li ><a href="#">COMMUNITY</a></li>
 			</ul>
 		</nav>
 	</header>
