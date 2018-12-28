@@ -5,8 +5,21 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
+<style>
+body{
+	width: 1024px;
+	min-height: 768px;
+	margin: 0 auto;
+}
+div{position: relative; width: 100%; padding: 0px;}
+#header{height: 150px; background: gray;}
+#section{height: 468px;}
+#footer{height: 150px; background: blue;}
+</style>
 </head>
 <body>
-
+<div id="header"></div>
+<div id="section"></div>
+<div id="footer"></div>
 </body>
 </html>
