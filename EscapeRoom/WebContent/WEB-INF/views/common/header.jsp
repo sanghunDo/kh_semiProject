@@ -10,6 +10,7 @@
 <meta charset=UTF-8">
 <title>Insert title here</title>
 <link href="https://fonts.googleapis.com/css?family=ZCOOL+KuaiLe" rel="stylesheet">
+
 <style>
 body, html{
 	width: 1024px; 
