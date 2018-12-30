@@ -23,8 +23,7 @@ body, html{
 header{
 	position: relative;
 	width: 100%;
-	height: 135px;
-	border-bottom: 1px solid white;
+	height: 125px;
 }
 header div#top{
 	position: relative;
@@ -47,20 +46,19 @@ header div#logo{
 	color: white;
 	font-size: 50px;
 	font-family: 'ZCOOL KuaiLe', cursive;
-	text-shadow: 3px 3px 1px gray;
 	cursor: pointer;
 }
 header div#menu{
 	position: relative;
 	width: 700px;
 	height: 40px;
-	top: 65px;
-	left: -50px;
+	top: 45px;
 }
 div#menu ul{
 	display: table;
 	padding: 0px;
 	margin: auto;
+	opacity: .8;
 }
 div#menu ul li{
 	list-style-type: none;
@@ -68,12 +66,13 @@ div#menu ul li{
 	height: 2em;
 	float: left;
 	text-align: center;
+	color: white;
 }
 div#menu ul li a{
-	display: block; 
+	display: block; /*a태그는 inline이지만, padding, margin속성적용을 위해 변경*/
 	padding: .5em;
 	text-decoration: none;
-	color: white;
+	color: #292929;
 }
 </style>
 </head>
@@ -82,19 +81,19 @@ div#menu ul li a{
 		<div id="top">
 			<div id="myMenu">
 			<%if(loggedInMember == null) {%>
-				<a href="">LOGIN</a>
+				<a href="">로그인</a>
 			<%}else{ %>
-				<a href="#">MY PAGE</a>
-				<a href="#">LOGOUT</a>
+				<a href="#">내정보관리</a>
+				<a href="#">로그아웃</a>
 			<%} %>
 			</div>
 		</div>
 		<div id="logo">Escape</br>&nbsp;&nbsp;Room</div>
 		<div id="menu">
 			<ul>
-				<li><a href="">NOTICE</a></li>
-				<li><a href="">RANKING</a></li>
-				<li><a href="">COMMUNITY</a></li>
+				<li><a href="">공지사항</a></li>
+				<li><a href="">랭킹게시판</a></li>
+				<li><a href="">커뮤니티</a></li>
 			</ul>
 		</div>
 	</header>
