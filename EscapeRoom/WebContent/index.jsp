@@ -72,12 +72,7 @@ section{
 	height: 60%;
 	text-align: center;
 }
-section button{
-	position: relative;
-	width: 200px;
-	height: 80px;
-	top: 50%;
-}
+
 .b10_tveffect{
 	position: absolute;
 	left: 412px; 
