@@ -80,8 +80,11 @@ nav#menu ul li:hover{
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> parent of eb1a2d7... no message
+=======
+>>>>>>> 704935bc62c78789edcef2f4c66899cfb034c3c8
 
 @keyframes titleAni{
 	0%{
@@ -110,6 +113,7 @@ nav#menu ul li:hover{
 	}
 }
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> parent of e1c90ae... index.jsp enterRoom 추가, header.jsp 수정
 =======
@@ -122,6 +126,8 @@ nav#menu ul li:hover{
 >>>>>>> parent of e1c90ae... index.jsp enterRoom 추가, header.jsp 수정
 =======
 >>>>>>> parent of e1c90ae... index.jsp enterRoom 추가, header.jsp 수정
+=======
+>>>>>>> 704935bc62c78789edcef2f4c66899cfb034c3c8
 =======
 >>>>>>> parent of e1c90ae... index.jsp enterRoom 추가, header.jsp 수정
 =======

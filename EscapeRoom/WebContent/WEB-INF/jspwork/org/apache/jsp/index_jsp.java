@@ -9,6 +9,9 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 704935bc62c78789edcef2f4c66899cfb034c3c8
  * Generated at: 2018-12-30 13:28:11 UTC
 =======
  * Generated at: 2018-12-30 06:36:29 UTC
@@ -16,6 +19,7 @@
 =======
  * Generated at: 2018-12-30 06:36:29 UTC
 >>>>>>> parent of e1c90ae... index.jsp enterRoom 추가, header.jsp 수정
+<<<<<<< HEAD
 =======
  * Generated at: 2018-12-30 06:36:29 UTC
 >>>>>>> parent of eb1a2d7... no message
@@ -34,6 +38,8 @@
 =======
  * Generated at: 2018-12-30 06:36:29 UTC
 >>>>>>> parent of e1c90ae... index.jsp enterRoom 추가, header.jsp 수정
+=======
+>>>>>>> 704935bc62c78789edcef2f4c66899cfb034c3c8
  * Note: The last modified time of this file was set to
  *       the last modified time of the source file after
  *       generation to assist with modification tracking.
@@ -150,9 +156,13 @@ public final class index_jsp extends org.apache.jasper.runtime.HttpJspBase
       out.write("<link href=\"https://fonts.googleapis.com/css?family=Do+Hyeon\" rel=\"stylesheet\">\r\n");
       out.write("<link href=\"https://fonts.googleapis.com/css?family=ZCOOL+KuaiLe\" rel=\"stylesheet\">\r\n");
 <<<<<<< HEAD
+<<<<<<< HEAD
       out.write("<link href=\"https://fonts.googleapis.com/css?family=Alfa+Slab+One\" rel=\"stylesheet\">\r\n");
 =======
 >>>>>>> parent of eb1a2d7... no message
+=======
+      out.write("<link href=\"https://fonts.googleapis.com/css?family=Alfa+Slab+One\" rel=\"stylesheet\">\r\n");
+>>>>>>> 704935bc62c78789edcef2f4c66899cfb034c3c8
       out.write("<style>\r\n");
       out.write("body, html{\r\n");
       out.write("\twidth: 1024px; \r\n");
@@ -186,6 +196,7 @@ public final class index_jsp extends org.apache.jasper.runtime.HttpJspBase
       out.write("div#title{\r\n");
       out.write("\tfont-size : 135px;\r\n");
 <<<<<<< HEAD
+<<<<<<< HEAD
       out.write("\t/* font-family: 'ZCOOL KuaiLe', cursive; */\r\n");
       out.write("\tfont-family: 'Alfa Slab One', cursive;\r\n");
       out.write("\t/* font-weight: bold; */\r\n");
@@ -193,6 +204,11 @@ public final class index_jsp extends org.apache.jasper.runtime.HttpJspBase
       out.write("\tfont-family: 'ZCOOL KuaiLe', cursive;\r\n");
       out.write("\tfont-weight: bold;\r\n");
 >>>>>>> parent of eb1a2d7... no message
+=======
+      out.write("\t/* font-family: 'ZCOOL KuaiLe', cursive; */\r\n");
+      out.write("\tfont-family: 'Alfa Slab One', cursive;\r\n");
+      out.write("\t/* font-weight: bold; */\r\n");
+>>>>>>> 704935bc62c78789edcef2f4c66899cfb034c3c8
       out.write("\ttext-shadow: 6px 6px 2px gray;\r\n");
       out.write("\tdisplay: none;\r\n");
       out.write("\tposition: relative;\r\n");
@@ -231,6 +247,9 @@ public final class index_jsp extends org.apache.jasper.runtime.HttpJspBase
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 704935bc62c78789edcef2f4c66899cfb034c3c8
       out.write("\r\n");
       out.write("@keyframes titleAni{\r\n");
       out.write("\t0%{\r\n");
@@ -262,6 +281,7 @@ public final class index_jsp extends org.apache.jasper.runtime.HttpJspBase
 >>>>>>> parent of e1c90ae... index.jsp enterRoom 추가, header.jsp 수정
 =======
 >>>>>>> parent of e1c90ae... index.jsp enterRoom 추가, header.jsp 수정
+<<<<<<< HEAD
 =======
 >>>>>>> parent of eb1a2d7... no message
 =======
@@ -274,6 +294,8 @@ public final class index_jsp extends org.apache.jasper.runtime.HttpJspBase
 >>>>>>> parent of e1c90ae... index.jsp enterRoom 추가, header.jsp 수정
 =======
 >>>>>>> parent of e1c90ae... index.jsp enterRoom 추가, header.jsp 수정
+=======
+>>>>>>> 704935bc62c78789edcef2f4c66899cfb034c3c8
       out.write("</style>\r\n");
       out.write("<script>\r\n");
       out.write("$(function(){\r\n");
