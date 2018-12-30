@@ -73,6 +73,7 @@ nav#menu ul li:hover{
 	text-shadow: 2px 2px 2px gray;
 }
 <<<<<<< HEAD
+<<<<<<< HEAD
 
 @keyframes titleAni{
 	0%{
@@ -100,6 +101,8 @@ nav#menu ul li:hover{
 		transform: translateX(2px);
 	}
 }
+=======
+>>>>>>> parent of e1c90ae... index.jsp enterRoom 추가, header.jsp 수정
 =======
 >>>>>>> parent of e1c90ae... index.jsp enterRoom 추가, header.jsp 수정
 </style>
