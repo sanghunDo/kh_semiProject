@@ -6,12 +6,12 @@
 <meta charset=UTF-8">
 <title>Insert title here</title>
 <script src="<%=request.getContextPath()%>/js/jquery-3.3.1.js"></script>
+<link href="https://fonts.googleapis.com/css?family=Charm" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css?family=Do+Hyeon" rel="stylesheet">
-<link href="https://fonts.googleapis.com/css?family=ZCOOL+KuaiLe" rel="stylesheet">
 <style>
 body, html{
 	width: 1024px; 
-	min-height: 723px;
+	height: 723px;
 	margin: 0 auto;
 	padding: 0;
 	background: black;
@@ -38,7 +38,7 @@ header{
 div{color: white; font-family: 'Do Hyeon', sans-serif;}
 div#title{
 	font-size : 135px;
-	font-family: 'ZCOOL KuaiLe', cursive;
+	font-family: 'Charm', cursive;
 	font-weight: bold;
 	text-shadow: 6px 6px 2px gray;
 	display: none;
@@ -313,7 +313,7 @@ $(function(){
 		<nav id="menu">
 			<ul>
 				<li ><a href="#">HOME</a></li>
-				<li ><a href="<%=request.getContextPath()%>/board/noticeList">NOTICE</a></li>
+				<li ><a href="#">NOTICE</a></li>
 				<li ><a href="#">RANKING</a></li>
 				<li ><a href="#">COMMUNITY</a></li>
 			</ul>
