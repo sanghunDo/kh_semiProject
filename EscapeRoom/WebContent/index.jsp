@@ -8,6 +8,7 @@
 <script src="<%=request.getContextPath()%>/js/jquery-3.3.1.js"></script>
 <link href="https://fonts.googleapis.com/css?family=Do+Hyeon" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css?family=ZCOOL+KuaiLe" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Alfa+Slab+One" rel="stylesheet">
 <style>
 body, html{
 	width: 1024px; 
@@ -38,8 +39,9 @@ header{
 div{color: white; font-family: 'Do Hyeon', sans-serif;}
 div#title{
 	font-size : 135px;
-	font-family: 'ZCOOL KuaiLe', cursive;
-	font-weight: bold;
+	/* font-family: 'ZCOOL KuaiLe', cursive; */
+	font-family: 'Alfa Slab One', cursive;
+	/* font-weight: bold; */
 	text-shadow: 6px 6px 2px gray;
 	display: none;
 	position: relative;
@@ -47,6 +49,9 @@ div#title{
 	margin: 0 auto;
 	/* opacity: .8; */
 	color: lightgray;
+	animation-name: titleAni;
+	animation-duration: 1s;
+	animation-iteration-count: infinite;
 }
 div#login{float: right; margin-right: 25px; font-size: 20px; opacity: .7; cursor: pointer;}
 div#login:hover{opacity:1; border-bottom: 2px solid white;}
@@ -66,6 +71,33 @@ nav#menu ul li:hover{
 	border-bottom: 2px solid #910303; 
 	opacity: 1;
 	text-shadow: 2px 2px 2px gray;
+}
+
+@keyframes titleAni{
+	0%{
+		transform: translateX(0px);
+	}
+	10%{
+		transform: translateY(2px);
+		text-shadow: 6px 6px 2px maroon;
+	}
+	25%{
+		transform: translateX(2px);
+		opacity: .7;
+	}
+	50%{
+		transform: translateX(-2px);
+	}
+	60%{
+		transform: translateY(-2px);
+	}
+	75%{
+		transform: translateX(2px);
+		opacity: .7;
+	}
+	100%{
+		transform: translateX(2px);
+	}
 }
 </style>
 <script>
