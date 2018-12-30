@@ -326,7 +326,7 @@ $(function(){
 	</header>
 	<section>
 		<div class="button_base b10_tveffect">
-	        <div>Enter Room</div>
+	        <div>Enter Room</div>                                                                                                                                     
 	        <div>
 	            <div>Enter Room</div>
 	            <div>Enter Room</div>
