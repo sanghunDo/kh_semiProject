@@ -53,7 +53,7 @@ div#title{
 	animation-duration: 1s;
 	animation-iteration-count: infinite;
 }
-div#login{float: right; margin-right: 25px; font-size: 20px; opacity: .7; cursor: pointer;}
+div#login{position: absolute; left:950px; top: -20px; font-size: 20px; opacity: .7; cursor: pointer;}
 div#login:hover{opacity:1; border-bottom: 2px solid white;}
 nav#menu{display:none;}
 nav#menu ul li{
