@@ -80,7 +80,7 @@ div#menu ul li a{
 		<div id="top">
 			<div id="myMenu">
 			<%if(loggedInMember == null) {%>
-				<a href="">로그인</a>
+				<a href="#">로그인</a>
 			<%}else{ %>
 				<a href="#">내정보관리</a>
 				<a href="#">로그아웃</a>
