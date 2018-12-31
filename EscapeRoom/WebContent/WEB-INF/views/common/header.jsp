@@ -3,6 +3,7 @@
 <%@ page import="semi.member.model.vo.*" %>
 <% 
 	Member loggedInMember = (Member)session.getAttribute("loggedInMember"); 
+	sdsd
 %>
 <!DOCTYPE>
 <html>
