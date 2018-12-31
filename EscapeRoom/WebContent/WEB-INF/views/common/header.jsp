@@ -69,7 +69,7 @@ div#menu ul li{
 	color: white;
 }
 div#menu ul li a{
-	display: block; /*a태그는 inline이지만, padding, margin속성적용을 위해 변경*/
+	display: block;
 	padding: .5em;
 	text-decoration: none;
 	color: #292929;
