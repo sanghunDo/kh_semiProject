@@ -105,14 +105,14 @@ section{
     height: 60%;
     text-align: center;
 }
-.b10_tveffect{
+.enterRoom{
     position: absolute;
     left: 412px; 
     top: 250px;
     cursor: pointer;
     display: none;
 }
-.b10_tveffect div {
+.enterRoom div {
     position: absolute;
     text-align: center;
     width: 200px;
@@ -124,7 +124,7 @@ section{
     border-radius: 30% 0 30% 0;
 }
 
-.b10_tveffect div:nth-child(1) {
+.enterRoom div:nth-child(1) {
     color: #000000;
        background-color: gray;
     -webkit-transition: all 0.1s ease;
@@ -133,11 +133,11 @@ section{
    opacity: .7;
 }
 
-.b10_tveffect div:nth-child(2) {
+.enterRoom div:nth-child(2) {
     overflow: hidden;
 }
 
-.b10_tveffect div:nth-child(2) div {
+.enterRoom div:nth-child(2) div {
     position: absolute;
     text-align: center;
     width: 100%;
@@ -148,25 +148,25 @@ section{
     padding: 10px;
 }
 
-.b10_tveffect div:nth-child(2) div:nth-child(1) {
+.enterRoom div:nth-child(2) div:nth-child(1) {
     color: rgba(200, 120, 120, 0.8);
     opacity: 0;
     background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAUAAAAGCAYAAAAL+1RLAAAAF0lEQVQIW2NkwAIYgWKS6OIgQQxAoUoAE4AAUnD/0ugAAAAASUVORK5CYII=) repeat;
 }
 
-.b10_tveffect div:nth-child(2) div:nth-child(2) {
+.enterRoom div:nth-child(2) div:nth-child(2) {
     color: rgba(120, 200, 120, 0.8);
     opacity: 0;
     background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAUAAAAGCAYAAAAL+1RLAAAAF0lEQVQIW2NkwAIYgWKS6OIgQQxAoUoAE4AAUnD/0ugAAAAASUVORK5CYII=) repeat;
 }
 
-.b10_tveffect div:nth-child(2) div:nth-child(3) {
+.enterRoom div:nth-child(2) div:nth-child(3) {
     color: rgba(120, 120, 200, 0.8);
     opacity: 0;
     background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAUAAAAGCAYAAAAL+1RLAAAAF0lEQVQIW2NkwAIYgWKS6OIgQQxAoUoAE4AAUnD/0ugAAAAASUVORK5CYII=) repeat;
 }
 
-.b10_tveffect:hover div:nth-child(1) {
+.enterRoom:hover div:nth-child(1) {
     color: #ffffff;
     background-color: #000000;
     transition: color 0s ease;
@@ -177,19 +177,19 @@ section{
     -moz-transition: background-color 0.3s ease 0.2s;
 }
 
-.b10_tveffect:hover div:nth-child(2) div:nth-child(1) {
+.enterRoom:hover div:nth-child(2) div:nth-child(1) {
     animation: b10_tveffect_red 0.25s linear;
     -webkit-animation: b10_tveffect_red 0.25s linear;
     -moz-animation: b10_tveffect_red 0.25s linear;
 }
 
-.b10_tveffect:hover div:nth-child(2) div:nth-child(2) {
+.enterRoom:hover div:nth-child(2) div:nth-child(2) {
     animation: b10_tveffect_green 0.25s linear;
     -webkit-animation: b10_tveffect_green 0.25s linear;
     -moz-animation: b10_tveffect_green 0.25s linear;
 }
 
-.b10_tveffect:hover div:nth-child(2) div:nth-child(3) {
+.enterRoom:hover div:nth-child(2) div:nth-child(3) {
     animation: b10_tveffect_blue 0.25s linear;
     -webkit-animation: b10_tveffect_blue 0.25s linear;
     -moz-animation: b10_tveffect_blue 0.25s linear;
@@ -318,7 +318,7 @@ $(function(){
 	//제목에 마우스 오버 시 메뉴 나옴.
 	$("#title").fadeIn(4000).on('mouseenter', function(){
 		$("#menu").fadeIn(2000);
-        $(".b10_tveffect").fadeIn(2000);
+        $(".enterRoom").fadeIn(2000);
 	});
 		
 	//배경 깜빡거리는 효과
@@ -352,9 +352,9 @@ $(function(){
 		</nav>
 	</header>
 	<section>
-        <div class="button_base b10_tveffect" onclick="<%=request.getContextPath()%>/main/enterRoom">
+        <div class="enterRoom">
             <div>Enter Room</div>
-            <div>
+            <div onclick="location.href='<%=request.getContextPath()%>/main/enterRoom'">
                 <div>Enter Room</div>
                 <div>Enter Room</div>
                 <div>Enter Room</div>
