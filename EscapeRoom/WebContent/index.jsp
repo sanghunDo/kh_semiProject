@@ -352,7 +352,7 @@ $(function(){
 		</nav>
 	</header>
 	<section>
-        <div class="button_base b10_tveffect">
+        <div class="button_base b10_tveffect" onclick="<%=request.getContextPath()%>/main/enterRoom">
             <div>Enter Room</div>
             <div>
                 <div>Enter Room</div>
