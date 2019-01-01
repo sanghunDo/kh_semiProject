@@ -9,7 +9,8 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<link href="https://fonts.googleapis.com/css?family=ZCOOL+KuaiLe" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Do+Hyeon" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Alfa+Slab+One" rel="stylesheet">
 <style>
 body, html{
 	width: 1024px; 
@@ -21,12 +22,16 @@ body, html{
 header{
 	position: relative;
 	width: 100%;
-	height: 125px;
+	height: 155px;
+	border-bottom: 1px solid lightblue;
 }
 header div#top{
 	position: relative;
 	width: 100%;
 	height: 30px;
+	font-family: 'Do Hyeon', sans-serif;
+	font-size: 22px;
+	background: gray;
 }
 header div#top div#myMenu{
 	height: 30px;
@@ -38,21 +43,24 @@ header div#top div#myMenu{
 a:link, a:visited, a:hover{color: white;text-decoration: none;}
 header div#logo{
 	width: 200px;
-	height: 90px;
+	height: 123px;
 	float: left;
 	margin-left: 30px;
 	color: white;
 	font-size: 50px;
-	font-family: 'ZCOOL KuaiLe', cursive;
+	font-family: 'Alfa Slab One', cursive;
 	cursor: pointer;
 }
 header div#menu{
 	position: relative;
 	top: 45px;
+	font-family: 'Do Hyeon', sans-serif;
+	font-size: 25px;
 }
 div#menu ul{
 	display: table;
 	padding: 0px;
+	margin: 17px 0 0 0;
 }
 div#menu ul li{
 	list-style-type: none;
@@ -70,8 +78,6 @@ div#menu ul li a{
 }
 div#menu ul li:hover {
 	border-bottom: 2px solid white;
-	background: lightgray;
-	opacity: 0.7;
 }
 </style>
 </head>
@@ -87,7 +93,7 @@ div#menu ul li:hover {
 			<%} %>
 			</div>
 		</div>
-		<div id="logo">Escape</br>&nbsp;&nbsp;Room</div>
+		<div id="logo">Escape<br>Room</div>
 		<div id="menu">
 			<ul>
 				<li><a href="">NOTICE</a></li>
