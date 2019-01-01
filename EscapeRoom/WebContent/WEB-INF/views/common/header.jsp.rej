@@ -1,0 +1,9 @@
+diff a/EscapeRoom/WebContent/WEB-INF/views/common/header.jsp b/EscapeRoom/WebContent/WEB-INF/views/common/header.jsp	(rejected hunks)
+@@ -3,6 +3,7 @@
+ <%@ page import="semi.member.model.vo.*" %>
+ <% 
+ 	Member loggedInMember = (Member)session.getAttribute("loggedInMember"); 
++	sdsd
+ %>
+ <!DOCTYPE>
+ <html>
