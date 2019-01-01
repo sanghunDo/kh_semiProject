@@ -37,6 +37,7 @@ header{
 	text-align: center;
 }
 div{color: white; font-family: 'Do Hyeon', sans-serif;}
+
 div#title{
 	font-size : 135px;
 	/* font-family: 'ZCOOL KuaiLe', cursive; */
