@@ -24,7 +24,7 @@ div#backGround{
 	height: 100%;
 }
 div.on{
-	background-image: url('<%=request.getContextPath()%>/images/index2.jpg');
+	background-image: url('<%=request.getContextPath()%>/images/index.jpg');
 	background-repeat: no-repeat;
 	background-position: center;
 	background-size: cover;
