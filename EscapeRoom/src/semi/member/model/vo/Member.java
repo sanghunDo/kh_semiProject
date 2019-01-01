@@ -1,5 +1,8 @@
 package semi.member.model.vo;
 
-public class Member {
+import java.io.Serializable;
+
+public class Member implements Serializable{
+	private static final long serialVersionUID = 1L;
 
 }

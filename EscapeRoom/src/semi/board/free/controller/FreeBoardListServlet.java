@@ -1,4 +1,4 @@
-package semi.main.controller;
+package semi.board.free.controller;
 
 import java.io.IOException;
 import javax.servlet.ServletException;
@@ -8,17 +8,14 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * Servlet implementation class EnterRoomServlet
+ * Servlet implementation class FreeBoardListServlet
  */
-@WebServlet("/main")
-public class EnterRoomServlet extends HttpServlet {
+@WebServlet("/board/free/freeBoardList")
+public class FreeBoardListServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.getRequestDispatcher("/WEB-INF/views/main.jsp").forward(request, response);
+		request.getRequestDispatcher("/WEB-INF/views/board/free/freeBoardList.jsp").forward(request, response);
 	}
 
 	/**

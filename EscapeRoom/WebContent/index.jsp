@@ -355,7 +355,7 @@ $(function(){
 	<section>
         <div class="enterRoom">
             <div>Enter Room</div>
-            <div onclick="location.href='<%=request.getContextPath()%>/main/enterRoom'">
+            <div onclick="location.href='<%=request.getContextPath()%>/main'">
                 <div>Enter Room</div>
                 <div>Enter Room</div>
                 <div>Enter Room</div>

@@ -3,7 +3,6 @@
 <%@ page import="semi.member.model.vo.*" %>
 <% 
 	Member loggedInMember = (Member)session.getAttribute("loggedInMember"); 
-	
 %>
 <!DOCTYPE>
 <html>
@@ -92,8 +91,9 @@ div#menu ul li:hover {
 		<div id="menu">
 			<ul>
 				<li><a href="">NOTICE</a></li>
+				<li><a href="<%=request.getContextPath()%>/board/free/freeBoardList">FREE</a></li>
 				<li><a href="">RANKING</a></li>
-				<li><a href="">COMMUNITY</a></li>
+				<li><a href="">SOLVE</a></li>
 			</ul>
 		</div>
 	</header>
