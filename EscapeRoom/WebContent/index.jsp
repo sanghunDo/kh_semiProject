@@ -6,9 +6,9 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <script src="<%=request.getContextPath()%>/js/jquery-3.3.1.js"></script>
-<link rel="stylesheet" href="<%=request.getContextPath() %>/css/index.css" />
+<link href="https://fonts.googleapis.com/css?family=Amatic+SC" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css?family=Do+Hyeon" rel="stylesheet">
-<link href="https://fonts.googleapis.com/css?family=Alfa+Slab+One" rel="stylesheet">
+<link rel="stylesheet" href="<%=request.getContextPath() %>/css/index.css" />
 <style>
 div.on{
 	background-image: url('<%=request.getContextPath()%>/images/index.jpg');
@@ -46,8 +46,7 @@ $(function(){
 <body>
 <div id="backGround" class="on">
 	<header>
-		<div id="login">LOGIN</div>
-		<div id="title">EscapeRoom</div>
+		<div id="title">Escape, if you can.</div>
 	</header>
 	<section>
         <div class="enterRoom">

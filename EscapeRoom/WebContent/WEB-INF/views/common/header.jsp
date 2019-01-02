@@ -9,9 +9,9 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<link rel="stylesheet" href="<%=request.getContextPath() %>/css/common/header.css" />
 <link href="https://fonts.googleapis.com/css?family=Do+Hyeon" rel="stylesheet">
-<link href="https://fonts.googleapis.com/css?family=Alfa+Slab+One" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Amatic+SC" rel="stylesheet">
+<link rel="stylesheet" href="<%=request.getContextPath() %>/css/common/header.css" />
 <script src="<%=request.getContextPath()%>/js/jquery-3.3.1.js"></script>
 </head>
 <body>
@@ -26,9 +26,10 @@
 			<%} %>
 			</div>
 		</div>
-		<div id="logo">Escape Room</div>
+		<div id="logo">Escape, if you can.</div>
 		<div id="menu">
 			<ul>
+				<li><a href="">HOME</a></li>
 				<li><a href="">NOTICE</a></li>
 				<li><a href="<%=request.getContextPath()%>/board/free/freeBoardList">FREE</a></li>
 				<li><a href="">RANKING</a></li>

@@ -25,13 +25,12 @@ div{color: white; font-family: 'Do Hyeon', sans-serif;}
 
 div#title{
 	font-size : 135px;
-	font-family: 'Alfa Slab One', cursive;
+	font-family: 'Amatic SC', serif;
 	text-shadow: 6px 6px 2px gray;
 	display: none;
 	position: relative;
 	width: 80%;
 	margin: 0 auto;
-	/* opacity: .8; */
 	color: lightgray;
 	animation-name: titleAni;
 	animation-duration: 1s;
