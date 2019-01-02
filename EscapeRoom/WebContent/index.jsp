@@ -56,23 +56,6 @@ div#title{
 }
 div#login{position: absolute; left:950px; top: -20px; font-size: 20px; opacity: .7; cursor: pointer;}
 div#login:hover{opacity:1; border-bottom: 2px solid white;}
-nav#menu{display:none;}
-nav#menu ul li{
-	display: inline; 
-	opacity: .8; 
-	margin-right: 10px; 
-	font-size: 22px;
-	font-family: 'Do Hyeon', sans-serif;
-	color: #910303;
-	border-bottom: 1px solid #910303;
-}
-nav#menu ul li>a:link, ul li>a:visited, ul li>a:hover{color: #910303;text-decoration: none;}
-
-nav#menu ul li:hover{
-	border-bottom: 2px solid #910303; 
-	opacity: 1;
-	text-shadow: 2px 2px 2px gray;
-}
 
 @keyframes titleAni{
 	0%{
@@ -318,7 +301,6 @@ $(function(){
 	
 	//제목에 마우스 오버 시 메뉴 나옴.
 	$("#title").fadeIn(4000).on('mouseenter', function(){
-		$("#menu").fadeIn(2000);
         $(".enterRoom").fadeIn(2000);
 	});
 		
@@ -343,14 +325,6 @@ $(function(){
 	<header>
 		<div id="login">LOGIN</div>
 		<div id="title">EscapeRoom</div>
-		<nav id="menu">
-			<ul>
-				<li ><a href="#">HOME</a></li>
-				<li ><a href="<%=request.getContextPath()%>/board/noticeList">NOTICE</a></li>
-				<li ><a href="#">RANKING</a></li>
-				<li ><a href="#">COMMUNITY</a></li>
-			</ul>
-		</nav>
 	</header>
 	<section>
         <div class="enterRoom">
