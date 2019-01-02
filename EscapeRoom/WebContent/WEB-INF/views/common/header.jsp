@@ -8,7 +8,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>You Can't Escape..</title>
 <link href="https://fonts.googleapis.com/css?family=Do+Hyeon" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css?family=Amatic+SC" rel="stylesheet">
 <link rel="stylesheet" href="<%=request.getContextPath() %>/css/common/header.css" />
