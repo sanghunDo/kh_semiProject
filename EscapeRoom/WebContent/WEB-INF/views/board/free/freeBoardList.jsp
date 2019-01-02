@@ -1,9 +1,17 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ page import = "java.util.*,semi.board.free.model.vo.*"  %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<%
+	List<FreeBoard> list = (List<FreeBoard>)request.getAttribute("list");
+	List<FreeBoard> bestList = (List<FreeBoard>)request.getAttribute("bestList");
+	int cPage = (int)request.getAttribute("cPage");
+	int numPerPage = (int)request.getAttribute("numPerPage");
+	String pageBar = (String)request.getAttribute("pageBar");
+%>
 <link rel="stylesheet" href="<%=request.getContextPath()%>/css/boardCommunityTable.css" />
 <title>자유게시판</title>
 </head>
@@ -41,72 +49,38 @@
          </thead>
 
          <tbody>
-             
+             <%if(bestList == null || bestList.isEmpty()) { %>
+             	<tr>
+               		<td colspan="6" align="center">검색결과가 없습니다.</td>
+           		 </tr>
+             <%} else {
+            	 for(FreeBoard fb:bestList) {
+              %>
                 <tr class="best" bgcolor="yellow">
                         <td class="num">
-                            BEST1
+                         	BEST
                         </td>
                         
                         <td class="title">
-                            테스트입니다 
+                            <%=fb.getPostTitle() %>
                         </td>
                         <td class="wirter">
-                            관리자
+                            <%=fb.getPostWriter()%>
                         </td>
                         <td class="date">
-                            12-19
+                            <%=fb.getPostDate() %>
                         </td>
                         <td class="like">
-                            3
+                           <%=fb.getPostLike() %>
                         </td>
                         <td class="views">
-                            50
+                           <%=fb.getReadCount() %>
                         </td>
                 </tr>
-
-                <tr class="best" bgcolor="yellow">
-                        <td class="num">
-                            BEST2
-                        </td>
-                        
-                        <td class="title">
-                            테스트입니다 
-                        </td>
-                        <td class="wirter">
-                            관리자
-                        </td>
-                        <td class="date">
-                            12-19
-                        </td>
-                        <td class="like">
-                            3
-                        </td>
-                        <td class="views">
-                            50
-                        </td>
-                </tr>
-
-                <tr class="best" bgcolor="yellow">
-                        <td class="num">
-                            BEST3
-                        </td>
-                        
-                        <td class="title">
-                            테스트입니다 
-                        </td>
-                        <td class="wirter">
-                            관리자
-                        </td>
-                        <td class="date">
-                            12-19
-                        </td>
-                        <td class="like">
-                            3
-                        </td>
-                        <td class="views">
-                            50
-                        </td>
-                </tr>
+			<%
+            	 }
+             }
+			%>
             </table>
 
 
@@ -120,27 +94,36 @@
                         <col width="30px">
                         <col width="30px">
                     </colgroup>
+            <%if(list == null || list.isEmpty()) { %>
+            <tr>
+             	<td colspan="6" align="center">검색결과가 없습니다. </td>
+            </tr>	
+            <%} else {
+            	for(FreeBoard fb:list) {
+            %>
             <tr>
                 <td class="num">
-                    1
+                   <%=fb.getPostNo() %>
                 </td>
                 
                 <td class="title">
-                    테스트입니다 
+                   <%=fb.getPostTitle() %>
                 </td>
                 <td class="wirter">
-                    관리자
+                	<%=fb.getPostWriter() %>
                 </td>
                 <td class="date">
-                    12-19
+                    <%=fb.getPostDate() %>
                 </td>
                 <td class="like">
-                    3
+                    <%=fb.getPostLike() %>
                 </td>
                 <td class="views">
-                    50
+                   <%=fb.getReadCount() %>
                 </td>
             </tr>
+            <%}
+            	}%>
          </tbody>
 
         </table>
@@ -156,9 +139,8 @@
     </div>
 
 </div>
-
 <div id="pageBar">
-	
+<%=pageBar %>
 </div>
 </body>
 </html>
