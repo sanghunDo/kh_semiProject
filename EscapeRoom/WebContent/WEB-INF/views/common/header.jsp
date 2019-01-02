@@ -29,7 +29,7 @@ header{
 header div#top{
 	position: relative;
 	width: 100%;
-	height: 30px;
+	height: 20px;
 	font-family: 'Do Hyeon', sans-serif;
 	font-size: 22px;
 }
@@ -49,11 +49,12 @@ header div#logo{
 	color: white;
 	font-size: 50px;
 	font-family: 'Alfa Slab One', cursive;
+	text-shadow: 4px 4px 2px gray;
 	cursor: pointer;
 }
 header div#menu{
 	position: relative;
-	top: 58px;
+	top: 66px;
 	font-family: 'Do Hyeon', sans-serif;
 	font-size: 25px;
 }
