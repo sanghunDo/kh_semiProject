@@ -2,8 +2,15 @@ package semi.member.model.vo;
 import java.io.Serializable;
 import java.sql.Date;
 
+<<<<<<< HEAD
 import javax.servlet.http.HttpSessionBindingEvent;
 import javax.servlet.http.HttpSessionBindingListener;
+=======
+import java.io.Serializable;
+
+public class Member implements Serializable{
+	private static final long serialVersionUID = 1L;
+>>>>>>> e14b6f57b63cf6d435a42488992e0ab7162cbd69
 
 import semi.member.model.service.MemberService;
 
