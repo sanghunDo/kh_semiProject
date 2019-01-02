@@ -11,6 +11,7 @@
 <title>Insert title here</title>
 <link href="https://fonts.googleapis.com/css?family=Do+Hyeon" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css?family=Alfa+Slab+One" rel="stylesheet">
+<script src="<%=request.getContextPath()%>/js/jquery-3.3.1.js"></script>
 <style>
 body, html{
 	width: 1024px; 
@@ -31,7 +32,6 @@ header div#top{
 	height: 30px;
 	font-family: 'Do Hyeon', sans-serif;
 	font-size: 22px;
-	background: gray;
 }
 header div#top div#myMenu{
 	height: 30px;
@@ -53,7 +53,7 @@ header div#logo{
 }
 header div#menu{
 	position: relative;
-	top: 45px;
+	top: 58px;
 	font-family: 'Do Hyeon', sans-serif;
 	font-size: 25px;
 }
@@ -68,7 +68,6 @@ div#menu ul li{
 	float: left;
 	text-align: center;
 	color: white;
-	border-bottom: 1px solid white;
 	margin-right: 10px;
 }
 div#menu ul li a{
@@ -93,7 +92,7 @@ div#menu ul li:hover {
 			<%} %>
 			</div>
 		</div>
-		<div id="logo">Escape<br>Room</div>
+		<div id="logo">Escape<br>&nbsp;Room</div>
 		<div id="menu">
 			<ul>
 				<li><a href="">NOTICE</a></li>

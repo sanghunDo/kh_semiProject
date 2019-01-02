@@ -18,6 +18,7 @@ body, html{
 	background: black;
 }
 body{display:none;}
+
 div#backGround{
 	position: relative;
 	width: 100%;
@@ -54,7 +55,7 @@ div#title{
 	animation-duration: 1s;
 	animation-iteration-count: infinite;
 }
-div#login{position: absolute; left:950px; top: -20px; font-size: 20px; opacity: .7; cursor: pointer;}
+div#login{position: absolute; left:950px; top: -20px; font-size: 22px; opacity: .7; cursor: pointer;}
 div#login:hover{opacity:1; border-bottom: 2px solid white;}
 
 @keyframes titleAni{
