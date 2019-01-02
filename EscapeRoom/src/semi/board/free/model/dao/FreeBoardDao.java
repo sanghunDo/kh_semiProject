@@ -1,5 +1,7 @@
 package semi.board.free.model.dao;
 
+
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -40,12 +42,14 @@ public class FreeBoardDao {
 				FreeBoard fb = new FreeBoard();
 				fb.setPostNo(rset.getInt("postno"));
 				fb.setPostTitle(rset.getString("posttitle"));
-				fb.setPostWriter(rset.getString("posttitle"));
+				fb.setPostWriter(rset.getString("postwriter"));
 				fb.setPostContent(rset.getString("postcontent"));
 				fb.setPostOriginalFile(rset.getString("postoriginalfile"));
 				fb.setPostRenamedFile(rset.getString("postrenamedfile"));
 				fb.setPostLike(rset.getInt("postlike"));
 				fb.setPostDislike(rset.getInt("postdislike"));
+				fb.setPostDate(rset.getDate("postdate"));
+				fb.setPostReadCount(rset.getInt("postreadcount"));
 				
 				list.add(fb);
 				
@@ -70,4 +74,157 @@ public class FreeBoardDao {
 		return list;
 	}
 
-}
+	public int BoardCount() {
+		
+		Connection conn = null;
+		int totalContent = 0;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String query = "select count(*) as cnt from board_free";
+		
+		//1. 클래스등록확인
+		try {
+			Class.forName("oracle.jdbc.driver.OracleDriver");
+			conn = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe", 
+					"semi", //아이디 
+					"semi");//비번
+			
+			pstmt = conn.prepareStatement(query);
+			rset = pstmt.executeQuery();
+			if(rset.next()) {
+				totalContent = rset.getInt("cnt");
+			}
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}finally {
+			try {
+				rset.close();
+				pstmt.close();
+				conn.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+		}
+		
+		
+		return totalContent;
+	}
+
+	public List<FreeBoard> boardSelectBest3() {
+		List<FreeBoard> bestList = null;
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String query = "select * from (select * from board_free order by postlike desc) where ROWNUM <4";
+		
+		//1. 클래스등록확인
+		try {
+			Class.forName("oracle.jdbc.driver.OracleDriver");
+			conn = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe", 
+					"semi", //아이디 
+					"semi");//비번
+			
+			pstmt = conn.prepareStatement(query);
+	       
+	  
+			rset = pstmt.executeQuery();
+			
+			bestList = new ArrayList<>();
+			while(rset.next()) {
+				FreeBoard fb = new FreeBoard();
+				fb.setPostNo(rset.getInt("postno"));
+				fb.setPostTitle(rset.getString("posttitle"));
+				fb.setPostWriter(rset.getString("postwriter"));
+				fb.setPostContent(rset.getString("postcontent"));
+				fb.setPostOriginalFile(rset.getString("postoriginalfile"));
+				fb.setPostRenamedFile(rset.getString("postrenamedfile"));
+				fb.setPostLike(rset.getInt("postlike"));
+				fb.setPostDislike(rset.getInt("postdislike"));
+				fb.setPostDate(rset.getDate("postdate"));
+				fb.setPostReadCount(rset.getInt("postreadcount"));
+				
+				bestList.add(fb);
+				
+			}
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				rset.close();
+				pstmt.close();
+				conn.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+		}
+		//2. Connection 객체 생성
+		
+		return bestList;
+	}
+
+	public FreeBoard selectByPostNo(int postNo) {
+		FreeBoard fb = null;
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String query = "select * from board_free where postno =?";
+		
+		//1. 클래스등록확인
+		try {
+			Class.forName("oracle.jdbc.driver.OracleDriver");
+			conn = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe", 
+					"semi", //아이디 
+					"semi");//비번
+			
+			pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1, postNo);
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				fb = new FreeBoard();
+				fb.setPostNo(rset.getInt("postno"));
+				fb.setPostTitle(rset.getString("posttitle"));
+				fb.setPostWriter(rset.getString("postwriter"));
+				fb.setPostContent(rset.getString("postcontent"));
+				fb.setPostOriginalFile(rset.getString("postoriginalfile"));
+				fb.setPostRenamedFile(rset.getString("postrenamedfile"));
+				fb.setPostLike(rset.getInt("postlike"));
+				fb.setPostDislike(rset.getInt("postdislike"));
+				fb.setPostDate(rset.getDate("postdate"));
+				fb.setPostReadCount(rset.getInt("postreadcount"));	
+			}
+			
+			} catch (ClassNotFoundException e) {
+				e.printStackTrace();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} finally {
+				try {
+					rset.close();
+					pstmt.close();
+					conn.close();
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				
+			}
+			//2. Connection 객체 생성
+			
+			return fb;
+		}
+	
+	}
+	
+
+	
+
+
