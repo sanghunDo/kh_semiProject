@@ -268,5 +268,24 @@ create table admin_report_comment(
     usercomment varchar2(1000), --신고 내용
     constraint ck_report_comment_category check(category in ('F', 'S', 'R')) --제약조건 : 게시판분류 (자유 : F, 공략 : S, 랭킹 : R)
 );
+INSERT INTO board_free values (seq_board_free_postno.nextVal , '안녕하세요', 'abcd' , '안녕하세요 놀러왔어요!' ,null, null, default, 10, 11 , 0 , default);
+INSERT INTO board_free values (seq_board_free_postno.nextVal , '좋은아침입니다', 'efg' , '안녕하세요 좋은아침입니다!' ,null, null, default, 10, 11 , 0 , default);
+INSERT INTO board_free values (seq_board_free_postno.nextVal , '오늘 좋은 하루보내세요', 'hij' , '안녕하세요 놀러왔어요!' ,null, null, default, 10, 11 , 0 , default);
+INSERT INTO board_free values (seq_board_free_postno.nextVal , '날씨 너무 추워요', 'klm' , '안녕하세요 놀러왔어요!' ,null, null, default, 10, 11 , 0 , default);
+INSERT INTO board_free values (seq_board_free_postno.nextVal , '다들 감기 조심!', 'nop' , '안녕하세요 놀러왔어요!' ,null, null, default, 10, 11 , 0 , default);
+INSERT INTO board_free values (seq_board_free_postno.nextVal , '독감이 유행이라고 하더라구요', 'qrst' , '안녕하세요 놀러왔어요!' ,null, null, default, 10, 11 , 0 , default);
+INSERT INTO board_free values (seq_board_free_postno.nextVal , '얼죽아 협회회원들 계신가요?', 'uvw' , '안녕하세요 놀러왔어요!' ,null, null, default, 10, 11 , 0 , default);
+INSERT INTO board_free values (seq_board_free_postno.nextVal , '노래추천해주세요!', 'xyz' , '안녕하세요 놀러왔어요!' ,null, null, default, 10, 11 , 0 , default);
+INSERT INTO board_free values (seq_board_free_postno.nextVal , '랭킹세웠슴당', 'qwe' , '안녕하세요 놀러왔어요!' ,null, null, default, 10, 11 , 0 , default);
+INSERT INTO board_free values (seq_board_free_postno.nextVal , '저는 샐리가 좋더라구여 ㅋㅋ', 'fghfj' , '안녕하세요 놀러왔어요!' ,null, null, default, 10, 11 , 0 , default);
+
+INSERT INTO board_free values (seq_board_free_postno.nextVal , '비염있으신 분 계신가요ㅜㅜ', 'sdggg' , '안녕하세요 놀러왔어요!' ,null, null, default, 10, 11 , 0 , default);
+INSERT INTO board_free values (seq_board_free_postno.nextVal , '섬유향수 추천!', 'ert' , '안녕하세요 놀러왔어요!' ,null, null, default, 765, 256 , 0 , default);
+INSERT INTO board_free values (seq_board_free_postno.nextVal , '탑텐 패딩 후기', 'ert' , '안녕하세요 놀러왔어요!' ,null, null, default, 453, 193 , 0 , default);
+INSERT INTO board_free values (seq_board_free_postno.nextVal , '역삼동 맛집가봤어요', 'ert' , '안녕하세요 놀러왔어요!' ,null, null, default, 299, 168 , 0 , default);
+
+INSERT INTO board_free values (seq_board_free_postno.nextVal , '베스트3안에 드신 분들 진짜 대단', 'fghfj' , '안녕하세요 놀러왔어요!' ,null, null, default, 10, 11 , 0 , default);
+INSERT INTO board_free values (seq_board_free_postno.nextVal , '방탈출 너무 어려워요ㅜㅜ', 'qwee' , '안녕하세요 놀러왔어요!' ,null, null, default, 10, 11 , 0 , default);
+INSERT INTO board_free values (seq_board_free_postno.nextVal , '밀크티는 역시 투썸인거같네요', 'ljk' , '안녕하세요 놀러왔어요!' ,null, null, default, 10, 11 , 0 , default);
 
 commit;
