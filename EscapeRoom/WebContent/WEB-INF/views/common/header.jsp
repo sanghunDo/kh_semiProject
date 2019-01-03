@@ -47,6 +47,11 @@ $(function(){
 	</header>
 	<script>
 		$(".enter-game").click(function(){
-			
+			var url = "<%=request.getContextPath()%>/game/gameStart?userId=<%=loggedInMember!=null?loggedInMember.getUserid():"guest"%>";
+			var title = "you can Escape?";
+ 			var status = "width="+$(window).width()+", height="+$(window).height();
+			console.log(screen.width, screen.height);
+			console.log($(window).width(), $(window).height());
+			open(url, title, status);
 		});
 	</script>
