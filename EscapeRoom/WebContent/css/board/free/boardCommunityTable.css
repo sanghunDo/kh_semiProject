@@ -123,9 +123,9 @@
          }
         #search{
             width: 50px;
-            position: absolute;
-            left: 286px;
-            top: 299px;
+            position: relative;
+    		left: 286px;
+    		top: -40px;
         }
         
         div#pageBar{margin-top:10px; text-align:center;}

@@ -140,9 +140,18 @@
                 <hr>
             </div>
         </div> <!-- end of . comment-container -->
-    <div class="button" id="goList">목록</div>
-  
-
+        <div class="button" id="update" onclick="updateBoard();">수정</div>
+    	<div class="button" id="delete" onclick="deleteBoard();">삭제</div>
+   		<div class="button" id="goList">목록</div>
 </div>
+<script>
+	function updateBoard(){
+		
+		location.href="<%=request.getContextPath()%>/board/free/freeBoardUpdate?postNo=<%=fb.getPostNo()%>;
+		
+		
+	}
+</script>
+
 </body>
 </html>

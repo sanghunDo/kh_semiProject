@@ -66,7 +66,7 @@
                         </td>
                         
                         <td class="title">
-                            <a href="<%=request.getContextPath()%>/board/free/freeBoardView?boardNo=<%=fb.getPostNo()%>">
+                            <a href="<%=request.getContextPath()%>/board/free/freeBoardView?postNo=<%=fb.getPostNo()%>">
                             <%=fb.getPostTitle() %>
                         </td>
                         <td class="wirter">

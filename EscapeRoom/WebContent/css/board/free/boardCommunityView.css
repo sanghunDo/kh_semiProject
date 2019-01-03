@@ -1,5 +1,5 @@
 @charset "UTF-8";
-.sub_news, .sub_news th, .sub_news td{
+ .sub_news, .sub_news th, .sub_news td{
              border: 0
         }
 
@@ -88,8 +88,10 @@
             float: right;
         }
         #goList{
-            margin-top: 10px;
             float: right;
+        position: relative;
+        top: -77px;
+
         }
         #commentSubmit{
         height: 101px;
@@ -207,4 +209,10 @@
             float: right;
             text-decoration: underline;
 
+        }
+        
+        #delete{
+            position: relative;
+             left: 81px;
+            top: -35px;
         }

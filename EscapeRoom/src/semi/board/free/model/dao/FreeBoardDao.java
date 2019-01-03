@@ -221,6 +221,51 @@ public class FreeBoardDao {
 			
 			return fb;
 		}
+
+	public int updateBoard(int postNo) {
+		int result = 0;
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		String query = "UPDATE board_free SET posttitle = ?, postcontent=? ,postoriginalfile=? , postrenamedfile=? where postno = ?";
+		
+		try {
+			Class.forName("oracle.jdbc.driver.OracleDriver");
+			conn = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe", 
+					"semi", //아이디 
+					"semi");//비번
+			
+			
+			pstmt = conn.prepareStatement(query);
+			
+//			pstmt.setString(1, b.getBoardTitle() );
+//			pstmt.setString(2, b.getBoardWriter());
+//			pstmt.setString(3, b.getBoardContent());
+//			pstmt.setString(4, b.getOriginalFileName());
+//			pstmt.setString(5, b.getRenamedFileName());
+//			pstmt.setInt(6, b.getBoardNo());
+			
+			result = pstmt.executeUpdate();
+			
+			
+			} catch (ClassNotFoundException e) {
+				e.printStackTrace();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} finally {
+				try {
+				
+					pstmt.close();
+					conn.close();
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				
+			}
+		
+		
+		return result;
+	}
 	
 	}
 	
