@@ -1,7 +1,5 @@
 @charset "UTF-8";
 body, html{
-	width: 1024px; 
-	min-height: 723px;
 	margin: 0 auto;
 	padding: 0;
 	background: black;

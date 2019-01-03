@@ -13,6 +13,11 @@
 <link href="https://fonts.googleapis.com/css?family=Amatic+SC" rel="stylesheet">
 <link rel="stylesheet" href="<%=request.getContextPath() %>/css/common/header.css" />
 <script src="<%=request.getContextPath()%>/js/jquery-3.3.1.js"></script>
+<script>
+$(function(){
+	$("body, html").css({"width": window.innerWidth, "min-height":window.innerHeight});
+})
+</script>
 </head>
 <body>
 	<header>
@@ -37,6 +42,11 @@
 			</ul>
 		</div>
 		<div id="game-start">
-			<button class="snip1535">ENTER GAME</button>
+			<button class="enter-game">ENTER GAME</button>
 		</div>
 	</header>
+	<script>
+		$(".enter-game").click(function(){
+			
+		});
+	</script>

@@ -1,7 +1,5 @@
 @charset "UTF-8";
 body, html{
-	width: 1024px; 
-	min-height: 723px;
 	margin: 0 auto;
 	padding: 0;
 	background: black;
@@ -15,23 +13,22 @@ header{
 header div#top{
 	position: relative;
 	width: 100%;
-	height: 13px;
+	height: 17px;
 	font-family: 'Do Hyeon', sans-serif;
-	font-size: 22px;
+	font-size: 17px;
 }
 header div#top div#myMenu{
 	position: relative;
 	height: 100%;
 	float: right;
-	margin-right: 5px;
+	margin-right: 15px;
 	margin-top: 2px;
 	color: white;
 }
 a:link, a:visited, a:hover{color: white;text-decoration: none;}
 header div#logo{
-	position: relative;
-	width: 100%;
-	text-align: center;
+	width: 350px;
+	margin: 0 auto;
 	color: white;
 	font-size: 54px;
 	font-family: 'Amatic SC', serif;
@@ -43,7 +40,7 @@ header div#menu{
 	font-family: 'Do Hyeon', sans-serif;
 	font-size: 24px;
 	display: inline-block;
-	margin-top: 40px;
+	margin-top: 37px;
 }
 div#menu ul{
 	display: table;
@@ -64,12 +61,12 @@ div#menu ul li a{
 	margin-left: 24px;
 }
 div#menu ul li a:hover {
-	border-bottom: 2px solid red;
+	border-bottom: 4px solid red;
 } 
 div#game-start{
 	float: right;
 }
-.snip1535 {
+.enter-game {
   background-color: black;
   border: none;
   color: #ffffff;
@@ -86,8 +83,8 @@ div#game-start{
   text-transform: uppercase;
   font-weight: 700;
 }
-.snip1535:before,
-.snip1535:after {
+.enter-game:before,
+.enter-game:after {
   border-color: transparent;
   -webkit-transition: all 0.25s;
   transition: all 0.25s;
@@ -98,29 +95,29 @@ div#game-start{
   position: absolute;
   width: 24px;
 }
-.snip1535:before {
+.enter-game:before {
   border-color: white;
   border-right-width: 2px;
   border-top-width: 2px;
   right: -5px;
   top: -5px;
 }
-.snip1535:after {
+.enter-game:after {
   border-bottom-width: 2px;
   border-color: white;
   border-left-width: 2px;
   bottom: -5px;
   left: -5px;
 }
-.snip1535:hover,
-.snip1535.hover {
+.enter-game:hover,
+.enter-game.hover {
   background-color: white;
   color: black;
 }
-.snip1535:hover:before,
-.snip1535.hover:before,
-.snip1535:hover:after,
-.snip1535.hover:after {
+.enter-game:hover:before,
+.enter-game.hover:before,
+.enter-game:hover:after,
+.enter-game.hover:after {
   height: 100%;
   width: 100%;
 }
