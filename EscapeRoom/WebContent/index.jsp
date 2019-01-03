@@ -20,7 +20,7 @@ div.on{
 <script>
 $(function(){
 	//페이지 서서히 켜지는 효과, body, html크기를 브라우저 크기에 따라 resize.
-	$("body, html").css({"width": window.innerWidth, "height":window.innerHeight}).fadeIn(2000);
+	$("body").fadeIn(2000);
 	
 	//제목에 마우스 오버 시 메뉴 나옴.
 	$("#title").fadeIn(4000).on('mouseenter', function(){
