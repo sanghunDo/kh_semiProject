@@ -33,7 +33,11 @@ public class FreeBoardListUpdate extends HttpServlet {
 		// TODO Auto-generated method stub
 	    int postNo = Integer.parseInt(request.getParameter("postNo"));
 	    
-	    //FreeBoard fb = new FreeBoardDao().updateBoard(postNo);
+	    FreeBoard fb = new FreeBoardDao().selectByNo(postNo);
+	    
+	    request.setAttribute("freeBoard", fb);
+	    String view = "/WEB-INF/views/board/free/freeBoardUpdate.jsp";
+	    request.getRequestDispatcher(view).forward(request, response);
 	}
 
 	/**

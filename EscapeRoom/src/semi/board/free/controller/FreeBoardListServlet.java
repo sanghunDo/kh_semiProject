@@ -44,6 +44,7 @@ public class FreeBoardListServlet extends HttpServlet {
 		 List<FreeBoard> list = new FreeBoardDao().boardSelectAll(cPage, numPerPage);
 		 List<FreeBoard> bestList = new FreeBoardDao().boardSelectBest3();
 		 
+		
 		 int totalContent = new FreeBoardDao().BoardCount();
 		 
 		 System.out.println("totalContent"+totalContent);

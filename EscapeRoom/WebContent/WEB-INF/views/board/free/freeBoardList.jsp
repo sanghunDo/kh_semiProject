@@ -1,29 +1,32 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ page import = "java.util.*,semi.board.free.model.vo.*"  %>
+<%@ include file="/WEB-INF/views/common/header.jsp"%>
 <%
 	List<FreeBoard> list = (List<FreeBoard>)request.getAttribute("list");
 	List<FreeBoard> bestList = (List<FreeBoard>)request.getAttribute("bestList");
-
+	
+	
     int cPage = (int)request.getAttribute("cPage");
 	int numPerPage =(int)request.getAttribute("numPerPage");
 	String pageBar = (String)request.getAttribute("pageBar");
 
 
 %>  
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <link rel="stylesheet" href="<%=request.getContextPath()%>/css/board/free/boardCommunityTable.css" />
 <title>자유게시판</title>
-</head>
-<body>
+<script>
+function write(){
+	
+}
+
+</script>
+
 <div class="container">
     <h3>자유게시판</h3>
     <!--new pic-->
     <hr>
-    <div id="write">글쓰기</div>
+    <div id="write" onclick="write();">글쓰기</div>
     <div class="sort">
         <span>추천순</span>
         <span>최신순</span>
@@ -60,7 +63,7 @@
             	for(FreeBoard fb:bestList){	 
               %>
              
-                <tr class="best" bgcolor="yellow">
+                <tr class="best" bgcolor="rgb(255,187,187)">
                         <td class="num">
                             BEST
                         </td>
@@ -149,5 +152,5 @@
 <div id="pageBar">
 	<%=pageBar %>
 </div>
-</body>
+
 </html>

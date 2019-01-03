@@ -1,5 +1,5 @@
 @charset "UTF-8";
- .sub_news, .sub_news th, .sub_news td{
+  .sub_news, .sub_news th, .sub_news td{
              border: 0
         }
 
@@ -10,7 +10,7 @@
         .sub_news{
             width: 183%;
             border-bottom: 1px #999;
-            color: #666;
+            color: white;
             font-size: 12px;
             table-layout: fixed;
         }
@@ -134,6 +134,7 @@
         }
 
         #good{
+
             position: relative;
              left: 400px;
              top: 50px;
@@ -161,7 +162,7 @@
          top: 74px;
         }
         .opinion #dislike{
-          
+          color: white;
          font-size: 39px;
         position: relative;
         left: 127px;
@@ -192,27 +193,60 @@
         }
         #level2CommentList{
             cursor: pointer;
+            color: white;
         }
         #level2CommentList:hover{
             text-decoration: underline;
+            
         }
         #level2CommentWrite{
             cursor: pointer;
+            color: white;
+            position: relative;
+   			top: -21px;
+    		left: 106px;
         }
         #level2CommentWrite:hover{
             text-decoration: underline;
         }
+
+        #Bestlevel2CommentList{
+            cursor: pointer;
+            
+        }
+        #Bestlevel2CommentList:hover{
+            text-decoration: underline;
+            
+        }
+        #Bestlevel2CommentWrite{
+            cursor: pointer;
+            
+        }
+        #Bestlevel2CommentWrite:hover{
+            text-decoration: underline;
+        }
         #declaration{
-            float: right;cursor: pointer;
+        float: right;
+        cursor: pointer;
+        color: white;
+        position: relative;
+        top: 19px;
+        left: -53px;
         }
         #declaration:hover{
             float: right;
             text-decoration: underline;
 
         }
-        
+        .commentList{
+            color: white;
+        }
+
+
         #delete{
+
             position: relative;
              left: 81px;
             top: -35px;
         }
+        
