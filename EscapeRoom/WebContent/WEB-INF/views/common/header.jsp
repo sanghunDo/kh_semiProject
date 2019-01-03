@@ -19,10 +19,10 @@
 		<div id="top">
 			<div id="myMenu">
 			<%if(loggedInMember == null) {%>
-				<a href="<%=request.getContextPath()%>/member/login">LOGIN</a>
+				<a href="">LOGIN</a>
 			<%}else{ %>
-				<a href="<%=request.getContextPath()%>/member/memberView?userid=<%loggedInMember.getUserid();%>">MY PAGE</a>
-				<a href="<%=request.getContextPath()%>/member/logout">LOGOUT</a>
+				<a href="#">MY PAGE</a>
+				<a href="#">LOGOUT</a>
 			<%} %>
 			</div>
 		</div>
@@ -40,3 +40,11 @@
 			<button class="enter-game">ENTER GAME</button>
 		</div>
 	</header>
+	<script>
+		$(".enter-game").click(function(){
+			var url = "<%=request.getContextPath()%>/game/gameStart?userId=<%=loggedInMember!=null?loggedInMember.getUserid():"guest"%>";
+ 			//var status = "width=1024px, height=662px, fullscreen=yes";
+ 			var status = "width=1024px, height=678px";
+			open(url, "", status);
+		});
+	</script>
