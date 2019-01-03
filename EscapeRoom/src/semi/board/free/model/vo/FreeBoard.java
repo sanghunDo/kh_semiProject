@@ -14,6 +14,7 @@ public class FreeBoard implements Serializable {
 	private int postLike;
 	private int postDislike;
 	private boolean postReport;
+	private int readCount;
 	
 	public FreeBoard() {
 		
@@ -32,6 +33,7 @@ public class FreeBoard implements Serializable {
 		this.postLike = postLike;
 		this.postDislike = postDislike;
 		this.postReport = postReport;
+		this.readCount = readCount;
 	}
 	
 	@Override
@@ -39,7 +41,7 @@ public class FreeBoard implements Serializable {
 		return "FreeBoard [postNo=" + postNo + ", postTitle=" + postTitle + ", postWriter=" + postWriter
 				+ ", postContent=" + postContent + ", postOriginalFile=" + postOriginalFile + ", postRenamedFile="
 				+ postRenamedFile + ", postDate=" + postDate + ", postLike=" + postLike + ", postDislike=" + postDislike
-				+ ", postReport=" + postReport + "]";
+				+ ", postReport=" + postReport + ",readCount="+readCount +"]";
 	}
 
 	public int getPostNo() {
@@ -48,6 +50,14 @@ public class FreeBoard implements Serializable {
 
 	public void setPostNo(int postNo) {
 		this.postNo = postNo;
+	}
+	
+	public int getReadCount() {
+		return readCount;
+	}
+
+	public void setReadCount(int readCount) {
+		this.readCount = readCount;
 	}
 
 	public String getPostTitle() {
