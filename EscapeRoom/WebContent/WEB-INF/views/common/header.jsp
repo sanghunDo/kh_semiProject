@@ -44,7 +44,6 @@
 	<script>
 		$(".enter-game").click(function(){
 			var url = "<%=request.getContextPath()%>/game/gameStart?userId=<%=loggedInMember!=null?loggedInMember.getUserid():"guest"%>";
- 			//var status = "width=1024px, height=662px, fullscreen=yes";
  			var status = "width=1024px, height=678px";
 			open(url, "", status);
 		});
