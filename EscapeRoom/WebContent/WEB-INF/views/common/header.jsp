@@ -37,6 +37,6 @@
 			</ul>
 		</div>
 		<div id="game-start">
-			<button class="snip1535">ENTER GAME</button>
+			<button class="enter-game">ENTER GAME</button>
 		</div>
 	</header>
