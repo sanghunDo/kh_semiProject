@@ -20,10 +20,10 @@
 			<div id="myMenu">
 			<%if(loggedInMember == null) {%>
 <<<<<<< HEAD
-				<a href="">LOGIN</a>
-=======
 				<a href="#">로그인</a>
->>>>>>> d992ac243f2c9aa36c6e2f643e8e803079c15ac7
+=======
+				<a href="">LOGIN</a>
+>>>>>>> e14b6f57b63cf6d435a42488992e0ab7162cbd69
 			<%}else{ %>
 				<a href="#">MY PAGE</a>
 				<a href="#">LOGOUT</a>

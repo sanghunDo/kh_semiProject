@@ -3,14 +3,14 @@ import java.io.Serializable;
 import java.sql.Date;
 
 <<<<<<< HEAD
+import javax.servlet.http.HttpSessionBindingEvent;
+import javax.servlet.http.HttpSessionBindingListener;
+=======
 import java.io.Serializable;
 
 public class Member implements Serializable{
 	private static final long serialVersionUID = 1L;
-=======
-import javax.servlet.http.HttpSessionBindingEvent;
-import javax.servlet.http.HttpSessionBindingListener;
->>>>>>> d992ac243f2c9aa36c6e2f643e8e803079c15ac7
+>>>>>>> e14b6f57b63cf6d435a42488992e0ab7162cbd69
 
 import semi.member.model.service.MemberService;
 
