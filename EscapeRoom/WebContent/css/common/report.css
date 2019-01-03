@@ -1,0 +1,63 @@
+@charset "UTF-8";
+body{
+	background: black;
+	color:white;
+}
+
+div#logo{
+	position: relative;
+	width: 100%;
+	text-align: center;
+	color: white;
+	font-size: 54px;
+	font-family: 'Amatic SC', serif;
+	text-shadow: 4px 4px 2px gray;
+	letter-spacing: 4px;
+	margin-bottom:10px;
+}
+
+div#report-container{
+	background:gray;
+	padding: 10px 0px 10px 20px;
+	border-radius:20px;
+	width:370px;
+	height:480px;
+	margin:0 auto;
+}
+
+h3#subtitle{
+	text-align:center;
+	margin-top:5px;
+}
+
+span.explain{
+	font-size: 12px;
+}
+
+h4{
+	margin:0;
+}
+
+label{
+	padding-bottom:10px;
+	display:inline-block;
+}
+
+textarea#reportComment{
+	display:block;
+	resize:none;
+}
+
+button#reportSubmit{
+	display:block;
+	margin:0 auto;
+	padding:10px 20px 10px 20px;
+	outline:none;
+	border:1px solid red;
+	border-radius: 10px;
+	background:red;
+	color:white;
+	font-weight:bold;
+	font-size:15px;
+	cursor:pointer;
+}
