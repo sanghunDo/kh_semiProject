@@ -4,7 +4,6 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.sql.Connection;
-<<<<<<< HEAD
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -14,8 +13,6 @@ import java.util.Properties;
 
 import semi.common.JDBCTemplate.*;
 import semi.member.model.vo.Member;
-=======
->>>>>>> origin/jaesun
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -29,13 +26,9 @@ public class MemberDao {
 	Properties prop = new Properties();
 	
 	public MemberDao() {
-<<<<<<< HEAD
-		String fileName = MemberDao.class.getResource("/resources/driver-properties").getPath();
-=======
 		// (WebContent/WEB-INF/)classes 폴더에서부터 시작하여 해당파일까지의 절대 경로
 		// WEB-INF 폴더 아래에 넣어두면 서버에서 서비스 할 때 외부에서 URL로 직접 접근할 수 없게 되어 보안성이 좋다.
 		String fileName = MemberDao.class.getResource("/sql/member/member-query.properties").getPath();
->>>>>>> origin/jaesun
 		
 		try {
 			prop.load(new FileReader(fileName));
@@ -119,7 +112,6 @@ public class MemberDao {
 		
 		// DB로 SQL문 요청하기 위해 객체 생성
 		PreparedStatement pstmt = null;
-		return result;
 		
 		// SELECT문을 통해서 데이터를 가져온다면 ResultSet 객체에 그 데이터를 저장해야 한다.
 		ResultSet rset = null;
