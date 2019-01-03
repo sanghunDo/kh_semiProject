@@ -1,8 +1,6 @@
-package semi.member;
+package semi.admin.controller;
 
-public class AdminMemberList {
+public class AdminMemberListServlet {
 	
-	public void AdminMemberList() {
-		
-	}
+	public AdminMemberListServlet() {}
 }
