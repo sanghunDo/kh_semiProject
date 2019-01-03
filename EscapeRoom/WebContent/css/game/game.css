@@ -1,0 +1,40 @@
+@charset "UTF-8";
+body, html{
+   width: 1022px;
+   height: 674px;
+   padding: 0px;
+   margin: 0 auto;
+   background:black;
+   overflow: hidden;
+}
+
+div#warning{
+   text-align:center;
+   position: relative;
+   width:60%;
+   height:40%;
+   top: 25%;
+   border:2px solid red;
+   border-style:dashed;
+   color:red;
+   font-size:15px;
+   font-weight:bold;
+   padding-bottom:20px;
+   margin:0 auto;
+   animation-name:warningAni;
+   animation-duration:5s;
+   animation-iteration-count:1;
+   opacity:0;
+}
+
+@keyframes warningAni{
+   0%{
+      opacity:0;
+   }
+   50%{
+      opacity:1;
+   }
+   100%{
+      opacity:0;
+   }
+}
