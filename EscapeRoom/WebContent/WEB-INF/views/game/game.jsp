@@ -5,7 +5,8 @@
 <head>
 <meta charset=UTF-8">
 <title>ESCAPE, IF YOU CAN.</title>
-<script src="<%=request.getContextPath()%>/js/jqeury-3.3.1.js"></script>
+<script src="<%=request.getContextPath()%>/js/jquery-3.3.1.js"></script>
+<link rel="stylesheet" href="<%=request.getContextPath() %>/css/game/game.css" />
 <script>
 window.onload=function(){
 	window.focus();
@@ -14,46 +15,28 @@ window.onload=function(){
 }
 </script>
 <style>
-body, html{
-   width: 1022px;
-   height: 674px;
-   padding: 0px;
-   margin: 0 auto;
-   background:black;
-   overflow: hidden;
+div#prologue{
+	position: absolute;
+	width: 1024px;
+	height: 768px;
+	background: white;
+	top: 0;
+	display: none;
 }
-
-div#warning{
-   text-align:center;
-   position: relative;
-   width:60%;
-   height:40%;
-   top: 25%;
-   border:2px solid red;
-   border-style:dashed;
-   color:red;
-   font-size:15px;
-   font-weight:bold;
-   padding-bottom:20px;
-   margin:0 auto;
-   animation-name:warningAni;
-   animation-duration:7s;
-   animation-iteration-count:1;
-   opacity:0;
+div#prologue img{
+	position: relative;
+	width: 100%;
+	height: 100%;
 }
-
-@keyframes warningAni{
-   0%{
-      opacity:0;
-   }
-   50%{
-      opacity:1;
-   }
-   100%{
-      opacity:0;
-   }
+div#prologue div#msgBox{
+	position: relative;
+	width: 90%;
+	height: 30%;
+	margin: 0 auto;
+	top: 50%;
+	border: 2px solid gray;
+	background: lightgray;
 }
-
 </style>
 </head>
 <body>
@@ -64,8 +47,16 @@ div#warning{
 	   또한, 장시간 플레이 후에는 휴식을 취해주시기 바랍니다.<br><br>
 	   - 게임의 등장인물이나 배경은 모두 실제 인물이나 단체와 무관합니다. -</p>
 </div>
-
-
-
+<div id="prologue">
+	<img src="" alt="" />
+	<div id="msgBox">
+		
+	</div>
+</div>
+<script>
+	setTimeout(function(){
+		$("#prologue").fadeIn(1000);
+	}, 5000);
+</script>
 </body>
 </html>
