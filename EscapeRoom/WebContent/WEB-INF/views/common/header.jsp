@@ -8,9 +8,10 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>You Can't Escape..</title>
+<title>You Can't Escape.</title>
 <link href="https://fonts.googleapis.com/css?family=Do+Hyeon" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css?family=Amatic+SC" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Roboto+Slab" rel="stylesheet">
 <link rel="stylesheet" href="<%=request.getContextPath() %>/css/common/header.css" />
 <script src="<%=request.getContextPath()%>/js/jquery-3.3.1.js"></script>
 </head>
@@ -19,10 +20,10 @@
 		<div id="top">
 			<div id="myMenu">
 			<%if(loggedInMember == null) {%>
-				<a href="">LOGIN</a>
+                <a href="<%=request.getContextPath()%>/member/login">LOGIN</a>
 			<%}else{ %>
-				<a href="#">MY PAGE</a>
-				<a href="#">LOGOUT</a>
+                <a href="<%=request.getContextPath()%>/member/memberView?userid=<%loggedInMember.getUserid();%>">MY PAGE</a>
+                <a href="<%=request.getContextPath()%>/member/logout">LOGOUT</a>
 			<%} %>
 			</div>
 		</div>
