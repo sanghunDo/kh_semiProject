@@ -19,14 +19,10 @@
 		<div id="top">
 			<div id="myMenu">
 			<%if(loggedInMember == null) {%>
-<<<<<<< HEAD
-				<a href="#">로그인</a>
-=======
-				<a href="">LOGIN</a>
->>>>>>> e14b6f57b63cf6d435a42488992e0ab7162cbd69
+				<a href="<%=request.getContextPath()%>/member/login">LOGIN</a>
 			<%}else{ %>
-				<a href="#">MY PAGE</a>
-				<a href="#">LOGOUT</a>
+				<a href="<%=request.getContextPath()%>/member/memberView?userid=<%loggedInMember.getUserid();%>">MY PAGE</a>
+				<a href="<%=request.getContextPath()%>/member/logout">LOGOUT</a>
 			<%} %>
 			</div>
 		</div>
