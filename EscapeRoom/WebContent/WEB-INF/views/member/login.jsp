@@ -36,7 +36,7 @@ function loginValidate(){
 </script>
 <!-- 로그인 -->
 <div class="login-container">
-	<form action="<%=request.getContextPath()%>/member/login" method="post" id="loginFrm">
+	<form action="<%=request.getContextPath()%>/member/loginEnd" method="post" id="loginFrm">
 		<table>
 			<tr>
 				<td>

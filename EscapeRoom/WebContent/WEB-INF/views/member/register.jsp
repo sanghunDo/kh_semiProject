@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ page import="java.util.*" %>
 <%@ include file="/WEB-INF/views/common/header.jsp"%>
 <%
 	
@@ -10,17 +11,18 @@ function registerValidate(){
 	
 	// 아이디 검사
 	var $userid_ = $("#userid_"); // 유저 아이디
-	var getuserid = RegExp(/^[a-zA-Z0-9]{4,20}$/); // 유저 아이디 유효성 검사
+	var getuserid = /^[a-zA-Z0-9]{4,20}$/; // 유저 아이디 유효성 검사
 	
 	// 비밀번호 검사
 	var $userpassword_ = $("#userpassword_"); // 유저 비밀번호
 	var $userpassword__ = $("#userpassword__"); // 비교할 유저 비밀번호
 	/* var getuserpassword = RegExp(/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{6,20}$/); // 유저 비밀번호 유효성 검사 */
-	var getuserpassword = "/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{6,20}$/"; // 유저 비밀번호 유효성 검사
+	/* var getuserpassword = RegExp(/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{6,20}$/); // 유저 비밀번호 유효성 검사 */
+	var getuserpassword = RegExp(/^(?=.*[A-Za-z])(?=.*[0-9])(?=.*[#?!@$%^&*-]).{6,20}$/); // 유저 비밀번호 유효성 검사
 
 	// 이메일 검사 
 	var $useremail = $("#useremail"); // 유저 이메일
-	var getuseremail = RegExp(/^[a-z0-9_+.-]+@([a-z0-9-]+\.)+[a-z0-9]{2,4}$/); // 유저 이메일 유효성 검사
+	var getuseremail = /^[a-z0-9_+.-]+@([a-z0-9-]+\.)+[a-z0-9]{2,4}$/; // 유저 이메일 유효성 검사
 	
 	// 프로필 검사
 	var $userprofileoriginalfile = $("#userprofileoriginalfile"); // 유저 원본 프로필 사진명
@@ -37,7 +39,7 @@ function registerValidate(){
 	// 아이디 유효성 검사
 	if(!getuserid.test($userid_.val())){
 		alert("아이디는 영문자나 숫자를 포함한 5~21 자리로 입력해주세요.");
-		$userpassword_.val("");
+		$userid_.val("");
 		$userid_.focus();
 		return false;
 	}
