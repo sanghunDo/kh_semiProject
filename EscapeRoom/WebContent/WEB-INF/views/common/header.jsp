@@ -21,7 +21,7 @@
 			<%if(loggedInMember == null) {%>
                 <a href="<%=request.getContextPath()%>/member/login">LOGIN</a>
 			<%}else{ %>
-                <a href="<%=request.getContextPath()%>/member/memberView?userid=<%loggedInMember.getUserid();%>">MY PAGE</a>
+                <a href="<%=request.getContextPath()%>/member/memberView?userId=<%loggedInMember.getUserId();%>">MY PAGE</a>
                 <a href="<%=request.getContextPath()%>/member/logout">LOGOUT</a>
 			<%} %>
 			</div>
@@ -43,7 +43,7 @@
 	<script>
 		$(".enter-game").click(function(){
 			//게임화면 팝업
-			var url = "<%=request.getContextPath()%>/game/gameStart?userId=<%=loggedInMember!=null?loggedInMember.getUserid():"guest"%>";
+			var url = "<%=request.getContextPath()%>/game/gameStart?userId=<%=loggedInMember!=null?loggedInMember.getUserId():"guest"%>";
  			var status = "width=1024px, height=678px";
 			open(url, "", status);
 		});

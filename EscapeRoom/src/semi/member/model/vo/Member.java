@@ -13,104 +13,104 @@ public class Member implements Serializable, HttpSessionBindingListener{
  * 서버간의 통신을 할 때 Sericalizable이 반드시 구현된 객체여야 한다.
  */
 	
-	private String userid; // 아이디
-	private String userpassword; // 패스워드
-	private String useremail; // 이메일
-	private String userprofileoriginalfile; // 원첨부파일
-	private String userprofilerenamedfile; // 중복방지용 바꿔준 첨부파일
-	private Date enrolldate; // 가입날짜
+	private String userId; // 아이디
+	private String userPassword; // 패스워드
+	private String userEmail; // 이메일
+	private String userProfileOriginalFile; // 원첨부파일
+	private String userProfileRenamedFile; // 중복방지용 바꿔준 첨부파일
+	private Date enrollDate; // 가입날짜
 	
 	public Member() {}
 	
-	public Member(String userid, String userpassword, String useremail, String userprofileoriginalfile,
-			String userprofilerenamedfile, Date enrolldate) {
+	public Member(String userId, String userPassword, String userEmail, String userProfileOriginalFile,
+			String userProfileRenamedFile, Date enrollDate) {
 		super();
-		this.userid = userid;
-		this.userpassword = userpassword;
-		this.useremail = useremail;
-		this.userprofileoriginalfile = userprofileoriginalfile;
-		this.userprofilerenamedfile = userprofilerenamedfile;
-		this.enrolldate = enrolldate;
+		this.userId = userId;
+		this.userPassword = userPassword;
+		this.userEmail = userEmail;
+		this.userProfileOriginalFile = userProfileOriginalFile;
+		this.userProfileRenamedFile = userProfileRenamedFile;
+		this.enrollDate = enrollDate;
 	}
 	
-	public String getUserid() {
-		return userid;
+	public String getUserId() {
+		return userId;
 	}
 
 
-	public void setUserid(String userid) {
-		this.userid = userid;
+	public void setUserId(String userId) {
+		this.userId = userId;
 	}
 
 
-	public String getUserpassword() {
-		return userpassword;
+	public String getUserPassword() {
+		return userPassword;
 	}
 
 
-	public void setUserpassword(String userpassword) {
-		this.userpassword = userpassword;
+	public void setUserPassword(String userPassword) {
+		this.userPassword = userPassword;
 	}
 
 
-	public String getUseremail() {
-		return useremail;
+	public String getUserEmail() {
+		return userEmail;
 	}
 
 
-	public void setUseremail(String useremail) {
-		this.useremail = useremail;
+	public void setUserEmail(String userEmail) {
+		this.userEmail = userEmail;
 	}
 
 
-	public String getUserprofileoriginalfile() {
-		return userprofileoriginalfile;
+	public String getUserProfileOriginalFile() {
+		return userProfileOriginalFile;
 	}
 
 
-	public void setUserprofileoriginalfile(String userprofileoriginalfile) {
-		this.userprofileoriginalfile = userprofileoriginalfile;
+	public void setUserProfileOriginalFile(String userProfileOriginalFile) {
+		this.userProfileOriginalFile = userProfileOriginalFile;
 	}
 
 
-	public String getUserprofilerenamedfile() {
-		return userprofilerenamedfile;
+	public String getUserProfileRenamedFile() {
+		return userProfileRenamedFile;
 	}
 
 
-	public void setUserprofilerenamedfile(String userprofilerenamedfile) {
-		this.userprofilerenamedfile = userprofilerenamedfile;
+	public void setUserProfileRenamedFile(String userProfileRenamedFile) {
+		this.userProfileRenamedFile = userProfileRenamedFile;
 	}
 
 
-	public Date getEnrolldate() {
-		return enrolldate;
+	public Date getEnrollDate() {
+		return enrollDate;
 	}
 
 
-	public void setEnrolldate(Date enrolldate) {
-		this.enrolldate = enrolldate;
+	public void setEnrollDate(Date enrollDate) {
+		this.enrollDate = enrollDate;
 	}
 	
 	@Override
 	public String toString() {
-		return userid + "," + userpassword + "," + useremail
-				+ "," + userprofileoriginalfile + ","
-				+ userprofilerenamedfile + "," + enrolldate;
+		return userId + "," + userPassword + "," + userEmail
+				+ "," + userProfileOriginalFile + ","
+				+ userProfileRenamedFile + "," + enrollDate;
 	}
 
 	@Override
 	public void valueBound(HttpSessionBindingEvent e) {
-		System.out.println("[" + userid + "]님이 로그인!");
+		System.out.println("[" + userId + "]님이 로그인!");
 		
 		String ip = (String)e.getSession().getAttribute("ip");
 		System.out.println("ip@Member@valueBound = " + ip);
-		new MemberService().insertMemberLogger(userid, "1", ip);
+		new MemberService().insertMemberLogger(userId, "1", ip);
 	}
 	
 	@Override
 	public void valueUnbound(HttpSessionBindingEvent e) {
-		System.out.println("[" + userid + "]님이 로그아웃!");
-		new MemberService().insertMemberLogger(userid, "0", "");
+		System.out.println("[" + userId + "]님이 로그아웃!");
+		new MemberService().insertMemberLogger(userId, "0", "");
 	}
 }

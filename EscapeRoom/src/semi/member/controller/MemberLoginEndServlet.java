@@ -32,13 +32,13 @@ public class MemberLoginEndServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// 1. 파라미터 핸들링
-		String userid = request.getParameter("userid");
-		String userpassword = request.getParameter("userpassword");
-		System.out.printf("[%s, %s]\n", userid, userpassword);
+		String userId = request.getParameter("userId");
+		String userPassword = request.getParameter("userPassword");
+		System.out.printf("[%s, %s]\n", userId, userPassword);
 		
 		Member m = new Member();
-		m.setUserid(userid);
-		m.setUserpassword(userpassword);
+		m.setUserId(userId);
+		m.setUserPassword(userPassword);
 		
 		// 2. 업무로직요청
 		int result = new MemberService().loginCheck(m);
@@ -80,19 +80,19 @@ public class MemberLoginEndServlet extends HttpServlet {
 			
 			// 쿠키생성 : Server, 보관 : Client
 			if(saveId != null) {
-				Cookie c = new Cookie("saveId", userid);
+				Cookie c = new Cookie("saveId", userId);
 				c.setMaxAge(7 * 24 * 60 * 60); // 쿠키유효기간 : 7일, 단위 : 초
 				c.setPath("/semi"); // 쿠키유효디렉토리 설정
 				response.addCookie(c);
 			} else {
 				// 현재 등록된 쿠키삭제 목적
-				Cookie c = new Cookie("saveId", userid);
+				Cookie c = new Cookie("saveId", userId);
 				c.setMaxAge(0); // 쿠키유효기간을 0으로 설정해서 삭제
 				c.setPath("/semi"); // 삭제하고자 하는 쿠키와 동일하게
 				response.addCookie(c);
 			}
 			
-			Member loggedInMember = new MemberService().selectOne(userid);
+			Member loggedInMember = new MemberService().selectOne(userId);
 			
 			// request객체로부터 세션객체 가져오기
 			// getSession 기본값 : true
