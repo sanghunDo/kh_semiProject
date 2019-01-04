@@ -50,10 +50,10 @@ public class AdminDao {
 			
 			// 실행 후 결과를 list에 담기
 			while(rset.next()) {
-				m.setUserid(rset.getString("memberId"));
-				m.setUserpassword(rset.getString("password"));
-			 	m.setUseremail(rset.getString("email"));
-			 	m.setEnrolldate(rset.getDate("enrolldate"));
+				m.setUserId(rset.getString("memberId"));
+				m.setUserPassword(rset.getString("password"));
+			 	m.setUserEmail(rset.getString("email"));
+			 	m.setEnrollDate(rset.getDate("enrolldate"));
 			 	list.add(m);
 			 	}
 			
@@ -82,10 +82,10 @@ public class AdminDao {
 			rset = pstmt.executeQuery();
 			
 			while(rset.next()) {
-				m.setUserid(rset.getString("memberId"));
-				m.setUserpassword(rset.getString("password"));
-			 	m.setUseremail(rset.getString("email"));
-			 	m.setEnrolldate(rset.getDate("enrolldate"));
+				m.setUserId(rset.getString("memberId"));
+				m.setUserPassword(rset.getString("password"));
+			 	m.setUserEmail(rset.getString("email"));
+			 	m.setEnrollDate(rset.getDate("enrolldate"));
 			 	list.add(m);
 			 }
 			
@@ -115,10 +115,10 @@ public class AdminDao {
 			rset = pstmt.executeQuery();
 		
 			while(rset.next()) {
-				m.setUserid(rset.getString("memberId"));
-				m.setUserpassword(rset.getString("password"));
-				m.setUseremail(rset.getString("email"));
-				m.setEnrolldate(rset.getDate("enrolldate"));
+				m.setUserId(rset.getString("memberId"));
+				m.setUserPassword(rset.getString("password"));
+				m.setUserEmail(rset.getString("email"));
+				m.setEnrollDate(rset.getDate("enrolldate"));
 				list.add(m);
 			}
 			} catch (SQLException e) {
