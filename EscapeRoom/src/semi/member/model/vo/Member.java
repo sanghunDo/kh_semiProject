@@ -22,7 +22,6 @@ public class Member implements Serializable, HttpSessionBindingListener{
 	
 	public Member() {}
 	
-	
 	public Member(String userid, String userpassword, String useremail, String userprofileoriginalfile,
 			String userprofilerenamedfile, Date enrolldate) {
 		super();
@@ -108,6 +107,7 @@ public class Member implements Serializable, HttpSessionBindingListener{
 		System.out.println("ip@Member@valueBound = " + ip);
 		new MemberService().insertMemberLogger(userid, "1", ip);
 	}
+	
 	@Override
 	public void valueUnbound(HttpSessionBindingEvent e) {
 		System.out.println("[" + userid + "]님이 로그아웃!");
