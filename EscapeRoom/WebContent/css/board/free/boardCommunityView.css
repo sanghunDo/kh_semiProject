@@ -254,3 +254,12 @@
             top: -35px;
         }
         
+        #comment-Update{
+        	display:none;
+            position: relative;
+    		top: -97px;    	
+        }
+        #commentUpdateEnd{
+        	display:none;
+        }
+        

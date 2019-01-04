@@ -1,7 +1,6 @@
 package semi.board.free.controller;
 
 import java.io.IOException;
-import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -9,21 +8,22 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.google.gson.Gson;
+
 import semi.board.free.model.dao.FreeBoardDao;
 import semi.board.free.model.vo.BoardComment;
-import semi.board.free.model.vo.FreeBoard;
 
 /**
- * Servlet implementation class FreeBoardListView
+ * Servlet implementation class FreeBoardCommentUpdate
  */
-@WebServlet("/board/free/freeBoardView")
-public class FreeBoardListView extends HttpServlet {
+@WebServlet("/board/free/freeBoardCommentUpdate")
+public class FreeBoardCommentUpdate extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public FreeBoardListView() {
+    public FreeBoardCommentUpdate() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -32,32 +32,34 @@ public class FreeBoardListView extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// TODO Auto-generated method stub
+		
+		int commentNo = Integer.parseInt(request.getParameter("commentNo"));
+		String commentUpdate = request.getParameter("commentUpdate");
 		int postNo = Integer.parseInt(request.getParameter("postNo"));
+		System.out.println("commentNo"+commentNo);
+		System.out.println("commentContent"+commentUpdate);
+		System.out.println("postNo"+postNo);
+	
+		int result = new FreeBoardDao().commentUpdate(commentNo,commentUpdate);
+		System.out.println("result="+result);
 		
-		FreeBoard fb = new FreeBoardDao().selectByPostNo(postNo);
-		
-		
-		//댓글
-		List<BoardComment> commentList = new FreeBoardDao().selectAllComment(postNo);
-		List<BoardComment> bestCommentList = new FreeBoardDao().selectBestComment(postNo);
-		
-//		System.out.println("postNo"+postNo);
 		String view = "/WEB-INF/views/common/msg.jsp";
-		if(fb == null) {
-			view ="/WEB-INF/views/common/msg.jsp";
-			request.setAttribute("msg", "상세조회실패");
-			request.setAttribute("loc", "/board/boardList");
+		String msg = "";
+		String loc = "/board/free/freeBoardView?postNo="+postNo ;
+		
+		if(result >0 ) {
+			msg ="댓글이 수정되었습니다.";
 			
 		}else {
-			view = "/WEB-INF/views/board/free/freeBoardView.jsp";
-			request.setAttribute("fb", fb);
-			request.setAttribute("commentList", commentList);
-			request.setAttribute("bestCommentList", bestCommentList);
-		
+			msg = "수정실패";
 		}
+		request.setAttribute("msg", msg);
+		request.setAttribute("loc", loc);
 		request.getRequestDispatcher(view).forward(request, response);
 	}
 	
+
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */

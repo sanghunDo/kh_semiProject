@@ -56,7 +56,7 @@
            /* border: 1px solid red;*/
             width: 1024px;
         }
-        .sub_news tbody tr:hover .title{
+        .sub_news tbody tr:hover .title a{
             text-decoration: underline;
             color:black;
         }
@@ -133,4 +133,7 @@
         }
         
         div#pageBar{margin-top:10px; text-align:center;}
+        div#pageBar .cPage{color:red;}
+        div#pageBar span,a{margin-right:3px;}
+        
 

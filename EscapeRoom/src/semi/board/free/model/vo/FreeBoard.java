@@ -132,6 +132,7 @@ public class FreeBoard implements Serializable {
 	public void setPostReport(boolean postReport) {
 		this.postReport = postReport;
 	}
+
 	
 	
 
