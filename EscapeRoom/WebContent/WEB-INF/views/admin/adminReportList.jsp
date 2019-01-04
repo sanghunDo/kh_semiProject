@@ -25,11 +25,6 @@ $(function(){
 	
 });
 </script>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>EscapeIfYouCan</title>
-</head>
 <body>
 <div class="container">
 <h2>관리자 전용 게시판</h2>

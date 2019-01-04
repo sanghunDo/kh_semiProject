@@ -20,11 +20,6 @@ $(function(){
 	
 });
 </script>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>EscapeIfYouCan</title>
-</head>
 <body>
 <h2>관리자 전용 게시판</h2>
 <h3>비추천 게시글 목록</h3>
