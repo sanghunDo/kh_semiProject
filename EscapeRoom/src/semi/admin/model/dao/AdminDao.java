@@ -15,12 +15,11 @@ import static semi.common.JDBCTemplate.*;
 
 import semi.member.model.vo.Member;
 
-// 관리자용 회원 정보 보기
 public class AdminDao {
 	private Properties prop = new Properties();
 	
 	public AdminDao() {
-		String fileName = AdminDao.class.getResource("/driver-properties").getPath();
+		String fileName = AdminDao.class.getResource("/sql/member-query.properties").getPath();
 		
 		try {
 			prop.load(new FileReader(fileName));
@@ -31,9 +30,10 @@ public class AdminDao {
 		}
 	}
 	
-	// 회원 목록 가져오기
-	public List<Member> getMemberList(Connection conn) {
-		List<Member> memberList = new ArrayList<Member>();
+	// 관리자용 회원 정보 보기
+	// 전체 회원 목록 가져오기
+	public List<Member> getUserList(Connection conn) {
+		List<Member> userList = new ArrayList<Member>();
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		String query = prop.getProperty("");
@@ -43,25 +43,19 @@ public class AdminDao {
 			// 쿼리문 입력 후 데이터 가져오기
 			pstmt = conn.prepareStatement(query);
 			Member m = new Member();
-			/* 
-			 * while(rset.next()) {
-			 * m.setMemberId(rset.getString("memberId");
-			 * m.setPassword(rset.getString("password");
-			 * m.setMemberName(rset.getString("memberName");
-			 * m.setGender(rset.getString("gender");
-			 * m.setAge(rset.getInt("age");
-			 * m.setEmail(rset.getString("email");
-			 * m.setPhone(rset.getString("phone");
-			 * m.setAddress(rset.getString("address");
-			 * m.setHobby(rset.getString("hobby");
-			 * m.setEnrollDate(rset.getDate("enrolldate");
-			 * list.add(m);
-			 * }
-			 */
-			
+			List<Member> list = new ArrayList<Member>();
 			
 			// 쿼리 실행
 			rset = pstmt.executeQuery();
+			
+			// 실행 후 결과를 list에 담기
+			while(rset.next()) {
+				m.setUserid(rset.getString("memberId"));
+				m.setUserpassword(rset.getString("password"));
+			 	m.setUseremail(rset.getString("email"));
+			 	m.setEnrolldate(rset.getDate("enrolldate"));
+			 	list.add(m);
+			 	}
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -70,11 +64,71 @@ public class AdminDao {
 			close(pstmt);
 		}
 		
-		return memberList;
+		return userList;
 	}
 	
-	// 회원 삭제
+	// 회원 아이디로 검색
+	public List<Member> getUserListById(Connection conn) {
+		List<Member> userListById = new ArrayList<Member>();
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;	
+		String query = prop.getProperty("selectOne");
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			Member m = new Member();
+			List<Member> list = new ArrayList<Member>();
+			
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				m.setUserid(rset.getString("memberId"));
+				m.setUserpassword(rset.getString("password"));
+			 	m.setUseremail(rset.getString("email"));
+			 	m.setEnrolldate(rset.getDate("enrolldate"));
+			 	list.add(m);
+			 }
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return userListById;
+	}
 	
-	// 게시글 삭제
+	// 회원 이메일로 검색
+	public List<Member> getUserListByEmail(Connection conn) {
+		List<Member> userListByEmail = new ArrayList<Member>();
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String query = prop.getProperty("");
+		// 이메일로 검색하는 쿼리를 properties에 작성
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			Member m = new Member();
+			List<Member> list = new ArrayList<Member>();
+		
+			rset = pstmt.executeQuery();
+		
+			while(rset.next()) {
+				m.setUserid(rset.getString("memberId"));
+				m.setUserpassword(rset.getString("password"));
+				m.setUseremail(rset.getString("email"));
+				m.setEnrolldate(rset.getDate("enrolldate"));
+				list.add(m);
+			}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} finally {
+				close(rset);
+				close(pstmt);
+			}
+		
+		return userListByEmail;
+	}
 	
 }
