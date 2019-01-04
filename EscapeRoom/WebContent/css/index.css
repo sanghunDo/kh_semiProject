@@ -1,8 +1,8 @@
 @charset "UTF-8";
 body, html{
 	width: 1022px;
-	height: 626px;
-	margin: 0px;
+	min-height: 626px;
+	margin: 0px auto;
 	padding: 0px;
 	background: black;
 }

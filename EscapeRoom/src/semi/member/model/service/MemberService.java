@@ -91,13 +91,13 @@ public class MemberService {
 	}
 
 	// 회원정보 수정
-	public int updateMember(Member m) {
+	public int updateMember(Member member) {
 		int result = 0;
 
 		// DB와 연결
 		Connection conn = getConnection();
 
-		result = new MemberDao().updateMember(conn, m);
+		result = new MemberDao().updateMember(conn, member);
 
 		// DML(INSERT, UPDATE, DELETE)이므로 반드시 트랜잭션처리 해야 한다.
 		if (result > 0) {
@@ -105,8 +105,47 @@ public class MemberService {
 		} else {
 			rollback(conn);
 		}
+		// 자원반납
 		close(conn);
 
 		return result;
 	}
+
+	// 회원탈퇴
+	public int deleteMember(String userid) {
+		// DB와 연결
+		Connection conn = getConnection();
+
+		int result = new MemberDao().deleteMember(conn, userid);
+
+		// DML(INSERT, UPDATE, DELETE)이므로 반드시 트랜잭션처리 해야 한다.
+		if (result > 0) {
+			commit(conn);
+		} else {
+			rollback(conn);
+		}
+		// 자원반납
+		close(conn);
+
+		return result;
+	}
+
+	public int updatePassword(Member m) {
+		// DB와 연결
+		Connection conn = getConnection();
+		
+		int result = new MemberDao().updatePassword(conn, m);
+		
+		// DML(INSERT, UPDATE, DELETE)이므로 반드시 트랜잭션처리 해야 한다.
+		if (result > 0) {
+			commit(conn);
+		} else {
+			rollback(conn);
+		}
+		// 자원반납
+		close(conn);
+
+		return result;
+	}
+
 }
