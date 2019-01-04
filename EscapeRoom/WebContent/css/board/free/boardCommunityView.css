@@ -94,6 +94,7 @@
 
         }
         #commentSubmit{
+        
         height: 101px;
         width: 107px;
         position: relative;
@@ -103,6 +104,8 @@
         color: white;
         text-align: center;
         margin: 0 auto;
+      	cursor: pointer;
+      	
         }
         .bestComment-container{
             background-color: rgb(249, 249, 249);
@@ -182,6 +185,7 @@
         }
         .bestCommentOpinion{
             text-align: right;
+            
         
         }
         .bestCommentOpinion span:hover{
@@ -201,10 +205,10 @@
         }
         #level2CommentWrite{
             cursor: pointer;
-            color: white;
-            position: relative;
-   			top: -21px;
-    		left: 106px;
+    		color: white;
+    		position: relative;
+    		top: -22px;
+    		left: 119px;
         }
         #level2CommentWrite:hover{
             text-decoration: underline;

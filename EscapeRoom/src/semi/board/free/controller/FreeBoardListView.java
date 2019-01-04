@@ -37,6 +37,8 @@ public class FreeBoardListView extends HttpServlet {
 		FreeBoard fb = new FreeBoardDao().selectByPostNo(postNo);
 		//댓글
 		List<BoardComment> commentList = new FreeBoardDao().selectAllComment(postNo);
+		List<BoardComment> bestCommentList = new FreeBoardDao().selectBestComment(postNo);
+		
 //		System.out.println("postNo"+postNo);
 		String view = "/WEB-INF/views/common/msg.jsp";
 		if(fb == null) {
@@ -48,6 +50,7 @@ public class FreeBoardListView extends HttpServlet {
 			view = "/WEB-INF/views/board/free/freeBoardView.jsp";
 			request.setAttribute("fb", fb);
 			request.setAttribute("commentList", commentList);
+			request.setAttribute("bestCommentList", bestCommentList);
 		
 		}
 		request.getRequestDispatcher(view).forward(request, response);

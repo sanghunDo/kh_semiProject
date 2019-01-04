@@ -5,6 +5,8 @@
 <%
 	FreeBoard fb = (FreeBoard)request.getAttribute("fb");
 	List<BoardComment> commentList = (List<BoardComment>)request.getAttribute("commentList");
+	List<BoardComment> bestCommentList = (List<BoardComment>)request.getAttribute("bestCommentList");
+
 %>
 <link rel="stylesheet" href="<%=request.getContextPath()%>/css/board/free/boardCommunityView.css" />
 <script src="<%=request.getContextPath()%>/js/jquery-3.3.1.js"></script>
@@ -72,29 +74,38 @@
 
     <div class="bestComment-container">
     <hr>
-        <dl>
+    <%for(BoardComment bc:bestCommentList)
+                	 if(bc.getCommentLevel()==1) {
+                	%>
+        <dl style="margin-left: 24px;">
             <d>BEST</d>
             <dt>
-                아이디
-                <i>19.01.02 07:42</i>
+                <%=bc.getCommentWriter() %>
+                <i><%=bc.getCommentDate() %></i>
             </dt>
+            
+            <dl style="display: inline-flex;position: relative;left: 177px;top: -57px;">
+                <div class="button">수정하기</div>
+                <div class="button">삭제하기</div>
+            </dl>
 
-            <dl class="bestCommentOpinion">
-                <span style="padding:10px">추천130</span>
-                <span style="padding:10px">비추천10</span>
+            <dl class="bestCommentOpinion" style="position: relative;top: -120px;left: -33px;">
+                <span style="padding:10px">추천<%=bc.getCommentLike() %></span>
+                <span style="padding:10px">비추천<%=bc.getCommentDislike() %></span>
                 <span style="padding:10px">신고하기</span>
             </dl>
 
-            <dd style="padding-bottom: 44px;margin-left: 10px;">
-                    진짜 웃긴다 ㅋㅋㅋㅋㅋㅋ
+            <dd style="position: relative;top: -56px;">
+                	<%=bc.getCommentContent() %>
             </dd>
-            
+                    
             <span id="Bestlevel2CommentList">답글 30개▼</span>
             <span>|</span>
             <span id="Bestlevel2CommentWrite">답글쓰기</span>
             
         </dl>
-    <hr>
+    	<hr>
+    	 <%} %>
     </div>
 
     <div id="comment-container" style="color:white;">
@@ -102,10 +113,18 @@
             <span>20</span>개의 댓글
         </p>
             <div class="comment-editor">
-                댓글쓰기
+                	댓글쓰기
                 <hr>
+                <!-- 댓글 삽입 서블릿을 위한 폼 -->
+                <form action="<%=request.getContextPath() %>/board/free/FreeBoardCommentInsert" name="commentSubmitFrm">
+                <input type="hidden" name="ref" value="<%=fb.getPostNo() %>" />
+                <input type="hidden" name="userId" value="userId"/>
+                <input type="hidden" name="commentLevel" value="1" />
+                <input type="hidden" name="commentRef" value="0" />
+             	<!-- <input type="checkBox" name="secret"/><label for="secret">비밀글</label> -->
                 <textarea name="boardCommentContent" cols="60" rows="3" style="margin: 11px;margin-bottom: -78px;width: 800px;height: 113px;resize:none;"></textarea>
-                <div id="commentSubmit">등록</div>
+                </form>
+                <div id="commentSubmit" onclick="insertComment();" style="cursor: pointer;">등록</div>
                
             </div><!-- end of . comment-editor -->
             
@@ -117,27 +136,31 @@
                 	 if(bc.getCommentLevel()==1) {
                 	%>
                  <dl>
-                    <dt>
+                    <dt style="margin-left: 21px;">
                         <%=bc.getCommentWriter()%>
                         <i><%=bc.getCommentDate() %></i>
                     </dt>
+                    
+                    <dl style="display: inline-flex;position: relative;left: 177px;top: -46px;">
+                		<div class="button">수정하기</div>
+               			<div class="button">삭제하기</div>
+            		</dl>
         
                     <dl class="bestCommentOpinion">
-                    
-                            <dl class="CommentOpinion">
+                            <dl class="CommentOpinion" style="position: relative; top: -111px;">
                                     <span style="padding:10px">추천<%=bc.getCommentLike()%></span>
                                     <span style="padding:10px">비추천<%=bc.getCommentDislike()%></span>
                                     <span style="padding:10px">신고하기</span>
                             </dl>
                     </dl>
         
-                    <dd style="padding-bottom: 44px;margin-left: 10px; color: white;">
+                    <dd style="padding-bottom: 44px;margin-left: 10px; color: white; position: relative; top: -43px;left: 16px;">
                         	<%=bc.getCommentContent() %>
                     </dd>
                     
-                    <span id="level2CommentList">답글 30개▼</span>
+                    <span id="level2CommentList" style="margin-left: 21px;">답글 30개▼</span>
                     <div id="level2CommentList"></div>
-                    <span>|</span>
+                    <span style= "position: relative;right: -114px;top: -23px;">|</span>
                     <span id="level2CommentWrite">답글쓰기</span>
                     <div id="level2CommentWrite"></div>
                     
@@ -167,6 +190,9 @@
 		}
 		$("[name=boardDelFrm]").submit();
 	}
-	$("")
+	function insertComment(){
+		$("[name=commentSubmitFrm]").submit();
+	}
+	
 </script>
 </html>

@@ -427,6 +427,100 @@ public class FreeBoardDao {
 		return commentList;
 		
 	}
+
+	public List<BoardComment> selectBestComment(int postNo) {
+		List<BoardComment> bestCommentList = null;
+		PreparedStatement pstmt = null;
+		Connection conn = null;
+		ResultSet rset = null;
+		String query = "select * from (select * from board_comment_free where ref=? order by commentlike desc) where ROWNUM <4";
+		
+		try {
+			Class.forName("oracle.jdbc.driver.OracleDriver");
+			conn = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe", 
+					"semi", //아이디 
+					"semi");//비번
+			
+			
+			pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1, postNo);
+			
+			rset = pstmt.executeQuery();
+
+			bestCommentList = new ArrayList<>();
+			while(rset.next()) {
+				BoardComment bc = new BoardComment();
+				bc.setCommentNo(rset.getInt("commentno"));
+				bc.setCommentLevel(rset.getInt("commentlevel"));
+				bc.setCommentWriter(rset.getString("commentwriter"));
+				bc.setCommentContent(rset.getString("commentcontent"));
+				bc.setRef(rset.getInt("ref"));
+				bc.setCommentDate(rset.getDate("commentdate"));
+				bc.setCommentLike(rset.getInt("commentlike"));
+				bc.setCommentDislike(rset.getInt("commentdislike"));
+				
+				bestCommentList.add(bc);
+			}
+			
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				pstmt.close();
+				conn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+			
+		}
+		return bestCommentList;
+	}
+
+	public int insertComment(BoardComment bc) {
+		int result = 0;
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		String query = 
+	    "INSERT INTO board_comment_free values (seq_comment_free_commentno.nextVal, ? ,?, ?, ? , ? , default, default ,default ,default)";
+		
+		try {
+			Class.forName("oracle.jdbc.driver.OracleDriver");
+			conn = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe", 
+					"semi", //아이디 
+					"semi");//비번
+			
+			
+			pstmt = conn.prepareStatement(query);
+			
+			pstmt.setInt(1, bc.getCommentLevel());
+			pstmt.setString(2, bc.getCommentWriter());
+			pstmt.setString(3, bc.getCommentContent());
+			pstmt.setInt(4, bc.getRef());
+			pstmt.setObject(5, bc.getCommentRef()==0?null:bc.getCommentRef());
+		
+			result = pstmt.executeUpdate();
+			
+			
+			} catch (ClassNotFoundException e) {
+				e.printStackTrace();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} finally {
+				try {
+					pstmt.close();
+					conn.close();
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				
+			}
+		
+		
+		return result;
+	}
 	
 	
 	
