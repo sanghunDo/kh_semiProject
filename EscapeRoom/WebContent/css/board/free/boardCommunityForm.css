@@ -1,5 +1,5 @@
 @charset "UTF-8";
- .sub_news, .sub_news th, .sub_news td{
+   .sub_news, .sub_news th, .sub_news td{
              border: 0
         }
 
@@ -8,7 +8,7 @@
             text-decoration: none
         }
         .sub_news{
-            width: 100%;
+            width: 183%;
             border-bottom: 1px #999;
             color: #666;
             font-size: 12px;
@@ -26,13 +26,14 @@
             font-weight:bold;
             line-height: 20px;
             vertical-align: top;
+         
         }
 
         .sub_news td{
-            padding: 8px 0 9px;
+            padding: 8px 10px 9px;
             border-bottom : solid 1px #d2d2d2;
-            text-align: center;
             line-height:18px;
+            
         }
         .sub_news .date,.sub_news .views{
             padding: 0;
@@ -54,76 +55,39 @@
            /* border: 1px solid red;*/
             width: 1024px;
         }
-        .sub_news tbody tr:hover .title{
-            text-decoration: underline;
-        }
-        .sub_news tbody tr:hover{
-        background-color : #f1f1f4; 
-        cursor: pointer;  
-        }
-       #search,#searchVal{
+        .button{
+           
             border: 1px solid #999;
             width: 50px;
             text-align: center;
             color: #666;
             font-size: 12px;
-            padding: 5px 0 6px;
-            border-radius: 3px;
-            margin-top: 12px;
-            position: relative;
-        }
-
-         #search:hover{
-            background-color :#d2d2d2;
-            cursor: pointer; 
-         }
-
-         #write:hover{
-            background-color :#d2d2d2;
-            cursor: pointer; 
-         }
-
-         #write{
-            float: right;
-            border: 1px solid #999;
-            width: 50px;
-            text-align: center;
-            color: #666;
-            font-size: 12px;
-            padding: 5px 0 6px;
+            padding: 7px 10px 6px;
             border-radius: 3px;
             margin-bottom:  12px;
-            margin-top: 7px;  
+            margin: 5px;
          }
 
-         #searchVal{
-            border: 1px solid #999;
-            width: 200px;
-            text-align: center;
-            color: #666;
-            font-size: 12px;
-            padding: 5px 0 6px;
-            border-radius: 3px;
-           
-         }
+          .button:hover{
+              cursor: pointer;
+          }
+          
 
-         #searchOpt{
-            border: 1px solid #999;
-            width: 60px;
-            text-align: center;
-            color: #666;
-            font-size: 12px;
-            padding: 5px 0 6px;
-            border-radius: 3px;
-            margin-top: 12px;  
-         }
          tr .best{
             background-color :#d2d2d2;
 
          }
-        #search{
-            width: 50px;
-            position: absolute;
-            left: 286px;
-            top: 299px;
+
+        #submit{
+          background-color: #999;
+          color: white;  
+        }
+
+        #cancel,#submit{
+            margin-top: 10px;
+            float: right;
+        }
+        #goList{
+            margin-top: 10px;
+            float: left;
         }
