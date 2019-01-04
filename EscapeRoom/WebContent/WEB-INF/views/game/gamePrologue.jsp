@@ -44,7 +44,6 @@ window.onload=function(){
 			type: "get",
 			dataType: "json",
 			success: function(data){
-				console.log(data);
 				target.removeAttr("style");
 				$("#prologue").find("img").attr("src", data.fileName);
 				target.text(data.content);
