@@ -12,4 +12,13 @@
     <filter-name>EncodeFilter</filter-name>
     <url-pattern>/*</url-pattern>
   </filter-mapping>
+  <description>-----jsp연결-----</description>
+  <servlet>
+    <servlet-name>MemberLoginServlet</servlet-name>
+    <jsp-file>/WEB-INF/views/member/login.jsp</jsp-file>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>MemberLoginServlet</servlet-name>
+    <url-pattern>/member/login</url-pattern>
+  </servlet-mapping>
 </web-app>

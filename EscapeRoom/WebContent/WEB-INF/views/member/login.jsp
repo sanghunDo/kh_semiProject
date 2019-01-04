@@ -128,7 +128,7 @@ div#logo{
 <!-- 로그인 -->
 <div id="logo">Escape, if you can.</div>
 <div class="login-container">
-	<form action="<%=request.getContextPath()%>/member/login" method="post" id="loginFrm">
+	<form action="<%=request.getContextPath()%>/member/loginEnd" method="post" id="loginFrm">
 		<table>
 			<tr><td><input type="text" name="userId" id="userId"
 				value="<%=userid %>" placeholder="아이디를 입력하세요." /></td></tr>

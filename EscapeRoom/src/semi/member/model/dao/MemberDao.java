@@ -72,7 +72,7 @@ public class MemberDao {
 
 	// 회원정보보기
 	public Member selectOne(Connection conn, String userid) {
-		Member m = null;
+		Member loggedInMember = null;
 
 		// DB로 SQL문 요청하기 위해 객체 생성
 		PreparedStatement pstmt = null;
@@ -94,23 +94,24 @@ public class MemberDao {
 			
 			// 3. 결과 m에 담기
 			while (rset.next()) { // 다음 행이 있다면 실행
-				m = new Member();
-				m.setUserid(rset.getString("userid"));
-				m.setUserpassword(rset.getString("userpassword"));
-				m.setUseremail(rset.getString("useremail"));
-				m.setUserprofileoriginalfile(rset.getString("userprofileoriginalfile"));
-				m.setUserprofilerenamedfile(rset.getString("userprofilerenamedfile"));
-				m.setEnrolldate(rset.getDate("enrolldate"));
+				loggedInMember = new Member();
+				loggedInMember.setUserid(rset.getString("userid"));
+				loggedInMember.setUserpassword(rset.getString("userpassword"));
+				loggedInMember.setUseremail(rset.getString("useremail"));
+				loggedInMember.setUserprofileoriginalfile(rset.getString("userprofileoriginalfile"));
+				loggedInMember.setUserprofilerenamedfile(rset.getString("userprofilerenamedfile"));
+				loggedInMember.setEnrolldate(rset.getDate("enrolldate"));
 
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
+			// 자원반납
 			close(rset);
 			close(pstmt);
 		}
 
-		return m;
+		return loggedInMember;
 	}
 
 	// 로그인 기록
@@ -170,6 +171,9 @@ public class MemberDao {
 
 		} catch (SQLException e) {
 			e.printStackTrace();
+		} finally {
+			// 자원반납
+			close(pstmt);
 		}
 
 		return result;

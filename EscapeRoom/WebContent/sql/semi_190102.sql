@@ -288,4 +288,27 @@ INSERT INTO board_free values (seq_board_free_postno.nextVal , '베스트3안에
 INSERT INTO board_free values (seq_board_free_postno.nextVal , '방탈출 너무 어려워요ㅜㅜ', 'qwee' , '안녕하세요 놀러왔어요!' ,null, null, default, 10, 11 , 0 , default);
 INSERT INTO board_free values (seq_board_free_postno.nextVal , '밀크티는 역시 투썸인거같네요', 'ljk' , '안녕하세요 놀러왔어요!' ,null, null, default, 10, 11 , 0 , default);
 
+create table game_scenario(
+    scenario varchar2(1000) not null
+);
+
+select * from game_scenario;
+
+insert into game_scenario values('..');
+insert into game_scenario values('....');
+insert into game_scenario values('.......?!');
+insert into game_scenario values('너....?');
+insert into game_scenario values('그래. 이렇게 다시봐도 꼴 보기 싫은 얼굴이구나.');
+insert into game_scenario values('생각은 나나보네.');
+insert into game_scenario values('얼굴이 말이 아니네, 그런표정 짓고 있는 거 보니까');
+insert into game_scenario values('그래도 너 때문에 망가져사는 나에 비할건 못돼.');
+insert into game_scenario values('물론 널 갈기갈기 찢어놓고 싶은 마음이 굴뚝같지만');
+insert into game_scenario values('그리고 난 너를 죽일만큼 그렇게 간도 크지못해.');
+insert into game_scenario values('네가 이 버튼을 누르고 이 방을 나가면');
+insert into game_scenario values('조금 뒤엔 경찰차와 구급차가 올거야');
+insert into game_scenario values('그리고 그 사람들이 도착할 즈음엔 난 이 세상 사람이 아니겠지.');
+insert into game_scenario values('방에 갇혀있는 동안 뭐라도 느꼈길 바래.');
+insert into game_scenario values('내가 너한테');
+insert into game_scenario values('마지막으로');
+insert into game_scenario values('남길...말은');
 commit;

@@ -14,30 +14,6 @@ window.onload=function(){
 	window.resizeTo(1024,768);
 }
 </script>
-<style>
-div#prologue{
-	position: absolute;
-	width: 1024px;
-	height: 768px;
-	background: white;
-	top: 0;
-	display: none;
-}
-div#prologue img{
-	position: relative;
-	width: 100%;
-	height: 100%;
-}
-div#prologue div#msgBox{
-	position: relative;
-	width: 90%;
-	height: 30%;
-	margin: 0 auto;
-	top: 50%;
-	border: 2px solid gray;
-	background: lightgray;
-}
-</style>
 </head>
 <body>
 <div id="warning">
@@ -50,13 +26,30 @@ div#prologue div#msgBox{
 <div id="prologue">
 	<img src="" alt="" />
 	<div id="msgBox">
-		
+		<div><h2></h2></div>
 	</div>
 </div>
 <script>
 	setTimeout(function(){
 		$("#prologue").fadeIn(1000);
 	}, 5000);
+	
+	$("#prologue").on('click', {cnt:0} ,function(e){
+		var cnt = e.data.cnt++;
+		var target = $("#prologue").find("h2");
+		$.ajax({
+			url:"<%=request.getContextPath()%>/game/prologue",
+			type: "get",
+			dataType: "json",
+			success: function(data){
+				target.removeAttr("style");
+				target.text(data[cnt]);
+				target.parent().css("width",target.outerWidth());
+				var length = data[cnt].length;
+				target.attr("style", "animation:typing "+(length/40)+"s steps("+length+", end)");
+			}
+		});
+	});
 </script>
 </body>
 </html>

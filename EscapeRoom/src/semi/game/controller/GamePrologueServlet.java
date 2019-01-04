@@ -1,33 +1,30 @@
-package semi.member.controller;
+package semi.game.controller;
 
 import java.io.IOException;
+import java.util.List;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-/**
- * Servlet implementation class MemberLoginServlet
- */
-@WebServlet("/member/login")
-public class MemberLoginServlet extends HttpServlet {
-	private static final long serialVersionUID = 1L;
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public MemberLoginServlet() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
+import com.google.gson.Gson;
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
+import semi.game.model.service.GameService;
+
+/**
+ * Servlet implementation class GamePrologueServlet
+ */
+@WebServlet("/game/prologue")
+public class GamePrologueServlet extends HttpServlet {
+	private static final long serialVersionUID = 1L;
+
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.getRequestDispatcher("/WEB-INF/views/member/login.jsp")
-		   	   .forward(request, response);
+		List<String> scenario = new GameService().getPrologueScenario();
+		
+		response.setContentType("application/json; charset=utf-8");
+		new Gson().toJson(scenario, response.getWriter());
 	}
 
 	/**
