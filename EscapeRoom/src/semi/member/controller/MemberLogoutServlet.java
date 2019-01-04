@@ -37,7 +37,7 @@ public class MemberLogoutServlet extends HttpServlet {
 		}
 		
 		// 페이지 리다이렉트
-		response.sendRedirect(request.getContextPath());
+		response.sendRedirect(request.getContextPath() + "/main");
 	}
 
 	/**

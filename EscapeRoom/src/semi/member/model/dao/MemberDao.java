@@ -46,9 +46,9 @@ public class MemberDao {
 		try {
 			// 1. Statement객체 생성 및 미완성쿼리문 완성
 			pstmt = conn.prepareStatement(query);
-			pstmt.setString(1, m.getUserid());
-			pstmt.setString(2, m.getUserpassword());
-			pstmt.setString(3, m.getUserid());
+			pstmt.setString(1, m.getUserId());
+			pstmt.setString(2, m.getUserPassword());
+			pstmt.setString(3, m.getUserId());
 
 			// 2. 쿼리문 실행 : DQL(SELECT) 이므로 excuteQuery()
 			rset = pstmt.executeQuery();
@@ -71,7 +71,7 @@ public class MemberDao {
 	}
 
 	// 회원정보보기
-	public Member selectOne(Connection conn, String userid) {
+	public Member selectOne(Connection conn, String userId) {
 		Member loggedInMember = null;
 
 		// DB로 SQL문 요청하기 위해 객체 생성
@@ -87,7 +87,7 @@ public class MemberDao {
 			pstmt = conn.prepareStatement(query);
 
 			// 쿼리문 미완성
-			pstmt.setString(1, userid);
+			pstmt.setString(1, userId);
 
 			// 2. 쿼리문 실행 : DQL(SELECT) 이므로 excuteQuery()
 			rset = pstmt.executeQuery();
@@ -95,12 +95,12 @@ public class MemberDao {
 			// 3. 결과 m에 담기
 			while (rset.next()) { // 다음 행이 있다면 실행
 				loggedInMember = new Member();
-				loggedInMember.setUserid(rset.getString("userid"));
-				loggedInMember.setUserpassword(rset.getString("userpassword"));
-				loggedInMember.setUseremail(rset.getString("useremail"));
-				loggedInMember.setUserprofileoriginalfile(rset.getString("userprofileoriginalfile"));
-				loggedInMember.setUserprofilerenamedfile(rset.getString("userprofilerenamedfile"));
-				loggedInMember.setEnrolldate(rset.getDate("enrolldate"));
+				loggedInMember.setUserId(rset.getString("userid"));
+				loggedInMember.setUserPassword(rset.getString("userpassword"));
+				loggedInMember.setUserEmail(rset.getString("useremail"));
+				loggedInMember.setUserProfileOriginalFile(rset.getString("userprofileoriginalfile"));
+				loggedInMember.setUserProfileRenamedFile(rset.getString("userprofilerenamedfile"));
+				loggedInMember.setEnrollDate(rset.getDate("enrolldate"));
 
 			}
 		} catch (SQLException e) {
@@ -115,7 +115,7 @@ public class MemberDao {
 	}
 
 	// 로그인 기록
-	public int insertMemberLogger(Connection conn, String userid, String status, String ip) {
+	public int insertMemberLogger(Connection conn, String userId, String status, String ip) {
 		int result = 0;
 
 		// DB로 SQL문 요청하기 위해 객체 생성
@@ -128,7 +128,7 @@ public class MemberDao {
 			pstmt = conn.prepareStatement(query);
 
 			// 쿼리문 미완성
-			pstmt.setString(1, userid);
+			pstmt.setString(1, userId);
 			pstmt.setString(2, status);
 			pstmt.setString(3, ip);
 
@@ -159,11 +159,11 @@ public class MemberDao {
 			pstmt = conn.prepareStatement(query);
 
 			// 쿼리문 미완성
-			pstmt.setString(1, member.getUserid());
-			pstmt.setString(2, member.getUserpassword());
-			pstmt.setString(3, member.getUseremail());
-			pstmt.setString(4, member.getUserprofileoriginalfile());
-			pstmt.setString(5, member.getUserprofilerenamedfile());
+			pstmt.setString(1, member.getUserId());
+			pstmt.setString(2, member.getUserPassword());
+			pstmt.setString(3, member.getUserEmail());
+			pstmt.setString(4, member.getUserProfileOriginalFile());
+			pstmt.setString(5, member.getUserProfileRenamedFile());
 
 			// 2. 쿼리문 실행 : 완성된 쿼리를 가지고 있는 pstmt실행(파라미터 없음)
 			// DML : INSERT, UPDATE, DELETE => excuteUpdate()
@@ -191,10 +191,10 @@ public class MemberDao {
 			pstmt = conn.prepareStatement(query);
 
 			// 쿼리문 미완성
-			pstmt.setString(1, member.getUseremail());
-			pstmt.setString(2, member.getUserprofileoriginalfile());
-			pstmt.setString(3, member.getUserprofilerenamedfile());
-			pstmt.setString(4, member.getUserid());
+			pstmt.setString(1, member.getUserEmail());
+			pstmt.setString(2, member.getUserProfileOriginalFile());
+			pstmt.setString(3, member.getUserProfileRenamedFile());
+			pstmt.setString(4, member.getUserId());
 
 			// 2. 쿼리문 실행 : 완성된 쿼리를 가지고 있는 pstmt실행(파라미터 없음)
 			// DML : INSERT, UPDATE, DELETE => excuteUpdate()
@@ -207,7 +207,7 @@ public class MemberDao {
 		return result;
 	}
 
-	public int deleteMember(Connection conn, String userid) {
+	public int deleteMember(Connection conn, String userId) {
 		int result = 0;
 		
 		// DB로 SQL문 요청하기 위해 객체 생성
@@ -220,7 +220,7 @@ public class MemberDao {
 			pstmt = conn.prepareStatement(query);
 			
 			//쿼리문 미완성
-			pstmt.setString(1, userid);
+			pstmt.setString(1, userId);
 			
 			// 2. 쿼리문 실행 : 완성된 쿼리를 가지고 있는 pstmt실행(파라미터 없음)
 			// DML : INSERT, UPDATE, DELETE => excuteUpdate()
@@ -244,8 +244,8 @@ public class MemberDao {
 			pstmt = conn.prepareStatement(query);
 			
 			// 미완성된 쿼리문
-			pstmt.setString(1, m.getUserpassword());
-			pstmt.setString(2, m.getUserid());
+			pstmt.setString(1, m.getUserPassword());
+			pstmt.setString(2, m.getUserId());
 			
 			// 2. 쿼리문 실행 : 완성된 쿼리를 가지고 있는 pstmt실행(파라미터 없음)
 			// DML : INSERT, UPDATE, DELETE => excuteUpdate()

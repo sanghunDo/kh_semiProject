@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.google.gson.Gson;
 
 import semi.game.model.service.GameService;
+import semi.game.model.vo.PrologueObj;
 
 /**
  * Servlet implementation class GamePrologueServlet
@@ -21,10 +22,11 @@ public class GamePrologueServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		List<String> scenario = new GameService().getPrologueScenario();
+		List<PrologueObj> scenario = new GameService().getPrologueScenario();
+		int index = Integer.parseInt(request.getParameter("index"));
 		
 		response.setContentType("application/json; charset=utf-8");
-		new Gson().toJson(scenario, response.getWriter());
+		new Gson().toJson(scenario.get(index), response.getWriter());
 	}
 
 	/**
