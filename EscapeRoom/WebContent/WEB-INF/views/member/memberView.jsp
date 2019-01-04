@@ -5,11 +5,11 @@
 <%
 	/* return타입이 Object이기때문에 형변환 필수 */
 	Member m = (Member) request.getAttribute("member");
-	String userid_ = m.getUserid(); // header.jsp에서 memberId 변수명을 이미 사용중이므로 _ 추가
-	String userpassword = m.getUserpassword();
-	String useremail = m.getUseremail()!=null?m.getUseremail():"";
-	String userprofileoriginalfile = m.getUserprofileoriginalfile()!=null?m.getUserprofileoriginalfile():"";	
-	String userprofilerenamedfile = m.getUserprofilerenamedfile()!=null?m.getUserprofilerenamedfile():"";
+	String userId_ = m.getUserId(); // header.jsp에서 memberId 변수명을 이미 사용중이므로 _ 추가
+	String userPassword = m.getUserPassword();
+	String userEmail = m.getUserEmail()!=null?m.getUserEmail():"";
+	String userProfileOriginalFile = m.getUserProfileOriginalFile()!=null?m.getUserProfileOriginalFile():"";	
+	String userProfileRenamedFile = m.getUserProfileRenamedFile()!=null?m.getUserProfileRenamedFile():"";
 %>
 <script>
 function deleteMember(){
@@ -24,7 +24,7 @@ function deleteMember(){
 
 // 비밀번호 변경 팝업 요청
 function updatePassword(){
-	var url = "<%=request.getContextPath() %>/member/updatePassword?userid=<%=userid_%>";
+	var url = "<%=request.getContextPath() %>/member/updatePassword?userId=<%=userId_%>";
 	// 팝업창 이름
 	var title = "updatePassword";
 	var status = "left=500px, top=200px, width=400px, height=210px";
@@ -34,7 +34,7 @@ function updatePassword(){
 
 // 프로필 사진 변경
 $(function(){
-    $("#userprofile").on('change', function(){
+    $("#userProfile").on('change', function(){
         readURL(this);
     });
 });
@@ -51,7 +51,7 @@ function readURL(input){
    }
 }
 </script>
-<section id="enroll-container">
+<section id="enroll-Container">
 	<h2>회원 정보 보기</h2>
 	<form action="<%=request.getContextPath() %>/member/memberUpdateEnd" 
 		  method="post"
@@ -62,9 +62,9 @@ function readURL(input){
 		  		<th>아이디</th>
 		  		<td>
 		  			<input type="text" 
-		  				   name="userid" 
-		  				   id="userid_"
-		  				   value="<%=userid_ %>"
+		  				   name="userId" 
+		  				   id="userId_"
+		  				   value="<%=userId_ %>"
 		  				   required
 		  				   readonly />
 		  		</td>
@@ -73,19 +73,19 @@ function readURL(input){
 		  		<th>이메일</th>
 		  		<td>
 		  			<input type="email" 
-		  				   name="useremail" 
-		  				   id="useremail"
-		  				   value="<%=useremail %>" />
+		  				   name="userEmail" 
+		  				   id="userEmail"
+		  				   value="<%=userEmail %>" />
 		  		</td>
 		  	</tr>
 			<tr>
 				<th>프로필 사진</th>
 					<td>
-						<input type="file" name="userprofile" id="userprofile">
+						<input type="file" name="userProfile" id="userProfile">
 					</td>
 				</tr>
 			<tr>
-				<td colspan="6" id="profile_td">
+				<td colspan="6" id="profile_Td">
 					<img src="" alt="" id="profilePre">
 				</td>
 			</tr>

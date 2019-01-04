@@ -29,18 +29,18 @@ public class CheckIdDuplicateServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// 1. 파라미터 핸들링
-		String userid = request.getParameter("userid");
-		System.out.println("유저아이디 가져왔니?"+userid);
+		String userId = request.getParameter("userId");
+		System.out.println("유저아이디 가져왔니?"+userId);
 		
 		// 2. 비즈니스로직처리
-		Member m = new MemberService().selectOne(userid);
+		Member m = new MemberService().selectOne(userId);
 		
 		// 사용가능여부를 isUsable변수에 담기
 		boolean isUsable = m == null?true:false;
 		
 		// view단 jsp에서 사용할 데이터를 request의 속성값으로 보관
 		request.setAttribute("isUsable", isUsable);
-		request.setAttribute("userid", userid);
+		request.setAttribute("userid", userId);
 		
 		// 3. view단 처리
 		// checkIdDuplicate.jsp

@@ -30,11 +30,11 @@ public class MemberViewServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// 1. 파라미터 핸들링
-		String userid = request.getParameter("userid");
+		String userId = request.getParameter("userId");
 		
 		// 2. 비즈니스로직
 		// 유저 아이디 값을 가지고 회원정보 한 명의 것을 가져온다.
-		Member m = new MemberService().selectOne(userid);
+		Member m = new MemberService().selectOne(userId);
 		System.out.println("member@MemberViewServlet = " + m);
 		
 		// 3. view단 처리
