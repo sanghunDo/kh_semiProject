@@ -8,16 +8,11 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>You Can't Escape.</title>
+<title>You Can't Escape..</title>
+<link href="https://fonts.googleapis.com/css?family=Do+Hyeon" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css?family=Amatic+SC" rel="stylesheet">
-<link href="https://fonts.googleapis.com/css?family=Roboto+Slab" rel="stylesheet">
 <link rel="stylesheet" href="<%=request.getContextPath() %>/css/common/header.css" />
 <script src="<%=request.getContextPath()%>/js/jquery-3.3.1.js"></script>
-<script>
-$(function(){
-	$("body, html").css({"width": window.innerWidth, "min-height":window.innerHeight});
-})
-</script>
 </head>
 <body>
 	<header>
@@ -48,10 +43,8 @@ $(function(){
 	<script>
 		$(".enter-game").click(function(){
 			var url = "<%=request.getContextPath()%>/game/gameStart?userId=<%=loggedInMember!=null?loggedInMember.getUserid():"guest"%>";
-			var title = "Can you Escape?";
- 			var status = "width="+$(window).width()+", height="+$(window).height();
-			console.log(screen.width, screen.height);
-			console.log($(window).width(), $(window).height());
-			open(url, title, status);
+ 			//var status = "width=1024px, height=662px, fullscreen=yes";
+ 			var status = "width=1024px, height=678px";
+			open(url, "", status);
 		});
 	</script>
