@@ -1,6 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ include file="/WEB-INF/views/common/header.jsp"%>
 <%
 	//전송된 쿠키확인
 	boolean saveId = false;
@@ -19,6 +18,14 @@
 	}
 
 %>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>You Can't Escape..</title>
+<link href="https://fonts.googleapis.com/css?family=Amatic+SC" rel="stylesheet">
+<link rel="stylesheet" href="<%=request.getContextPath() %>/css/member/login.css" />
+<script src="<%=request.getContextPath()%>/js/jquery-3.3.1.js"></script>
 <script>
 function loginValidate(){
 	if($("#userid").val().trim().length == 0){
@@ -34,46 +41,25 @@ function loginValidate(){
 		return true;
 }
 </script>
+</head>
+<body>
 <!-- 로그인 -->
+<div id="logo">Escape, if you can.</div>
 <div class="login-container">
 	<form action="<%=request.getContextPath()%>/member/loginEnd" method="post" id="loginFrm">
 		<table>
-			<tr>
-				<td>
-					<input type="text" 
-						   name="userid" id="userid"
-						   value="<%=userid %>" 
-						   placeholder="아이디" />
-				</td>
-			</tr>
-			<tr>
-				<td>
-					<input type="password"
-						   name="userpassword"
-						   id="userpassword"
-						   placeholder="비밀번호" />
-				</td>
-				<td>
-					<input type="submit"
-						   value="로그인"
-						   onclick="return loginValidate();" />
-				</td>
-			</tr>
-			<tr>
-				<td colspan="2">
-					<input type="checkbox"
-						   name="saveId"
-						   id="saveId"
-						   <%=saveId?"checked":"" %> />
-					<label for="saveId">
-					아이디저장
-					</label>
-					&nbsp;&nbsp;
-					<input type="button" 
-						   value="회원가입"
-						   onclick="location.href='<%=request.getContextPath() %>/member/memberRegister'" />
-				</td>
-			</tr>
+			<tr><td><input type="text" name="userId" id="userId"
+				value="<%=userid %>" placeholder="아이디를 입력하세요." /></td></tr>
+			<tr><td><input type="password" name="userPassword" id="userPassword"
+				placeholder="비밀번호를 입력하세요." /></td></tr>
+			<tr><td><input type="checkbox" name="saveId" id="saveId" <%=saveId?"checked":"" %> />
+				<label for="saveId" id="label-saveId">SAVE ID</label></td></tr>			
+			<tr><td><input type="submit" value="LOGIN" 
+				id="submit-Btn" onclick="return loginValidate();" /></td></tr>
+			<tr><td><input type="button" value="JOIN US"
+				id="register-Btn" onclick="location.href='<%=request.getContextPath() %>/member/memberRegister'" /></td></tr>
 		</table>
 	</form>
 </div>
+</body>
+</html>
