@@ -7,11 +7,12 @@ import java.sql.Connection;
 import java.util.List;
 
 import semi.game.model.dao.GameDao;
+import semi.game.model.vo.PrologueObj;
 public class GameService {
 
-	public List<String> getPrologueScenario() {
+	public List<PrologueObj> getPrologueScenario() {
 		Connection conn = getConnection();
-		List<String> scenario = new GameDao().getPrologueScenario(conn); 
+		List<PrologueObj> scenario = new GameDao().getPrologueScenario(conn); 
 		close(conn);
 		return scenario;
 	}

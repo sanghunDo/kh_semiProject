@@ -1,5 +1,7 @@
 package semi.game.model.dao;
 
+import static semi.common.JDBCTemplate.close;
+
 import java.io.FileReader;
 import java.io.IOException;
 import java.sql.Connection;
@@ -9,7 +11,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
-import static semi.common.JDBCTemplate.*;
+
+import semi.game.model.vo.PrologueObj;
 public class GameDao {
 	private Properties prop = new Properties();
 
@@ -21,8 +24,8 @@ public class GameDao {
 			e.printStackTrace();
 		}
 	}
-	public List<String> getPrologueScenario(Connection conn) {
-		List<String> scenario = null;
+	public List<PrologueObj> getPrologueScenario(Connection conn) {
+		List<PrologueObj> scenario = null;
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		String query = prop.getProperty("getPrologueScenario");
@@ -31,7 +34,11 @@ public class GameDao {
 			rset = pstmt.executeQuery();
 			scenario = new ArrayList<>();
 			while(rset.next()) {
-				scenario.add(rset.getString("scenario"));
+				PrologueObj po = new PrologueObj();
+				po.setNo(rset.getInt("no"));
+				po.setContent(rset.getString("content"));
+				po.setFileName(rset.getString("filename")!=null?rset.getString("filename"):"");
+				scenario.add(po);
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
