@@ -14,30 +14,6 @@ window.onload=function(){
 	window.resizeTo(1024,768);
 }
 </script>
-<style>
-div#prologue{
-	position: absolute;
-	width: 1024px;
-	height: 768px;
-	background: white;
-	top: 0;
-	display: none;
-}
-div#prologue img{
-	position: relative;
-	width: 100%;
-	height: 100%;
-}
-div#prologue div#msgBox{
-	position: relative;
-	width: 90%;
-	height: 30%;
-	margin: 0 auto;
-	top: 50%;
-	border: 2px solid gray;
-	background: lightgray;
-}
-</style>
 </head>
 <body>
 <div id="warning">
@@ -50,13 +26,21 @@ div#prologue div#msgBox{
 <div id="prologue">
 	<img src="" alt="" />
 	<div id="msgBox">
-		
+		<div><h2>asgags</h2></div>
 	</div>
 </div>
 <script>
 	setTimeout(function(){
 		$("#prologue").fadeIn(1000);
 	}, 5000);
+	
+	var w = $("#msgBox h2").outerWidth();
+	$("#msgBox div").css("width", w);
+	
+	$("#prologue").click(function(){
+		var length = $(this).find("h2").text().length;
+		$(this).find("h2").css("animation", "typing "+(length/40)+"s steps("+length+", end)");
+	});
 </script>
 </body>
 </html>
