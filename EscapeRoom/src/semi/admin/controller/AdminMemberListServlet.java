@@ -41,7 +41,7 @@ public class AdminMemberListServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// 관리자로 로그인되었는지 확인하기
 		Member loggedInMember = (Member)request.getSession().getAttribute("loggedInMember");
-		if(loggedInMember != null || !"admin".equals(loggedInMember.getMemberId())) {
+		if(loggedInMember != null || !"admin".equals(loggedInMember.getUserid())) {
 			request.setAttribute("msg", "잘못된 경로로 접근하셨습니다.");
 			request.setAttribute("loc", "/");
 			request.getRequestDispatcher("/WEB-INF/views/common/msg.jsp").forward(request, response);
