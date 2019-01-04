@@ -64,6 +64,7 @@ div#msgBox h2{
 	position: relative;
 	display: inline-block;
 	overflow: hidden;
+	white-space: nowrap;
 	margin: 0 0 0 15px;
 }
 @-webkit-keyframes typing {

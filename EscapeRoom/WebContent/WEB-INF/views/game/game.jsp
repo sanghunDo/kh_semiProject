@@ -26,7 +26,7 @@ window.onload=function(){
 <div id="prologue">
 	<img src="" alt="" />
 	<div id="msgBox">
-		<div><h2>asgags</h2></div>
+		<div><h2></h2></div>
 	</div>
 </div>
 <script>
@@ -34,12 +34,21 @@ window.onload=function(){
 		$("#prologue").fadeIn(1000);
 	}, 5000);
 	
-	var w = $("#msgBox h2").outerWidth();
-	$("#msgBox div").css("width", w);
-	
-	$("#prologue").click(function(){
-		var length = $(this).find("h2").text().length;
-		$(this).find("h2").css("animation", "typing "+(length/40)+"s steps("+length+", end)");
+	$("#prologue").on('click', {cnt:0} ,function(e){
+		var cnt = e.data.cnt++;
+		var target = $("#prologue").find("h2");
+		$.ajax({
+			url:"<%=request.getContextPath()%>/game/prologue",
+			type: "get",
+			dataType: "json",
+			success: function(data){
+				target.removeAttr("style");
+				target.text(data[cnt]);
+				target.parent().css("width",target.outerWidth());
+				var length = data[cnt].length;
+				target.attr("style", "animation:typing "+(length/40)+"s steps("+length+", end)");
+			}
+		});
 	});
 </script>
 </body>
