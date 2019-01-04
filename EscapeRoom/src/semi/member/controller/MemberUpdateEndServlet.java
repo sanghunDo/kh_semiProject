@@ -11,16 +11,16 @@ import semi.member.model.service.MemberService;
 import semi.member.model.vo.Member;
 
 /**
- * Servlet implementation class MemberViewServlet
+ * Servlet implementation class MemberUpdateEndServlet
  */
-@WebServlet(name = "MemberViewServlet",  urlPatterns = "/member/memberView")
-public class MemberViewServlet extends HttpServlet {
+@WebServlet("/member/memberUpdateEnd")
+public class MemberUpdateEndServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public MemberViewServlet() {
+    public MemberUpdateEndServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -30,30 +30,31 @@ public class MemberViewServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// 1. 파라미터 핸들링
-		String userId = request.getParameter("userId");
+		String userId = (String)request.getParameter("userId");
+		String userPassword = (String)request.getParameter("userPassword");
+		String userEmail = (String)request.getParameter("userEmail");
+		String userProfileOriginalFile = (String)request.getParameter("userProfileOriginalFile");
+		String userProfileRenamedFile = (String)request.getParameter("userProfileRenamedFile");
 		
-		// 2. 비즈니스로직
-		// 유저 아이디 값을 가지고 회원정보 한 명의 것을 가져온다.
-		Member m = new MemberService().selectOne(userId);
-		System.out.println("member@MemberViewServlet = " + m);
+		Member m = new Member(userId, userPassword, userEmail, userProfileOriginalFile, userProfileRenamedFile, null);
 		
-		// 3. view단 처리
-		// 비정상적인 요청으로 해당회원정보가 없을 경우를 대비
-		String view = "/WEB-INF/views/member/memberView.jsp";
+		int result = new MemberService().updateMember(m);
+		
 		String msg = "";
 		String loc = "/";
-
-		if (m == null) {
-			view = "/WEB-INF/views/common/msg.jsp";
+		String view = "/WEB-INF/views/common/msg.jsp";
+		
+		if(result>0) {
+			msg = "회원정보수정 완료!";
 			loc = "/main";
-			msg = "해당 회원이 존재하지 않습니다.";
 		}
-
-		// request객체에 속성 등록
-		request.setAttribute("member", m); // 회원정보
-		request.setAttribute("msg", msg); // 실패했을 경우만 사용
-		request.setAttribute("loc", loc); // 실패했을 경우만 사용
-
+		else {
+			msg = "회원정보수정 실패!";
+		}
+		
+		request.setAttribute("msg", msg);
+		request.setAttribute("loc", loc);
+		
 		request.getRequestDispatcher(view).forward(request, response);
 	}
 
