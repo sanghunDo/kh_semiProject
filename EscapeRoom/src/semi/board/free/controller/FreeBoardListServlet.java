@@ -33,74 +33,63 @@ public class FreeBoardListServlet extends HttpServlet {
 		try {
 			numPerPage = Integer.parseInt(request.getParameter("numPerPage"));
 		} catch(NumberFormatException e) {
-			numPerPage = 5;
+			numPerPage = 10;
 		}
-		
-		
-		 System.out.printf("[cPage=%s , numPerPage=%s]",cPage, numPerPage);
-		//전체컨텐츠수 구하기
-		//페이지바 지정
-		 
 		 List<FreeBoard> list = new FreeBoardDao().boardSelectAll(cPage, numPerPage);
 		 List<FreeBoard> bestList = new FreeBoardDao().boardSelectBest3();
-		 
-		
+		 System.out.printf("[cPage=%s , numPerPage=%s]",cPage, numPerPage);
+		//전체컨텐츠수 구하기
 		 int totalContent = new FreeBoardDao().BoardCount();
-		 
-		 System.out.println("totalContent"+totalContent);
 		 int totalPage = (int)Math.ceil((double)totalContent/numPerPage);
+		//페이지바 지정
 		 String pageBar = "";
-	      //페이지바 길이
-	      int pageBarSize = 5;
-	      //(공식3) 시작페이지 startPage 번호세팅
-	      //cPage=5, pageBarSize = 5 , startPage-> 1
-	      //cPage=6, pageBarSize = 5 , startPage-> 6
-	      int startPage = ((cPage-1)/pageBarSize)*pageBarSize +1 ;
-	      int endPage = startPage + pageBarSize - 1;
-//	      System.out.printf("[start=%s , end=%s]\n", startPage, endPage);
-	      //페이지증감변수
-	      int pageNo = startPage;
-	      
-	      //[이전]section
-	      if(pageNo == 1) {
-	    	  
-	      }else {
-	    	  pageBar += "<a href='"+request.getContextPath()+"/board/free/freeBoardList?cPage="
-	    			  	+(pageNo-1)+"&numPerPage="
-	    			  	+numPerPage+"'>[이전]</a>";
-	    	  
-	      }
-	      
-	      //[페이지]section
-	      while(pageNo <= endPage && pageNo <= totalPage) { //페이지증감변수가 페이지바끝보다 같거나 작을때 && 페이지증감변수가 천체페이지보다 같거나 작을때 
-	    	  if(cPage == pageNo) {
-	    		  //현재페이지는 클릭할 필요가 없다 //다른페이지는 클리되어야함(else절)
-	    		  pageBar += "<span class='cPage'>"+pageNo+"</span>";
-	    		  
-	    	  }else {
-	    		  pageBar += "<a href='"+request.getContextPath()+"/board/free/freeBoardList?cPage="
-	      			  			+pageNo+"&numPerPage="
-	      			  			+numPerPage+"'>"+pageNo+"</a>";
-	    	  }
-	    	  pageNo++;
-	    	  
-	      }
-	      
-	      //[다음]section
-	      if(pageNo > totalPage) { //증감변수가 전체페이지보다 클때 
-	    	  //113이 끝 빠져나올때 (pageNo <= endPage && pageNo <= totalPage여기서) 114때 나오게 된다.여기가 바로 114다
-	    	  
-	      }else {
-	    	  pageBar += "<a href='"+request.getContextPath()+"/board/free/freeBoardList?cPage="
-			  			+pageNo+"&numPerPage="
-			  			+numPerPage+"'>[다음]</a>";
-	      }
-	      
-		//3.뷰단처리
+		 int pageBarSize = 5;
+		 int startPage = ((cPage-1)/pageBarSize)*pageBarSize +1 ;
+		 int endPage = startPage + pageBarSize - 1;
+		 
+		 int pageNo = startPage;
+		 
+		   if(pageNo == 1) {
+		    	  
+		      }else {
+		    	  pageBar += "<a href='"+request.getContextPath()+"/board/boardList?cPage="
+		    			  	+(pageNo-1)+"&numPerPage="
+		    			  	+numPerPage+"'>[이전]</a>";
+		    	  
+		      }
+		      
+		      //[페이지]section
+		      while(pageNo <= endPage && pageNo <= totalPage) { //페이지증감변수가 페이지바끝보다 같거나 작을때 && 페이지증감변수가 천체페이지보다 같거나 작을때 
+		    	  if(cPage == pageNo) {
+		    		  //현재페이지는 클릭할 필요가 없다 //다른페이지는 클리되어야함(else절)
+		    		  pageBar += "<span class='cPage'>"+pageNo+"</span>";
+		    		  
+		    	  }else {
+		    		  pageBar += "<a href='"+request.getContextPath()+"/board/boardList?cPage="
+		      			  			+pageNo+"&numPerPage="
+		      			  			+numPerPage+"'>"+pageNo+"</a>";
+		    	  }
+		    	  pageNo++;
+		    	  
+		      }
+		      
+		      //[다음]section
+		      if(pageNo > totalPage) { //증감변수가 전체페이지보다 클때 
+		    	  //113이 끝 빠져나올때 (pageNo <= endPage && pageNo <= totalPage여기서) 114때 나오게 된다.여기가 바로 114다
+		    	  
+		      }else {
+		    	  pageBar += "<a href='"+request.getContextPath()+"/board/boardList?cPage="
+				  			+pageNo+"&numPerPage="
+				  			+numPerPage+"'>[다음]</a>";
+		      }
+		      
+		      
+		
 		 request.setAttribute("list", list);
 		 request.setAttribute("bestList", bestList);
-		 request.setAttribute("cPage", cPage);
+
 		 request.setAttribute("pageBar", pageBar);
+		 request.setAttribute("cPage", cPage);
 		 request.setAttribute("numPerPage", numPerPage);
 		 request.getRequestDispatcher("/WEB-INF/views/board/free/freeBoardList.jsp").forward(request, response);
 	}

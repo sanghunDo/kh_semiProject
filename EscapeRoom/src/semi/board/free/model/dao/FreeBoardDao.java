@@ -36,12 +36,13 @@ public class FreeBoardDao {
 	      }
 	   }
 	
+	
 	public List<FreeBoard> boardSelectAll(int cPage, int numPerPage) {
 		List<FreeBoard> list = null;
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
-		String query = " select v.* from (select row_number() over (order by postno desc) as rnum , v.* from board_free v) v where rnum between ? and ?";
+		String query = "select * from ( select rownum as rnum, v.* from( select v.*, (select count(*) from board_comment_free where ref = v.postNo) as board_comment_cnt from board_free v  order by postdate desc) v ) v where rnum between ? and ?";
 		
 		//1. 클래스등록확인
 		try {
@@ -71,7 +72,8 @@ public class FreeBoardDao {
 				fb.setPostLike(rset.getInt("postlike"));
 				fb.setPostDislike(rset.getInt("postdislike"));
 				fb.setPostDate(rset.getDate("postdate"));
-				fb.setPostReadCount(rset.getInt("postreadcount"));
+				//fb.setPostReadCount(rset.getInt("postreadcount"));
+				
 				
 				list.add(fb);
 				
@@ -167,7 +169,7 @@ public class FreeBoardDao {
 				fb.setPostLike(rset.getInt("postlike"));
 				fb.setPostDislike(rset.getInt("postdislike"));
 				fb.setPostDate(rset.getDate("postdate"));
-				fb.setPostReadCount(rset.getInt("postreadcount"));
+				//fb.setPostReadCount(rset.getInt("postreadcount"));
 				
 				bestList.add(fb);
 				
@@ -221,7 +223,7 @@ public class FreeBoardDao {
 				fb.setPostLike(rset.getInt("postlike"));
 				fb.setPostDislike(rset.getInt("postdislike"));
 				fb.setPostDate(rset.getDate("postdate"));
-				fb.setPostReadCount(rset.getInt("postreadcount"));	
+				//fb.setPostReadCount(rset.getInt("postreadcount"));	
 			}
 			
 			} catch (ClassNotFoundException e) {
@@ -267,6 +269,8 @@ public class FreeBoardDao {
 			
 			result = pstmt.executeUpdate();
 			
+			if(result >0) commit(conn);
+		      else rollback(conn);
 			
 			} catch (ClassNotFoundException e) {
 				e.printStackTrace();
@@ -317,7 +321,7 @@ public class FreeBoardDao {
 				fb.setPostLike(rset.getInt("postlike"));
 				fb.setPostDislike(rset.getInt("postdislike"));
 				fb.setPostDate(rset.getDate("postdate"));
-				fb.setPostReadCount(rset.getInt("postreadcount"));	
+				//fb.setPostReadCount(rset.getInt("postreadcount"));	
 			}
 
 			} catch (ClassNotFoundException e) {
@@ -433,7 +437,7 @@ public class FreeBoardDao {
 		PreparedStatement pstmt = null;
 		Connection conn = null;
 		ResultSet rset = null;
-		String query = "select * from (select * from board_comment_free where ref=? order by commentlike desc) where ROWNUM <4";
+		String query = "select * from (select * from board_comment_free where ref=? order by commentlike desc) where ROWNUM <4 and commentlike>0";
 		
 		try {
 			Class.forName("oracle.jdbc.driver.OracleDriver");
@@ -502,6 +506,8 @@ public class FreeBoardDao {
 		
 			result = pstmt.executeUpdate();
 			
+			if(result >0) commit(conn);
+		      else rollback(conn);
 			
 			} catch (ClassNotFoundException e) {
 				e.printStackTrace();
@@ -521,6 +527,91 @@ public class FreeBoardDao {
 		
 		return result;
 	}
+
+	public int commentUpdate(int commentNo, String commentUpdate) {
+		int result = 0;
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		String query = "UPDATE board_comment_free SET commentcontent = ? where commentno = ?";
+		
+		try {
+			Class.forName("oracle.jdbc.driver.OracleDriver");
+			conn = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe", 
+					"semi", //아이디 
+					"semi");//비번
+			
+			
+			pstmt = conn.prepareStatement(query);
+			
+			pstmt.setString(1,commentUpdate);
+			pstmt.setInt(2,commentNo);
+			
+			result = pstmt.executeUpdate();
+			
+			if(result >0) commit(conn);
+		      else rollback(conn);
+			
+
+			} catch (ClassNotFoundException e) {
+				e.printStackTrace();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} finally {
+				try {
+				
+					pstmt.close();
+					conn.close();
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				
+			}
+		
+		
+		return result;
+	}
+
+	public int deleteComment(int commentNo) {
+		int result = 0;
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		String query = "delete from board_comment_free where commentno=?";
+		try {
+			Class.forName("oracle.jdbc.driver.OracleDriver");
+			conn = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe", 
+					"semi", //아이디 
+					"semi");//비번
+			
+			
+			pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1, commentNo);
+			
+			
+			result = pstmt.executeUpdate();	
+			
+			if(result >0) commit(conn);
+		      else rollback(conn);
+			
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				pstmt.close();
+				conn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+			
+		}
+	
+		return result;
+	}
+
+	
+	
 	
 	
 	
