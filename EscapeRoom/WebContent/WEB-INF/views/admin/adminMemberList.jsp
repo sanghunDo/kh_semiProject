@@ -4,8 +4,7 @@
 <%@ page import="semi.admin.controller.*" %>
 <%@ page import="semi.member.model.vo.Member" %>
 <% 
-	List<Member> list = (List<Member>)request.getAttribute("list");
-	System.out.println("list@memberList.jsp=" + list);
+	Member m = (Member)request.getAttribute("member");
 
 	int cPage = (int)request.getAttribute("cPage");
 	int numPerPage = (int)request.getAttribute("numPerPage");
@@ -18,7 +17,6 @@ $(function(){
 	
 });
 </script>
-<body>
 <h2>관리자 전용 게시판</h2>
 <h3>전체 회원 정보</h3>
 <table id="memberList">
@@ -49,5 +47,4 @@ $(function(){
 	    	<form action="<%=request.getContextPath()%>/admin/adminMemberSearch"></form>
 	    </div>
     </div>
-</body>
-</html>
+<%@ include file="/WEB-INF/views/common/footer.jsp" %>

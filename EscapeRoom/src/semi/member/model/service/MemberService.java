@@ -33,19 +33,19 @@ public class MemberService {
 
 	// 회원정보보기
 	public Member selectOne(String userid) {
-		Member m = null;
+		Member loggedInMember = null;
 
 		// DB와 연결
 		Connection conn = getConnection();
 
-		m = new MemberDao().selectOne(conn, userid);
+		loggedInMember = new MemberDao().selectOne(conn, userid);
 
 		// DQL(SELECT)이므로 트랜잭션 처리 하지 않는다.
 
 		// 자원반납
 		close(conn);
 
-		return m;
+		return loggedInMember;
 	}
 
 	// 로그인 기록

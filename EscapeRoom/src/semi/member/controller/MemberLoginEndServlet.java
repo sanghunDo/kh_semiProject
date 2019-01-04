@@ -110,7 +110,8 @@ public class MemberLoginEndServlet extends HttpServlet {
 			session.setAttribute("loggedInMember", loggedInMember);
 			
 			// 페이지 리다이렉트 : Client에게 돌려보낸 후, 해당 URL로 다시 요청하도록 함
-			response.sendRedirect(request.getContextPath());
+			String root = request.getContextPath();
+			response.sendRedirect(root + "/main");
 			
 		} else {
 			// 2. 로그인 실패한 경우

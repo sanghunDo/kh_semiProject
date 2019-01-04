@@ -8,9 +8,9 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>You Can't Escape.</title>
-<link href="https://fonts.googleapis.com/css?family=Amatic+SC" rel="stylesheet">
+<title>You Can't Escape..</title>
 <link href="https://fonts.googleapis.com/css?family=Roboto+Slab" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Amatic+SC" rel="stylesheet">
 <link rel="stylesheet" href="<%=request.getContextPath() %>/css/common/header.css" />
 <script src="<%=request.getContextPath()%>/js/jquery-3.3.1.js"></script>
 </head>
@@ -44,7 +44,6 @@
 		$(".enter-game").click(function(){
 			//게임화면 팝업
 			var url = "<%=request.getContextPath()%>/game/gameStart?userId=<%=loggedInMember!=null?loggedInMember.getUserid():"guest"%>";
- 			//var status = "width=1024px, height=662px, fullscreen=yes";
  			var status = "width=1024px, height=678px";
 			open(url, "", status);
 		});

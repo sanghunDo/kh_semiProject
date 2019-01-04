@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import semi.admin.model.vo.AdminService;
+import semi.admin.model.service.AdminService;
 import semi.member.model.vo.Member;
 
 /**

@@ -1,4 +1,4 @@
-package semi.admin.model.vo;
+package semi.admin.model.service;
 
 import java.util.ArrayList;
 import java.util.List;
