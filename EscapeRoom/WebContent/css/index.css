@@ -1,9 +1,9 @@
 @charset "UTF-8";
 body, html{
-	width: 1024px; 
-	min-height: 723px;
-	margin: 0 auto;
-	padding: 0;
+	width: 1022px;
+	min-height: 626px;
+	margin: 0px auto;
+	padding: 0px;
 	background: black;
 }
 body{display:none;}

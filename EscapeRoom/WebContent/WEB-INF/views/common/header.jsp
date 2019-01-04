@@ -9,7 +9,7 @@
 <head>
 <meta charset="UTF-8">
 <title>You Can't Escape..</title>
-<link href="https://fonts.googleapis.com/css?family=Do+Hyeon" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Roboto+Slab" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css?family=Amatic+SC" rel="stylesheet">
 <link rel="stylesheet" href="<%=request.getContextPath() %>/css/common/header.css" />
 <script src="<%=request.getContextPath()%>/js/jquery-3.3.1.js"></script>
@@ -19,10 +19,10 @@
 		<div id="top">
 			<div id="myMenu">
 			<%if(loggedInMember == null) {%>
-				<a href="">LOGIN</a>
+                <a href="<%=request.getContextPath()%>/member/login">LOGIN</a>
 			<%}else{ %>
-				<a href="#">MY PAGE</a>
-				<a href="#">LOGOUT</a>
+                <a href="<%=request.getContextPath()%>/member/memberView?userId=<%=loggedInMember.getUserId()%>">MY PAGE</a>
+                <a href="<%=request.getContextPath()%>/member/logout">LOGOUT</a>
 			<%} %>
 			</div>
 		</div>
@@ -37,6 +37,14 @@
 			</ul>
 		</div>
 		<div id="game-start">
-			<button class="snip1535">ENTER GAME</button>
+			<button class="enter-game">ENTER GAME</button>
 		</div>
 	</header>
+	<script>
+		$(".enter-game").click(function(){
+			//게임화면 팝업
+			var url = "<%=request.getContextPath()%>/game/gameStart?userId=<%=loggedInMember!=null?loggedInMember.getUserId():"guest"%>";
+ 			var status = "width=1024px, height=678px";
+			open(url, "", status);
+		});
+	</script>

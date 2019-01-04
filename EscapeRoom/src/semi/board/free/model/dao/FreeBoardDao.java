@@ -73,7 +73,7 @@ public class FreeBoardDao {
 				fb.setPostDislike(rset.getInt("postdislike"));
 				fb.setPostDate(rset.getDate("postdate"));
 				fb.setPostReadCount(rset.getInt("postreadcount"));
-				
+				fb.setBoard_comment_cnt(rset.getInt("board_comment_cnt"));
 				
 				list.add(fb);
 				
@@ -143,7 +143,7 @@ public class FreeBoardDao {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
-		String query = "select * from (select * from board_free order by postlike desc) where ROWNUM <4";
+		String query = "select * from ( select rownum as rnum, v.* from( select v.*, (select count(*) from board_comment_free where ref = v.postNo) as board_comment_cnt from board_free v  order by postlike desc) v ) v where ROWNUM <4";
 		
 		//1. 클래스등록확인
 		try {
@@ -170,6 +170,7 @@ public class FreeBoardDao {
 				fb.setPostDislike(rset.getInt("postdislike"));
 				fb.setPostDate(rset.getDate("postdate"));
 				fb.setPostReadCount(rset.getInt("postreadcount"));
+				fb.setBoard_comment_cnt(rset.getInt("board_comment_cnt"));
 				
 				bestList.add(fb);
 				
@@ -199,7 +200,7 @@ public class FreeBoardDao {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
-		String query = "select * from board_free where postno =?";
+		String query = "select * from ( select rownum as rnum, v.* from( select v.*, (select count(*) from board_comment_free where ref = v.postNo) as board_comment_cnt from board_free v  order by postdate desc) v ) v  where postno =?";
 		
 		//1. 클래스등록확인
 		try {
@@ -224,6 +225,7 @@ public class FreeBoardDao {
 				fb.setPostDislike(rset.getInt("postdislike"));
 				fb.setPostDate(rset.getDate("postdate"));
 				fb.setPostReadCount(rset.getInt("postreadcount"));	
+				fb.setBoard_comment_cnt(rset.getInt("board_comment_cnt"));
 			}
 			
 			} catch (ClassNotFoundException e) {

@@ -2,31 +2,25 @@
     pageEncoding="UTF-8"%>
 <%@ page import = "java.util.*,semi.board.free.model.vo.*"  %>
 <%@ include file="/WEB-INF/views/common/header.jsp"%>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <%
 	List<FreeBoard> list = (List<FreeBoard>)request.getAttribute("list");
 	List<FreeBoard> bestList = (List<FreeBoard>)request.getAttribute("bestList");
-	
-	
-    int cPage = (int)request.getAttribute("cPage");
-	int numPerPage =(int)request.getAttribute("numPerPage");
+	int cPage = (int)request.getAttribute("cPage");
+	int numPerPage = (int)request.getAttribute("numPerPage");
 	String pageBar = (String)request.getAttribute("pageBar");
-
-
-%>  
-<link rel="stylesheet" href="<%=request.getContextPath()%>/css/board/free/boardCommunityTable.css" />
+%>
+<link rel="stylesheet" href="<%=request.getContextPath()%>/css/boardCommunityTable.css" />
 <title>자유게시판</title>
-<script>
-function write(){
-	
-}
-
-</script>
-
+</head>
+<body>
 <div class="container">
     <h3>자유게시판</h3>
     <!--new pic-->
     <hr>
-    <div id="write" onclick="write();">글쓰기</div>
+    <div id="write" onclick="write();" style="color:white">글쓰기</div>
     <div class="sort">
         <span>추천순</span>
         <span>최신순</span>
@@ -55,39 +49,39 @@ function write(){
          </thead>
 
          <tbody>
-         <%if(bestList==null || bestList.isEmpty()) {%>
+             <%if(bestList == null || bestList.isEmpty()) { %>
              	<tr>
-               	<td colspan="6" align="center">검색결과가 없습니다.</td>
-            	</tr>
-             <%} else { 
-            	for(FreeBoard fb:bestList){	 
+               		<td colspan="6" align="center">검색결과가 없습니다.</td>
+           		 </tr>
+             <%} else {
+            	 for(FreeBoard fb:bestList) {
               %>
-             
-                <tr class="best" bgcolor="rgb(255,187,187)">
+          <tr class="best" bgcolor="rgb(255,187,187)" style="color:white;">
                         <td class="num">
-                            BEST
+                         	BEST
                         </td>
                         
                         <td class="title">
-                            <a href="<%=request.getContextPath()%>/board/free/freeBoardView?postNo=<%=fb.getPostNo()%>">
-                            <%=fb.getPostTitle() %>
+                        	 <a href="<%=request.getContextPath()%>/board/free/freeBoardView?postNo=<%=fb.getPostNo()%>">
+                            <%=fb.getPostTitle() %> [<%=fb.getBoard_comment_cnt() %>]
                         </td>
                         <td class="wirter">
-                           	<%=fb.getPostWriter() %>
+                            <%=fb.getPostWriter()%>
                         </td>
                         <td class="date">
                             <%=fb.getPostDate() %>
                         </td>
                         <td class="like">
-                            <%=fb.getPostLike() %>
+                           <%=fb.getPostLike() %>
                         </td>
                         <td class="views">
-                            <%=fb.getPostReadCount() %>
+                           <%=fb.getPostReadCount() %>
                         </td>
                 </tr>
- 				<%}
-            }%>
-              
+			<%
+            	 }
+             }
+			%>
             </table>
 
 
@@ -101,25 +95,24 @@ function write(){
                         <col width="30px">
                         <col width="30px">
                     </colgroup>
-             <%if(list==null || list.isEmpty()) {%>
-             	<tr>
-               	<td colspan="6" align="center">검색결과가 없습니다.</td>
-            	</tr>
-             <%} else { 
-            	for(FreeBoard fb:list){	 
-              %>
-             
+            <%if(list == null || list.isEmpty()) { %>
             <tr>
+             	<td colspan="6" align="center">검색결과가 없습니다. </td>
+            </tr>	
+            <%} else {
+            	for(FreeBoard fb:list) {
+            %>
+            <tr style="color:white;">
                 <td class="num">
                    <%=fb.getPostNo() %>
                 </td>
                 
-                <td class="title">
-                	<a href="<%=request.getContextPath()%>/board/free/freeBoardView?postNo=<%=fb.getPostNo()%>">
-                   	<%=fb.getPostTitle() %>
+                <td class="title" style="color:white;">
+                   <a href="<%=request.getContextPath()%>/board/free/freeBoardView?postNo=<%=fb.getPostNo()%>">
+                   <%=fb.getPostTitle() %> [<%=fb.getBoard_comment_cnt() %>]
                 </td>
                 <td class="wirter">
-                   	<%=fb.getPostWriter() %>
+                	<%=fb.getPostWriter() %>
                 </td>
                 <td class="date">
                     <%=fb.getPostDate() %>
@@ -128,11 +121,11 @@ function write(){
                     <%=fb.getPostLike() %>
                 </td>
                 <td class="views">
-                    <%=fb.getPostReadCount() %>
+                   <%=fb.getPostReadCount() %>
                 </td>
-           </tr>
-		 <%}
-            }%>
+            </tr>
+            <%}
+            	}%>
          </tbody>
 
         </table>
@@ -144,13 +137,12 @@ function write(){
             <option value="id">아이디</option>
         </select>
         <input type="text" name="searchVal" id="searchVal">
-        <div id="search" style="width:50px">검색</div>
+        <div id="search" style="width:50px;position: relative;top: -42px;color: white;">검색</div>
     </div>
 
 </div>
-
 <div id="pageBar">
-	<%=pageBar %>
+<%=pageBar %>
 </div>
-
+</body>
 </html>

@@ -253,13 +253,31 @@
              left: 81px;
             top: -35px;
         }
-        
-        #comment-Update{
-        	display:none;
+              
+        .comment-Update{
+            display:none;
             position: relative;
-    		top: -97px;    	
+            top: -48px;        
         }
         #commentUpdateEnd{
-        	display:none;
+            display:none;
         }
+     
         
+           .commentUpdate{
+           
+            border: 1px solid #999;
+            width: 50px;
+            text-align: center;
+            color: #666;
+            font-size: 12px;
+            padding: 7px 10px 6px;
+            border-radius: 3px;
+            margin-bottom:  12px;
+            margin: 5px;
+         }
+
+     		.commentUpdate:hover{
+              cursor: pointer;
+          }
+          

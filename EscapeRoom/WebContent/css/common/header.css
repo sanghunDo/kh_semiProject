@@ -1,37 +1,35 @@
 @charset "UTF-8";
 body, html{
-	width: 1024px; 
-	min-height: 723px;
-	margin: 0 auto;
-	padding: 0;
+	width: 1024px;
+	min-height: 626px;
+	margin: 0px auto;
+	padding: 0px;
 	background: black;
 }
 header{
 	position: relative;
 	width: 100%;
 	height: 155px;
-	border-bottom: 4px double lightgray;
 }
 header div#top{
 	position: relative;
 	width: 100%;
-	height: 13px;
-	font-family: 'Do Hyeon', sans-serif;
-	font-size: 22px;
+	height: 22px;
+	font-family: 'Roboto Slab', sans-serif;
+	font-size: 14px;
 }
 header div#top div#myMenu{
 	position: relative;
 	height: 100%;
 	float: right;
-	margin-right: 5px;
+	margin-right: 15px;
 	margin-top: 2px;
 	color: white;
 }
 a:link, a:visited, a:hover{color: white;text-decoration: none;}
 header div#logo{
-	position: relative;
-	width: 100%;
-	text-align: center;
+	width: 350px;
+	margin: 0 auto;
 	color: white;
 	font-size: 54px;
 	font-family: 'Amatic SC', serif;
@@ -40,15 +38,15 @@ header div#logo{
 	letter-spacing: 4px;
 }
 header div#menu{
-	font-family: 'Do Hyeon', sans-serif;
-	font-size: 24px;
+	font-family: 'Roboto Slab', sans-serif;
+	font-size: 21px;
 	display: inline-block;
-	margin-top: 40px;
+	margin-top: 25px;
 }
 div#menu ul{
 	display: table;
 	padding: 0px;
-	margin: 0px;
+	margin: 0 auto;
 }
 div#menu ul li{
 	list-style-type: none;
@@ -61,33 +59,37 @@ div#menu ul li a{
 	display: block;
 	text-decoration: none;
 	padding-bottom: 4px;
-	margin-left: 24px;
+	margin-left: 30px;
 }
 div#menu ul li a:hover {
-	border-bottom: 2px solid red;
+/* 	text-decoration: line-through;
+	text-decoration-color: red; */
+	border-bottom: 3px solid red;
+	height: 10px;
 } 
 div#game-start{
+	margin-top: 10px;
 	float: right;
 }
-.snip1535 {
+.enter-game {
   background-color: black;
   border: none;
   color: #ffffff;
   cursor: pointer;
   display: inline-block;
-  font-family: 'Do Hyeon', sans-serif;
+  font-family: 'Roboto Slab', sans-serif;
   font-size: 1em;
-  font-size: 22px;
+  font-size: 18px;
   line-height: 1em;
-  margin: 0 15px;
+  margin: 0 25px;
   outline: none;
-  padding: 12px 40px 10px;
+  padding: 12px 20px 10px;
   position: relative;
   text-transform: uppercase;
   font-weight: 700;
 }
-.snip1535:before,
-.snip1535:after {
+.enter-game:before,
+.enter-game:after {
   border-color: transparent;
   -webkit-transition: all 0.25s;
   transition: all 0.25s;
@@ -98,29 +100,29 @@ div#game-start{
   position: absolute;
   width: 24px;
 }
-.snip1535:before {
+.enter-game:before {
   border-color: white;
   border-right-width: 2px;
   border-top-width: 2px;
   right: -5px;
   top: -5px;
 }
-.snip1535:after {
+.enter-game:after {
   border-bottom-width: 2px;
   border-color: white;
   border-left-width: 2px;
   bottom: -5px;
   left: -5px;
 }
-.snip1535:hover,
-.snip1535.hover {
+.enter-game:hover,
+.enter-game.hover {
   background-color: white;
   color: black;
 }
-.snip1535:hover:before,
-.snip1535.hover:before,
-.snip1535:hover:after,
-.snip1535.hover:after {
+.enter-game:hover:before,
+.enter-game.hover:before,
+.enter-game:hover:after,
+.enter-game.hover:after {
   height: 100%;
   width: 100%;
 }

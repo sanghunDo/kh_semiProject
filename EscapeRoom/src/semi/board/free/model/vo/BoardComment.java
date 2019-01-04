@@ -16,8 +16,6 @@ public class BoardComment implements Serializable {
 	private int commentLike;
 	private int commentDislike;
 	private boolean commentReport;
-	private int commentCnt;
-	
 	
 	public BoardComment() {
 		
@@ -35,7 +33,6 @@ public class BoardComment implements Serializable {
 		this.commentLike = commentLike;
 		this.commentDislike = commentDislike;
 		this.commentReport = commentReport;
-		this.commentCnt = commentCnt;
 	}
 	
 
@@ -44,15 +41,7 @@ public class BoardComment implements Serializable {
 		return "BoardComment [commentNo=" + commentNo + ", commentLevel=" + commentLevel + ", commentWriter="
 				+ commentWriter + ", commentContent=" + commentContent + ", ref=" + ref + ", commentRef=" + commentRef
 				+ ", commentDate=" + commentDate + ", commentLike=" + commentLike + ", commentDislike=" + commentDislike
-				+ ", commentReport=" + commentReport + commentCnt+ "]";
-	}
-
-	public int getCommentCnt() {
-		return commentCnt;
-	}
-
-	public void setCommentCnt(int commentCnt) {
-		this.commentCnt = commentCnt;
+				+ ", commentReport=" + commentReport + "]";
 	}
 
 	public int getCommentNo() {
