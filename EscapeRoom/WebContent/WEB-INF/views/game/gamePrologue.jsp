@@ -6,7 +6,8 @@
 <meta charset=UTF-8">
 <title>ESCAPE, IF YOU CAN.</title>
 <script src="<%=request.getContextPath()%>/js/jquery-3.3.1.js"></script>
-<link rel="stylesheet" href="<%=request.getContextPath() %>/css/game/game.css" />
+<link href="https://fonts.googleapis.com/css?family=Song+Myung" rel="stylesheet">
+<link rel="stylesheet" href="<%=request.getContextPath() %>/css/game/gamePrologue.css" />
 <script>
 window.onload=function(){
 	window.focus();
@@ -39,13 +40,16 @@ window.onload=function(){
 		var target = $("#prologue").find("h2");
 		$.ajax({
 			url:"<%=request.getContextPath()%>/game/prologue",
+			data: "index="+cnt,
 			type: "get",
 			dataType: "json",
 			success: function(data){
+				console.log(data);
 				target.removeAttr("style");
-				target.text(data[cnt]);
+				$("#prologue").find("img").attr("src", data.fileName);
+				target.text(data.content);
 				target.parent().css("width",target.outerWidth());
-				var length = data[cnt].length;
+				var length = data.content.length;
 				target.attr("style", "animation:typing "+(length/40)+"s steps("+length+", end)");
 			}
 		});
