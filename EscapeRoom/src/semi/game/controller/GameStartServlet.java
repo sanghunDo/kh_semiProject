@@ -15,7 +15,7 @@ public class GameStartServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.getRequestDispatcher("/WEB-INF/views/game/game.jsp").forward(request, response);
+		request.getRequestDispatcher("/WEB-INF/views/game/gamePrologue.jsp").forward(request, response);
 	}
 
 	/**

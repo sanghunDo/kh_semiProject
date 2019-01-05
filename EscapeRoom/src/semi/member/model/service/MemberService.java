@@ -32,13 +32,13 @@ public class MemberService {
 	}
 
 	// 회원정보보기
-	public Member selectOne(String userid) {
+	public Member selectOne(String userId) {
 		Member loggedInMember = null;
 
 		// DB와 연결
 		Connection conn = getConnection();
 
-		loggedInMember = new MemberDao().selectOne(conn, userid);
+		loggedInMember = new MemberDao().selectOne(conn, userId);
 
 		// DQL(SELECT)이므로 트랜잭션 처리 하지 않는다.
 
@@ -49,13 +49,13 @@ public class MemberService {
 	}
 
 	// 로그인 기록
-	public int insertMemberLogger(String userid, String status, String ip) {
+	public int insertMemberLogger(String userId, String status, String ip) {
 		int result = 0;
 
 		// DB와 연결
 		Connection conn = getConnection();
 
-		result = new MemberDao().insertMemberLogger(conn, userid, status, ip);
+		result = new MemberDao().insertMemberLogger(conn, userId, status, ip);
 
 		// DML(INSERT, UPDATE, DELETE)이므로 반드시 트랜잭션처리 해야 한다.
 		if (result > 0) {
@@ -112,11 +112,11 @@ public class MemberService {
 	}
 
 	// 회원탈퇴
-	public int deleteMember(String userid) {
+	public int deleteMember(String userId) {
 		// DB와 연결
 		Connection conn = getConnection();
 
-		int result = new MemberDao().deleteMember(conn, userid);
+		int result = new MemberDao().deleteMember(conn, userId);
 
 		// DML(INSERT, UPDATE, DELETE)이므로 반드시 트랜잭션처리 해야 한다.
 		if (result > 0) {

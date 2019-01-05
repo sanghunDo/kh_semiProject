@@ -3,7 +3,7 @@
 <%
 	//전송된 쿠키확인
 	boolean saveId = false;
-	String userid = "";
+	String userId = "";
 	Cookie[] cookies = request.getCookies(); // 배열 타입을 리턴한다.
 	// System.out.println("브라우저가 전송한 쿠키목록@header.jsp");
 	// System.out.println("-------------------------------------");
@@ -13,7 +13,7 @@
 	// System.out.printf("%s = %s\n", key, value);
 		if("saveId".equals(key)){
 			saveId = true;
-			userid = value;
+			userId = value;
 		}
 	}
 
@@ -27,14 +27,14 @@
 <script src="<%=request.getContextPath()%>/js/jquery-3.3.1.js"></script>
 <script>
 function loginValidate(){
-	if($("#userid").val().trim().length == 0){
+	if($("#userId").val().trim().length == 0){
 		alert("아이디를 입력하세요.");
-		$("#userid").focus();
+		$("#userId").focus();
 		return false; // 폼 전송 방지
 	}
-	if($("#userpassword").val().trim().length == 0){
+	if($("#userPassword").val().trim().length == 0){
 		alert("비밀번호를 입력하세요.");
-		$("#userpassword").focus();
+		$("#userPassword").focus();
 		return false; // 폼 전송 방지
 	}
 		return true;
@@ -46,7 +46,7 @@ body{
 	color:white;
 }
 
-.login-container{
+.login-Container{
 	width:350px;
 	height:270px;
 	border:1px solid #5D5D5D;
@@ -127,11 +127,11 @@ div#logo{
 <body>
 <!-- 로그인 -->
 <div id="logo">Escape, if you can.</div>
-<div class="login-container">
+<div class="login-Container">
 	<form action="<%=request.getContextPath()%>/member/loginEnd" method="post" id="loginFrm">
 		<table>
 			<tr><td><input type="text" name="userId" id="userId"
-				value="<%=userid %>" placeholder="아이디를 입력하세요." /></td></tr>
+				value="<%=userId %>" placeholder="아이디를 입력하세요." /></td></tr>
 			<tr><td><input type="password" name="userPassword" id="userPassword"
 				placeholder="비밀번호를 입력하세요." /></td></tr>
 			<tr><td><input type="checkbox" name="saveId" id="saveId" <%=saveId?"checked":"" %> />

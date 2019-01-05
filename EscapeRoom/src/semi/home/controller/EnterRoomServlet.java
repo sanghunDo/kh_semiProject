@@ -1,4 +1,4 @@
-package semi.main.controller;
+package semi.home.controller;
 
 import java.io.IOException;
 import javax.servlet.ServletException;
@@ -18,7 +18,7 @@ public class EnterRoomServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.getRequestDispatcher("/WEB-INF/views/main.jsp").forward(request, response);
+		request.getRequestDispatcher("/WEB-INF/views/home.jsp").forward(request, response);
 	}
 
 	/**
