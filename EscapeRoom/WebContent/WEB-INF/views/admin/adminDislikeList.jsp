@@ -20,7 +20,6 @@ $(function(){
 	
 });
 </script>
-<body>
 <h2>관리자 전용 게시판</h2>
 <h3>비추천 게시글 목록</h3>
 <!-- 비추천 수 일정 이상 달성하면 자동으로 이 게시판으로 이동됨 -->
@@ -47,5 +46,4 @@ $(function(){
         <input type="text" name="searchVal" id="searchVal">
         <div id="search" style="width:50px">검색</div>
     </div>
-</body>
-</html>
+<%@ include file="/WEB-INF/views/common/footer.jsp" %>
