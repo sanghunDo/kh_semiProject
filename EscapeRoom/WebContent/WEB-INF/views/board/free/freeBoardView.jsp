@@ -10,6 +10,8 @@
 %>
 <link rel="stylesheet" href="<%=request.getContextPath()%>/css/board/free/boardCommunityView.css" />
 <script src="<%=request.getContextPath()%>/js/jquery-3.3.1.js"></script>
+
+
 <title>자유게시판</title>
 
 
@@ -59,14 +61,14 @@
 
     <div class="opinion">
         <div id="good">
-            <span id="like"><b>150</b></span>
-            <img src='<%=request.getContextPath()%>/images/freeBoard/like.png'>
+            <b><span id="like"><%=fb.getPostLike()%></span></b>
+            <img src='<%=request.getContextPath()%>/images/freeBoard/like.png' onclick="likey('<%=fb.getPostLike()%>')">
             <span id="likeComment">추천</span>
         </div>
 
         <div id="bad">
-            <span id="dislike"><b>4</b></span>
-            <img src='<%=request.getContextPath()%>/images/freeBoard/dislike.png'>
+        	<b><span id="dislike"><%=fb.getPostDislike()%></span></b>
+            <img src='<%=request.getContextPath()%>/images/freeBoard/dislike.png' onclick="disLikey('<%=fb.getPostDislike()%>')">
             <span id="dislikeComment">비추천</span>
         </div>
     </div>
@@ -124,7 +126,7 @@
              	<!-- <input type="checkBox" name="secret"/><label for="secret">비밀글</label> -->
                 <textarea name="boardCommentContent" cols="60" rows="3" style="margin: 11px;margin-bottom: -78px;width: 800px;height: 113px;resize:none;"></textarea>
                 </form>
-                <div id="commentSubmit" onclick="insertComment();" style="cursor: pointer;">등록</div>
+                <div class="commentSubmit" onclick="insertComment();" style="cursor: pointer;">등록</div>
                
             </div><!-- end of . comment-editor -->
             
@@ -132,7 +134,9 @@
             
             <div class="commentList">
                 <hr>
-                <%for(BoardComment bc:commentList)
+                <%for(int i=0; i<commentList.size(); i++){
+                	BoardComment bc = commentList.get(i);
+                	
                 	 if(bc.getCommentLevel()==1) {
                 	%>
                  <dl>
@@ -145,7 +149,7 @@
                         <input type="hidden" value=<%=bc.getCommentNo() %> id="commentNo" />
                         <input type="hidden" value=<%=bc.getCommentContent() %> id="commentContent" />
                         
-                        <div class="commentUpdate" style="cursor:pointer;">수정하기</div>
+                        <div class="commentUpdate" no="<%=i%>" style="cursor:pointer;">수정하기</div>
                         <div class="button"  onclick="updateCommentEnd();" id="commentUpdateEnd" style="cursor:pointer;">수정완료</div>
                         <div class="button" id="commentDeleteBtn" onclick="deleteComment();">삭제하기</div>
         			</dl>
@@ -153,34 +157,58 @@
         			<!-- 댓글 삭제를 위한 폼 -->
                     <form action="<%=request.getContextPath()%>/board/free/freeBoardCommentDelete" name="commentDeleteFrm">
                     <input type="hidden" value="<%=bc.getCommentNo() %>" name="commentNo"/>
-                    <input type="hidden" value="<%=fb.getPostNo() %>" name="postNo" />
+                    <input type="hidden" value="<%=fb.getPostNo() %>" name="postNo" id="postNo"/>
                     </form>
                     
         			
                     <dl class="bestCommentOpinion">
                             <dl class="CommentOpinion" style="position: relative; top: -111px;">
-                                    <span style="padding:10px">추천<%=bc.getCommentLike()%></span>
+             						 추천	 
+                                    <span style="padding:10px" id="comment1Like" no="<%=i%>" onclick="comment1Like('<%=bc.getCommentLike()%>');"><%=bc.getCommentLike()%></span>
                                     <span style="padding:10px">비추천<%=bc.getCommentDislike()%></span>
                                     <span style="padding:10px">신고하기</span>
+                                    
                             </dl>
                     </dl>
         
                     <dd style="padding-bottom: 44px;margin-left: 10px; color: white; position: relative; top: -43px;left: 16px;">
-                    <textarea name="comment-Update" class="comment-Update" cols="60" rows="3" style="margin: 11px;margin-bottom: -78px;width: 1000px;height: 113px;resize:none;"><%=bc.getCommentContent() %></textarea>
-                    <dd id="comment-Content" style="padding-bottom: 44px;margin-left: 10px; color: white; position: relative; top: -43px;left: 16px;">
+                    <textarea name="comment-Update" no="<%=i%>" class="comment-Update" cols="60" rows="3" style="margin: 11px;margin-bottom: -78px;width: 1000px;height: 113px;resize:none;"><%=bc.getCommentContent() %></textarea>
+                    <dd class="comment-Content" style="padding-bottom: 44px;margin-left: 10px; color: white; position: relative; top: -43px;left: 16px;">
                             <%=bc.getCommentContent() %>
                     </dd>
                     
                     <span id="level2CommentList" style="margin-left: 21px;">답글 30개▼</span>
-                    <div id="level2CommentListDiv"></div>
-                    <span id="line" style= "position: relative;right: -114px;top: -23px;">|</span>
-                    <span id="level2CommentWrite">답글쓰기</span>
-                    <div id="level2CommentWriteDiv"></div>
+            </div> <!-- commentList 끝 -->       
                     
+                    <!-- 답댓 -->
+                  
+                    
+                    <span id="line" style= "position: relative;right: -114px;top: -183px;">|</span>
+                    <span id="level2CommentWrite">답글쓰기</span>
+                    
+                    <div class="level2CommentWriteDiv" style="margin-top:-136px;">
+                    	<textarea name="" class="level2CommentWrite" cols="60" rows="3" style="width: 800px;height: 113px;resize:none;"></textarea>
+                    	<div class="commentSubmit" id="level2Commentsubmit" style="cursor: pointer; margin-top:-70px">등록</div>
+                    </div>
+                    
+                      <div class="level2CommentListDiv" style="margin-top: 42px; margin-left:100px">
+                      <sub style="margin-left: 64px;font-size: 15px;">
+                             	답댓글쓴이
+                        <i>19.01.07</i>
+                      </sub>
+                      <br/>
+                     <sub style="margin-left: 80px;font-size: 15px;">댓내용</sub>
+
+                        <div class="commentUpdate" style="cursor:pointer;">수정하기</div>
+                        <div class="button"  onclick="updateCommentEnd();" id="commentUpdateEnd" style="cursor:pointer;">수정완료</div>
+                        <div class="button" id="commentDeleteBtn" onclick="deleteComment();">삭제하기</div>
+        			
+                    </div><!-- level2CommentListDiv 끝 -->
                 </dl>
                 <hr>
-                <%} %>
-            </div>
+                <%}
+                } %>
+           
         </div> <!-- end of . comment-container -->
         <div class="button" id="update" onclick="updateBoard();">수정</div>
     	<div class="button" id="delete" onclick="deleteBoard();">삭제</div>
@@ -208,23 +236,36 @@
 	}
 	
     $(".commentUpdate").on("click", function(){
-        $("#comment-Content").hide();
-        $(".comment-Update").css("display","inline");
-        $("#commentUpdateEnd").css("display","inline");
+    	
+    	var no = $(this).attr("no");
+     	console.log("no="+no);
+    	console.log($("textarea[no="+no+"]")); 
+    	
+    	$(".comment-Content[no="+no+"]").hide();  //원래댓글
+    	$(".comment-Update[no="+no+"]").css("display","inline"); //수정하기위한 text area
+    	$("#commentUpdateEnd").css("display","inline"); //수정완료 버튼
 	
-        console.log($(this));
-        $(".commentUpdate").css("display","none");
-        $("#commentDeleteBtn").css("display","none");
-        $("#level2CommentList").css("display","none");
-        $("#level2CommentWrite").css("display","none");
-        $("#line").css("display","none");
+       
+        $(".commentUpdate").css("display","none"); //수정하기 버튼
+        $("#commentDeleteBtn").css("display","none"); //삭제하기 버튼
+        $("#level2CommentList").css("display","none"); //답글보기 버튼
+        $("#level2CommentWrite").css("display","none"); //답글쓰기 버튼
+        $("#line").css("display","none"); // | 
+    	/* $(this).find("#comment-Content").hide();  //원래댓글
+    	$(this).find(".comment-Update").css("display","inline"); //수정하기위한 text area
+    	$(this).find("#commentUpdateEnd").css("display","inline"); //수정완료 버튼
+	
+       
+        $(this).find(".commentUpdate").css("display","none"); //수정하기 버튼
+        $(this).find("#commentDeleteBtn").css("display","none"); //삭제하기 버튼
+        $(this).find("#level2CommentList").css("display","none"); //답글보기 버튼
+        $(this).find("#level2CommentWrite").css("display","none"); //답글쓰기 버튼
+        $(this).find("#line").css("display","none"); // |  */
 
 
         var commentUpdate = $(".comment-Update").val();
         var commentNo = $("#commentNo").val();
         var postNo = $("#postNo").val();
-        console.log(commentNo);
-        
     });    
     
     function updateCommentEnd(){    
@@ -240,6 +281,88 @@
         $("[name=commentDeleteFrm]").submit();
         
     }
+ 
+ 
+
+    function comment1Like(item){
+    	var commentNo =  $("#commentNo").val(); 
+    	var no = $(this).attr("no");
+     	console.log("no="+no);
+    	//console.log($("textarea[no="+no+"]")); 
+    	
+    
+    	//console.log("comment1Like",item);
+    	 if(!confirm("해당 댓글을 추천하시겠습니까?")){
+    		return;
+    	} 
+    	 
+    	 $.ajax({
+     		url:"<%=request.getContextPath()%>/board/free/freeBoardComment1Like.do",
+     		data:{commentNo:commentNo, commentLikey:item},
+     		success:function(data){
+     			$("#comment1Like").html(data);
+     		    
+     			console.log(data);
+     		}
+     		
+     	});
+    	 
+    }
+    
+    function likey(item){
+    	var postNo =  $("#postNo").val(); 
+    	console.log("postNo",postNo);
+    	if(!confirm("해당 글을 추천하시겠습니까?")){
+    		return;
+    	} 
+    	  
+  		$.ajax({
+     		url:"<%=request.getContextPath()%>/board/free/freeBoardLike.do",
+     		data:{postNo:postNo, likey:item},
+     		success:function(data){
+     			$("#like").html(data);
+     		}
+     		
+     	});  
+    	 
+    }
+    
+    function disLikey(item){
+    	var postNo =  $("#postNo").val(); 
+    	
+    	
+    	if(!confirm("해당 글을 비추천하시겠습니까?")){
+    		return;
+    	} 
+    	 
+    
+    	
+    		$.ajax({
+	     		url:"<%=request.getContextPath()%>/board/free/freeBoardDisike.do",
+	     		data:{postNo:postNo, dislikey:item},
+	     		success:function(data){
+	     			$("#dislike").html(data);
+	     			
+	     		}
+	     		
+	     	});
+    	
+    		console.log(flag);
+    }
+    	
+    	
+    <%-- 	$.ajax({
+    		url:"<%=request.getContextPath()%>/board/free/freeBoardComment1Like.do",
+    		data:{commentNo:commentNo},
+    		success:function(data){
+    			
+    			console.log(data);
+    		}
+    		
+    	});
+	 --%>
+   
+    
     
     
     <%-- 

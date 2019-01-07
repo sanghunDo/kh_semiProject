@@ -93,7 +93,7 @@
         top: -77px;
 
         }
-        #commentSubmit{
+        .commentSubmit{
         
         height: 101px;
         width: 107px;
@@ -207,7 +207,7 @@
             cursor: pointer;
     		color: white;
     		position: relative;
-    		top: -22px;
+    		top: -182px;
     		left: 119px;
         }
         #level2CommentWrite:hover{

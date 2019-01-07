@@ -129,10 +129,17 @@
     		color: white;
         }
 
-        div#pageBar{margin-top:10px; text-align:center;}
+        #pageBar{
+        margin-top:10px;
+        text-align:center;
+        }
         
-        div#pageBar .cPage{color:red;}
+        #pageBar .cPage{
+        color:red;
+        }
         
-        div#pageBar span,a{margin-right:3px;}
+        #pageBar span,a{
+        margin-right:3px;
+        }
         
 
