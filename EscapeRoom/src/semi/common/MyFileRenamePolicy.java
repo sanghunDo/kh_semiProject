@@ -22,20 +22,20 @@ public class MyFileRenamePolicy implements FileRenamePolicy {
 	@Override
 	public File rename(File oFile) {
 		File rFile = null;
-		//yyyyMMdd_HHmmssSSS
+		// yyyyMMdd_HHmmssSSS
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd_HHmmssSSS");
-		int rndNum = (int)(Math.random()*1000);// 0~999난수발생
+		int rndNum = (int)(Math.random()*1000); // 0~999난수발생
 		
 		//확장자
-		String oFileName = oFile.getName();//파일명 가져오기
-		String ext = "";
+		String oFileName = oFile.getName(); // 파일명 가져오기
+		String ext = ""; // 확장자 담을 변수
 		int dot = oFileName.lastIndexOf(".");
 		if(dot > -1) {
 			ext = oFileName.substring(dot);
 		}
 		
 		//새 파일명 생성
-		String rFileName = sdf.format(new Date())+"_"+rndNum+ext;
+		String rFileName = sdf.format(new Date())+"_" + rndNum + ext;
 		
 		//reNamed파일객체생성
 		//부모디렉토리, renamedFileName
