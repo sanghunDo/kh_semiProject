@@ -1,3 +1,4 @@
+<%@page import="com.oreilly.servlet.MultipartRequest"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ page import="java.util.*" %>
@@ -73,7 +74,7 @@ function readURL(input){
 		  			<input type="text" 
 		  				   name="userId" 
 		  				   id="userId_"
-		  				   value="<%=userId_ %>"
+		  				   value="<%=userId_%>"
 		  				   required
 		  				   readonly />
 		  		</td>
@@ -92,14 +93,11 @@ function readURL(input){
 					<td>
 						<input type="file" name="userProfile" id="userProfile">
 						<%if(m.getUserProfileOriginalFile() != null) { %>
-						<img src="<%=request.getContextPath() %>/" alt="" />
+						<img src="<%=request.getContextPath() %>/upload/member/<%=userProfileRenamedFile %>"/>
 						<%}
 						else {%>
-						<a title="Fabián Alexis [CC BY-SA 3.0 (https://creativecommons.org/licenses/by-sa/3.0)], via Wikimedia Commons" 
-						   href="https://commons.wikimedia.org/wiki/File:Antu_im-user-offline.svg">
 						   <img width="512" alt="Antu im-user-offline" id="null-Profile" 
 						   		src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/04/Antu_im-user-offline.svg/512px-Antu_im-user-offline.svg.png">
-						</a>
 						<%} %>
 					</td>
 				</tr>

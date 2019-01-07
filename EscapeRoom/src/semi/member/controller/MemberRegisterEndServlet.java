@@ -2,6 +2,7 @@ package semi.member.controller;
 
 import java.io.File;
 import java.io.IOException;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -47,7 +48,7 @@ public class MemberRegisterEndServlet extends HttpServlet {
 		// 1. FileUpload처리 : 파일태그처리는 반드시 MultipartRequest객체사용(cos.jar 제공)
 		String root = getServletContext().getRealPath("/");
 		String saveDirectory = root + "upload" + File.separator + "member";
-		System.out.printf("[saveDirectory@MemberRegisterEndServlet = %s\n", saveDirectory);
+		System.out.printf("[saveDirectory@MemberRegisterEndServlet = %s]\n", saveDirectory);
 		
 		
 		// 1-2. maxPostSize : 파일최대크기
@@ -68,19 +69,19 @@ public class MemberRegisterEndServlet extends HttpServlet {
 		System.out.println("userEmail@MemberRegisterEndServlet = " + userEmail);
 		
 //		String userProfileOriginalFile = multiReq.getParameter("userProfileOriginalFile");
-		String userProfileOriginalFile = multiReq.getOriginalFileName("userProfile");
-		System.out.println("userProfileOriginalFile@MemberRegisterEndServlet = " + userProfileOriginalFile);
+		String userProfileOriginalFile_ = multiReq.getOriginalFileName("userProfile");
+		System.out.println("userProfileOriginalFile@MemberRegisterEndServlet = " + userProfileOriginalFile_);
 		
-//		String userProfileRenamedFile = multiReq.getParameter("userProfileRenamedFile");
-		String userProfileRenamedFile = multiReq.getFilesystemName("userProfile");
-		System.out.println("userProfileRenamedFile@MemberRegisterEndServlet = " + userProfileRenamedFile);
+//		String userProfileRenamedFile = multiReq.getParameter("userProfile");
+		String userProfileRenamedFile_ = multiReq.getFilesystemName("userProfile");
+		System.out.println("userProfileRenamedFile@MemberRegisterEndServlet = " + userProfileRenamedFile_);
 		
 		Member m = new Member();
 		m.setUserId(userId);
 		m.setUserPassword(userPassword);
 		m.setUserEmail(userEmail);
-		m.setUserProfileOriginalFile(userProfileOriginalFile);
-		m.setUserProfileRenamedFile(userProfileRenamedFile);
+		m.setUserProfileOriginalFile(userProfileOriginalFile_);
+		m.setUserProfileRenamedFile(userProfileRenamedFile_);
 		
 		System.out.printf("[m@MemberRegisterEndServlet = %s]\n", m);
 		
