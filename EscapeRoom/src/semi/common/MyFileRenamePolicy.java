@@ -41,6 +41,8 @@ public class MyFileRenamePolicy implements FileRenamePolicy {
 		//부모디렉토리, renamedFileName
 		rFile = new File(oFile.getParent(), rFileName);
 		
+		System.out.printf("[rFileName=%s]\n", rFile.getName());
+		
 		try {
 			//실제파일생성
 			rFile.createNewFile();

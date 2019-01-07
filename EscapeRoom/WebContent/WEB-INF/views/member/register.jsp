@@ -136,26 +136,27 @@ function checkIdDuplicate(){
 	checkIdDuplicateFrm.target = target;
 	checkIdDuplicateFrm.submit();
 }
-</script>
-<script>
-    $(function(){
-        $("#userProfile").on('change', function(){
-            readURL(this);
-        });
-   });
 
-   function readURL(input){
-       if(input.files && input.files[0]){
-           var reader = new FileReader();
+// 첨부파일 바로 보여주기
+$(function(){
+    $("#userProfile").on('change', function(){
+        readURL(this);
+    });
+});
 
-           reader.onload = function(e){
-               $('#profilePre').attr('src', e.target.result);
-           }
+function readURL(input){
+   if(input.files && input.files[0]){
+       var reader = new FileReader();
 
-           reader.readAsDataURL(input.files[0]);
+       reader.onload = function(e){
+           $('#profilePre').attr('src', e.target.result);
        }
+
+       reader.readAsDataURL(input.files[0]);
    }
+}
 </script>
+
 
 <body>
 	<form action="<%=request.getContextPath()%>/member/checkIdDuplicate"
@@ -168,6 +169,7 @@ function checkIdDuplicate(){
 		<form action="<%=request.getContextPath()%>/member/memberRegisterEnd"
 			  method="POST" 
 			  name="memberRegisterFrm"
+			  enctype="multipart/form-data"
 			  onsubmit="return registerValidate();">
 			<table id="tbl-Register">
 				<tr>
@@ -194,7 +196,7 @@ function checkIdDuplicate(){
 						<input type="password" 
 							   name="userPassword"
 							   id="userPassword_"
-							   placeholder="비밀번호"
+							   placeholder="비밀번호를 입력하세요."
 							   required />
 					</td>
 				</tr>
@@ -203,7 +205,7 @@ function checkIdDuplicate(){
 					<td>
 						<input type="password" 
 							   id="userPassword__" 
-							   placeholder="비밀번호 확인"
+							   placeholder="비밀번호를 한 번 더 입력하세요."
 							   required />
 					</td>
 				</tr>

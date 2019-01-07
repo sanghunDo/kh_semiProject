@@ -11,6 +11,15 @@
 	String userProfileOriginalFile = m.getUserProfileOriginalFile()!=null?m.getUserProfileOriginalFile():"";	
 	String userProfileRenamedFile = m.getUserProfileRenamedFile()!=null?m.getUserProfileRenamedFile():"";
 %>
+<style>
+th{
+	text-align: left;
+}
+
+img#null-Profile{
+	width: 150px;
+}
+</style>
 <script>
 function deleteMember(){
 	var bool = confirm("정말로 탈퇴하시겠습니까?");
@@ -82,6 +91,16 @@ function readURL(input){
 				<th>프로필 사진</th>
 					<td>
 						<input type="file" name="userProfile" id="userProfile">
+						<%if(m.getUserProfileOriginalFile() != null) { %>
+						<img src="<%=request.getContextPath() %>/" alt="" />
+						<%}
+						else {%>
+						<a title="Fabián Alexis [CC BY-SA 3.0 (https://creativecommons.org/licenses/by-sa/3.0)], via Wikimedia Commons" 
+						   href="https://commons.wikimedia.org/wiki/File:Antu_im-user-offline.svg">
+						   <img width="512" alt="Antu im-user-offline" id="null-Profile" 
+						   		src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/04/Antu_im-user-offline.svg/512px-Antu_im-user-offline.svg.png">
+						</a>
+						<%} %>
 					</td>
 				</tr>
 			<tr>
