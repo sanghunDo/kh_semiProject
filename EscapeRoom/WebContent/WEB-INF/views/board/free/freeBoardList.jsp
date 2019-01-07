@@ -5,7 +5,6 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<link rel="stylesheet" href="<%=request.getContextPath()%>/css/board/free/boardCommunityTable.css" />
 <%
 	List<FreeBoard> list = (List<FreeBoard>)request.getAttribute("list");
 	List<FreeBoard> bestList = (List<FreeBoard>)request.getAttribute("bestList");
