@@ -39,6 +39,7 @@ h2{
 	background:black;
 	border-style:none;
 	border-bottom: 1px solid gray;
+	color:white;
 }
 
 table{
@@ -79,6 +80,7 @@ td{
 	color:white;
 	background:black;
 	border-radius: 5px;
+	cursor:pointer;
 }
 
 #register-Btn{
