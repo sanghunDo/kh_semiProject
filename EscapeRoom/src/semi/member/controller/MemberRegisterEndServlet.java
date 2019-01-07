@@ -31,26 +31,26 @@ public class MemberRegisterEndServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// 1. 파라미터 핸들링
 		String userId = (String)request.getParameter("userId");
-		System.out.println("유저아이디왔니?" + userId);
+		System.out.println("userId@MemberRegisterEndServlet = " + userId);
 		
 		String userPassword = (String)request.getParameter("userPassword");
-		System.out.println("유저비밀번호왔니?" + userPassword);
+		System.out.println("userPassword@MemberRegisterEndServlet = " + userPassword);
 		
 		String userEmail = (String)request.getParameter("userEmail");
-		System.out.println("유저이메일왔니?" + userEmail);
+		System.out.println("userEmail@MemberRegisterEndServlet = " + userEmail);
 		
 		String userProfileOriginalFile = (String)request.getParameter("userProfileOriginalFile");
-		System.out.println("원본프로필 왔니?" + userProfileOriginalFile);
+		System.out.println("userProfileOriginalFile@MemberRegisterEndServlet = " + userProfileOriginalFile);
 		
 		String userProfileRenamedFile = (String)request.getParameter("userProfileRenamedFile");
-		System.out.println("이름바꾼프로필 왔니?" + userProfileRenamedFile);
+		System.out.println("userProfileRenamedFile@MemberRegisterEndServlet = " + userProfileRenamedFile);
 		
 		Member m = new Member(userId, userPassword, userEmail, userProfileOriginalFile, userProfileRenamedFile, null);
 	
 		int result = new MemberService().insertMember(m);
 		
 		String msg = "";
-		String loc = "/";
+		String loc = "/main";
 		String view = "/WEB-INF/views/common/msg.jsp";
 		
 		if(result > 0) {

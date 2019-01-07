@@ -11,7 +11,7 @@ function registerValidate(){
 	
 	// 아이디 검사
 	var $userId_ = $("#userId_"); // 유저 아이디
-	var getUserId = RegExp(/^[a-zA-Z0-9]{4,20}$/); // 유저 아이디 유효성 검사
+	var getUserId = RegExp(/^(?=.*[A-Za-z])(?=.*[0-9]).{5,15}$/); // 유저 아이디 유효성 검사
 	
 	// 비밀번호 검사
 	var $userPassword_ = $("#userPassword_"); // 유저 비밀번호
@@ -32,16 +32,22 @@ function registerValidate(){
 		alert("아이디를 입력해주세요.");
 		$userId_.focus();
 		return false;
-	} 
+	}
 	
 	// 아이디 유효성 검사
 	if(!getUserId.test($userId_.val())){
-		alert("아이디는 영문자나 숫자를 포함한 5~21 자리로 입력해주세요.");
+		alert("아이디는 영문자와 숫자를 포함한 5~15 자리로 입력해주세요.");
 		$userId_.val("");
 		$userId_.focus();
 		return false;
 	}
 	
+	// 아이디중복검사여부 체크
+	var $idValid = $("#idValid").val();
+	if($idValid == 0){
+		alert("아이디 중복검사해주세요.");
+		return false;
+	}
 	
 	// 비밀번호 공백 확인
 	if($userPassword_.val() == ""){
@@ -97,21 +103,14 @@ function registerValidate(){
 		$userEmail.focus();
 		return false;
 	}
-	
-	
-	
-	
-	
+
 	return true;
-	
-	
-	
 	
 }
 
 
 function checkIdDuplicate(){
-	var getUserId = RegExp(/^[a-zA-Z0-9]{4,20}$/);
+	var getUserId = RegExp(/^(?=.*[A-Za-z])(?=.*[0-9]).{5,15}$/);
 	// 아이디 중복검사폼 전송
 	var $userId = $("#userId_").val();
 	if($userId == ""){
@@ -120,7 +119,7 @@ function checkIdDuplicate(){
 	}
 	
 	if(!getUserId.test($userId)){
-		alert("아이디는 영문자나 숫자를 포함한 5~21 자리로 입력해주세요.");
+		alert("아이디는 영문자와 숫자를 포함한 5~15 자리로 입력해주세요.");
 		return;
 	}
 	
@@ -131,6 +130,7 @@ function checkIdDuplicate(){
 	var popup = open("", target, "left=300px, top=100px, height=200px, width=300px");
 	
 	checkIdDuplicateFrm.userId.value = $userId;
+	console.log("userId@checkIdDuplicate()@register.jsp = ", $userId);
 	
 	// 폼의 대상을 작성한 popup을 가리키게 한다. 이때 이용하는게 popup창의 이름(target)
 	checkIdDuplicateFrm.target = target;
@@ -169,19 +169,19 @@ function checkIdDuplicate(){
 			  method="POST" 
 			  name="memberRegisterFrm"
 			  onsubmit="return registerValidate();">
-
-			<table id="tbl-register">
+			<table id="tbl-Register">
 				<tr>
 					<th>아이디</th>
 					<td>
 						<input type="text" 
 							   name="userId" 
 							   id="userId_"
-							   placeholder="아이디를 입력하세요." 
+							   placeholder="아이디를 입력하세요."
 							   required> 
 						<input type="button"
 							   value="중복검사" 
 							   onclick="checkIdDuplicate();"> 
+						<!-- 검사여부 알려주는 태그 -->
 						<input type="hidden" 
 							   name="idRegister" 
 							   id="idRegister" 
@@ -195,7 +195,7 @@ function checkIdDuplicate(){
 							   name="userPassword"
 							   id="userPassword_"
 							   placeholder="비밀번호"
-							   required>
+							   required />
 					</td>
 				</tr>
 				<tr>
@@ -204,7 +204,7 @@ function checkIdDuplicate(){
 						<input type="password" 
 							   id="userPassword__" 
 							   placeholder="비밀번호 확인"
-							   required>
+							   required />
 					</td>
 				</tr>
 				<tr>
@@ -213,7 +213,8 @@ function checkIdDuplicate(){
 						<input type="email" 
 							   name="userEmail" 
 							   id="userEmail"
-							   placeholder="예) escaperoom19@gmail.com">
+							   placeholder="예) escaperoom19@gmail.com"
+							   required />
 					</td>
 				</tr>
 				<tr>
@@ -232,3 +233,5 @@ function checkIdDuplicate(){
 			<input type="reset" value="초기화">
 		</form>
 	</section>
+	
+<%@ include file="/WEB-INF/views/common/footer.jsp"%>
