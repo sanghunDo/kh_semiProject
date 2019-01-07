@@ -2,7 +2,13 @@
     pageEncoding="UTF-8"%>
 <%@ page import="java.util.*" %>
 <%
-	// 자바 코드 입력란
+	Member m = (Member)request.getAttribute("member");
+	//header.jsp의 userId 변수명 충돌 방지용
+	String userId_1 = m.getUserId();
+	String userPassword = m.getUserPassword();
+	String userEmail = m.getUserEmail()!=null?m.getUserEmail():"";
+	String userProfileOriginalFile = m.getUserProfileOriginalFile()!=null?m.getUserProfileOriginalFile():"";	
+	String userProfileRenamedFile = m.getUserProfileRenamedFile()!=null?m.getUserProfileRenamedFile():"";
 %>
 <%@ include file="/WEB-INF/views/common/header.jsp" %>
 <link rel="stylesheet" href="<%=request.getContextPath() %>>/css/borderCommunityTable.css"/>
@@ -33,17 +39,26 @@ $(function(){
 		<th>추천수</th>
 		<th>조회수</th>
 	</tr>
+	<% %>
 	<tr>
+		<td><%= %></td>
+		<td><%= %></td>
+		<td><%= %></td>
+		<td><%= %></td>
+		<td><%= %></td>
+		<td><%= %></td>
 	</tr>
+	<% %>
 </table>
-	<button id="deleteArticleBtn">삭제하기</button>
-    <div class="search-container">
-        <select name="searchOpt" id="searchOpt">
-            <option value="title">제목</option>
-            <option value="content">내용</option>
-            <option value="id">아이디</option>
-        </select>
-        <input type="text" name="searchVal" id="searchVal">
-        <div id="search" style="width:50px">검색</div>
-    </div>
+<button id="deleteArticleBtn">삭제하기</button>
+<!-- 게시글 검색하기 -->
+<div class="search-container">
+	<select name="searchOpt" id="searchOpt">
+    	<option value="title">제목</option>
+        <option value="content">내용</option>
+        <option value="id">아이디</option>
+    </select>
+	<input type="text" name="searchVal" id="searchVal">
+	<div id="search" style="width:50px">검색</div>
+</div>
 <%@ include file="/WEB-INF/views/common/footer.jsp" %>
