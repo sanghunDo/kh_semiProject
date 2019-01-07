@@ -32,7 +32,7 @@ div#inventory{
 	position: relative;
 	width: 70%;
 	height: 22%;
-	top: 77%;
+	top: 97%;
 	margin: 0 auto;
 	background: lightgray;
 	opacity: .7;
@@ -54,7 +54,7 @@ div#inventory div#prev:hover, div#inventory div#next:hover{cursor: pointer;opaci
 div#inventory div#prev:hover span, div#inventory div#next:hover span{transform: scale(1.2);}
 div#inventory div#obj-list-container{
 	position: relative;
-	width: 88%;
+	width: 535px;
 	height: 75%;
 	top: 7%;
 	margin: 0 auto;
@@ -64,15 +64,38 @@ div#inventory div#obj-list{
 	position: relative;
 	width: 200%;
 	height: 100%;
+	white-space: nowrap;
+}
+div#inventory div#obj-list div{
+	position: relative;
+	display: inline-block;
+	width: 90px;
+	height: 90px;
+	top: 13%;
+	margin-right: 12.5px;
 	border: 1px solid black;
 }
+div#inventory div#obj-list div#obj5{
+	margin-right: 0;
+}
+div#inventory:before{
+	content:"open"; 
+	position: absolute;
+	width: 100%;
+	height: 15%; 
+	top: -50px;
+	font-size: 30px;
+	color: gray;
+	text-align: center;
+	cursor: cursor;
+}
+div#inventory.on:before{content:"close";}
 </style>
 </head>
 <body>
 <div id="back-ground">
 	<img src="<%=request.getContextPath() %>/images/game/gameMain/game_start_again.jpeg" alt="" />
 	<div id="inventory">
-		<input type="hidden"/>
 		<div id="prev"><span>◀</span></div>
 		<div id="next"><span>▶</span></div>
 		<div id="obj-list-container">
@@ -97,12 +120,22 @@ setTimeout(function(){
 	$("#back-ground img").attr("src", "").show();
 }, 2500);
 
-$("#next").click(function(){
+$("#next").click(function(e){
 	$(this).css("visibility", "hidden").siblings("#prev").css("visibility", "visible");
 	$("#obj-list").animate({"left":"-100%"});
 });
 $("#prev").click(function(){
 	$(this).css("visibility", "hidden").siblings("#next").css("visibility", "visible");
+	$("#obj-list").animate({"left":0});
+});
+$("#inventory").on('click',{flag:0},function(e){
+	var cnt = e.data.flag++;
+	if(cnt%2==0) $(this).animate({"top":"77%"});
+	else $(this).animate({"top":"97%"});
+	$(this).toggleClass('on');
+	$(this).children().click(function(e){
+		e.stopPropagation();
+	});
 });
 </script>
 </body>
