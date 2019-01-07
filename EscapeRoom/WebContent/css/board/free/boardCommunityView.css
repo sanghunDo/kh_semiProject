@@ -1,0 +1,256 @@
+@charset "UTF-8";
+  .sub_news, .sub_news th, .sub_news td{
+             border: 0
+        }
+
+        .sub_news a{
+            color: #383838;
+            text-decoration: none
+        }
+        .sub_news{
+            width: 183%;
+            border-bottom: 1px #999;
+            color: white;
+            font-size: 12px;
+            table-layout: fixed;
+        }
+        .sub_news caption{
+            display: none;
+        }
+        .sub_news th{
+            padding: 5px 0 6px;
+            border-top: solid 1px #999;
+            border-bottom: solid 1px #b2b2b2;
+            background-color: #f1f1f4;
+            color: #333;
+            font-weight:bold;
+            line-height: 20px;
+            vertical-align: top;
+         
+        }
+
+        .sub_news td{
+            padding: 8px 10px 9px;
+            border-bottom : solid 1px #d2d2d2;
+            line-height:18px;
+            
+        }
+        .sub_news .date,.sub_news .views{
+            padding: 0;
+            font-family: Tahoma;
+            font-size: 11px;
+            line-height: normal;
+        }
+        .sub_news .title{
+            text-align: left;
+            padding-left: 15px;
+            font-size: 13px;
+        }
+        .sub_news .title .pic, .sub_news .title .new{
+            margin: 0 0 2px;
+            vertical-align: middle;
+        }
+
+        .container{
+           /* border: 1px solid red;*/
+            width: 1024px;
+        }
+        .button{
+           
+            border: 1px solid #999;
+            width: 50px;
+            text-align: center;
+            color: #666;
+            font-size: 12px;
+            padding: 7px 10px 6px;
+            border-radius: 3px;
+            margin-bottom:  12px;
+            margin: 5px;
+         }
+
+          .button:hover{
+              cursor: pointer;
+          }
+          
+
+         tr .best{
+            background-color :#d2d2d2;
+
+         }
+
+        #submit{
+          background-color: #999;
+          color: white;  
+        }
+
+        #cancel,#submit{
+            margin-top: 10px;
+            float: right;
+        }
+        #goList{
+            float: right;
+        position: relative;
+        top: -77px;
+
+        }
+        #commentSubmit{
+        
+        height: 101px;
+        width: 107px;
+        position: relative;
+        top: -40px;
+        left: 392px;
+        background-color: #999;
+        color: white;
+        text-align: center;
+        margin: 0 auto;
+      	cursor: pointer;
+      	
+        }
+        .bestComment-container{
+            background-color: rgb(249, 249, 249);
+        }
+        .opinion{
+            display:table;   
+        }
+        /* #good{
+            width: 100px;
+            height: 100px;
+            border-radius: 100%;
+            background-color: #999;
+            color: white;
+            display:table-cell; text-align:center; vertical-align:middle;
+        }
+
+        #bad{
+            width: 100px;
+            height: 100px;
+            border-radius: 100%;
+            background-color: #999;
+            color: white;
+            display:table-cell; text-align:center; vertical-align:middle;
+        } */
+        .opinion img{
+            display: block; 
+            margin: 0px auto; 
+            width: 100px;
+        }
+
+        #good{
+
+            position: relative;
+             left: 400px;
+             top: 50px;
+        }
+        #bad{
+            position: relative;
+            left: 532px;
+            top: -123px;
+        }
+
+        .opinion img:hover{
+            cursor: pointer;
+            text-decoration: underline;
+        }
+        .opinion span{
+            text-align: center;
+            font-size: 15px;
+        }
+
+        .opinion #like{
+            color: blue;
+        font-size: 39px;
+        position: relative;
+        left: -94px;
+         top: 74px;
+        }
+        .opinion #dislike{
+          color: white;
+         font-size: 39px;
+        position: relative;
+        left: 127px;
+    top:80px;
+           
+        }
+        .opinion #likeComment{
+            position: relative;
+            left: 32px;
+            top: 10px;
+        }
+
+        .opinion #dislikeComment{
+            position: relative;
+            left: 32px;
+            top: 10px;
+        }
+        .bestCommentOpinion{
+            text-align: right;
+            
+        
+        }
+        .bestCommentOpinion span:hover{
+            cursor: pointer;
+        }
+        .bestCommentOpinion span:hover span{
+            
+        text-decoration: underline;
+        }
+        #level2CommentList{
+            cursor: pointer;
+            color: white;
+        }
+        #level2CommentList:hover{
+            text-decoration: underline;
+            
+        }
+        #level2CommentWrite{
+            cursor: pointer;
+    		color: white;
+    		position: relative;
+    		top: -22px;
+    		left: 119px;
+        }
+        #level2CommentWrite:hover{
+            text-decoration: underline;
+        }
+
+        #Bestlevel2CommentList{
+            cursor: pointer;
+            
+        }
+        #Bestlevel2CommentList:hover{
+            text-decoration: underline;
+            
+        }
+        #Bestlevel2CommentWrite{
+            cursor: pointer;
+            
+        }
+        #Bestlevel2CommentWrite:hover{
+            text-decoration: underline;
+        }
+        #declaration{
+        float: right;
+        cursor: pointer;
+        color: white;
+        position: relative;
+        top: 19px;
+        left: -53px;
+        }
+        #declaration:hover{
+            float: right;
+            text-decoration: underline;
+
+        }
+        .commentList{
+            color: white;
+        }
+
+
+        #delete{
+
+            position: relative;
+             left: 81px;
+            top: -35px;
+        }
+        
