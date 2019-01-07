@@ -24,6 +24,7 @@
 <meta charset="UTF-8">
 <title>You Can't Escape..</title>
 <link href="https://fonts.googleapis.com/css?family=Amatic+SC" rel="stylesheet">
+<link rel="stylesheet" href="<%=request.getContextPath() %>/css/member/login.css" />
 <script src="<%=request.getContextPath()%>/js/jquery-3.3.1.js"></script>
 <script>
 function loginValidate(){
@@ -40,89 +41,7 @@ function loginValidate(){
 		return true;
 }
 </script>
-<style>
-body{
-	background:black;
-	color:white;
-}
 
-.login-Container{
-	width:350px;
-	height:270px;
-	border:1px solid #5D5D5D;
-	border-radius:20px;
-	margin: 0 auto;
-}
-
-#userId, #userPassword{
-	width:250px;
-	height:20px;
-	background:black;
-	color:white;
-	outline:none;
-	border-style:none;
-	border-bottom:1px solid gray;
-}
-
-table{
-	font-size:15px;
-	margin:0 auto;
-	padding-top:35px;
-}
-
-table td{
-	padding:5px 10px 5px 10px;
-}
-
-#submit-Btn{
-	outline:none;
-	background:beige;
-	border:1px solid beige;
-	border-radius:10px;
-	width:250px;
-	height:35px;
-	font-size:15px;
-	color:gray;
-	cursor:pointer;
-}
-
-#register-Btn{
-	outline:none;
-	background: gray;
-	border:1px solid gray;
-	border-radius:10px;
-	color:white;
-	width:250px;
-	height:35px;
-	font-size:15px;
-	cursor:pointer;
-}
-
-#saveId{
-	position:relative;
-	float:right;
-	top:.5px;
-	padding:0;
-}
-
-#label-saveId{
-	font-size:13px;
-	float:right;
-}
-
-div#logo{
-	width: 500px;
-	margin: 0 auto;
-	color: white;
-	font-size: 70px;
-	font-family: 'Amatic SC', serif;
-	text-shadow: 4px 4px 2px gray;
-	letter-spacing: 4px;
-	padding-top: 50px;
-	padding-left: 80px;
-	padding-bottom: 50px;
-}
-</style>
 </head>
 <body>
 <!-- 로그인 -->

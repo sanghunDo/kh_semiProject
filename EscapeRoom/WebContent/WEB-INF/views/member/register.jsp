@@ -1,10 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ page import="java.util.*" %>
-<%@ include file="/WEB-INF/views/common/header.jsp"%>
-<%
-	
-%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>You Can't Escape..</title>
+<link href="https://fonts.googleapis.com/css?family=Amatic+SC" rel="stylesheet">
+<link rel="stylesheet" href="<%=request.getContextPath() %>/css/member/register.css" />
+<script src="<%=request.getContextPath()%>/js/jquery-3.3.1.js"></script>
 <script>
 /* 회원가입 유효성 검사 */
 function registerValidate(){
@@ -108,7 +112,6 @@ function registerValidate(){
 	
 }
 
-
 function checkIdDuplicate(){
 	var getUserId = RegExp(/^(?=.*[A-Za-z])(?=.*[0-9]).{5,15}$/);
 	// 아이디 중복검사폼 전송
@@ -136,104 +139,78 @@ function checkIdDuplicate(){
 	checkIdDuplicateFrm.target = target;
 	checkIdDuplicateFrm.submit();
 }
+</script>
+<script>
+    $(function(){
+        $("#userProfile").on('change', function(){
+            readURL(this);
+        });
+   });
 
-// 첨부파일 바로 보여주기
-$(function(){
-    $("#userProfile").on('change', function(){
-        readURL(this);
-    });
-});
+   function readURL(input){
+       if(input.files && input.files[0]){
+           var reader = new FileReader();
 
-function readURL(input){
-   if(input.files && input.files[0]){
-       var reader = new FileReader();
+           reader.onload = function(e){
+               $('#profilePre').attr('src', e.target.result);
+           }
 
-       reader.onload = function(e){
-           $('#profilePre').attr('src', e.target.result);
+           reader.readAsDataURL(input.files[0]);
        }
-
-       reader.readAsDataURL(input.files[0]);
    }
-}
 </script>
 
-
+</head>
 <body>
-	<form action="<%=request.getContextPath()%>/member/checkIdDuplicate"
-		  method="POST"
-		  name="checkIdDuplicateFrm">
-		  <input type="hidden" name="userId"/>
+<form action="<%=request.getContextPath()%>/member/checkIdDuplicate" method="POST"
+	  name="checkIdDuplicateFrm">
+	  <input type="hidden" name="userId"/>
+</form>
+<div id="logo">Escape, if you can.</div>
+<section id="register-Container">
+	<h2>- HELLO, STRANGER -</h2>
+	<form action="<%=request.getContextPath()%>/member/memberRegisterEnd" method="POST" 
+		  name="memberRegisterFrm" onsubmit="return registerValidate();">
+		<table id="tbl-Register">
+			<tr>
+				<td><input type="text" name="userId" id="userId_" placeholder="아이디를 입력하세요." required></td>
+				<td><input type="button" id="id-check" value="확인" onclick="checkIdDuplicate();"></td>
+					<!-- 검사여부 알려주는 태그 -->
+				<td><input type="hidden" name="idRegister" id="idRegister" value="0"></td>
+			</tr>
+			<tr>
+				<td>
+					<input type="password" name="userPassword" id="userPassword_" placeholder="비밀번호를 입력하세요." required />
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<input type="password" id="userPassword__" placeholder="비밀번호를 한번 더 입력하세요." required />
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<input type="email" name="userEmail" id="userEmail"
+						placeholder="이메일을 입력하세요. 예) escape@gmail.com" required />
+				</td>
+			</tr>
+			<tr>
+				<td>프로필 사진</td>
+			</tr>
+			<tr>
+				<td><input type="file" name="userProfile" id="userProfile"
+					accept=".jpg, .jpeg, .png, .gif"></td>
+			</tr>
+			<tr>
+				<td>
+					<div id="profile-Container">
+						<img src="#" alt="" id="profilePre">
+					</div>
+				</td>
+			</tr>
+		</table>
+		<input type="submit" id="register-Btn" value="SIGN UP"> 
 	</form>
-	<section id="register-Container">
-		<h2>회원가입 정보 입력</h2>
-		<form action="<%=request.getContextPath()%>/member/memberRegisterEnd"
-			  method="POST" 
-			  name="memberRegisterFrm"
-			  enctype="multipart/form-data"
-			  onsubmit="return registerValidate();">
-			<table id="tbl-Register">
-				<tr>
-					<th>아이디</th>
-					<td>
-						<input type="text" 
-							   name="userId" 
-							   id="userId_"
-							   placeholder="아이디를 입력하세요."
-							   required> 
-						<input type="button"
-							   value="중복검사" 
-							   onclick="checkIdDuplicate();"> 
-						<!-- 검사여부 알려주는 태그 -->
-						<input type="hidden" 
-							   name="idRegister" 
-							   id="idRegister" 
-							   value="0">
-					</td>
-				</tr>
-				<tr>
-					<th>패스워드</th>
-					<td>
-						<input type="password" 
-							   name="userPassword"
-							   id="userPassword_"
-							   placeholder="비밀번호를 입력하세요."
-							   required />
-					</td>
-				</tr>
-				<tr>
-					<th>패스워드 확인</th>
-					<td>
-						<input type="password" 
-							   id="userPassword__" 
-							   placeholder="비밀번호를 한 번 더 입력하세요."
-							   required />
-					</td>
-				</tr>
-				<tr>
-					<th>이메일</th>
-					<td>
-						<input type="email" 
-							   name="userEmail" 
-							   id="userEmail"
-							   placeholder="예) escaperoom19@gmail.com"
-							   required />
-					</td>
-				</tr>
-				<tr>
-					<th>프로필 사진</th>
-					<td>
-						<input type="file" name="userProfile" id="userProfile">
-					</td>
-				</tr>
-				<tr>
-					<td colspan="6" id="profile_Td">
-						<img src="" alt="" id="profilePre">
-					</td>
-				</tr>
-			</table>
-			<input type="submit" value="회원가입"> 
-			<input type="reset" value="초기화">
-		</form>
-	</section>
-	
-<%@ include file="/WEB-INF/views/common/footer.jsp"%>
+</section>
+</body>
+</html>
