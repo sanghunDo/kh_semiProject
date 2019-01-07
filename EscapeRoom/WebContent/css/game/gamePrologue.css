@@ -1,11 +1,10 @@
 @charset "UTF-8";
 body, html{
-   width: 1022px;
-   height: 674px;
+   width: 1008px;
+   height: 704px;
    padding: 0px;
    margin: 0 auto;
    background:black;
-   overflow: hidden;
 }
 
 div#warning{
@@ -21,10 +20,11 @@ div#warning{
    font-weight:bold;
    padding-bottom:20px;
    margin:0 auto;
-/*    animation-name:warningAni;
+   animation-name:warningAni;
    animation-duration:5s;
-   animation-iteration-count:1; */
+   animation-iteration-count:1;
    opacity:0;
+
 }
 
 @keyframes warningAni{
@@ -39,12 +39,12 @@ div#warning{
    }
 }
 div#prologue{
-	position: absolute;
-	width: 1024px;
-	height: 768px;
+	position: relative;
+	width: 100%;
+	height: 100%;
 	background: black;
 	top: 0;
-	/* display: none; */
+	display: none;
 }
 div#prologue img{
 	width: 800px;
@@ -53,10 +53,10 @@ div#prologue img{
 }
 div#prologue div#msgBox{
 	position: relative;
-	width: 90%;
+	width: 80%;
 	height: 15%;
 	margin: 0 auto;
-	top: 65%;
+	top: 72%;
 	border: 2px solid white;
 	background: black;
 	color: white;

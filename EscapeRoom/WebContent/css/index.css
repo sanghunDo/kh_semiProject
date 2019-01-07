@@ -13,7 +13,12 @@ div#backGround{
 	width: 100%;
 	height: 100%;
 }
-
+div.on{
+	background-image: url('../images/index.jpg');
+	background-repeat: no-repeat;
+	background-position: center;
+	background-size: cover;
+}
 header{
 	position: relative;
 	width: 100%;
