@@ -38,6 +38,12 @@ window.onload=function(){
 	$("#prologue").on('click', {cnt:0} ,function(e){
 		var cnt = e.data.cnt++;
 		var target = $("#prologue").find("h2");
+		if(cnt==17){
+			$(this).parent().fadeOut(3000); //마지막 대사 이후 클릭시 화면전환.
+			return;
+		}
+		
+		//대사 테이블에서 한 문장씩 가져옴.
 		$.ajax({
 			url:"<%=request.getContextPath()%>/game/prologue",
 			data: "index="+cnt,
@@ -45,6 +51,7 @@ window.onload=function(){
 			dataType: "json",
 			success: function(data){
 				target.removeAttr("style");
+				//대사에 해당되는 이미지가 있던 없던 불러와서 이미지를 추가함. 이미지가 없으면 "", 있으면 해당 파일이름.
 				$("#prologue").find("img").attr("src", data.fileName);
 				target.text(data.content);
 				target.parent().css("width",target.outerWidth());
