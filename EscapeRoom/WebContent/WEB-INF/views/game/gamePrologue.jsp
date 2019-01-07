@@ -32,6 +32,7 @@ window.onload=function(){
 </div>
 <script>
 	setTimeout(function(){
+		$("#warning").css("display", "none");
 		$("#prologue").fadeIn(1000);
 	}, 5000);
 	
@@ -40,7 +41,9 @@ window.onload=function(){
 		var target = $("#prologue").find("h2");
 		if(cnt==17){
 			$(this).parent().fadeOut(3000); //마지막 대사 이후 클릭시 화면전환.
-			return;
+			setTimeout(function(){
+				location.href="<%=request.getContextPath()%>/game/gameMain?userId=<%=request.getParameter("userId")%>";
+			}, 3000);
 		}
 		
 		//대사 테이블에서 한 문장씩 가져옴.
