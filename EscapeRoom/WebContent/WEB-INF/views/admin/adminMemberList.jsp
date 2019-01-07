@@ -78,6 +78,21 @@ $(function(){
 		<p>검색 결과가 없습니다.</p>
 	<%} else {%>
 		<!-- 검색 결과 표시하기 -->
+		<table>
+			<tr>
+				<th></th>
+				<th></th>
+				<th></th>
+				<th></th>
+			</tr>
+			<tr>
+				<td><%= %></td>
+				<td><%= %></td>
+				<td><%= %></td>
+				<td><%= %></td>
+			</tr>
+		</table>
+		<%=pageBar %>
 	<%} %>
 </div>
 <%@ include file="/WEB-INF/views/common/footer.jsp" %>

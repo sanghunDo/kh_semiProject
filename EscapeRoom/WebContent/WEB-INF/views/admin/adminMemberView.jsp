@@ -19,12 +19,12 @@
 $function(){
 	// 프로필 사진 변경
 	var bool = "";
-};}
+};
 
 $function(){
 	// 회원 이메일 변경
 	var email = "";
-};}
+};
 
 $function(){
 	// 회원 삭제 기능
@@ -49,13 +49,33 @@ $function(){
 		<th>비밀번호</th>
 		<th>이메일</th>
 		<th>가입한 날짜</th>
+		<th>플레이 시간</th> <!-- 클리어한 기준 -->
+		<th>클리어한 날짜</th>
+		<!-- 작성한 게시글 수 -->
+		<!-- 작성한 댓글 수 -->
 	</tr>
 	<tr>
-		<td><%=m.getUserId() %></td>
+		<td>
+		<%=m.getUserId() %>
+		</td>
 		<td></td>
-		<td><%=m.getUserPassword() %></td>
-		<td><%=m.getUserEmail() %></td>
-		<td><%=m.getEnrollDate() %></td>
+		<td>
+		<%=m.getUserPassword() %>
+		</td>
+		<td>
+		<%=m.getUserEmail() %>
+		</td>
+		<td>
+		<%=m.getEnrollDate() %>
+		</td>
+		<td>
+		<!-- 플레이 시간 가져오기 -->
+		</td>
+		<td>
+		<!-- 클리어 날짜 가져오기 -->
+		</td>
+		<!-- 작성한 게시글 수 가져오기 -->
+		<!-- 작성한 댓글 수 가져오기 -->
 	</tr>
 </table>
 <div id="profile-file-edit">
