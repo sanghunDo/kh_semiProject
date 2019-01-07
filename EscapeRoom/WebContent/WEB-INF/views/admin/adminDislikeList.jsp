@@ -54,9 +54,11 @@ $(function(){
 <!-- 게시글 검색하기 -->
 <div class="search-container">
 	<select name="searchOpt" id="searchOpt">
-    	<option value="title">제목</option>
-        <option value="content">내용</option>
-        <option value="id">아이디</option>
+		<option value="title">제목</option>
+		<option value="content">내용</option>
+		<option value="titleAndContent">제목+내용</option>
+		<option value="writer-id">글쓴이 아이디</option>
+		<option value="comment-id">댓글 아이디</option>
     </select>
 	<input type="text" name="searchVal" id="searchVal">
 	<div id="search" style="width:50px">검색</div>

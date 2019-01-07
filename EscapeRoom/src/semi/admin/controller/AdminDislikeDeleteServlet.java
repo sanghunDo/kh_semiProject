@@ -29,6 +29,7 @@ public class AdminDislikeDeleteServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// 1. 파라미터 핸들링
 		// 관리자로 로그인되었는지 확인하기
 		String userId = request.getParameter("userid");
 		String password = request.getParameter("password");
@@ -41,11 +42,10 @@ public class AdminDislikeDeleteServlet extends HttpServlet {
 			request.getRequestDispatcher("/WEB-INF/views/common/msg.jsp").forward(request, response);
 			return;
 			}
+		
 		// 2. 비즈니스 로직
-		// 회원 아이디 값으로 회원정보 가져오기
-		Member m = new AdminService().selectOne(userId);
-		System.out.println("member@AdminViewServlet = " + m);
-
+		Member m = new Member();
+		
 		// 3. view단 처리
 		// 요청 실패시 오류 메세지 표시용
 		String view = "/WEB-INF/views/common/msg.jsp";
