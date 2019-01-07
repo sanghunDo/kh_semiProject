@@ -2,15 +2,19 @@
     pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/views/common/header.jsp" %>
 <style>
-#main-Container{
+#notice-Container{
 	width:100%;
 	min-height:100px;
 	border:1px solid white;
 	margin-top:20px;
+	color:white;
 }
 </style>
-<div id="main-Container">
+</head>
+<body>
+<div id="notice-Container">
+<table>
 
+</table>
 </div>
 </body>
-</html>

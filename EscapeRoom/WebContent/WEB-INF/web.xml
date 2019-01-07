@@ -21,4 +21,21 @@
     <servlet-name>MemberLoginServlet</servlet-name>
     <url-pattern>/member/login</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <servlet-name>gotoHome</servlet-name>
+    <jsp-file>/WEB-INF/views/home.jsp</jsp-file>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>gotoHome</servlet-name>
+    <url-pattern>/home</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+    <servlet-name>gotoNotice</servlet-name>
+    <jsp-file>/WEB-INF/views/notice/noticeList.jsp</jsp-file>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>gotoNotice</servlet-name>
+    <url-pattern>/notice/noticeList</url-pattern>
+  </servlet-mapping>
 </web-app>
