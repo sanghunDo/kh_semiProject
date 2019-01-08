@@ -15,53 +15,6 @@ window.onload=function(){
 	window.resizeTo(1024,768);
 }
 </script>
-<style>
-div#msgBox:before{
-	content: "? ? ?";
-	position: absolute;
-    width: 78px;
-    height: 28px;
-    border: 2px solid white;
-    border-right: 0px;
-    top: -32px;
-    left: -2px;
-    text-align: center;
-    font-family: 'Song Myung', serif;
-    font-size: 25px;
-    padding-left: 8px;
-}
-div#msgBox:after{
-    position: absolute;
-    content: " ";
-    height: 37px;
-    top: -34px;
-    left: 95px;
-    border-right: 2px solid white;
-    transform: rotateZ(-35deg);
-}
-div#msgBox.me:before{
-	content: "김동호";
-	position: absolute;
-	width: 78px;
-    height: 28px;
-    border: 2px solid white;
-    border-left: 0px;
-    top: -32px;
-    left: 720px;
-    text-align: center;
-    font-family: 'Song Myung', serif;
-    font-size: 25px;
-}
-div#msgBox.me:after{
-	position: absolute;
-    content: "";
-    height: 37px;
-    top: -34px;
-    left: 709px;
-    border-left: 0px solid white;
-    transform: rotateZ(35deg);
-}
-</style>
 </head>
 <body>
 <div id="warning">
@@ -87,7 +40,7 @@ div#msgBox.me:after{
 		var cnt = e.data.cnt++;
 		var target = $("#prologue").find("h2");
 		if(cnt==17){
-			$(this).parent().fadeOut(3000); //마지막 대사 이후 클릭시 화면전환.
+			$(this).parent().fadeOut(3000); //마지막 대사 이후 클릭시 메인게임으로 이동.
 			setTimeout(function(){
 				location.href="<%=request.getContextPath()%>/game/gameMain?userId=<%=request.getParameter("userId")%>";
 			}, 3000);
