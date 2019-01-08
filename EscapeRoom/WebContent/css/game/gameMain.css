@@ -15,8 +15,8 @@ div#wrap{
 }
 img#back-ground{
 	position: fixed;
-	width: 100%;
-	height: 100%;
+	width: 1008px;
+	height: 704px;
 }
 div#inventory{
 	position: relative;
