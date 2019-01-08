@@ -69,19 +69,19 @@ public class MemberRegisterEndServlet extends HttpServlet {
 		System.out.println("userEmail@MemberRegisterEndServlet = " + userEmail);
 		
 //		String userProfileOriginalFile = multiReq.getParameter("userProfileOriginalFile");
-		String userProfileOriginalFile_ = multiReq.getOriginalFileName("userProfile");
-		System.out.println("userProfileOriginalFile@MemberRegisterEndServlet = " + userProfileOriginalFile_);
+		String userProfileOriginalFile = multiReq.getOriginalFileName("userProfile");
+		System.out.println("userProfileOriginalFile@MemberRegisterEndServlet = " + userProfileOriginalFile);
 		
 //		String userProfileRenamedFile = multiReq.getParameter("userProfile");
-		String userProfileRenamedFile_ = multiReq.getFilesystemName("userProfile");
-		System.out.println("userProfileRenamedFile@MemberRegisterEndServlet = " + userProfileRenamedFile_);
+		String userProfileRenamedFile = multiReq.getFilesystemName("userProfile");
+		System.out.println("userProfileRenamedFile@MemberRegisterEndServlet = " + userProfileRenamedFile);
 		
 		Member m = new Member();
 		m.setUserId(userId);
 		m.setUserPassword(userPassword);
 		m.setUserEmail(userEmail);
-		m.setUserProfileOriginalFile(userProfileOriginalFile_);
-		m.setUserProfileRenamedFile(userProfileRenamedFile_);
+		m.setUserProfileOriginalFile(userProfileOriginalFile);
+		m.setUserProfileRenamedFile(userProfileRenamedFile);
 		
 		System.out.printf("[m@MemberRegisterEndServlet = %s]\n", m);
 		
