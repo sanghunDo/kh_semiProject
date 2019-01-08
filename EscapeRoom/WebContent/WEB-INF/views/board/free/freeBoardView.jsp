@@ -304,25 +304,27 @@
      			var level2Comment = $(".level2Comment");
      			var level2Date = $(".level2Date");
      			
-     			var html="";
-     			html+=reply_icon+"<img src='<%=request.getContextPath()%>/images/freeBoard/commentReply.png'>";
+     			var html = "";
+     	  		html+=reply_icon+"<img src='<%=request.getContextPath()%>/images/freeBoard/commentReply.png'>";
      			html+=info+comment2UserId;
      			html+=level2Comment+comment2Content;
-     			html+=level2Date+comment2Content
+     			html+=level2Date+comment2Content;
+     			
+     			$(".level2_area").insertAfter(html);
+     			/* 	$(".reply_icon").insertAfter();
+     				$(".info").insertAfter(comment2UserId);
+     				$(".level2Comment").insertAfter(comment2Content);
+     				$(".level2Date").insertAfter(comment2Date); */
      			
      			
-     			$(".level2_area").append(html);
+				
+   
      			
      			
-     		<%-- 	html+="<span class='reply_icon'><img src='<%=request.getContextPath()%>/images/freeBoard/commentReply.png'></span>"
-     				html+="<div class='info'>"+comment2UserId+"</div>";
-					html+="<div class='level2Comment'>"+comment2Content+"</div>";
-					html+="<div class='level2Date'>"+comment2Date+"</div>";
-					html+="<div class='level2Report'>신고하기</div>";
-					html+="<div class='level2Like'>추천 23</div>";
-					html+="<div class='level2Dislike'>비추천 0</div>";
-					html+="<hr />"
-					level2_area.append(html);
+     		/* 	$(".level2_area").append(html); */
+     			
+     			
+     		<%-- 	
 					
 					
      			
