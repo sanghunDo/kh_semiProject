@@ -11,10 +11,17 @@ public class AdminService {
 		List<Member> memberList = new ArrayList<Member>();
 		return memberList;
 	}
+	
+	public Member selectOne(String userId) {
+		Member m = new Member();
+		return m;
+	}
 
 	public int selectMemberCount() {
-		int memberCount = 0;
-		return memberCount;
+		int m = 0;
+		return m;
 	}
+	
+	
 
 }
