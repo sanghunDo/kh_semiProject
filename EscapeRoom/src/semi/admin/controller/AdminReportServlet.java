@@ -28,6 +28,7 @@ public class AdminReportServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// 회원 신고기능 서블릿
 		// 관리자로 로그인되었는지 확인하기
 		String userId = request.getParameter("userid");
 		String password = request.getParameter("password");

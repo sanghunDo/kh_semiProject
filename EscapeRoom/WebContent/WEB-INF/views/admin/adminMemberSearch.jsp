@@ -24,7 +24,9 @@
 <script>
 $(function checkValue(){
 	// 검색창 값 미입력하고 검색시 경고창 띄우기
-	
+	// searchStart = null || #searchStart.isEmpty()
+	// alert("검색할 항목을 반드시 입력해주세요.");
+	// return false;
 });
 </script>
 <h2>관리자 전용 게시판</h2>
@@ -47,8 +49,9 @@ $(function checkValue(){
     <div class="search-useremail">
 			<input type="search" name="" id="검색할 이메일을 입력하세요." />
     </div>
-    <button type="submit">검색하기</button>
-    <!-- 검색 결과 표시하기 -->
+    
+    <button id="searchStart" type="submit">검색하기</button>
+    <!-- 검색 결과 목록으로 표시하기 -->
     <br />
     <hr />
     <br />
@@ -66,7 +69,7 @@ $(function checkValue(){
 			</tr>
 			<tr>
 				<td><%=m.getUserId() %> </td>
-				<td><%= %></td>
+				<td><%=m.getUserProfileOriginalFile() %></td>
 				<td><%=m.getUserPassword() %></td>
 				<td><%=m.getUserEmail() %></td>
 				<td><%=m.getEnrollDate() %></td>
