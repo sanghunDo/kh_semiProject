@@ -31,8 +31,13 @@ public class MemberUpdatePasswordEndServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// 1. 파라미터 핸들링
 		String userId = (String) request.getParameter("userId");
+		System.out.println("userId@MemberUpdatePasswordEndServlet = " + userId);
+		
 		String userPassword = (String) request.getParameter("userPassword");
+		System.out.println("userPassword@MemberUpdatePasswordEndServlet = " + userPassword);
+		
 		String userPassword_New = (String) request.getParameter("userPassword_New");
+		System.out.println("userPassword_New@MemberUpdatePasswordEndServlet = " + userPassword_New);
 
 		// 2. 비즈니스 로직
 		// 기존 비밀번호 확인
@@ -69,7 +74,7 @@ public class MemberUpdatePasswordEndServlet extends HttpServlet {
 			}
 			
 		} else {
-			msg = "기존 비밀번호를 잘못 입력하셨습니다.";
+			msg = "기존 비밀번호를 잘 못 입력하셨습니다.";
 			loc = "/member/updatePassword?userId=" + userId;
 		}
 

@@ -1,0 +1,121 @@
+@charset "UTF-8";
+body{
+	background:black;
+	color:white;
+}
+
+div#logo{
+	width: 500px;
+	margin: 0 auto;
+	color: white;
+	font-size: 70px;
+	font-family: 'Amatic SC', serif;
+	text-shadow: 4px 4px 2px gray;
+	letter-spacing: 4px;
+	padding-top: 20px;
+	padding-left: 80px;
+	padding-bottom: 50px;
+}
+
+h2{
+	padding-top:10px;
+	margin-left:62px;
+	font-size:18px;
+	margin-left:114px;
+}
+
+#memberView-Container{
+	width:420px;
+	height:520px;
+	border:1px solid #5D5D5D;
+	border-radius:20px;
+	margin: 0 auto;
+}
+
+#userId_, #userPassword_, #userPassword__, #userEmail{
+	width:275px;
+	height:25px;
+	outline:none;
+	background:black;
+	border-style:none;
+	border-bottom: 1px solid gray;
+	color:white;
+}
+
+table{
+	border-collapse: collapse;
+	margin-left:56px;
+}
+
+td{
+	padding-bottom:15px;
+	text-align:center;
+}
+
+#userProfile{
+	outline:none;
+	border:1px solid white;
+	color:white;
+	background:black;
+	border-radius: 5px;
+	width:290px;
+}
+
+#profile-Container{
+	width:100px;
+	height:100px;
+	border:1px solid white;
+	margin:0 auto;
+}
+
+#profilePre{
+	position:relative;
+	width:100%;
+	height:100%;
+}
+
+#editInfo-Btn{
+	outline:none;
+	border:1px solid gray;
+	color:white;
+	background: gray;
+	border-radius: 10px;
+	width:275px;
+	height:35px;
+	font-size:15px;
+	cursor:pointer;
+	display:block;
+	margin:0 auto;
+	margin-top:20px;
+}
+
+#password-Btn{
+	outline:none;
+	border:1px solid gray;
+	color:white;
+	background: gray;
+	border-radius: 10px;
+	width:275px;
+	height:35px;
+	font-size:15px;
+	cursor:pointer;
+	display:block;
+	margin:0 auto;
+	margin-top:20px;
+}
+
+#delete-Btn{
+	outline:none;
+	border:1px solid gray;
+	color:white;
+	background: gray;
+	border-radius: 10px;
+	width:275px;
+	height:35px;
+	font-size:15px;
+	cursor:pointer;
+	display:block;
+	margin:0 auto;
+	margin-top:20px;
+}
+
