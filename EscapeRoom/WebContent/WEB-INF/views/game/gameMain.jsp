@@ -15,6 +15,7 @@ body, html{
    margin: 0 auto;
    overflow: hidden;
    background: black;
+   font-family:'Noto Serif KR', serif;
 }
 div#wrap{
 	position: relative;
@@ -246,6 +247,40 @@ div#pause-menu ul li:first-of-type span{
     -webkit-transform: rotateX(0deg);
     -moz-transform: rotateX(0deg);
 }
+
+#store{
+	position:relative;
+	margin:0 auto;
+	top:-30px;
+	width:700px;
+	height:600px;
+	background:white;
+	box-shadow: 5px 5px 50px;
+	border-radius:30px;
+}
+
+#store-Top{
+	border:1px solid;
+	padding-top:40px;
+	width:200px;
+	height:35px;	
+}
+
+#item{
+	width:35px;
+	height:35px;
+}
+
+#userCoin, #hintPaper{
+	position:relative;
+	top:-10px;
+	font-size:20px;
+}
+
+#store-Help{
+	font-size:25px;
+	margin:0 auto;
+}
 </style>
 </head>
 <body>
@@ -275,6 +310,21 @@ div#pause-menu ul li:first-of-type span{
 			</ul>
 		</div>
 	</div>
+	
+	<!-- 상점 -->
+	<div id="store">
+		<div id="store-Top">
+			<img id="item" src="<%=request.getContextPath()%>/images/coin.png" alt="" />
+			&nbsp;&nbsp;<span id="userCoin">50</span>
+			&nbsp;&nbsp;&nbsp;&nbsp;
+			<img id="item" src="<%=request.getContextPath()%>/images/hint_paper.png" alt="" />
+			&nbsp;&nbsp;<span id="hintPaper">3</span>
+		</div>
+		
+		<p id="store-Help">힌트쪽지를 구매하면 랜덤으로 1개의 쪽지를 뽑게 됩니다.<br>
+			쪽지가 얼마나 유용할지는 알 수 없습니다.</p>
+	</div>
+	
 	<div id="pause"><img src="<%=request.getContextPath() %>/images/game/gameMain/pause.png" alt="" /></div>
 	<div id="inventory">
 		<div id="prev"><span>◀</span></div>
