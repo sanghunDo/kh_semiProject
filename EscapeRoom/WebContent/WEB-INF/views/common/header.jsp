@@ -22,7 +22,7 @@
                 <a href="<%=request.getContextPath()%>/member/login">LOGIN</a>
 			<%}else{ %>
 				<%if("admin".equals(loggedInMember.getUserId())){ %>
-					<a href="<%=request.getContextPath()%>/admin/adminView">ADMIN</a>
+					<a href="<%=request.getContextPath()%>/admin/adminMemberList">ADMIN</a>
 					&nbsp;&nbsp;
 				<%} %>
                 <a href="<%=request.getContextPath()%>/member/memberView?userId=<%=loggedInMember.getUserId()%>">MY PAGE</a>
@@ -36,7 +36,7 @@
 			<ul>
 				<li><a href="<%=request.getContextPath()%>/home">HOME</a></li>
 				<li><a href="<%=request.getContextPath()%>/notice">NOTICE</a></li>
-				<li><a href="<%=request.getContextPath()%>/rank">RANKING</a></li>
+				<li><a href="<%=request.getContextPath()%>/board/rank/rankingBoardList">RANKING</a></li>
 				<li><a href="">SOLVE</a></li>
 				<li><a href="<%=request.getContextPath()%>/board/free/freeBoardList">FREE</a></li>
 			</ul>
