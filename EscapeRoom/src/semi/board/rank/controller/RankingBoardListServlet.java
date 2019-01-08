@@ -26,18 +26,8 @@ public class RankingBoardListServlet extends HttpServlet {
 		
 		request.setCharacterEncoding("utf-8");
 		
-		System.out.println("game rank servlet");
-		String gameId = request.getParameter("gameId");
-		System.out.println("아이디 : " + gameId);
-		
-		RankService rankService = new RankService();
-		
-		Rank r = rankService.viewOne(gameId);
-		System.out.println("확인 : " + r);
-		
 		List<Rank> list = new RankService().selectRankList();
 		
-		request.setAttribute("rank", r);
 		request.setAttribute("list", list);
 		
 		request.getRequestDispatcher("/WEB-INF/views/board/rank/RankingBoard.jsp").forward(request, response);
