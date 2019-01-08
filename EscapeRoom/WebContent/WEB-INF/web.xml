@@ -47,16 +47,7 @@
     <servlet-name>gotoRank</servlet-name>
     <url-pattern>/rank</url-pattern>
   </servlet-mapping>
-  
-  <servlet>
-    <servlet-name>gotoFreeBoard</servlet-name>
-    <jsp-file>/WEB-INF/views/board/free/freeBoardList.jsp</jsp-file>
-  </servlet>
-  <servlet-mapping>
-    <servlet-name>gotoFreeBoard</servlet-name>
-    <url-pattern>/board/freeBoard</url-pattern>
-  </servlet-mapping>
-  
+
   <!-- <servlet>
     <servlet-name>gotoSolveBoard</servlet-name>
     <jsp-file>/WEB-INF/views/board/solve/solveBoardList.jsp</jsp-file>
