@@ -49,7 +49,7 @@ public class FreeBoardCommentUpdate extends HttpServlet {
 		String loc = "/board/free/freeBoardView?postNo="+postNo ;
 		
 		if(result >0 ) {
-			msg ="댓글 수정성공";
+			msg ="댓글이 성공적으로 수정되었습니다.";
 			
 		}else {
 			msg = "수정실패";

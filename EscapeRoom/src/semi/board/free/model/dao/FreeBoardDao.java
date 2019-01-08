@@ -3,10 +3,6 @@ package semi.board.free.model.dao;
 
 
 import java.sql.Connection;
-
-
-
-import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -72,8 +68,8 @@ public class FreeBoardDao {
 				fb.setPostLike(rset.getInt("postlike"));
 				fb.setPostDislike(rset.getInt("postdislike"));
 				fb.setPostDate(rset.getDate("postdate"));
-				//fb.setPostReadCount(rset.getInt("postreadcount"));
-				
+				fb.setPostReadCount(rset.getInt("postreadcount"));
+				fb.setBoard_comment_cnt(rset.getInt("board_comment_cnt"));
 				
 				list.add(fb);
 				
@@ -143,7 +139,7 @@ public class FreeBoardDao {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
-		String query = "select * from (select * from board_free order by postlike desc) where ROWNUM <4";
+		String query = "select * from ( select rownum as rnum, v.* from( select v.*, (select count(*) from board_comment_free where ref = v.postNo) as board_comment_cnt from board_free v  order by postlike desc) v ) v where ROWNUM <4";
 		
 		//1. 클래스등록확인
 		try {
@@ -169,7 +165,8 @@ public class FreeBoardDao {
 				fb.setPostLike(rset.getInt("postlike"));
 				fb.setPostDislike(rset.getInt("postdislike"));
 				fb.setPostDate(rset.getDate("postdate"));
-				//fb.setPostReadCount(rset.getInt("postreadcount"));
+				fb.setPostReadCount(rset.getInt("postreadcount"));
+				fb.setBoard_comment_cnt(rset.getInt("board_comment_cnt"));
 				
 				bestList.add(fb);
 				
@@ -199,7 +196,7 @@ public class FreeBoardDao {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
-		String query = "select * from board_free where postno =?";
+		String query = "select * from ( select rownum as rnum, v.* from( select v.*, (select count(*) from board_comment_free where ref = v.postNo) as board_comment_cnt from board_free v  order by postdate desc) v ) v  where postno =?";
 		
 		//1. 클래스등록확인
 		try {
@@ -223,7 +220,8 @@ public class FreeBoardDao {
 				fb.setPostLike(rset.getInt("postlike"));
 				fb.setPostDislike(rset.getInt("postdislike"));
 				fb.setPostDate(rset.getDate("postdate"));
-				//fb.setPostReadCount(rset.getInt("postreadcount"));	
+				fb.setPostReadCount(rset.getInt("postreadcount"));	
+				fb.setBoard_comment_cnt(rset.getInt("board_comment_cnt"));
 			}
 			
 			} catch (ClassNotFoundException e) {
@@ -321,7 +319,7 @@ public class FreeBoardDao {
 				fb.setPostLike(rset.getInt("postlike"));
 				fb.setPostDislike(rset.getInt("postdislike"));
 				fb.setPostDate(rset.getDate("postdate"));
-				//fb.setPostReadCount(rset.getInt("postreadcount"));	
+				fb.setPostReadCount(rset.getInt("postreadcount"));	
 			}
 
 			} catch (ClassNotFoundException e) {
@@ -487,7 +485,7 @@ public class FreeBoardDao {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		String query = 
-	    "INSERT INTO board_comment_free values (seq_comment_free_commentno.nextVal, ? ,?, ?, ? , ? , default, default ,default ,default)";
+	    "INSERT INTO board_comment_free (commentno,  commentlevel,  commentwriter,  commentcontent,  ref,  commentref) VALUES (seq_comment_free_commentno.nextVal, ? ,  ? ,  ? , ? , ?)";
 		
 		try {
 			Class.forName("oracle.jdbc.driver.OracleDriver");
@@ -586,8 +584,8 @@ public class FreeBoardDao {
 			
 			pstmt = conn.prepareStatement(query);
 			pstmt.setInt(1, commentNo);
-			
-			
+//			fb.setPostNo(rset.getInt("postno"));
+//			
 			result = pstmt.executeUpdate();	
 			
 			if(result >0) commit(conn);
@@ -610,10 +608,292 @@ public class FreeBoardDao {
 		return result;
 	}
 
+	public int updateLikey(int commentNo, int likey) {
+		PreparedStatement pstmt = null;
+		Connection conn = null;
+		int commentLikey = 0;
+		int result = 0;
+		ResultSet rset = null;
+		String query = "UPDATE board_comment_free SET commentlike = ?+1 where commentNo = ?";
+		try {
+			Class.forName("oracle.jdbc.driver.OracleDriver");
+			conn = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe", 
+					"semi", //아이디 
+					"semi");//비번
+			pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1, likey);
+			pstmt.setInt(2, commentNo);
+
+			result = pstmt.executeUpdate();
+			
+			if(result >0) {
+				BoardComment bc = new BoardComment();
+				commit(conn);
+			}else {
+				rollback(conn);
+			};
+			
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				pstmt.close();
+				conn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+			
+		}
 	
+		return result;
+	}
+
+	public int getLikey(int commentNo) {
+		Connection conn = null;
+		int likey = 0;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String query = "select commentlike from board_comment_free where commentNo=?";
+		
+		//1. 클래스등록확인
+		try {
+			Class.forName("oracle.jdbc.driver.OracleDriver");
+			conn = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe", 
+					"semi", //아이디 
+					"semi");//비번
+			
+			pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1, commentNo);
+			rset = pstmt.executeQuery();
+			if(rset.next()) {
+				likey = rset.getInt("commentlike");
+			}
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}finally {
+			try {
+				rset.close();
+				pstmt.close();
+				conn.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+		}
+		
+		
+		return likey;
+	}
+
+	public int updateBoardLikey(int postNo, int boardLikey) {
+		PreparedStatement pstmt = null;
+		Connection conn = null;
+		int commentLikey = 0;
+		int result = 0;
+		ResultSet rset = null;
+		String query = "UPDATE board_free SET postlike = ?+1 where postno = ?";
+		try {
+			Class.forName("oracle.jdbc.driver.OracleDriver");
+			conn = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe", 
+					"semi", //아이디 
+					"semi");//비번
+			pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1, boardLikey);
+			pstmt.setInt(2, postNo);
+
+			result = pstmt.executeUpdate();
+			
+			if(result >0) {
+				commit(conn);
+			}else {
+				rollback(conn);
+			};
+			
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				pstmt.close();
+				conn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+			
+		}
 	
+		return result;
+	}
 	
+	public int getPostLikey(int postNo) {
+		Connection conn = null;
+		int likey = 0;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String query = "select postlike from board_free where postNo=?";
+		
+		//1. 클래스등록확인
+		try {
+			Class.forName("oracle.jdbc.driver.OracleDriver");
+			conn = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe", 
+					"semi", //아이디 
+					"semi");//비번
+			
+			pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1, postNo);
+			rset = pstmt.executeQuery();
+			if(rset.next()) {
+				likey = rset.getInt("postlike");
+			}
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}finally {
+			try {
+				rset.close();
+				pstmt.close();
+				conn.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+		}
+		
+		
+		return likey;
+	}
+
+	public int updateBoardDislikey(int postNo, int boardDislikey) {
+		PreparedStatement pstmt = null;
+		Connection conn = null;
+		int commentLikey = 0;
+		int result = 0;
+		ResultSet rset = null;
+		String query = "UPDATE board_free SET postdislike = ?+1 where postno = ?";
+		try {
+			Class.forName("oracle.jdbc.driver.OracleDriver");
+			conn = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe", 
+					"semi", //아이디 
+					"semi");//비번
+			pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1, boardDislikey);
+			pstmt.setInt(2, postNo);
+
+			result = pstmt.executeUpdate();
+			
+			if(result >0) {
+				commit(conn);
+			}else {
+				rollback(conn);
+			};
+			
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				pstmt.close();
+				conn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+			
+		}
 	
+		return result;
+	}
+	
+	public int getPostDislikey(int postNo) {
+		Connection conn = null;
+		int dislikey = 0;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String query = "select postdislike from board_free where postNo=?";
+		
+		//1. 클래스등록확인
+		try {
+			Class.forName("oracle.jdbc.driver.OracleDriver");
+			conn = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe", 
+					"semi", //아이디 
+					"semi");//비번
+			
+			pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1, postNo);
+			rset = pstmt.executeQuery();
+			if(rset.next()) {
+				dislikey = rset.getInt("postdislike");
+			}
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}finally {
+			try {
+				rset.close();
+				pstmt.close();
+				conn.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+		}
+		
+		
+		return dislikey;
+	}
+
+	
+
+	public String getDate(int commentRef) {
+		Connection conn = null;
+		String date = "";
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String query = "select commentdate from board_comment_free where commentno=?";
+		
+		//1. 클래스등록확인
+		try {
+			Class.forName("oracle.jdbc.driver.OracleDriver");
+			conn = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe", 
+					"semi", //아이디 
+					"semi");//비번
+			
+			pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1, commentRef);
+			rset = pstmt.executeQuery();
+			if(rset.next()) {
+				date = rset.getString("commentdate");
+			}
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}finally {
+			try {
+				rset.close();
+				pstmt.close();
+				conn.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+		}
+		
+		
+		return date;
+	}
+
 	
 }
 	
