@@ -33,11 +33,11 @@ public class FreeBoardListServlet extends HttpServlet {
 		try {
 			numPerPage = Integer.parseInt(request.getParameter("numPerPage"));
 		} catch(NumberFormatException e) {
-			numPerPage = 10;
+			numPerPage = 5;
 		}
 		 List<FreeBoard> list = new FreeBoardDao().boardSelectAll(cPage, numPerPage);
 		 List<FreeBoard> bestList = new FreeBoardDao().boardSelectBest3();
-		 System.out.printf("[cPage=%s , numPerPage=%s]",cPage, numPerPage);
+//		 System.out.printf("[cPage=%s , numPerPage=%s]",cPage, numPerPage);
 		//전체컨텐츠수 구하기
 		 int totalContent = new FreeBoardDao().BoardCount();
 		 int totalPage = (int)Math.ceil((double)totalContent/numPerPage);
@@ -52,7 +52,7 @@ public class FreeBoardListServlet extends HttpServlet {
 		   if(pageNo == 1) {
 		    	  
 		      }else {
-		    	  pageBar += "<a href='"+request.getContextPath()+"/board/boardList?cPage="
+		    	  pageBar += "<a href='"+request.getContextPath()+"/board/free/freeBoardList?cPage="
 		    			  	+(pageNo-1)+"&numPerPage="
 		    			  	+numPerPage+"'>[이전]</a>";
 		    	  
@@ -65,7 +65,7 @@ public class FreeBoardListServlet extends HttpServlet {
 		    		  pageBar += "<span class='cPage'>"+pageNo+"</span>";
 		    		  
 		    	  }else {
-		    		  pageBar += "<a href='"+request.getContextPath()+"/board/boardList?cPage="
+		    		  pageBar += "<a href='"+request.getContextPath()+"/board/free/freeBoardList?cPage="
 		      			  			+pageNo+"&numPerPage="
 		      			  			+numPerPage+"'>"+pageNo+"</a>";
 		    	  }
@@ -78,7 +78,7 @@ public class FreeBoardListServlet extends HttpServlet {
 		    	  //113이 끝 빠져나올때 (pageNo <= endPage && pageNo <= totalPage여기서) 114때 나오게 된다.여기가 바로 114다
 		    	  
 		      }else {
-		    	  pageBar += "<a href='"+request.getContextPath()+"/board/boardList?cPage="
+		    	  pageBar += "<a href='"+request.getContextPath()+"/board/free/freeBoardList?cPage="
 				  			+pageNo+"&numPerPage="
 				  			+numPerPage+"'>[다음]</a>";
 		      }
