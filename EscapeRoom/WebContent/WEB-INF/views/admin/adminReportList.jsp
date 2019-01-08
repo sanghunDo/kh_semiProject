@@ -82,7 +82,7 @@ $(function(){
 		<td><%= %></td>
 	</tr>
 </table>
-<!-- 게시글 검색하기 -->
+<!-- 신고된 게시글 검색하기 -->
 <div class="article-search-container">
 	<select name="searchOpt" id="searchOpt">
 		<option value="title">제목</option>

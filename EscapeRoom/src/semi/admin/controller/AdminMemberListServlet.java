@@ -31,6 +31,7 @@ public class AdminMemberListServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// 회원 전체보기 서블릿
 		// 회원정보 가져와서 request로 전송하기
 		// 1. 파라미터 핸들링
 		// 관리자로 로그인되었는지 확인하기
