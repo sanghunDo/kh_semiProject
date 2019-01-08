@@ -251,6 +251,7 @@ div#pause-menu ul li:first-of-type span{
 <body>
 <img src="<%=request.getContextPath() %>/images/game/gameMain/game_start_again.jpeg" alt="" id="back-ground"/>
 <div id="wrap">
+	<input type="hidden" value=0 />
 	<div id="pause-menu-container">
 		<div id="pause-menu">
 			<ul>
@@ -296,16 +297,9 @@ div#pause-menu ul li:first-of-type span{
 	</div>
 </div>
 <script>
-var hour = 0;
-var minute = 0;
-var sec = 0;
-var timer = setInterval(function(){
-	++sec;
-	if(sec>59) ++minute;
-	if(minute>59) ++hour;
-	$("#time").text(hour+"시간 "+minute+"분 "+sec+"초");
-}, 1000);
-
+function timer(){
+	
+}
 $("#back-ground").fadeOut(2000);
 setTimeout(function(){
 	$("#back-ground").attr("src", "<%=request.getContextPath()%>/images/game/gameMain/test.png").show();
