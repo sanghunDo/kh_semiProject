@@ -13,18 +13,16 @@ body, html{
    padding: 0px;
    margin: 0 auto;
    overflow: hidden;
-   background: lightgray;
+   background: black;
 }
-html{
-	background: black;
-}
-div#back-ground{
+div#wrap{
 	position: relative;
 	width: 100%;
 	height: 100%;
+	display: none;
 }
-div#back-ground img{
-	position: relative;
+img#back-ground{
+	position: fixed;
 	width: 100%;
 	height: 100%;
 }
@@ -32,7 +30,7 @@ div#inventory{
 	position: relative;
 	width: 70%;
 	height: 22%;
-	top: 97%;
+	top: 100%;
 	margin: 0 auto;
 	background: lightgray;
 	opacity: .7;
@@ -90,11 +88,62 @@ div#inventory:before{
 	cursor: pointer;
 }
 div#inventory.on:before{content:"close";}
+div#pause{
+	position: absolute;
+	left: 960px;
+	top: 10px;
+}
+div#pause img{width: 35px;}
+img#back-ground.paused{
+	opacity: .5;
+}
+div#pause-menu-container{
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	top: 0;
+	display: none;
+}
+div#pause-menu-container div#pause-menu{
+	position: relative;
+    width: 20%;
+    height: 50%;
+    top: 25%;
+    border: 1px solid;
+    border-radius: 5px;
+    margin: 0 auto;
+    background: black;
+    box-shadow: 5px 5px 50px;
+}
+div#pause-menu ul{
+	list-style: none;
+}
+div#pause-menu ul li{
+	width: 120px;
+	height: 40px;
+	color: white;
+	border: 4px inset white;
+	text-align: center;
+	margin-bottom: 20px;
+	background: lightgray;
+}
 </style>
 </head>
 <body>
-<div id="back-ground">
-	<img src="<%=request.getContextPath() %>/images/game/gameMain/game_start_again.jpeg" alt="" />
+<img src="<%=request.getContextPath() %>/images/game/gameMain/game_start_again.jpeg" alt="" id="back-ground"/>
+<div id="wrap">
+	<div id="pause-menu-container">
+		<div id="pause-menu">
+			<ul>
+				<li>a</li>
+				<li>b</li>
+				<li>c</li>
+				<li>d</li>
+				<li>e</li>
+			</ul>
+		</div>
+	</div>
+	<div id="pause"><img src="<%=request.getContextPath() %>/images/game/gameMain/pause.png" alt="" /></div>
 	<div id="inventory">
 		<div id="prev"><span>◀</span></div>
 		<div id="next"><span>▶</span></div>
@@ -115,9 +164,10 @@ div#inventory.on:before{content:"close";}
 	</div>
 </div>
 <script>
-$("#back-ground img").fadeOut(2000);
+$("#back-ground").fadeOut(2000);
 setTimeout(function(){
-	$("#back-ground img").attr("src", "").show();
+	$("#back-ground").attr("src", "<%=request.getContextPath()%>/images/game/gameMain/test.png").show();
+	$("#wrap").show();
 }, 2500);
 
 $("#next").click(function(e){
@@ -130,12 +180,24 @@ $("#prev").click(function(){
 });
 $("#inventory").on('click',{flag:0},function(e){
 	var cnt = e.data.flag++;
-	if(cnt%2==0) $(this).animate({"top":"77%"});
-	else $(this).animate({"top":"97%"});
+	if(cnt%2==0) $(this).animate({"top":"80%"});
+	else $(this).animate({"top":"100%"});
 	$(this).toggleClass('on');
 	$(this).children().click(function(e){
 		e.stopPropagation();
 	});
+});
+$("#pause").on("click", {flag:1}, function(e){
+	var cnt = e.data.flag++;
+	$("#back-ground").toggleClass("paused");
+	if(cnt%2!=0){
+		$(this).children().attr("src", "<%=request.getContextPath()%>/images/game/gameMain/play.png");
+		$("#pause-menu-container").show();
+	}
+	else{
+		$(this).children().attr("src", "<%=request.getContextPath()%>/images/game/gameMain/pause.png");
+		$("#pause-menu-container").hide();
+	}
 });
 </script>
 </body>
