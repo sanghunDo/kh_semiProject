@@ -39,7 +39,7 @@ public class FreeBoardCommentDelete extends HttpServlet {
 		String loc = "/board/free/freeBoardView?postNo="+postNo ;
 		
 		if(result >0 ) {
-			msg ="댓글을 삭제하였습니다.";
+			msg ="게시물 수정성공";
 			
 		}else {
 			msg = "수정실패";

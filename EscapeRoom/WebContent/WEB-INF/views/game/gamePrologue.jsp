@@ -15,6 +15,53 @@ window.onload=function(){
 	window.resizeTo(1024,768);
 }
 </script>
+<style>
+div#msgBox:before{
+	content: "? ? ?";
+	position: absolute;
+    width: 78px;
+    height: 28px;
+    border: 2px solid white;
+    border-right: 0px;
+    top: -32px;
+    left: -2px;
+    text-align: center;
+    font-family: 'Song Myung', serif;
+    font-size: 25px;
+    padding-left: 8px;
+}
+div#msgBox:after{
+    position: absolute;
+    content: " ";
+    height: 37px;
+    top: -34px;
+    left: 95px;
+    border-right: 2px solid white;
+    transform: rotateZ(-35deg);
+}
+div#msgBox.me:before{
+	content: "김동호";
+	position: absolute;
+	width: 78px;
+    height: 28px;
+    border: 2px solid white;
+    border-left: 0px;
+    top: -32px;
+    left: 720px;
+    text-align: center;
+    font-family: 'Song Myung', serif;
+    font-size: 25px;
+}
+div#msgBox.me:after{
+	position: absolute;
+    content: "";
+    height: 37px;
+    top: -34px;
+    left: 709px;
+    border-left: 0px solid white;
+    transform: rotateZ(35deg);
+}
+</style>
 </head>
 <body>
 <div id="warning">
@@ -26,18 +73,29 @@ window.onload=function(){
 </div>
 <div id="prologue">
 	<img src="" alt="" />
-	<div id="msgBox">
+	<div id="msgBox" class="me">
 		<div><h2></h2></div>
 	</div>
 </div>
 <script>
 	setTimeout(function(){
+		$("#warning").css("display", "none");
 		$("#prologue").fadeIn(1000);
 	}, 5000);
 	
 	$("#prologue").on('click', {cnt:0} ,function(e){
 		var cnt = e.data.cnt++;
 		var target = $("#prologue").find("h2");
+		if(cnt==17){
+			$(this).parent().fadeOut(3000); //마지막 대사 이후 클릭시 화면전환.
+			setTimeout(function(){
+				location.href="<%=request.getContextPath()%>/game/gameMain?userId=<%=request.getParameter("userId")%>";
+			}, 3000);
+		}
+		if(cnt==4){
+			$("#msgBox").removeClass("me");
+		}
+		//대사 테이블에서 한 문장씩 가져옴.
 		$.ajax({
 			url:"<%=request.getContextPath()%>/game/prologue",
 			data: "index="+cnt,
@@ -45,6 +103,7 @@ window.onload=function(){
 			dataType: "json",
 			success: function(data){
 				target.removeAttr("style");
+				//대사에 해당되는 이미지가 있던 없던 불러와서 이미지를 추가함. 이미지가 없으면 "", 있으면 해당 파일이름.
 				$("#prologue").find("img").attr("src", data.fileName);
 				target.text(data.content);
 				target.parent().css("width",target.outerWidth());

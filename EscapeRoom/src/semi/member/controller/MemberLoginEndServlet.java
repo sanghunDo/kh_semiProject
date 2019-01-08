@@ -119,8 +119,10 @@ public class MemberLoginEndServlet extends HttpServlet {
 			
 			if(result == MemberService.WRONG_PASSWORD) {
 				msg = "패스워드를 잘 못 입력하셨습니다.";
+				loc = "/main";
 			} else if(result == MemberService.ID_NOT_EXIST) {
 				msg = "존재하지 않는 아이디입니다.";
+				loc = "/main";
 			}
 			
 			// 속성에 값 보관

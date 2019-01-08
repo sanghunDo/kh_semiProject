@@ -27,11 +27,7 @@ public class FreeBoardCommentLevel2 extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		request.setCharacterEncoding("utf-8");
-		
-		int commentNo = Integer.parseInt(request.getParameter("commentNo"));
-		
-		System.out.println("commentNo잘나오나 확인"+commentNo);
+		response.getWriter().append("Served at: ").append(request.getContextPath());
 	}
 
 	/**

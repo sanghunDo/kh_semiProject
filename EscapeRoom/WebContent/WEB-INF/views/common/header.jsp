@@ -21,7 +21,12 @@
 			<%if(loggedInMember == null) {%>
                 <a href="<%=request.getContextPath()%>/member/login">LOGIN</a>
 			<%}else{ %>
+				<%if("admin".equals(loggedInMember.getUserId())){ %>
+					<a href="<%=request.getContextPath()%>/admin/adminView">ADMIN</a>
+					&nbsp;&nbsp;
+				<%} %>
                 <a href="<%=request.getContextPath()%>/member/memberView?userId=<%=loggedInMember.getUserId()%>">MY PAGE</a>
+                	&nbsp;&nbsp;
                 <a href="<%=request.getContextPath()%>/member/logout">LOGOUT</a>
 			<%} %>
 			</div>
@@ -29,9 +34,9 @@
 		<div id="logo">Escape, if you can.</div>
 		<div id="menu">
 			<ul>
-				<li><a href="">HOME</a></li>
-				<li><a href="">NOTICE</a></li>
-				<li><a href="">RANKING</a></li>
+				<li><a href="<%=request.getContextPath()%>/home">HOME</a></li>
+				<li><a href="<%=request.getContextPath()%>/notice">NOTICE</a></li>
+				<li><a href="<%=request.getContextPath()%>/rank">RANKING</a></li>
 				<li><a href="">SOLVE</a></li>
 				<li><a href="<%=request.getContextPath()%>/board/free/freeBoardList">FREE</a></li>
 			</ul>

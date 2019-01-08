@@ -1,12 +1,19 @@
 package semi.member.controller;
 
+import java.io.File;
 import java.io.IOException;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.tomcat.util.http.fileupload.servlet.ServletFileUpload;
+
+import com.oreilly.servlet.MultipartRequest;
+
+import semi.common.MyFileRenamePolicy;
 import semi.member.model.service.MemberService;
 import semi.member.model.vo.Member;
 
@@ -29,28 +36,61 @@ public class MemberRegisterEndServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// 1. 파라미터 핸들링
-		String userId = (String)request.getParameter("userId");
-		System.out.println("유저아이디왔니?" + userId);
+		// 0. 유효성 타입 enctype으로 보냈는지 확인
+		if(!ServletFileUpload.isMultipartContent(request)) {
+			request.setAttribute("msg", "게시판작성오류![form:enctype]");
+			request.setAttribute("loc", "/main");
+			request.getRequestDispatcher("/WEB-INF/views/common/msg.jsp")
+				   .forward(request, response);
+			return; // 더 실행되지 않도록 return처리
+		}
 		
-		String userPassword = (String)request.getParameter("userPassword");
-		System.out.println("유저비밀번호왔니?" + userPassword);
+		// 1. FileUpload처리 : 파일태그처리는 반드시 MultipartRequest객체사용(cos.jar 제공)
+		String root = getServletContext().getRealPath("/");
+		String saveDirectory = root + "upload" + File.separator + "member";
+		System.out.printf("[saveDirectory@MemberRegisterEndServlet = %s]\n", saveDirectory);
 		
-		String userEmail = (String)request.getParameter("userEmail");
-		System.out.println("유저이메일왔니?" + userEmail);
 		
-		String userProfileOriginalFile = (String)request.getParameter("userProfileOriginalFile");
-		System.out.println("원본프로필 왔니?" + userProfileOriginalFile);
+		// 1-2. maxPostSize : 파일최대크기
+		int maxPostSize = 1024 * 1024 * 10; // 10MB
 		
-		String userProfileRenamedFile = (String)request.getParameter("userProfileRenamedFile");
-		System.out.println("이름바꾼프로필 왔니?" + userProfileRenamedFile);
+		// MultipartRequest객체생성
+		MultipartRequest multiReq = new MultipartRequest(request, saveDirectory, maxPostSize, "UTF-8", new MyFileRenamePolicy());
 		
-		Member m = new Member(userId, userPassword, userEmail, userProfileOriginalFile, userProfileRenamedFile, null);
-	
+		// 2. 파라미터 핸들링
+		// MultipartRequest객체를 생성하면 기존 request객체로부터 파라미터값을 가져올 수 없다
+		String userId = multiReq.getParameter("userId");
+		System.out.println("userId@MemberRegisterEndServlet = " + userId);
+		
+		String userPassword = multiReq.getParameter("userPassword");
+		System.out.println("userPassword@MemberRegisterEndServlet = " + userPassword);
+		
+		String userEmail = multiReq.getParameter("userEmail");
+		System.out.println("userEmail@MemberRegisterEndServlet = " + userEmail);
+		
+//		String userProfileOriginalFile = multiReq.getParameter("userProfileOriginalFile");
+		String userProfileOriginalFile = multiReq.getOriginalFileName("userProfile");
+		System.out.println("userProfileOriginalFile@MemberRegisterEndServlet = " + userProfileOriginalFile);
+		
+//		String userProfileRenamedFile = multiReq.getParameter("userProfile");
+		String userProfileRenamedFile = multiReq.getFilesystemName("userProfile");
+		System.out.println("userProfileRenamedFile@MemberRegisterEndServlet = " + userProfileRenamedFile);
+		
+		Member m = new Member();
+		m.setUserId(userId);
+		m.setUserPassword(userPassword);
+		m.setUserEmail(userEmail);
+		m.setUserProfileOriginalFile(userProfileOriginalFile);
+		m.setUserProfileRenamedFile(userProfileRenamedFile);
+		
+		System.out.printf("[m@MemberRegisterEndServlet = %s]\n", m);
+		
+		
+		// 3. 비즈니스로직
 		int result = new MemberService().insertMember(m);
 		
 		String msg = "";
-		String loc = "/";
+		String loc = "/main";
 		String view = "/WEB-INF/views/common/msg.jsp";
 		
 		if(result > 0) {

@@ -32,29 +32,27 @@ public class AdminDao {
 	
 	// 관리자용 회원 정보 보기
 	// 전체 회원 목록 가져오기
-	public List<Member> getUserList(Connection conn) {
-		List<Member> userList = new ArrayList<Member>();
+	public List<Member> selectMemberList(Connection conn) {
+		List<Member> memberList = new ArrayList<Member>();
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
-		String query = prop.getProperty("");
-		// query.append("select * from member");
+		String query = prop.getProperty("select * from member");
 
 		try {
 			// 쿼리문 입력 후 데이터 가져오기
 			pstmt = conn.prepareStatement(query);
 			Member m = new Member();
-			List<Member> list = new ArrayList<Member>();
 			
 			// 쿼리 실행
 			rset = pstmt.executeQuery();
 			
 			// 실행 후 결과를 list에 담기
 			while(rset.next()) {
-				m.setUserId(rset.getString("memberId"));
+				m.setUserId(rset.getString("userId"));
 				m.setUserPassword(rset.getString("password"));
 			 	m.setUserEmail(rset.getString("email"));
 			 	m.setEnrollDate(rset.getDate("enrolldate"));
-			 	list.add(m);
+			 	memberList.add(m);
 			 	}
 			
 		} catch (SQLException e) {
@@ -64,20 +62,19 @@ public class AdminDao {
 			close(pstmt);
 		}
 		
-		return userList;
+		return memberList;
 	}
 	
-	// 회원 아이디로 검색
-	public List<Member> getUserListById(Connection conn) {
-		List<Member> userListById = new ArrayList<Member>();
+	// 회원 아이디로 검색시 목록 보여주기
+	public List<Member> selectMemberListById(Connection conn) {
+		List<Member> memberListById = new ArrayList<Member>();
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;	
-		String query = prop.getProperty("selectOne");
+		String query = prop.getProperty("select * from member where userid = ?");
 		
 		try {
 			pstmt = conn.prepareStatement(query);
 			Member m = new Member();
-			List<Member> list = new ArrayList<Member>();
 			
 			rset = pstmt.executeQuery();
 			
@@ -86,7 +83,7 @@ public class AdminDao {
 				m.setUserPassword(rset.getString("password"));
 			 	m.setUserEmail(rset.getString("email"));
 			 	m.setEnrollDate(rset.getDate("enrolldate"));
-			 	list.add(m);
+			 	memberListById.add(m);
 			 }
 			
 		} catch (SQLException e) {
@@ -96,21 +93,19 @@ public class AdminDao {
 			close(pstmt);
 		}
 		
-		return userListById;
+		return memberListById;
 	}
 	
-	// 회원 이메일로 검색
-	public List<Member> getUserListByEmail(Connection conn) {
-		List<Member> userListByEmail = new ArrayList<Member>();
+	// 회원 이메일로 검색시 목록 보여주기
+	public List<Member> selectMemberListByEmail(Connection conn) {
+		List<Member> memberListByEmail = new ArrayList<Member>();
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
-		String query = prop.getProperty("");
-		// 이메일로 검색하는 쿼리를 properties에 작성
+		String query = prop.getProperty("select * from member where useremail = ?");
 		
 		try {
 			pstmt = conn.prepareStatement(query);
 			Member m = new Member();
-			List<Member> list = new ArrayList<Member>();
 		
 			rset = pstmt.executeQuery();
 		
@@ -119,7 +114,7 @@ public class AdminDao {
 				m.setUserPassword(rset.getString("password"));
 				m.setUserEmail(rset.getString("email"));
 				m.setEnrollDate(rset.getDate("enrolldate"));
-				list.add(m);
+				memberListByEmail.add(m);
 			}
 			} catch (SQLException e) {
 				e.printStackTrace();
@@ -128,7 +123,7 @@ public class AdminDao {
 				close(pstmt);
 			}
 		
-		return userListByEmail;
+		return memberListByEmail;
 	}
 	
 }
