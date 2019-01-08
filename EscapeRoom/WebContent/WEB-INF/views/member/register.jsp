@@ -27,8 +27,9 @@ function registerValidate(){
 	var getUserEmail = RegExp(/^[a-z0-9_+.-]+@([a-z0-9-]+\.)+[a-z0-9]{2,4}$/); // 유저 이메일 유효성 검사
 	
 	// 프로필 검사
-	var $userProfileOriginalFile = $("#userProfileOriginalFile"); // 유저 원본 프로필 사진명
-	var $userProfileRenamedFile = $("#userProfileRenamedFile"); // 서버저장용 유저 프로필 사진명
+	var $userProfileOriginalFile = $("#userProfile"); // 유저 프로필 사진명
+	var fileExt = $userProfileOriginalFile.val().substring($userProfileOriginalFile.val().lastIndexOf(".") + 1); // 확장자명 구하기 위함
+	var getUserProfileOriginalFile = RegExp(/jpg|jpeg|png|gif/i); // 유저 프로필 사진 유효성 검사
 
 	
 	// 아이디 공백 확인
@@ -107,6 +108,13 @@ function registerValidate(){
 		$userEmail.focus();
 		return false;
 	}
+	
+	
+	// 프로필사진 유효성 검사
+	if(!getUserProfileOriginalFile.test(fileExt)){
+		alert("첨부파일은 jpg, jpeg, png, gif로 된 이미지만 가능합니다.");
+		return false;
+	}
 
 	return true;
 	
@@ -170,7 +178,7 @@ function checkIdDuplicate(){
 <section id="register-Container">
 	<h2>- HELLO, STRANGER -</h2>
 	<form action="<%=request.getContextPath()%>/member/memberRegisterEnd" method="POST" 
-		  name="memberRegisterFrm" onsubmit="return registerValidate();">
+		  name="memberRegisterFrm" onsubmit="return registerValidate();" enctype="multipart/form-data">
 		<table id="tbl-Register">
 			<tr>
 				<td><input type="text" name="userId" id="userId_" placeholder="아이디를 입력하세요." required></td>
@@ -199,12 +207,12 @@ function checkIdDuplicate(){
 			</tr>
 			<tr>
 				<td><input type="file" name="userProfile" id="userProfile"
-					accept=".jpg, .jpeg, .png, .gif"></td>
+					accept="image/jpg, image/jpeg, image/png, image/gif"></td>
 			</tr>
 			<tr>
 				<td>
 					<div id="profile-Container">
-						<img src="#" alt="" id="profilePre">
+						 <img width="100px" height="100px" id="profilePre" src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/04/Antu_im-user-offline.svg/512px-Antu_im-user-offline.svg.png">
 					</div>
 				</td>
 			</tr>
