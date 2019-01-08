@@ -48,7 +48,7 @@ img#notice-Image{
 	float:right;
 }
 
-#newNotice-Btn{
+#admin-Btn{
 	outline:none;
 	background:black;
 	color:white;
@@ -57,7 +57,7 @@ img#notice-Image{
 	float:right;
 }
 
-#newNoticeBtn-Container{
+#adminBtn-Container{
 	width:100%;
 	height:30px;
 }
@@ -80,8 +80,8 @@ img#notice-Image{
 </head>
 <body>
 <div id="notice-Container">
-<div id="newNoticeBtn-Container">
-	<button id="newNotice-Btn">공지사항 등록</button>
+<div id="adminBtn-Container">
+	<button id="admin-Btn">공지사항 등록</button>
 </div>
 <table id="notice-Table">
 	<tr>
