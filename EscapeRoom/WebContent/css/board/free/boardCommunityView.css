@@ -185,7 +185,7 @@
         }
         .bestCommentOpinion{
             text-align: right;
-            
+            color:white;
         
         }
         .bestCommentOpinion span:hover{
@@ -195,22 +195,25 @@
             
         text-decoration: underline;
         }
-        #level2CommentList{
-            cursor: pointer;
-            color: white;
+        .level2CommentList{
+                cursor: pointer;
+    color: white;
+    position: relative;
+    top: -144px;
+    left: 15px;
         }
-        #level2CommentList:hover{
+        .level2CommentList:hover{
             text-decoration: underline;
             
         }
-        #level2CommentWrite{
+        .level2CommentWrite{
             cursor: pointer;
     		color: white;
     		position: relative;
-    		top: -182px;
-    		left: 119px;
+    		top: -145px;
+    left: 42px;
         }
-        #level2CommentWrite:hover{
+        .level2CommentWrite:hover{
             text-decoration: underline;
         }
 
@@ -244,7 +247,8 @@
         }
         .commentList{
             color: white;
-        }
+
+             }
 
 
         #delete{
@@ -280,4 +284,164 @@
      		.commentUpdate:hover{
               cursor: pointer;
           }
+          .level2CommentWriteDiv{
+          	display:none;
+  cursor: pointer;
+    color: white;
+    position: relative;
+        top: 44px;
+    
+    left: -21px;
+    margin-top: -108px;
+          } 
           
+          #level2CommentSubmit{
+                 cursor: pointer;
+    margin-top: -70px;
+    height: 28px;
+    width: 55px;
+    position: relative;
+    top: -105px;
+   
+    left: 377px;
+          }
+          
+          .comment-Content{
+          
+             padding-bottom: 44px;
+    		margin-left: 10px;
+    		color: white;
+    position: relative;
+    top: -115px;
+    left: 16px;
+}
+
+ span#level2CommentList{
+            margin-left: 21px;
+    		position: relative;
+    		top: -145px;
+        }
+        .level2CommentListDiv{
+        
+        display:none;
+            position: relative;
+    top: -123px;
+        }
+        #line{
+        position: relative;
+        right:-29px;
+       top: -145px;
+        
+        }
+        
+   tr.level2{
+	font: white;
+	font-size: 14px;
+	
+	
+}
+   tr.level2 td:first-of-type{
+	padding-left: 100px; /*대댓글 들여쓰기*/
+	
+}
+
+/*대댓글 관련*/
+table#tbl-comment textarea{
+	margin: 4px 0 0 0;
+}
+table#tbl-comment button.btn-insert2{
+	width : 60px;
+	height : 23px;
+	color : white;
+	background: #30f;
+	position : relative;
+	top : -5px;
+	left: 10px;
+}
+    dl .CommentOpinion{
+    position: relative;
+    top: -111px;
+    }
+    dd .comment{
+    style="padding-bottom: 44px;margin-left: 10px; color: white; position: relative; top: -43px;left: 16px;"
+    }
+    .commentWriter{
+    margin-left: 21px;
+    color : white;
+    }
+    .level2{
+    	color:white;
+    			
+    	
+    	background:#383838;
+    }
+    .comment-Area{
+    	
+    	height: 100px;
+    }
+    .level2CommentWrite-textArea{
+    width: 800px;height: 30px;resize:none;
+    
+   top: -37px;
+    left: 77px;position: relative;
+}
+.level2Commentsubmit{
+	  background-color: #999;
+          color: white;
+          width: 54px;
+    margin: 0 auto;
+    padding: 0 auto;
+    padding: -15px;
+    position: relative;
+    left: 410px;
+    top: -63px;
+	
+}
+.reply_icon img{
+	    width: 25px;
+    height: 25px;
+    margin-left: 50px;
+    margin-top: 10px;
+	
+}
+.info{
+	    margin-left: 88px;
+    margin-top: -18px;
+    font-weight: bold;
+}
+.level2Comment{
+	
+	    margin-left: 106px;
+    font-size: 18px;
+}
+.level2Date{
+	 margin-left: 106px;
+    position: relative;
+    top: -45px;
+    left: 47px;
+	
+}
+.level2Report{
+	margin-left: 106px;
+    position: relative;
+    left: 841px;
+    top: -24px;
+}
+.level2Like{
+	
+	 margin-left: 106px;
+	 position: relative;
+    top: -45px;
+    left: 681px;
+}
+.level2Dislike{
+	    position: relative;
+    top: -66px;
+    left: 759px;
+     margin-left: 106px;
+}
+.level2_area{
+/* 	display:none; */
+}
+
+

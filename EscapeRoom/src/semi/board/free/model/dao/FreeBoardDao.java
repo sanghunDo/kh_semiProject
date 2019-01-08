@@ -485,7 +485,7 @@ public class FreeBoardDao {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		String query = 
-	    "INSERT INTO board_comment_free values (seq_comment_free_commentno.nextVal, ? ,?, ?, ? , ? , default, default ,default ,default)";
+	    "INSERT INTO board_comment_free (commentno,  commentlevel,  commentwriter,  commentcontent,  ref,  commentref) VALUES (seq_comment_free_commentno.nextVal, ? ,  ? ,  ? , ? , ?)";
 		
 		try {
 			Class.forName("oracle.jdbc.driver.OracleDriver");
@@ -850,6 +850,48 @@ public class FreeBoardDao {
 		
 		
 		return dislikey;
+	}
+
+	
+
+	public String getDate(int commentRef) {
+		Connection conn = null;
+		String date = "";
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String query = "select commentdate from board_comment_free where commentno=?";
+		
+		//1. 클래스등록확인
+		try {
+			Class.forName("oracle.jdbc.driver.OracleDriver");
+			conn = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe", 
+					"semi", //아이디 
+					"semi");//비번
+			
+			pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1, commentRef);
+			rset = pstmt.executeQuery();
+			if(rset.next()) {
+				date = rset.getString("commentdate");
+			}
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}finally {
+			try {
+				rset.close();
+				pstmt.close();
+				conn.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+		}
+		
+		
+		return date;
 	}
 
 	

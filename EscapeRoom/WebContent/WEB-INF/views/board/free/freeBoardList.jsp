@@ -12,7 +12,7 @@
 	int numPerPage = (int)request.getAttribute("numPerPage");
 	String pageBar = (String)request.getAttribute("pageBar");
 %>
-<link rel="stylesheet" href="<%=request.getContextPath()%>/css/boardCommunityTable.css" />
+<link rel="stylesheet" href="<%=request.getContextPath()%>/css/board/free/boardCommunityTable.css" />
 <title>자유게시판</title>
 </head>
 <body>
@@ -20,7 +20,7 @@
     <h3>자유게시판</h3>
     <!--new pic-->
     <hr>
-    <div id="write" onclick="write();" style="color:white">글쓰기</div>
+    <div id="write" style="color:white"><a href="<%=request.getContextPath()%>/board/free/freeBoardInsert">글쓰기</a></div>
     <div class="sort">
         <span>추천순</span>
         <span>최신순</span>

@@ -100,11 +100,6 @@
             <dd style="position: relative;top: -56px;">
                 	<%=bc.getCommentContent() %>
             </dd>
-                    
-            <span id="Bestlevel2CommentList">답글 30개▼</span>
-            <span>|</span>
-            <span id="Bestlevel2CommentWrite">답글쓰기</span>
-            
         </dl>
     	<hr>
     	 <%} %>
@@ -139,8 +134,8 @@
                 	
                 	 if(bc.getCommentLevel()==1) {
                 	%>
-                 <dl>
-                    <dt style="margin-left: 21px;">
+                 <dl class="comment-Area">
+                    <dt class="commentWriter">
                         <%=bc.getCommentWriter()%>
                         <i><%=bc.getCommentDate() %></i>
                     </dt>
@@ -150,7 +145,7 @@
                         <input type="hidden" value=<%=bc.getCommentContent() %> id="commentContent" />
                         
                         <div class="commentUpdate" no="<%=i%>" style="cursor:pointer;">수정하기</div>
-                        <div class="button"  onclick="updateCommentEnd();" id="commentUpdateEnd" style="cursor:pointer;">수정완료</div>
+                        <div class="button"  onclick="updateCommentEnd();" no="<%=i %>" id="commentUpdateEnd" style="cursor:pointer;">수정완료</div>
                         <div class="button" id="commentDeleteBtn" onclick="deleteComment();">삭제하기</div>
         			</dl>
         			
@@ -162,54 +157,63 @@
                     
         			
                     <dl class="bestCommentOpinion">
-                            <dl class="CommentOpinion" style="position: relative; top: -111px;">
+                            <dl class="CommentOpinion">
              						 추천	 
-                                    <span style="padding:10px" id="comment1Like" no="<%=i%>" onclick="comment1Like('<%=bc.getCommentLike()%>');"><%=bc.getCommentLike()%></span>
+                                    <span style="padding:10px" id="comment1Like" onclick="comment1Like('<%=bc.getCommentLike()%>');"><%=bc.getCommentLike()%></span>
                                     <span style="padding:10px">비추천<%=bc.getCommentDislike()%></span>
                                     <span style="padding:10px">신고하기</span>
                                     
                             </dl>
                     </dl>
         
-                    <dd style="padding-bottom: 44px;margin-left: 10px; color: white; position: relative; top: -43px;left: 16px;">
+                    <dd class="comment_">
                     <textarea name="comment-Update" no="<%=i%>" class="comment-Update" cols="60" rows="3" style="margin: 11px;margin-bottom: -78px;width: 1000px;height: 113px;resize:none;"><%=bc.getCommentContent() %></textarea>
-                    <dd class="comment-Content" style="padding-bottom: 44px;margin-left: 10px; color: white; position: relative; top: -43px;left: 16px;">
+                    <dd class="comment-Content">
                             <%=bc.getCommentContent() %>
                     </dd>
                     
-                    <span id="level2CommentList" style="margin-left: 21px;">답글 30개▼</span>
-            </div> <!-- commentList 끝 -->       
+       				
+                    <span class="level2CommentWrite" level2No="<%=i%>">답글쓰기</span> 
+           </div> 
+         <hr /> 
+                    		
+              <% }
+		else{ %>   
                     
-                    <!-- 답댓 -->
                   
                     
-                    <span id="line" style= "position: relative;right: -114px;top: -183px;">|</span>
-                    <span id="level2CommentWrite">답글쓰기</span>
-                    
-                    <div class="level2CommentWriteDiv" style="margin-top:-136px;">
-                    	<textarea name="" class="level2CommentWrite" cols="60" rows="3" style="width: 800px;height: 113px;resize:none;"></textarea>
-                    	<div class="commentSubmit" id="level2Commentsubmit" style="cursor: pointer; margin-top:-70px">등록</div>
-                    </div>
-                    
-                      <div class="level2CommentListDiv" style="margin-top: 42px; margin-left:100px">
-                      <sub style="margin-left: 64px;font-size: 15px;">
-                             	답댓글쓴이
-                        <i>19.01.07</i>
-                      </sub>
-                      <br/>
-                     <sub style="margin-left: 80px;font-size: 15px;">댓내용</sub>
+               
+                   
+                   <!-- <div class="level2CommentListDiv" commentListNo="<%=i%>"> -->
 
-                        <div class="commentUpdate" style="cursor:pointer;">수정하기</div>
-                        <div class="button"  onclick="updateCommentEnd();" id="commentUpdateEnd" style="cursor:pointer;">수정완료</div>
-                        <div class="button" id="commentDeleteBtn" onclick="deleteComment();">삭제하기</div>
-        			
-                    </div><!-- level2CommentListDiv 끝 -->
-                </dl>
-                <hr>
-                <%}
-                } %>
-           
+                   <div class="level2">
+							<input type="hidden" value="<%=bc.getCommentNo() %>" /> 
+							
+						<div class="level2_area" level2No="<%=i%>">
+							<span class="reply_icon"> <img src='<%=request.getContextPath()%>/images/freeBoard/commentReply.png'></span>
+							<div class="info"><%=bc.getCommentWriter() %></div>
+							<div class="level2Comment"><%=bc.getCommentContent() %></div>
+							<div class="level2Date"><%=bc.getCommentDate() %></div>
+							<div class="level2Report">신고하기</div>
+							<div class="level2Like">추천 23</div>
+							<div class="level2Dislike">비추천 0</div>	
+							<hr />
+						</div>
+				    
+			<%}
+          } %>   
+				   
+			 
+					<div class="level2CommentWriteDiv">
+                    	<textarea class="level2CommentWrite-textArea" cols="60" rows="3"></textarea>
+                    	<div class="level2Commentsubmit" >등록</div>
+                 	</div> 
+                </div><!--level2 div 끝  -->
+					
+               </div><!-- level2CommentListDiv 끝 -->
+             </dl>
         </div> <!-- end of . comment-container -->
+       
         <div class="button" id="update" onclick="updateBoard();">수정</div>
     	<div class="button" id="delete" onclick="deleteBoard();">삭제</div>
    		<div class="button" id="goList">목록</div>
@@ -243,7 +247,7 @@
     	
     	$(".comment-Content[no="+no+"]").hide();  //원래댓글
     	$(".comment-Update[no="+no+"]").css("display","inline"); //수정하기위한 text area
-    	$("#commentUpdateEnd").css("display","inline"); //수정완료 버튼
+    	$("#commentUpdateEnd[no="+no+"]").css("display","inline"); //수정완료 버튼
 	
        
         $(".commentUpdate").css("display","none"); //수정하기 버튼
@@ -268,6 +272,76 @@
         var postNo = $("#postNo").val();
     });    
     
+
+ 	$(".level2Commentsubmit").on("click", function(){
+ 		var level2Comment = $(".level2CommentWrite-textArea").val();
+ 		var ref = $("input[name=ref]").val(); //해당 글번호
+ 		var commentRef = $(".level2 input").val() //대댓글의 해당 댓글번호 
+ 		var commentWriter = $("input[name=userId]").val(); //유저아이디
+ 		var commentLevel = 2; //대댓글
+ 		
+ 		console.log("level2Comment="+level2Comment);
+ 		console.log("ref="+ref);
+ 		console.log("commentRef="+commentRef);
+ 		console.log("commentWriter="+commentWriter);
+ 		console.log("commentLevel="+commentLevel);
+
+ 		
+ 		 $.ajax({
+ 			url:"<%=request.getContextPath()%>/board/free/freeBoardComment2.do",
+     		data:{level2Comment:level2Comment, ref:ref, commentRef:commentRef, commentWriter:commentWriter,  commentLevel:commentLevel},
+     		success:function(data){
+     			
+     			var data_split = data.split("/");
+     			console.log(data_split);
+     			var comment2UserId = data_split[0];
+     			var comment2Date = data_split[1];
+     			var comment2Content = data_split[2];
+     			
+     			
+     			var reply_icon = $(".reply_icon");
+     			var info = $(".info");
+     			var level2Comment = $(".level2Comment");
+     			var level2Date = $(".level2Date");
+     			
+     			var html="";
+     			html+=reply_icon+"<img src='<%=request.getContextPath()%>/images/freeBoard/commentReply.png'>";
+     			html+=info+comment2UserId;
+     			html+=level2Comment+comment2Content;
+     			html+=level2Date+comment2Content
+     			
+     			
+     			$(".level2_area").append(html);
+     			
+     			
+     		<%-- 	html+="<span class='reply_icon'><img src='<%=request.getContextPath()%>/images/freeBoard/commentReply.png'></span>"
+     				html+="<div class='info'>"+comment2UserId+"</div>";
+					html+="<div class='level2Comment'>"+comment2Content+"</div>";
+					html+="<div class='level2Date'>"+comment2Date+"</div>";
+					html+="<div class='level2Report'>신고하기</div>";
+					html+="<div class='level2Like'>추천 23</div>";
+					html+="<div class='level2Dislike'>비추천 0</div>";
+					html+="<hr />"
+					level2_area.append(html);
+					
+					
+     			
+     			$(".level2").html(level2_area);  --%>
+     		}
+ 		}); 
+ 	});
+    
+    $(".level2CommentWrite").on("click", function(){
+    	
+    	/* var no = $("input[name=commentNo]").val(); */
+    	var no = $(this).attr("level2No");
+    	console.log("no"+no);
+    	
+    
+    	$(".level2_area[level2No="+no+"]").css("display","inline");
+    	$(".level2CommentWriteDiv").css("display","inline");
+    });
+    
     function updateCommentEnd(){    
         var commentNo = $("#commentNo").val();
         var commentUpdate = $(".comment-Update").val();
@@ -286,10 +360,10 @@
 
     function comment1Like(item){
     	var commentNo =  $("#commentNo").val(); 
-    	var no = $(this).attr("no");
-     	console.log("no="+no);
-    	//console.log($("textarea[no="+no+"]")); 
-    	
+    	/* var no = $("#comment1Like").selected;
+     	console.log("no="+no); */
+    	var here = $("#comment1Like", this); 
+    	//var flag= false;
     
     	//console.log("comment1Like",item);
     	 if(!confirm("해당 댓글을 추천하시겠습니까?")){
@@ -300,9 +374,9 @@
      		url:"<%=request.getContextPath()%>/board/free/freeBoardComment1Like.do",
      		data:{commentNo:commentNo, commentLikey:item},
      		success:function(data){
-     			$("#comment1Like").html(data);
-     		    
-     			console.log(data);
+     			$("#comment1Like").attr( 'name', 'here' );
+     			$("#comment1Like[name=here]").html(data);
+     	
      		}
      		
      	});
@@ -322,7 +396,6 @@
      		success:function(data){
      			$("#like").html(data);
      		}
-     		
      	});  
     	 
     }

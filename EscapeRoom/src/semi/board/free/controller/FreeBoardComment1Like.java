@@ -37,10 +37,12 @@ public class FreeBoardComment1Like extends HttpServlet {
 		request.setCharacterEncoding("utf-8");
 		int commentNo =Integer.parseInt(request.getParameter("commentNo"));
 		int comment1Like =Integer.parseInt(request.getParameter("commentLikey"));
+		//String flag = request.getParameter("flag");
 		
 		int result = new FreeBoardDao().updateLikey(commentNo,comment1Like);
 		int likey = new FreeBoardDao().getLikey(commentNo);
 		System.out.println("result"+result);
+		
 		response.setContentType("application/json; charset=utf-8");
 		new Gson().toJson(likey,response.getWriter());
 	}
