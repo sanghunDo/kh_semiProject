@@ -36,7 +36,7 @@
 			<ul>
 				<li><a href="<%=request.getContextPath()%>/home">HOME</a></li>
 				<li><a href="<%=request.getContextPath()%>/notice/noticeList">NOTICE</a></li>
-				<li><a href="">RANKING</a></li>
+				<li><a href="<%=request.getContextPath()%>/board/rank/rankingBoardList">RANKING</a></li>
 				<li><a href="">SOLVE</a></li>
 				<li><a href="<%=request.getContextPath()%>/board/free/freeBoardList">FREE</a></li>
 			</ul>

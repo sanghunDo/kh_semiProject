@@ -1,0 +1,93 @@
+@charset "UTF-8";
+
+h2 {
+	font-family: 'Fredericka the Great', cursive;
+	font-size : 50px;
+	color : #F11C24;
+	text-align : center;
+}
+
+div#top3 {
+	width : 950px;
+	height : 130px;
+	border : 1px solid #FDCF27;
+	margin : auto;
+	margin-top : 15px;
+	text-align : center;
+}
+
+div#top3 table#tbl-top3 {
+	margin : auto;
+	width : 850px;
+	height : 130px;
+	border : 1px solid black;
+}
+
+div#top3 table#tbl-top3 th {
+	font-family: 'Noto Serif KR', serif;
+	color : white;
+	text-align : center;
+	padding : 0;
+}
+
+div#top3 table#tbl-top3 td {
+	font-family: 'Noto Serif KR', serif;
+	color : white;
+	text-align : center;
+	padding : 0;
+}
+
+div#from4to10 {
+	width : 950px;
+	height : 485px;
+	border : 1px solid white;
+	margin : auto;
+	margin-top : 75px;
+	text-align : center;
+}
+
+div#from4to10 table#tbl-Rank4-10 {
+	margin : auto;
+	width : 850px;
+	height : 480px;
+	border : 1px solid black;
+}
+
+div#from4to10 table#tbl-Rank4-10 th {
+	font-family : 'Noto Serif KR', serif;
+	color : white;
+	text-align : center;
+	padding : 0;
+}
+
+div#from4to10 table#tbl-Rank4-10 td {
+	font-family : 'Noto Serif KR', serif;
+	color : white;
+	text-align : center;
+	padding : 0;
+}
+
+div#reply-container {
+	margin : auto;
+	text-align : center;
+}
+
+div#reply-container h2 {
+	color : white;
+	font-family: 'East Sea Dokdo', cursive;
+	font-size : 75px;
+}
+
+div#reply-container p {
+	color : red;
+	font-family: 'Noto Serif KR', serif;
+	font-size : 15px;
+	margin-top : -55px;
+}
+
+div#reply-container div#reply {
+	width : 950px;
+	height : 500px;
+	background : rgba(239, 239, 239, 0.5);
+	margin : auto;
+}

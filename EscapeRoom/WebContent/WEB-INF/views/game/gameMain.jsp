@@ -87,7 +87,7 @@ div#inventory:before{
 	font-size: 30px;
 	color: gray;
 	text-align: center;
-	cursor: cursor;
+	cursor: pointer;
 }
 div#inventory.on:before{content:"close";}
 </style>
