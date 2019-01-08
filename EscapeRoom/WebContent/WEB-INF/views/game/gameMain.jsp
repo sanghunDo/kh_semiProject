@@ -6,6 +6,7 @@
 <meta charset=UTF-8">
 <title>Insert title here</title>
 <script src="<%=request.getContextPath()%>/js/jquery-3.3.1.js"></script>
+<link href="https://fonts.googleapis.com/css?family=Noto+Serif+KR" rel="stylesheet">
 <style>
 body, html{
    width: 1008px;
@@ -117,15 +118,133 @@ div#pause-menu-container div#pause-menu{
 }
 div#pause-menu ul{
 	list-style: none;
+	padding: 0;
+	font-family:'Noto Serif KR', serif;
 }
 div#pause-menu ul li{
-	width: 120px;
-	height: 40px;
-	color: white;
-	border: 4px inset white;
+	width: 100%;
+	height: 50px;
+	margin: 0 auto;
+	margin-bottom: 40px;
 	text-align: center;
-	margin-bottom: 20px;
-	background: lightgray;
+}
+div#pause-menu ul li:first-of-type{
+	font-size: 130%;
+	margin-bottom: 75px;
+	cursor: default;
+}
+
+div#pause-menu ul li:first-of-type h3{
+	color: white;
+	margin: 0 0 5px 0;
+}
+div#pause-menu ul li:first-of-type span{
+	color: white;
+}
+
+@media screen and (max-width: 1260px) {
+    .back {
+        width: 50%;
+    }
+}
+
+@media screen and (max-width: 840px) {
+    .back {
+        width: 100%;
+    }
+}
+
+.button_base {
+    margin: 0;
+    border: 0;
+    font-size: 20px;
+    position: relative;
+    top: 0%;
+    left: 61%;
+    margin-top: -25px;
+    margin-left: -100px;
+    width: 160px;
+    height: 50px;
+    text-align: center;
+    box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -webkit-user-select: none;
+    cursor: default;
+}
+
+.button_base:hover {
+    cursor: pointer;
+}
+
+.b06_3d_swap {
+    perspective: 500px;
+    -webkit-perspective: 500px;
+    -moz-perspective: 500px;
+    transform-style: preserve-3d;
+    -webkit-transform-style: preserve-3d;
+}
+
+.b06_3d_swap div {
+    position: absolute;
+    text-align: center;
+    width: 100%;
+    height: 50px;
+    padding: 10px;
+    border: #000000 solid 1px;
+    pointer-events: none;
+    box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+}
+
+.b06_3d_swap div:nth-child(1) {
+    color: #ffffff;
+    background-color: #000000;
+    transform: translateZ(0px);
+    -webkit-transform: translateZ(0px);
+    -moz-transform: translateZ(0px);
+    transition: all 0.2s ease;
+    -webkit-transition: all 0.2s ease;
+    -moz-transition: all 0.2s ease;
+    transform-origin: 50% 50% -25px;
+    -webkit-transform-origin: 50% 50% -25px;
+    -moz-transform-origin: 50% 50% -25px;
+}
+
+.b06_3d_swap div:nth-child(2) {
+    color: #000000;
+    background-color: #ffffff;
+    transform: rotateX(90deg);
+    -webkit-transform: rotateX(90deg);
+    -moz-transform: rotateX(90deg);
+    transition: all 0.2s ease 0.05s;
+    -webkit-transition: all 0.2s ease 0.05s;
+    -moz-transition: all 0.2s ease 0.05s;
+    transform-origin: 50% 50% -25px;
+    -webkit-transform-origin: 50% 50% -25px;
+    -moz-transform-origin: 50% 50% -25px;
+}
+
+.b06_3d_swap:hover div:nth-child(1) {
+    color: #ffffff;
+    background-color: #808080;
+    transition: all 0.2s ease;
+    -webkit-transition: all 0.2s ease;
+    -moz-transition: all 0.2s ease;
+    transform: translateZ(-200px);
+    -webkit-transform: translateZ(-200px);
+    -moz-transform: translateZ(-200px);
+}
+
+.b06_3d_swap:hover div:nth-child(2) {
+    color: #000000;
+    transition: all 0.2s ease 0.05s;
+    -webkit-transition: all 0.2s ease 0.05s;
+    -moz-transition: all 0.2s ease 0.05s;
+    transform: rotateX(0deg);
+    -webkit-transform: rotateX(0deg);
+    -moz-transform: rotateX(0deg);
 }
 </style>
 </head>
@@ -135,11 +254,24 @@ div#pause-menu ul li{
 	<div id="pause-menu-container">
 		<div id="pause-menu">
 			<ul>
-				<li>a</li>
-				<li>b</li>
-				<li>c</li>
-				<li>d</li>
-				<li>e</li>
+				<li><h3>플레이 시간</h3><span id="time">213131</span></li>
+				<li>
+				    <div class="button_base b06_3d_swap">
+				        <div>상점</div>
+				        <div>상점</div>
+				    </div>
+				</li>
+				<li>
+					<div class="button_base b06_3d_swap">
+				        <div>도움말</div>
+				        <div>도움말</div>
+				    </div></li>
+				<li>
+					<div class="button_base b06_3d_swap">
+				        <div>게임종료</div>
+				        <div>게임종료</div>
+				    </div>
+				</li>
 			</ul>
 		</div>
 	</div>
@@ -164,6 +296,16 @@ div#pause-menu ul li{
 	</div>
 </div>
 <script>
+var hour = 0;
+var minute = 0;
+var sec = 0;
+var timer = setInterval(function(){
+	++sec;
+	if(sec>59) ++minute;
+	if(minute>59) ++hour;
+	$("#time").text(hour+"시간 "+minute+"분 "+sec+"초");
+}, 1000);
+
 $("#back-ground").fadeOut(2000);
 setTimeout(function(){
 	$("#back-ground").attr("src", "<%=request.getContextPath()%>/images/game/gameMain/test.png").show();
@@ -199,6 +341,7 @@ $("#pause").on("click", {flag:1}, function(e){
 		$("#pause-menu-container").hide();
 	}
 });
+
 </script>
 </body>
 </html>
