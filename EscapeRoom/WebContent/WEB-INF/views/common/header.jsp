@@ -38,7 +38,7 @@
 				<li><a href="<%=request.getContextPath()%>/notice">NOTICE</a></li>
 				<li><a href="<%=request.getContextPath()%>/rank">RANKING</a></li>
 				<li><a href="">SOLVE</a></li>
-				<li><a href="<%=request.getContextPath()%>/board/freeBoard">FREE</a></li>
+				<li><a href="<%=request.getContextPath()%>/board/free/freeBoardList">FREE</a></li>
 			</ul>
 		</div>
 		<div id="game-start">

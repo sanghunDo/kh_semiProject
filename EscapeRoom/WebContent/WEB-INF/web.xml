@@ -54,7 +54,7 @@
   </servlet>
   <servlet-mapping>
     <servlet-name>gotoFreeBoard</servlet-name>
-    <url-pattern>/freeBoard</url-pattern>
+    <url-pattern>/board/freeBoard</url-pattern>
   </servlet-mapping>
   
   <!-- <servlet>
