@@ -46,7 +46,8 @@ div#prologue{
 	top: 0;
 	display: none;
 }
-div#prologue img{
+img#background{
+	position: fixed;
 	width: 800px;
 	height: 600px;
 	margin: 0 auto;

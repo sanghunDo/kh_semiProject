@@ -17,6 +17,7 @@ window.onload=function(){
 </script>
 </head>
 <body>
+<img src="" alt="" id="background"/>
 <div id="warning">
 	<h1>! WARNING !</h1><br />
 	<p>본 게임은 다소 잔인하거나 불쾌한 장면이 포함되어 있을 수 있습니다.<br><br>
@@ -25,7 +26,6 @@ window.onload=function(){
 	   - 게임의 등장인물이나 배경은 모두 실제 인물이나 단체와 무관합니다. -</p>
 </div>
 <div id="prologue">
-	<img src="" alt="" />
 	<div id="msgBox" class="me">
 		<div><h2></h2></div>
 	</div>
