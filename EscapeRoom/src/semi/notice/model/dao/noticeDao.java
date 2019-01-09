@@ -55,7 +55,7 @@ private Properties prop = new Properties();
 		return result;
 	}
 
-	public List<Notice> selectNoticeList(Connection conn) {
+	public List<Notice> selectNoticeList(Connection conn, int cPage, int numPerPage) {
 		List<Notice> list = null;
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
@@ -63,6 +63,13 @@ private Properties prop = new Properties();
 		
 		try {
 			pstmt = conn.prepareStatement(query);
+			
+			int startRnum = (cPage-1) * numPerPage + 1;
+			int endRnum = cPage * numPerPage;
+
+			pstmt.setInt(1, startRnum);
+			pstmt.setInt(2, endRnum);
+			
 			rset = pstmt.executeQuery();
 			
 			list = new ArrayList<>();

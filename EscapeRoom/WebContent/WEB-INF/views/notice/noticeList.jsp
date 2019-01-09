@@ -4,6 +4,9 @@
 <%@ page import="java.util.*, semi.notice.model.vo.*" %>
 <%
 	List<Notice> list = (List<Notice>)request.getAttribute("list");
+
+	int cPage = (int)request.getAttribute("cPage");
+	int numPerPage = (int)request.getAttribute("numPerPage");
 %>
 <link rel="stylesheet" href="<%=request.getContextPath() %>/css/notice/notice.css" />
 <script>
