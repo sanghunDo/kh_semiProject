@@ -71,17 +71,25 @@ div#pageBar a{
 		<th>가입날짜</th>
 	</tr>
 	</thead>
-	
-	<tbody>
-		 <% for(Member m : list) {%>
-		 <tr>
-		 <td><%=m.getUserId() %></td>
-		 <td><%=m.getUserEmail() %></td>
-		 <td><%=m.getEnrollDate() %></td>
-		 </tr>
-		 <%} %>
-		 
-	</tbody>
+	     <tbody>
+   <%if(list == null || list.isEmpty()) { %>
+            <tr>
+         <td>
+            회원이 없습니다.
+         </td>
+      </tr>
+   <%}
+      else {
+         for(Member m : list){
+   %>
+      <tr>
+         <td><%=m.getUserId() %></td>
+         <td><%=m.getUserEmail() %></td>
+         <td><%=m.getEnrollDate() %></td>
+      </tr>
+   <% }
+      } %>
+   </tbody>
 </table>
 <div id="pageBar"><%=pageBar %></div>
 </section>
