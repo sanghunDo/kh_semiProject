@@ -97,7 +97,7 @@ public class InsertNoticeServlet extends HttpServlet {
 		
 		String view = "/WEB-INF/views/common/msg.jsp";
 		String msg = "";
-		String loc = "/notice";
+		String loc = "/notice/noticeList";
 		
 		if(result > 0) {
 			msg = "공지사항 등록 성공";
@@ -109,7 +109,6 @@ public class InsertNoticeServlet extends HttpServlet {
 		request.setAttribute("msg", msg);
 		request.setAttribute("loc", loc);
 		request.getRequestDispatcher(view).forward(request, response);
-		
 	}
 
 	/**

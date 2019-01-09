@@ -97,4 +97,108 @@ private Properties prop = new Properties();
 		return list;
 	}
 
+	public int selectTotalCount(Connection conn) {
+		int totalCount = 0;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String query = prop.getProperty("selectTotalCount");
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				totalCount = rset.getInt("totalCount");
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return totalCount;
+	}
+
+	public Notice selectOneNotice(Connection conn, int noticeNo) {
+		Notice n = null;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String query = prop.getProperty("selectOneNotice");
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1, noticeNo);
+			
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				n = new Notice();
+				
+				n.setNoticeNo(noticeNo);
+				n.setNoticeTitle(rset.getString("noticeTitle"));
+				n.setNoticeContent(rset.getString("noticeContent"));
+				n.setNoticeOriginalFile(rset.getString("noticeOriginalFile"));
+				n.setNoticeRenamedFile(rset.getString("noticeRenamedFile"));
+				n.setNoticeDate(rset.getDate("noticeDate"));
+				n.setNoticeUrgent(rset.getString("noticeUrgent"));
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return n;
+	}
+
+	public int deleteNotice(Connection conn, int noticeNo) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String query = prop.getProperty("deleteNotice");
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1, noticeNo);
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+
+	public int updateNotice(Connection conn, Notice n) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String query = prop.getProperty("updateNotice");
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			
+			pstmt.setString(1, n.getNoticeTitle());
+			pstmt.setString(2, n.getNoticeContent());
+			pstmt.setString(3, n.getNoticeOriginalFile());
+			pstmt.setString(4, n.getNoticeRenamedFile());
+			pstmt.setString(5, n.getNoticeUrgent());
+			pstmt.setInt(6, n.getNoticeNo());
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+
+		return result;
+	}
+
 }
