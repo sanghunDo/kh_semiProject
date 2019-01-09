@@ -1,87 +1,17 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/views/common/header.jsp" %>
-<style>
-#notice-Container{
-	width:100%;
-	min-height:100px;
-	margin-top:20px;
+<link rel="stylesheet" href="<%=request.getContextPath() %>/css/notice/notice.css" />
+<script>
+function goToNoticeForm(){
+	location.href = "<%=request.getContextPath()%>/notice/noticeForm";
 }
-
-img#notice-Image{
-	width:400px;
-	height:280px;
-	margin:20px;
-	cursor:pointer;
-}
-
-#notice-Form{
-	background:white;
-	width:440px;
-	height:400px;
-}
-
-#notice-Plain{
-	font-size:18px;
-	font-weight:bold;
-	display:block;
-	margin-left:20px;
-}
-
-#notice-Urgent{
-	color:red;
-	font-size:18px;
-	font-weight:bold;
-	display:block;
-	margin-left:20px;
-}
-
-#notice-Title{
-	display:block;
-	margin-left:20px;
-}
-
-#notice-Date{
-	display:block;
-	font-size:14px;
-	margin-right:20px;
-	float:right;
-}
-
-#admin-Btn{
-	outline:none;
-	background:black;
-	color:white;
-	border:1px solid white;
-	border-radius:5px;
-	float:right;
-}
-
-#adminBtn-Container{
-	width:100%;
-	height:30px;
-}
-
-#notice-Table{
-	margin:0 auto;
-	margin-bottom:20px;
-}
-
-#notice-Table td{
-	padding:8px;
-}
-
-#paging-Area{
-	width:100%;
-	height:50px;
-	border:1px solid white;
-}
-</style>
+</script>
 </head>
 <body>
 <div id="notice-Container">
 <div id="adminBtn-Container">
-	<button id="admin-Btn">공지사항 등록</button>
+	<button id="admin-Btn" onclick="goToNoticeForm();">공지사항 등록</button>
 </div>
 <table id="notice-Table">
 	<tr>
