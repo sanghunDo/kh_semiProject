@@ -13,7 +13,7 @@ window.onload=function(){
 	window.focus();
 	window.moveTo(0,0);
 	window.resizeTo(1024,768);
-}
+};
 </script>
 </head>
 <body>
@@ -64,6 +64,15 @@ window.onload=function(){
 				target.attr("style", "animation:typing "+(length/40)+"s steps("+length+", end)");
 			}
 		});
+	});
+	$(window).on('keyup', function(e){
+		if(e.keyCode==32 || e.keyCode==13)
+			$("#prologue").trigger('click');
+		if(e.keyCode==27){
+			if(confirm("프롤로그를 스킵하시겠습니까?")){
+				location.href="<%=request.getContextPath()%>/game/gameMain";
+			}
+		}
 	});
 </script>
 </body>

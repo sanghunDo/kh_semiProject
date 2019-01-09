@@ -12,6 +12,7 @@ import javax.servlet.http.HttpSession;
 import com.google.gson.Gson;
 
 import semi.game.model.service.GameService;
+import semi.member.model.service.MemberService;
 import semi.member.model.vo.Member;
 
 /**
@@ -29,6 +30,7 @@ public class GameBuyHintServlet extends HttpServlet {
 		boolean result;
 		if(session!=null) {
 			Member m = (Member)session.getAttribute("loggedInMember");
+			m = new MemberService().selectOne(m.getUserId());
 			if(m.getCoin()<50) {result = false;}
 			else {
 				new GameService().buyHint(m); 
