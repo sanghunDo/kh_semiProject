@@ -22,10 +22,10 @@ public class noticeService {
 		return result;
 	}
 
-	public List<Notice> selectNoticeList() {
+	public List<Notice> selectNoticeList(int cPage, int numPerPage) {
 		List<Notice> list = null;
 		Connection conn = getConnection();
-		list = new noticeDao().selectNoticeList(conn);
+		list = new noticeDao().selectNoticeList(conn, cPage, numPerPage);
 		close(conn);
 		return list;
 	}

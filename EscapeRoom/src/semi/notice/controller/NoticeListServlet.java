@@ -32,11 +32,29 @@ public class NoticeListServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		List<Notice> list = new noticeService().selectNoticeList();
+		int cPage;
+		int numPerPage;
+		
+		try {
+			cPage = Integer.parseInt(request.getParameter("cPage"));
+		}
+		catch (NumberFormatException e){
+			cPage = 1;
+		}
+		
+		try {
+			numPerPage = Integer.parseInt(request.getParameter("numPerPage"));
+		}
+		catch (NumberFormatException e){
+			numPerPage = 4;
+		}
+		
+		List<Notice> list = new noticeService().selectNoticeList(cPage, numPerPage);
 		
 		String view = "/WEB-INF/views/notice/noticeList.jsp";
 		
-		request.setAttribute("list", list);
+		request.setAttribute("cPage", cPage);
+		request.setAttribute("numPerPage", numPerPage);
 		request.getRequestDispatcher(view).forward(request,response);
 	}
 
