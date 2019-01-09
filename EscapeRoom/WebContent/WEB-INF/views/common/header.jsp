@@ -47,6 +47,14 @@
 	</header>
 	<script>
 		$(".enter-game").click(function(){
+			if(<%=loggedInMember==null%>){
+				var alert = confirm("로그인하지 않아서 랭킹에 등록되지 않습니다. 계속 진행하시겠습니까?")
+				if(!alert) {
+					location.href='<%=request.getContextPath()%>/member/login';
+					return;
+				}
+			}
+			
 			//게임화면 팝업
 			var url = "<%=request.getContextPath()%>/game/gameStart?userId=<%=loggedInMember!=null?loggedInMember.getUserId():"guest"%>";
  			var status = "width=1024px, height=678px";
