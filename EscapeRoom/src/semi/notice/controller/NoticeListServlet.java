@@ -51,10 +51,52 @@ public class NoticeListServlet extends HttpServlet {
 		
 		List<Notice> list = new noticeService().selectNoticeList(cPage, numPerPage);
 		
+		int totalCount = new noticeService().selectTotalCount();
+		System.out.println("총 게시물 수 : " + totalCount);
+		
+		int totalPage = (int) Math.ceil(totalCount / numPerPage) + 1;
+		
+		String pageBar = "";
+		int pageBarSize = 5;
+		
+		int startPage = ((cPage - 1)/ pageBarSize) * pageBarSize + 1;
+		int endPage = startPage + pageBarSize - 1;
+		
+		int pageNo = startPage;
+		
+		//[이전] section
+		if(pageNo == 1) {}
+		else {
+			pageBar += "<a href = '" + request.getContextPath() + "/notice/noticeList?cPage=" +
+						(pageNo - 1) + "&numPerPage=" + numPerPage + "'>&lt;&lt; </a>";
+		}
+		
+		//[페이지] section
+		while(pageNo <= endPage && pageNo <= totalPage) {
+			if(cPage == pageNo) {
+				pageBar += "<span class='cPage'>" + pageNo + "</span>";
+			}
+			else {
+				pageBar += "&nbsp;&nbsp;<a href = '" + request.getContextPath()+ "/notice/noticeList?cPage=" +
+						pageNo + "&numPerPage=" + numPerPage + "'>" + pageNo + "</a>&nbsp;&nbsp;";
+			}
+			pageNo++;
+		}
+		
+		//[다음] section
+		if(pageNo > totalPage) {}
+		else {
+			pageBar += "<a href = '" + request.getContextPath()+ "/board/boardList?cPage=" +
+					pageNo + "&numPerPage=" + numPerPage + "'> &gt;&gt;</a>";
+		}
+		
 		String view = "/WEB-INF/views/notice/noticeList.jsp";
 		
+		request.setAttribute("list", list);
+		request.setAttribute("pageBar", pageBar);
 		request.setAttribute("cPage", cPage);
 		request.setAttribute("numPerPage", numPerPage);
+		
 		request.getRequestDispatcher(view).forward(request,response);
 	}
 

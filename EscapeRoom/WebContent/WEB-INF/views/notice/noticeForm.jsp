@@ -3,61 +3,7 @@
 <%@ include file="/WEB-INF/views/common/header.jsp" %>
 <link rel="stylesheet" href="<%=request.getContextPath() %>/css/notice/notice.css" />
 <style>
-div#noticeForm-Container{
-	font-family:'Noto Serif KR', serif;
-}
 
-table#noticeForm{
-	color:white;
-	border-collapse:collapse;
-	width:800px;
-	margin:0 auto;
-}
-
-table#noticeForm th{
-	padding-top:20px;
-	padding-bottom:20px;
-	width:100px;
-	border-bottom:1px solid gray;
-}
-
-table#noticeForm td{
-	padding-top:10px;
-	padding-bottom:10px;
-	padding-left:30px;
-	border-bottom:1px solid gray;
-}
-
-h1#title{
-	color:white;
-	text-align:center;
-}
-
-#noticeTitle{
-	width:500px;
-	height:30px;
-	background:black;
-	color:white;
-	border-style:none;
-	border-bottom:1px solid gray;
-}
-
-#noticeSubmit-Btn{
-	width:150px;
-	height:50px;
-	outline:none;
-	border:1px solid white;
-	border-radius: 20px;
-	background:white;
-	font-size:20px;
-	font-family: 'Roboto Slab', serif;
-	font-weight:bold;
-	cursor:pointer;
-}
-
-textarea#noticeContent{
-	resize:none;
-}
 </style>
 <div id="noticeForm-Container">
 <form action="<%=request.getContextPath()%>/notice/insertNotice" method="post"
