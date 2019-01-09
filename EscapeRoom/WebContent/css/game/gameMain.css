@@ -335,10 +335,10 @@ h2{
 #help .close{
 	top: 13px;
 }
-#buy-result{
+#message{
     position: absolute;
     width: 450px;
-    height: 50px;
+    min-height: 50px;
     border-radius: 10px;
     background: black;
     left: 275px;
@@ -348,6 +348,6 @@ h2{
     box-shadow:2px 2px 20px black;
     display: none;
 }
-#buy-result h2{
+#message h2{
 	margin-top: 7px;
 }

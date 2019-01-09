@@ -18,18 +18,22 @@ public class Member implements Serializable, HttpSessionBindingListener{
 	private String userEmail; // 이메일
 	private String userProfileOriginalFile; // 원첨부파일
 	private String userProfileRenamedFile; // 중복방지용 바꿔준 첨부파일
+	private int coin; //보유 코인
+	private int hintPaper; //보유 힌트
 	private Date enrollDate; // 가입날짜
 	
 	public Member() {}
 	
 	public Member(String userId, String userPassword, String userEmail, String userProfileOriginalFile,
-			String userProfileRenamedFile, Date enrollDate) {
+			String userProfileRenamedFile, int coin, int hintPaper, Date enrollDate) {
 		super();
 		this.userId = userId;
 		this.userPassword = userPassword;
 		this.userEmail = userEmail;
 		this.userProfileOriginalFile = userProfileOriginalFile;
 		this.userProfileRenamedFile = userProfileRenamedFile;
+		this.coin = coin;
+		this.hintPaper = hintPaper;
 		this.enrollDate = enrollDate;
 	}
 	
@@ -82,6 +86,21 @@ public class Member implements Serializable, HttpSessionBindingListener{
 		this.userProfileRenamedFile = userProfileRenamedFile;
 	}
 
+	public int getCoin() {
+		return coin;
+	}
+
+	public void setCoin(int coin) {
+		this.coin = coin;
+	}
+
+	public int getHintPaper() {
+		return hintPaper;
+	}
+
+	public void setHintPaper(int hintPaper) {
+		this.hintPaper = hintPaper;
+	}
 
 	public Date getEnrollDate() {
 		return enrollDate;

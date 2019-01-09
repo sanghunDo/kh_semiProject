@@ -100,6 +100,8 @@ public class MemberDao {
 				loggedInMember.setUserEmail(rset.getString("useremail"));
 				loggedInMember.setUserProfileOriginalFile(rset.getString("userprofileoriginalfile"));
 				loggedInMember.setUserProfileRenamedFile(rset.getString("userprofilerenamedfile"));
+				loggedInMember.setCoin(rset.getInt("coin"));
+				loggedInMember.setHintPaper(rset.getInt("hintpaper"));
 				loggedInMember.setEnrollDate(rset.getDate("enrolldate"));
 
 			}

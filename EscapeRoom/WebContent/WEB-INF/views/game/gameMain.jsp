@@ -1,5 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ page import="semi.member.model.vo.*" %>
+<%
+	Member loggedInMember = (Member)session.getAttribute("loggedInMember");
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -81,7 +85,7 @@
 				<div class="close">=</div>
 			</div>
 		</div>
-		<div id="buy-result"></div>
+		<div id="message"></div>
 		<div id="pause"><img src="<%=request.getContextPath()%>/images/game/gameMain/pause.png" alt="" /></div>
 		<div id="inventory">
 			<div id="prev"><span>◀</span></div>
@@ -108,6 +112,14 @@ var record = setInterval(timer, 1000);
 function timer(){
 	var sec = $("[type=hidden]").val();
 	$("[type=hidden]").val(++sec);
+};
+function show_message(msg){
+	$("#pause-menu-container").css("opacity", .4);
+	$("#message").html("<h2>"+msg+"</h2>").show();
+	setTimeout(function(){
+		$("#pause-menu-container").css("opacity", 1);
+		$("#message").hide();
+	}, 1500);
 };
 $("#back-ground").fadeOut(2000);
 setTimeout(function(){
@@ -152,6 +164,10 @@ $("#pause").on("click", {flag:1}, function(e){
 	}
 });
 $("#btn-store").on('click', function(){
+	if(<%=loggedInMember==null%>){
+		show_message("로그인시 이용가능한 서비스입니다.");
+		return;
+	}
 	$("#store").slideDown();
 });
 $("#btn-help").on('click', function(){
@@ -161,23 +177,17 @@ $(".close").on('click', function(){
 	$(this).parent().slideUp();
 });
 $("#myStore-Btn").on('click', function(){
-	var html = "";
 	$.ajax({
 		url:"<%=request.getContextPath()%>/game/buyHint",
+		<%if(loggedInMember!=null){%>
+		data: "userId="+<%=loggedInMember.getUserId()%>,
+		<%}%>
 		type:"get",
 		success: function(result){
-			if(result>0)
-				html = "<h2>구매가 완료되었습니다.</h2>"
+			if(result)
+				show_message("구매가 완료되었습니다.");
 			else
-				html = "<h2>보유 코인이 부족합니다.</h2>"
-		},
-		complete: function(){
-			$("#pause-menu-container").css("opacity", .4);
-			$("#buy-result").html(html).show();
-			setTimeout(function(){
-				$("#pause-menu-container").css("opacity", 1);
-				$("#buy-result").hide();
-			}, 1500);
+				show_message("보유 코인이 부족합니다.");
 		}
 	});
 });

@@ -316,3 +316,9 @@ insert into game_prologue(no, content) values(16,'마지막으로');
 insert into game_prologue(no, content) values(17,'남길...말은');
 select * from game_scenario order by no;
 commit;
+
+select * from member;
+--19.01.09 member테이블에 보유 코인, 쪽지개수 컬럼 추가
+alter table member add(coin number default 300);
+alter table member add(hintpaper number default 0);
+alter table member add(enrolldate date default sysdate);
