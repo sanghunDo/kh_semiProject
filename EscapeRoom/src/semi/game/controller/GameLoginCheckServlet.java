@@ -11,19 +11,25 @@ import javax.servlet.http.HttpSession;
 
 import com.google.gson.Gson;
 
+import semi.member.model.service.MemberService;
 import semi.member.model.vo.Member;
 
 /**
  * Servlet implementation class GameLoginCheckServlet
  */
-@WebServlet("/game/loginCheck")
+@WebServlet("/game/coinHintRefresh")
 public class GameLoginCheckServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		HttpSession session = (HttpSession)request.getSession();
-		Member m = (Member)session.getAttribute("loggedInMember");
-		new Gson().toJson(m,response.getWriter());
+		HttpSession session = (HttpSession)request.getSession(false);
+		if(session!=null) {
+			Member m = (Member)session.getAttribute("loggedInMember");
+			if(m!=null) {
+				m = new MemberService().selectOne(m.getUserId());
+			}
+			new Gson().toJson(m,response.getWriter());
+		}
 	}
 
 	/**

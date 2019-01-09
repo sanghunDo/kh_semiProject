@@ -80,9 +80,12 @@ insert into member values('abc', '1234', 'abc@abc.com', null, null, default);
 insert into member values('qwerty', '1234', 'qwerty@qwerty.com', null, null, default);
 insert into member values('tomato', '1234', 'tomato@tomato.com', null, null, default);
 insert into member values('admin', '1234', 'abc@abc.com', null, null, default);
-
+alter table member modify(userpassword varchar2(200));
+update member set userpassword = '55NNJATIxxog3T6qfYnlfC01/fkIyooIpPo5F9ejePBqItHjuTgVEosZEvaBHZuaLZl7gwYefwogFkGQmA0tkA==' where userid='tkdgnstkdgns';
 --임의 회원 추가 확인
+update member set coin = 1000 where userid='tkdgnstkdgns';
 select * from member;
+commit;
 
 --특정 회원 삭제
 --delete from member where userid = 'abc';

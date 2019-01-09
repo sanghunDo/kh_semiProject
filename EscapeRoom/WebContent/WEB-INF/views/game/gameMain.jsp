@@ -35,7 +35,7 @@
 						</div>
 					</li>
 					<li>
-						<div class="button_base b06_3d_swap">
+						<div class="button_base b06_3d_swap" id="btn-esc">
 							<div>게임종료</div>
 							<div>게임종료</div>
 						</div>
@@ -121,24 +121,7 @@ function show_message(msg){
 		$("#message").hide();
 	}, 1500);
 };
-var result = false;
-function loginCheck(){
-	$.ajax({
-		url:"<%=request.getContextPath()%>/game/loginCheck",
-		type: "post",
-		async:false,
-		success: function(member){
-			console.log(member);
-			if(member!="") {
-				$("#userCoin").text(member.coin);
-				$("#hintPaper").text(member.hintPaper);
-				result = true;
-			}
-		}
-	});
-	console.log(result);
-	return result;
-};
+
 $("#back-ground").fadeOut(2000);
 setTimeout(function(){
 	$("#back-ground").attr("src", "<%=request.getContextPath()%>/images/game/gameMain/test.png").show();
@@ -181,10 +164,15 @@ $("#pause").on("click", {flag:1}, function(e){
 		record = setInterval(timer, 1000);
 	}
 });
+$(window).on('keyup', function(e){
+	if(e.keyCode==27){
+		$("#pause").trigger("click");
+	}
+}).on('beforeunload', function(){
+	opener.parent.sessionStorage.removeItem("game");
+});
 $("#btn-store").on('click', function(){
-	var result = loginCheck();
-	console.log(result);
-	if(result){$("#store").slideDown();}
+	if(<%=loggedInMember!=null%>){$("#store").slideDown();}
 	else{show_message("로그인시 이용가능한 서비스입니다.");}
 });
 $("#btn-help").on('click', function(){
@@ -193,18 +181,50 @@ $("#btn-help").on('click', function(){
 $(".close").on('click', function(){
 	$(this).parent().slideUp();
 });
+$("#btn-esc").on('click', function(){
+	$("#pause-menu-container").css("opacity", .4);
+	$("#message").html("<h2>게임을 종료하시겠습니까?</h2><button value='1'>◎ 확인</button><button>X 취소</button>").show();
+	$("#message").find("button").each(function(){
+		$(this).click(function(){
+			if($(this).val()==1){
+				opener.parent.sessionStorage.removeItem("game");
+				self.close();
+			}
+			else {
+				$("#pause-menu-container").css("opacity", 1);
+				$(this).parent().hide();
+			}
+		});
+	});
+});
+
+function coin_hint_refresh(){
+	$.ajax({
+		url: "<%=request.getContextPath()%>/game/coinHintRefresh",
+		type: "get",
+		dataType: "json",
+		success: function(data){
+			var member = JSON.parse(data);
+			$("#userCoin").text(member.coin);
+			$("#hintPaper").text(member.hintPaper);
+		}
+	});
+};
 $("#myStore-Btn").on('click', function(){
 	$.ajax({
 		url:"<%=request.getContextPath()%>/game/buyHint",
 		type:"get",
 		success: function(result){
-			if(result)
+			if(result === "true"){
 				show_message("구매가 완료되었습니다.");
+				coin_hint_refresh();
+			}
 			else
 				show_message("보유 코인이 부족합니다.");
 		}
 	});
 });
+
 </script>
 </body>
 </html>
