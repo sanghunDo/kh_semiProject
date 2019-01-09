@@ -60,16 +60,17 @@ textarea#noticeContent{
 }
 </style>
 <div id="noticeForm-Container">
-<form action="<%=request.getContextPath()%>/notice/InsertNotice" method="post">
+<form action="<%=request.getContextPath()%>/notice/insertNotice" method="post"
+	enctype="multipart/form-data">
 <h1 id="title">공지사항 등록</h1>
 <table id="noticeForm">
 	<tr>
 		<th>구분</th>
 		<td>
-			<input type="radio" name="noticeCategory" id="plain" checked/>
+			<input type="radio" name="noticeUrgent" id="plain" value="N" checked/>
 			<label for="plain">일반공지</label>
 			&nbsp;&nbsp;&nbsp;&nbsp;
-			<input type="radio" name="noticeCategory" id="urgent" />
+			<input type="radio" name="noticeUrgent" id="urgent" value="Y"/>
 			<label for="urgent">긴급공지</label>
 		</td>
 	</tr>
@@ -82,7 +83,7 @@ textarea#noticeContent{
 	<tr>
 		<th>링크이미지</th>
 		<td>
-			<input type="file" name="noticeOriginalFileName" id="noticeOriginalFileName" required/>
+			<input type="file" name="up-file" required/>
 			<p>링크이미지가 없으면 업로드가 불가능합니다. 반드시 선택하여 주십시오.</p>
 		</td>
 	</tr>

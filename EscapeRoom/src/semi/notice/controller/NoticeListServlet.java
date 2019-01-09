@@ -1,11 +1,16 @@
 package semi.notice.controller;
 
 import java.io.IOException;
+import java.util.List;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import semi.notice.model.service.noticeService;
+import semi.notice.model.vo.Notice;
 
 /**
  * Servlet implementation class NoticeListServlet
@@ -26,7 +31,13 @@ public class NoticeListServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
+		
+		List<Notice> list = new noticeService().selectNoticeList();
+		
+		String view = "/WEB-INF/views/notice/noticeList.jsp";
+		
+		request.setAttribute("list", list);
+		request.getRequestDispatcher(view).forward(request,response);
 	}
 
 	/**
