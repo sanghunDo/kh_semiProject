@@ -1,6 +1,7 @@
 package semi.board.free.controller;
 
 import java.io.IOException;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -17,13 +18,13 @@ import semi.board.free.model.vo.BoardComment;
  * Servlet implementation class FreeBoardComment2Insert
  */
 @WebServlet("/board/free/freeBoardComment2.do")
-public class FreeBoardComment2Insert extends HttpServlet {
+public class FreeBoardComment2List extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public FreeBoardComment2Insert() {
+    public FreeBoardComment2List() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -33,38 +34,42 @@ public class FreeBoardComment2Insert extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("utf-8");
-		String level2Comment = request.getParameter("level2Comment");
+		//String level2Comment = request.getParameter("level2Comment");
 		int ref = Integer.parseInt(request.getParameter("ref"));
 		int commentRef = Integer.parseInt(request.getParameter("commentRef"));
-		String commentWriter = request.getParameter("commentWriter");
-		int commentLevel = Integer.parseInt(request.getParameter("commentLevel"));
+		//String commentWriter = request.getParameter("commentWriter");
+		//int commentLevel = Integer.parseInt(request.getParameter("commentLevel"));
 
-		System.out.println("서블릿 : level2Comment="+level2Comment);
-		System.out.println("서블릿 : ref="+ref);
-		System.out.println("서블릿 : commentRef="+commentRef);
-		System.out.println("서블릿 : commentWriter="+commentWriter);
-		System.out.println("서블릿 : commentLevel="+commentLevel);
+		//System.out.println("서블릿 : ref="+ref);
+		//System.out.println("서블릿 : commentRef="+commentRef);
+		//System.out.println("서블릿 : commentWriter="+commentWriter);
+		//System.out.println("서블릿 : commentLevel="+commentLevel);
 
 
-		
+	/*	
 		BoardComment bc = new BoardComment();
 		bc.setRef(ref);
 		bc.setCommentWriter(commentWriter);
 		bc.setCommentLevel(commentLevel);
-		bc.setCommentContent(level2Comment);
-		bc.setCommentRef(commentRef);
+		//bc.setCommentContent(level2Comment);
+		bc.setCommentRef(commentRef);*/
 		
 		
-		int result = new FreeBoardDao().insertComment(bc);
+		//int result = new FreeBoardDao().insertComment(bc);
+		List<BoardComment> commentList = new FreeBoardDao().selectAllCommentLevel2(ref,commentRef);
 		String comment_date = new FreeBoardDao().getDate(commentRef);
 		System.out.println("comment_date:"+comment_date);
 		//System.out.println("서블릿 도달"+comment2);
 		response.setContentType("application/json; charset=utf-8");
-		String data = bc.getCommentWriter()+"/"+
+/*		String data = bc.getCommentWriter()+"/"+
 				comment_date+"/"+
 				bc.getCommentContent();
+		*/
+		//new Gson().toJson(data,response.getWriter());
 		
-		new Gson().toJson(data,response.getWriter());
+		new Gson().toJson(commentList,response.getWriter());
+		 
+		
 	
 	}
 
