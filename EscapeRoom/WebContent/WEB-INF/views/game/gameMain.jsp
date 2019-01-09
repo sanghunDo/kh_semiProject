@@ -260,10 +260,11 @@ div#pause-menu ul li:first-of-type span{
 }
 
 #store-Top{
-	border:1px solid;
-	padding-top:40px;
+	padding-top:50px;
 	width:200px;
-	height:35px;	
+	height:35px;
+	margin:0 auto;
+    text-align: center;	
 }
 
 #item{
@@ -279,8 +280,53 @@ div#pause-menu ul li:first-of-type span{
 
 #store-Help{
 	font-size:25px;
+	text-align:center;
+}
+
+h1{
+	text-align:center;
+	padding-top:40px;
+}
+
+#game-Help{
+	text-align:center;
+	padding-top:10px;
+	font-size:20px;
+}
+
+#haha{
+	font-size:30px;
+	display:block;
 	margin:0 auto;
 }
+
+#myStore-Btn{
+	border:1px solid black;
+	border-radius:20px;
+	background:black;
+	color:white;
+	box-shadow:2px 2px 20px gray;
+	width:300px;
+	height:70px;
+	text-align:center;
+	cursor:pointer;
+	margin:0 auto;
+	margin-top:30px;
+}
+
+h2{
+	display:inline-block;
+	margin:0;
+	margin-top:15px;
+}
+
+#price{
+	width:40px;
+	height:40px;
+	position:relative;
+	top:11px;
+}
+
 </style>
 </head>
 <body>
@@ -312,7 +358,7 @@ div#pause-menu ul li:first-of-type span{
 	</div>
 	
 	<!-- 상점 -->
-	<div id="store">
+<%-- <div id="store">
 		<div id="store-Top">
 			<img id="item" src="<%=request.getContextPath()%>/images/coin.png" alt="" />
 			&nbsp;&nbsp;<span id="userCoin">50</span>
@@ -321,8 +367,37 @@ div#pause-menu ul li:first-of-type span{
 			&nbsp;&nbsp;<span id="hintPaper">3</span>
 		</div>
 		
-		<p id="store-Help">힌트쪽지를 구매하면 랜덤으로 1개의 쪽지를 뽑게 됩니다.<br>
-			쪽지가 얼마나 유용할지는 알 수 없습니다.</p>
+		<p id="store-Help">힌트쪽지를 구매할 수 있습니다.</p>
+		<div id="myStore-Btn">
+			<h2>쪽지 구매하기</h2>&nbsp;&nbsp;&nbsp;
+			<img id="price" src="<%=request.getContextPath() %>/images/coin.png" alt="" />
+			<h2>50</h2>
+		</div>
+		
+		<p id="store-Help">구매한 쪽지의 내용은 랜덤입니다.<br>
+			뽑은 쪽지가 얼마나 유용할지는 알 수 없으며,<br>
+			쪽지를 읽으면 보유 쪽지수가 차감됩니다.<br>
+			(쪽지는 보관되지 않습니다.)</p>
+		<div id="myStore-Btn">
+			<h2>쪽지 읽기</h2>&nbsp;&nbsp;&nbsp;
+			<img id="price" src="<%=request.getContextPath() %>/images/hint_paper.png" alt="" />
+			<h2>1</h2>
+		</div>
+	</div> --%>
+	
+	<!-- 도움말 -->
+	<div id="store">
+		<div id="game-Help">
+			<h1>&lt; 도 움 말 &gt;</h1>
+			<span>방 안에 있는 단서들과 아이템들을 이용하여<br>
+				주어진 이 공간을 탈출하는 게임입니다.<br>
+				단서는 물건 들을 클릭하면 얻을 수 있습니다.<br><br>
+				단, 비밀번호나 열쇠 등으로 잠겨있는 곳은 직접 풀어야 합니다.<br><br>
+				열쇠 등의 각종 도구를 얻게되면<br>
+				화면 하단의 인벤토리로 옮겨지며<br>
+				필요할 때 획득한 아이템을 클릭하여 사용할 수 있습니다.<br><br></span>
+			<span id="haha">당신이 이 방에서 탈출할 수 있기를.<br>ESCAPE, IF YOU CAN.</span>
+		</div>
 	</div>
 	
 	<div id="pause"><img src="<%=request.getContextPath() %>/images/game/gameMain/pause.png" alt="" /></div>
