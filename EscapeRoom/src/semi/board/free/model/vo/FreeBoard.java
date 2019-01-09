@@ -14,14 +14,16 @@ public class FreeBoard implements Serializable {
 	private int postLike;
 	private int postDislike;
 	private boolean postReport;
-	private int readCount;
+	private int postReadCount;
+	private int board_comment_cnt;
+	
 	
 	public FreeBoard() {
 		
 	}
 
 	public FreeBoard(int postNo, String postTitle, String postWriter, String postContent, String postOriginalFile,
-			String postRenamedFile, Date postDate, int postLike, int postDislike, boolean postReport) {
+			String postRenamedFile, Date postDate, int postLike, int postDislike, boolean postReport, int postReadCount,int board_comment_cnt) {
 		
 		this.postNo = postNo;
 		this.postTitle = postTitle;
@@ -33,15 +35,26 @@ public class FreeBoard implements Serializable {
 		this.postLike = postLike;
 		this.postDislike = postDislike;
 		this.postReport = postReport;
-		this.readCount = readCount;
+		this.postReadCount = postReadCount;
+		this.board_comment_cnt = board_comment_cnt;
+		
 	}
 	
+	public int getBoard_comment_cnt() {
+		return board_comment_cnt;
+	}
+
+	public void setBoard_comment_cnt(int board_comment_cnt) {
+		this.board_comment_cnt = board_comment_cnt;
+	}
+
 	@Override
 	public String toString() {
 		return "FreeBoard [postNo=" + postNo + ", postTitle=" + postTitle + ", postWriter=" + postWriter
 				+ ", postContent=" + postContent + ", postOriginalFile=" + postOriginalFile + ", postRenamedFile="
 				+ postRenamedFile + ", postDate=" + postDate + ", postLike=" + postLike + ", postDislike=" + postDislike
-				+ ", postReport=" + postReport + ",readCount="+readCount +"]";
+				+ ", postReport=" + postReport + ", postReadCount=" + postReadCount + ", board_comment_cnt="
+				+ board_comment_cnt + "]";
 	}
 
 	public int getPostNo() {
@@ -52,12 +65,12 @@ public class FreeBoard implements Serializable {
 		this.postNo = postNo;
 	}
 	
-	public int getReadCount() {
-		return readCount;
+	public int getPostReadCount() {
+		return postReadCount;
 	}
 
-	public void setReadCount(int readCount) {
-		this.readCount = readCount;
+	public void setPostReadCount(int readCount) {
+		this.postReadCount = readCount;
 	}
 
 	public String getPostTitle() {

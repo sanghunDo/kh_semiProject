@@ -10,6 +10,8 @@
 %>
 <link rel="stylesheet" href="<%=request.getContextPath()%>/css/board/free/boardCommunityView.css" />
 <script src="<%=request.getContextPath()%>/js/jquery-3.3.1.js"></script>
+
+
 <title>자유게시판</title>
 
 
@@ -59,14 +61,14 @@
 
     <div class="opinion">
         <div id="good">
-            <span id="like"><b>150</b></span>
-            <img src='<%=request.getContextPath()%>/images/freeBoard/like.png'>
+            <b><span id="like"><%=fb.getPostLike()%></span></b>
+            <img src='<%=request.getContextPath()%>/images/freeBoard/like.png' onclick="likey('<%=fb.getPostLike()%>')">
             <span id="likeComment">추천</span>
         </div>
 
         <div id="bad">
-            <span id="dislike"><b>4</b></span>
-            <img src='<%=request.getContextPath()%>/images/freeBoard/dislike.png'>
+        	<b><span id="dislike"><%=fb.getPostDislike()%></span></b>
+            <img src='<%=request.getContextPath()%>/images/freeBoard/dislike.png' onclick="disLikey('<%=fb.getPostDislike()%>')">
             <span id="dislikeComment">비추천</span>
         </div>
     </div>
@@ -98,11 +100,6 @@
             <dd style="position: relative;top: -56px;">
                 	<%=bc.getCommentContent() %>
             </dd>
-                    
-            <span id="Bestlevel2CommentList">답글 30개▼</span>
-            <span>|</span>
-            <span id="Bestlevel2CommentWrite">답글쓰기</span>
-            
         </dl>
     	<hr>
     	 <%} %>
@@ -110,7 +107,7 @@
 
     <div id="comment-container" style="color:white;">
         <p>
-            <span>20</span>개의 댓글
+            <span style="color: red; font-size:29px;" ><%=fb.getBoard_comment_cnt()%></span>개의 댓글
         </p>
             <div class="comment-editor">
                 	댓글쓰기
@@ -124,7 +121,7 @@
              	<!-- <input type="checkBox" name="secret"/><label for="secret">비밀글</label> -->
                 <textarea name="boardCommentContent" cols="60" rows="3" style="margin: 11px;margin-bottom: -78px;width: 800px;height: 113px;resize:none;"></textarea>
                 </form>
-                <div id="commentSubmit" onclick="insertComment();" style="cursor: pointer;">등록</div>
+                <div class="commentSubmit" onclick="insertComment();" style="cursor: pointer;">등록</div>
                
             </div><!-- end of . comment-editor -->
             
@@ -132,50 +129,98 @@
             
             <div class="commentList">
                 <hr>
-                <%for(BoardComment bc:commentList)
+                <%for(int i=0; i<commentList.size(); i++){
+                	BoardComment bc = commentList.get(i);
+                	
                 	 if(bc.getCommentLevel()==1) {
                 	%>
-                 <dl>
-                    <dt style="margin-left: 21px;">
+                 <dl class="comment-Area">
+                    <dt class="commentWriter">
                         <%=bc.getCommentWriter()%>
                         <i><%=bc.getCommentDate() %></i>
                     </dt>
                     
-                    <dl style="display: inline-flex;position: relative;left: 177px;top: -46px;">
-                		<div class="button">수정하기</div>
-               			<div class="button">삭제하기</div>
-            		</dl>
-        
+                	<dl style="display: inline-flex; position: relative; left: 177px; top: -46px;">
+                        <input type="hidden" value=<%=bc.getCommentNo() %> id="commentNo" />
+                        <input type="hidden" value=<%=bc.getCommentContent() %> id="commentContent" />
+                        
+                        <div class="commentUpdate" no="<%=i%>" style="cursor:pointer;">수정하기</div>
+                        <div class="button"  onclick="updateCommentEnd();" no="<%=i %>" id="commentUpdateEnd" style="cursor:pointer;">수정완료</div>
+                        <div class="button" id="commentDeleteBtn" onclick="deleteComment();">삭제하기</div>
+        			</dl>
+        			
+        			<!-- 댓글 삭제를 위한 폼 -->
+                    <form action="<%=request.getContextPath()%>/board/free/freeBoardCommentDelete" name="commentDeleteFrm">
+                    <input type="hidden" value="<%=bc.getCommentNo() %>" name="commentNo"/>
+                    <input type="hidden" value="<%=fb.getPostNo() %>" name="postNo" id="postNo"/>
+                    </form>
+                    
+        			
                     <dl class="bestCommentOpinion">
-                            <dl class="CommentOpinion" style="position: relative; top: -111px;">
-                                    <span style="padding:10px">추천<%=bc.getCommentLike()%></span>
+                            <dl class="CommentOpinion">
+             						 추천	 
+                                    <span style="padding:10px" id="comment1Like" onclick="comment1Like('<%=bc.getCommentLike()%>');"><%=bc.getCommentLike()%></span>
                                     <span style="padding:10px">비추천<%=bc.getCommentDislike()%></span>
                                     <span style="padding:10px">신고하기</span>
+                                    
                             </dl>
                     </dl>
         
-                    <dd style="padding-bottom: 44px;margin-left: 10px; color: white; position: relative; top: -43px;left: 16px;">
-                        	<%=bc.getCommentContent() %>
+                    <dd class="comment_">
+                    <textarea name="comment-Update" no="<%=i%>" class="comment-Update" cols="60" rows="3" style="margin: 11px;margin-bottom: -78px;width: 1000px;height: 113px;resize:none;"><%=bc.getCommentContent() %></textarea>
+                    <dd class="comment-Content">
+                            <%=bc.getCommentContent() %>
                     </dd>
                     
-                    <span id="level2CommentList" style="margin-left: 21px;">답글 30개▼</span>
-                    <div id="level2CommentList"></div>
-                    <span style= "position: relative;right: -114px;top: -23px;">|</span>
-                    <span id="level2CommentWrite">답글쓰기</span>
-                    <div id="level2CommentWrite"></div>
+       				
+                    <span class="level2CommentWrite" level2No="<%=i%>">답글쓰기</span> 
+           </div> 
+         <hr /> 
+                    		
+              <% }
+		else{ %>   
                     
-                </dl>
-                <hr>
-                <%} %>
-            </div>
+                  
+                    
+               
+                   
+                   <!-- <div class="level2CommentListDiv" commentListNo="<%=i%>"> -->
+
+                   <div class="level2">
+							<input type="hidden" value="<%=bc.getCommentNo() %>" /> 
+							
+						<div class="level2_area" level2No="<%=i%>">
+							<span class="reply_icon"> <img src='<%=request.getContextPath()%>/images/freeBoard/commentReply.png'></span>
+							<div class="info"><%=bc.getCommentWriter() %></div>
+							<div class="level2Comment"><%=bc.getCommentContent() %></div>
+							<div class="level2Date"><%=bc.getCommentDate() %></div>
+							<div class="level2Report">신고하기</div>
+							<div class="level2Like">추천 23</div>
+							<div class="level2Dislike">비추천 0</div>	
+							<hr />
+						</div>
+				    
+			<%}
+          } %>   
+				   
+			 
+					<div class="level2CommentWriteDiv">
+                    	<textarea class="level2CommentWrite-textArea" cols="60" rows="3"></textarea>
+                    	<div class="level2Commentsubmit" >등록</div>
+                 	</div> 
+                </div><!--level2 div 끝  -->
+					
+               </div><!-- level2CommentListDiv 끝 -->
+             </dl>
         </div> <!-- end of . comment-container -->
+       
         <div class="button" id="update" onclick="updateBoard();">수정</div>
     	<div class="button" id="delete" onclick="deleteBoard();">삭제</div>
    		<div class="button" id="goList">목록</div>
 </div>
 
 <form action="<%=request.getContextPath()%>/board/free/freeBoardDelete" name="boardDelFrm" method="post">
-<input type="hidden" name="postNo" value="<%=fb.getPostNo()%>" />
+<input type="hidden" name="postNo" value="<%=fb.getPostNo()%>" id="postNo"/>
 <input type="hidden" name="rName" value="<%=fb.getPostRenamedFile()%>" />
 </form>
 
@@ -193,6 +238,241 @@
 	function insertComment(){
 		$("[name=commentSubmitFrm]").submit();
 	}
+	
+    $(".commentUpdate").on("click", function(){
+    	
+    	var no = $(this).attr("no");
+     	console.log("no="+no);
+    	console.log($("textarea[no="+no+"]")); 
+    	
+    	$(".comment-Content[no="+no+"]").hide();  //원래댓글
+    	$(".comment-Update[no="+no+"]").css("display","inline"); //수정하기위한 text area
+    	$("#commentUpdateEnd[no="+no+"]").css("display","inline"); //수정완료 버튼
+	
+       
+        $(".commentUpdate").css("display","none"); //수정하기 버튼
+        $("#commentDeleteBtn").css("display","none"); //삭제하기 버튼
+        $("#level2CommentList").css("display","none"); //답글보기 버튼
+        $("#level2CommentWrite").css("display","none"); //답글쓰기 버튼
+        $("#line").css("display","none"); // | 
+    	/* $(this).find("#comment-Content").hide();  //원래댓글
+    	$(this).find(".comment-Update").css("display","inline"); //수정하기위한 text area
+    	$(this).find("#commentUpdateEnd").css("display","inline"); //수정완료 버튼
+	
+       
+        $(this).find(".commentUpdate").css("display","none"); //수정하기 버튼
+        $(this).find("#commentDeleteBtn").css("display","none"); //삭제하기 버튼
+        $(this).find("#level2CommentList").css("display","none"); //답글보기 버튼
+        $(this).find("#level2CommentWrite").css("display","none"); //답글쓰기 버튼
+        $(this).find("#line").css("display","none"); // |  */
+
+
+        var commentUpdate = $(".comment-Update").val();
+        var commentNo = $("#commentNo").val();
+        var postNo = $("#postNo").val();
+    });    
+    
+
+ 	$(".level2Commentsubmit").on("click", function(){
+ 		var level2Comment = $(".level2CommentWrite-textArea").val();
+ 		var ref = $("input[name=ref]").val(); //해당 글번호
+ 		var commentRef = $(".level2 input").val() //대댓글의 해당 댓글번호 
+ 		var commentWriter = $("input[name=userId]").val(); //유저아이디
+ 		var commentLevel = 2; //대댓글
+ 		
+ 		console.log("level2Comment="+level2Comment);
+ 		console.log("ref="+ref);
+ 		console.log("commentRef="+commentRef);
+ 		console.log("commentWriter="+commentWriter);
+ 		console.log("commentLevel="+commentLevel);
+
+ 		
+ 		 $.ajax({
+ 			url:"<%=request.getContextPath()%>/board/free/freeBoardComment2.do",
+     		data:{level2Comment:level2Comment, ref:ref, commentRef:commentRef, commentWriter:commentWriter,  commentLevel:commentLevel},
+     		success:function(data){
+     			
+     			var data_split = data.split("/");
+     			console.log(data_split);
+     			var comment2UserId = data_split[0];
+     			var comment2Date = data_split[1];
+     			var comment2Content = data_split[2];
+     			
+     			
+     			var reply_icon = $(".reply_icon");
+     			var info = $(".info");
+     			var level2Comment = $(".level2Comment");
+     			var level2Date = $(".level2Date");
+     			
+     			var html = "";
+     	  		html+=reply_icon+"<img src='<%=request.getContextPath()%>/images/freeBoard/commentReply.png'>";
+     			html+=info+comment2UserId;
+     			html+=level2Comment+comment2Content;
+     			html+=level2Date+comment2Content;
+     			
+     			$(".level2_area").insertAfter(html);
+     			/* 	$(".reply_icon").insertAfter();
+     				$(".info").insertAfter(comment2UserId);
+     				$(".level2Comment").insertAfter(comment2Content);
+     				$(".level2Date").insertAfter(comment2Date); */
+     			
+     			
+				
+   
+     			
+     			
+     		/* 	$(".level2_area").append(html); */
+     			
+     			
+     		<%-- 	
+					
+					
+     			
+     			$(".level2").html(level2_area);  --%>
+     		}
+ 		}); 
+ 	});
+    
+    $(".level2CommentWrite").on("click", function(){
+    	
+    	/* var no = $("input[name=commentNo]").val(); */
+    	var no = $(this).attr("level2No");
+    	console.log("no"+no);
+    	
+    
+    	$(".level2_area[level2No="+no+"]").css("display","inline");
+    	$(".level2CommentWriteDiv").css("display","inline");
+    });
+    
+    function updateCommentEnd(){    
+        var commentNo = $("#commentNo").val();
+        var commentUpdate = $(".comment-Update").val();
+        location.href = "<%=request.getContextPath()%>/board/free/freeBoardCommentUpdate?postNo=<%=fb.getPostNo()%>&commentNo="+commentNo+"&commentUpdate="+commentUpdate;
+    }
+    
+    function deleteComment(){
+        if(!confirm("댓글을 정말로 삭제하시겠습니까?")){
+            return false;
+        }
+        $("[name=commentDeleteFrm]").submit();
+        
+    }
+ 
+ 
+
+    function comment1Like(item){
+    	var commentNo =  $("#commentNo").val(); 
+    	/* var no = $("#comment1Like").selected;
+     	console.log("no="+no); */
+    	var here = $("#comment1Like", this); 
+    	//var flag= false;
+    
+    	//console.log("comment1Like",item);
+    	 if(!confirm("해당 댓글을 추천하시겠습니까?")){
+    		return;
+    	} 
+    	 
+    	 $.ajax({
+     		url:"<%=request.getContextPath()%>/board/free/freeBoardComment1Like.do",
+     		data:{commentNo:commentNo, commentLikey:item},
+     		success:function(data){
+     			$("#comment1Like").attr( 'name', 'here' );
+     			$("#comment1Like[name=here]").html(data);
+     	
+     		}
+     		
+     	});
+    	 
+    }
+    
+    function likey(item){
+    	var postNo =  $("#postNo").val(); 
+    	console.log("postNo",postNo);
+    	if(!confirm("해당 글을 추천하시겠습니까?")){
+    		return;
+    	} 
+    	  
+  		$.ajax({
+     		url:"<%=request.getContextPath()%>/board/free/freeBoardLike.do",
+     		data:{postNo:postNo, likey:item},
+     		success:function(data){
+     			$("#like").html(data);
+     		}
+     	});  
+    	 
+    }
+    
+    function disLikey(item){
+    	var postNo =  $("#postNo").val(); 
+    	
+    	
+    	if(!confirm("해당 글을 비추천하시겠습니까?")){
+    		return;
+    	} 
+    	 
+    
+    	
+    		$.ajax({
+	     		url:"<%=request.getContextPath()%>/board/free/freeBoardDisike.do",
+	     		data:{postNo:postNo, dislikey:item},
+	     		success:function(data){
+	     			$("#dislike").html(data);
+	     			
+	     		}
+	     		
+	     	});
+    	
+    		console.log(flag);
+    }
+    	
+    	
+    <%-- 	$.ajax({
+    		url:"<%=request.getContextPath()%>/board/free/freeBoardComment1Like.do",
+    		data:{commentNo:commentNo},
+    		success:function(data){
+    			
+    			console.log(data);
+    		}
+    		
+    	});
+	 --%>
+   
+    
+    
+    
+    <%-- 
+        $.ajax({
+            url:"<%=request.getContextPath()%>/board/free/freeBoardCommentUpdate?postNo=<%=fb.getPostNo()%>",
+            type:"get",
+            data:{commentUpdate:commentUpdate,postNo:postNo, commentNo:commentNo},
+            success: function(data){
+                var html="";
+                console.log("data=",data);
+                /* html+="<dd id="comment-Content" style="padding-bottom: 44px;margin-left: 10px; color: white; position: relative; top: -43px;left: 16px;">";
+                html+=data
+                html+="</dd> */
+                
+        
+                //$("dd[#commentContent]").html(html);
+            }
+        
+        })
+    });  --%>
+    
+   
+    
+<%--     $("#level2CommentList").on("click", function(){
+        $.ajax({
+            var commentNo = $("#commentNo").val();
+            console.log("commentNo", commentNo);
+            url:"<%=request.getContextPath()%>/board/free/CommentLevel2Insert.do",
+            data:{commentNo:commentNo},
+            success:function(data){
+                console.log(data);
+            }
+        })
+    }); --%>
+    
 	
 </script>
 </html>

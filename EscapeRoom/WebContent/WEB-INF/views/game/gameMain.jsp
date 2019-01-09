@@ -6,95 +6,38 @@
 <meta charset=UTF-8">
 <title>Insert title here</title>
 <script src="<%=request.getContextPath()%>/js/jquery-3.3.1.js"></script>
-<style>
-body, html{
-   width: 1008px;
-   height: 704px;
-   padding: 0px;
-   margin: 0 auto;
-   overflow: hidden;
-   background: lightgray;
-}
-html{
-	background: black;
-}
-div#back-ground{
-	position: relative;
-	width: 100%;
-	height: 100%;
-}
-div#back-ground img{
-	position: relative;
-	width: 100%;
-	height: 100%;
-}
-div#inventory{
-	position: relative;
-	width: 70%;
-	height: 22%;
-	top: 97%;
-	margin: 0 auto;
-	background: lightgray;
-	opacity: .7;
-	border: 2px solid gray;
-	border-radius: 22px;
-}
-div#inventory div#prev, div#inventory div#next{
-	position: relative;
-	width: 5%;
-	height: 100%;
-	opacity: .5;
-	background: gray;
-}
-div#inventory div#prev{float:left; border-radius: 19px 0 0 0; visibility: hidden;}
-div#inventory div#prev span{display: inline-block; margin: 57px 0 0 11px; cursor: cursor;}
-div#inventory div#next{float:right; border-radius: 0 19px 0 0;}
-div#inventory div#next span{display: inline-block; margin: 57px 0 0 8px; cursor: cursor;}
-div#inventory div#prev:hover, div#inventory div#next:hover{cursor: pointer;opacity: 1;}
-div#inventory div#prev:hover span, div#inventory div#next:hover span{transform: scale(1.2);}
-div#inventory div#obj-list-container{
-	position: relative;
-	width: 535px;
-	height: 75%;
-	top: 7%;
-	margin: 0 auto;
-	overflow: hidden;
-}
-div#inventory div#obj-list{
-	position: relative;
-	width: 200%;
-	height: 100%;
-	white-space: nowrap;
-}
-div#inventory div#obj-list div{
-	position: relative;
-	display: inline-block;
-	width: 90px;
-	height: 90px;
-	top: 13%;
-	margin-right: 12.5px;
-	border: 1px solid black;
-}
-div#inventory div#obj-list div#obj5{
-	margin-right: 0;
-}
-div#inventory:before{
-	content:"open"; 
-	position: absolute;
-	width: 100%;
-	height: 15%; 
-	top: -50px;
-	font-size: 30px;
-	color: gray;
-	text-align: center;
-	cursor: cursor;
-}
-div#inventory.on:before{content:"close";}
-</style>
+<link href="https://fonts.googleapis.com/css?family=Noto+Serif+KR" rel="stylesheet">
+<link rel="stylesheet" href="<%=request.getContextPath() %>/css/game/gameMain.css" />
 </head>
 <body>
-<div id="back-ground">
-	<img src="<%=request.getContextPath() %>/images/game/gameMain/game_start_again.jpeg" alt="" />
+<img src="<%=request.getContextPath() %>/images/game/gameMain/game_start_again.jpeg" alt="" id="back-ground"/>
+<div id="wrap">
+	<input type="hidden" value=0 />
+	<div id="pause-menu-container">
+		<div id="pause-menu">
+			<ul>
+				<li><h3>플레이 시간</h3><span id="time"></span></li>
+				<li>
+				    <div class="button_base b06_3d_swap">
+				        <div>상점</div>
+				        <div>상점</div>
+				    </div>
+				</li>
+				<li>
+					<div class="button_base b06_3d_swap">
+				        <div>도움말</div>
+				        <div>도움말</div>
+				    </div></li>
+				<li>
+					<div class="button_base b06_3d_swap">
+				        <div>게임종료</div>
+				        <div>게임종료</div>
+				    </div>
+				</li>
+			</ul>
+		</div>
+	</div>
+	<div id="pause"><img src="<%=request.getContextPath() %>/images/game/gameMain/pause.png" alt="" /></div>
 	<div id="inventory">
 		<div id="prev"><span>◀</span></div>
 		<div id="next"><span>▶</span></div>
@@ -115,9 +58,15 @@ div#inventory.on:before{content:"close";}
 	</div>
 </div>
 <script>
-$("#back-ground img").fadeOut(2000);
+var record = setInterval(timer, 1000);
+function timer(){
+	var sec = $("[type=hidden]").val();
+	$("[type=hidden]").val(++sec);
+};
+$("#back-ground").fadeOut(2000);
 setTimeout(function(){
-	$("#back-ground img").attr("src", "").show();
+	$("#back-ground").attr("src", "<%=request.getContextPath()%>/images/game/gameMain/test.png").show();
+	$("#wrap").show();
 }, 2500);
 
 $("#next").click(function(e){
@@ -130,13 +79,33 @@ $("#prev").click(function(){
 });
 $("#inventory").on('click',{flag:0},function(e){
 	var cnt = e.data.flag++;
-	if(cnt%2==0) $(this).animate({"top":"77%"});
-	else $(this).animate({"top":"97%"});
+	if(cnt%2==0) $(this).animate({"top":"80%"});
+	else $(this).animate({"top":"100%"});
 	$(this).toggleClass('on');
 	$(this).children().click(function(e){
 		e.stopPropagation();
 	});
 });
+$("#pause").on("click", {flag:1}, function(e){
+	var cnt = e.data.flag++;
+	$("#back-ground").toggleClass("paused");
+	if(cnt%2!=0){
+		$(this).children().attr("src", "<%=request.getContextPath()%>/images/game/gameMain/play.png");
+		$("#pause-menu-container").show();
+		clearInterval(record);
+		var time = $("[type=hidden]").val();
+		var h = Math.floor(time/3600);
+		var m = Math.floor((time%3600)/60);
+		var s = (time%3600)%60;
+		$("#time").text(h+"시간 "+m+"분 "+s+"초");
+	}
+	else{
+		$(this).children().attr("src", "<%=request.getContextPath()%>/images/game/gameMain/pause.png");
+		$("#pause-menu-container").hide();
+		record = setInterval(timer, 1000);
+	}
+});
+
 </script>
 </body>
 </html>

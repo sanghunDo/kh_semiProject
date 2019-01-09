@@ -46,7 +46,8 @@ div#prologue{
 	top: 0;
 	display: none;
 }
-div#prologue img{
+img#background{
+	position: fixed;
 	width: 800px;
 	height: 600px;
 	margin: 0 auto;
@@ -77,4 +78,49 @@ div#msgBox h2{
     to {
         width: 100%;
     }
+}
+div#msgBox:before{
+	content: "? ? ?";
+	position: absolute;
+    width: 78px;
+    height: 28px;
+    border: 2px solid white;
+    border-right: 0px;
+    top: -32px;
+    left: -2px;
+    text-align: center;
+    font-family: 'Song Myung', serif;
+    font-size: 25px;
+    padding-left: 8px;
+}
+div#msgBox:after{
+    position: absolute;
+    content: " ";
+    height: 37px;
+    top: -34px;
+    left: 95px;
+    border-right: 2px solid white;
+    transform: rotateZ(-35deg);
+}
+div#msgBox.me:before{
+	content: "김동호";
+	position: absolute;
+	width: 78px;
+    height: 28px;
+    border: 2px solid white;
+    border-left: 0px;
+    top: -32px;
+    left: 720px;
+    text-align: center;
+    font-family: 'Song Myung', serif;
+    font-size: 25px;
+}
+div#msgBox.me:after{
+	position: absolute;
+    content: "";
+    height: 37px;
+    top: -34px;
+    left: 709px;
+    border-left: 0px solid white;
+    transform: rotateZ(35deg);
 }

@@ -10,6 +10,7 @@
 <meta charset="UTF-8">
 <title>회원 비밀번호 변경</title>
 <script src="<%=request.getContextPath()%>/js/jquery-3.3.1.js"></script>
+<link href="https://fonts.googleapis.com/css?family=Amatic+SC" rel="stylesheet">
 <style>
 div#updatePassword-Container{
 	background: red;

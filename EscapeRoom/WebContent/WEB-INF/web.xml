@@ -35,6 +35,24 @@
   </servlet>
   <servlet-mapping>
     <servlet-name>gotoNotice</servlet-name>
-    <url-pattern>/notice/noticeList</url-pattern>
+    <url-pattern>/notice</url-pattern>
   </servlet-mapping>
+  
+  <servlet>
+    <servlet-name>gotoRank</servlet-name>
+    <jsp-file>/WEB-INF/views/rank/RankingBoard.jsp</jsp-file>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>gotoRank</servlet-name>
+    <url-pattern>/rank</url-pattern>
+  </servlet-mapping>
+
+  <!-- <servlet>
+    <servlet-name>gotoSolveBoard</servlet-name>
+    <jsp-file>/WEB-INF/views/board/solve/solveBoardList.jsp</jsp-file>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>gotoSolveBoard</servlet-name>
+    <url-pattern>/solveBoard</url-pattern>
+  </servlet-mapping> -->
 </web-app>
