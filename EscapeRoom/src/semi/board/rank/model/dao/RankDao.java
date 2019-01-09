@@ -63,5 +63,37 @@ public class RankDao {
 		}
 		
 		return list;
+	}
+
+	public Rank viewOne(Connection conn, String gameId) {
+		
+		Rank r = null;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String query = prop.getProperty("selectbest3");
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, gameId);
+			
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				r = new Rank();
+				r.setPlayno(rset.getInt("playno"));
+				r.setGameId(rset.getString("gameId"));
+				r.setUserprofilerenamedfile(rset.getString("userprofilerenamedfile"));
+				r.setGameruntime(rset.getLong("gameruntime"));
+				r.setGameescapedate(rset.getDate("gameescapedate"));
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return r;
 	}	
 }
