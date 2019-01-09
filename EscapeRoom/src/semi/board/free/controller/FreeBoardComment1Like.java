@@ -36,10 +36,11 @@ public class FreeBoardComment1Like extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("utf-8");
 		int commentNo =Integer.parseInt(request.getParameter("commentNo"));
-		int comment1Like =Integer.parseInt(request.getParameter("commentLikey"));
+		int commentLikeAmount =Integer.parseInt(request.getParameter("commentLikeAmount"));
 		//String flag = request.getParameter("flag");
-		
-		int result = new FreeBoardDao().updateLikey(commentNo,comment1Like);
+		System.out.println("commentNo"+commentNo);
+		System.out.println("commentLikeAmount"+commentLikeAmount);
+		int result = new FreeBoardDao().updateLikey(commentNo,commentLikeAmount);
 		int likey = new FreeBoardDao().getLikey(commentNo);
 		System.out.println("result"+result);
 		
