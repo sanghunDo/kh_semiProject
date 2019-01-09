@@ -21,7 +21,7 @@ public class AdminDao {
 	private Properties prop = new Properties();
 	
 	public AdminDao() {
-		// (WebContent/WEB-INF/)classes 폴더에서부터 시작하여 해당파일까지의 절대 경로
+		// (WebContent/WEB-INF/classes) 폴더에서부터 시작하여 해당 파일까지의 절대경로
 		// WEB-INF 폴더 아래에 넣어두면 서버에서 서비스 할 때 외부에서 URL로 직접 접근할 수 없게 되어 보안성이 좋다.
 		String fileName = AdminDao.class.getResource("/sql/member-query.properties").getPath();
 		
@@ -34,22 +34,52 @@ public class AdminDao {
 		}
 	}
 	
+	// 로그인 여부 확인
+	public int loginCheck(Connection conn, Member m) {
+		int result = -1;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String query = prop.getProperty("loginCheck");
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, m.getUserId());
+			pstmt.setString(2, m.getUserPassword());
+			pstmt.setString(3, m.getUserId());
+			
+			rset = pstmt.executeQuery();
+			
+			//3.결과 변수  result에 담기
+			if(rset.next()) {
+				result = rset.getInt("login_check");
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+			
+		}
+		
+		return result;
+	}
+	
 	// 관리자용 회원 정보 상세보기
 	public Member selectOne(Connection conn, String userId) {
 		Member m = null;
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
-		String query = prop.getProperty("");
+		String query = prop.getProperty("selectOne");
 		
 		try {
 			// 쿼리문 완성하기
 			String jdbcUrl = "jdbc:oracle:thin@localhost:1521:orcl";
-			String dbid = "java";
-			String dbPass = "java";
+			String dbId = ""; // 계정 아이디
+			String dbPwd = ""; // 계정 비밀번호
 			Class.forName("oracle.jdbc.driver.OracleDriver");
 			
 			pstmt = conn.prepareStatement(query);
-			
 			
 			// 쿼리 실행
 			rset = pstmt.executeQuery();
@@ -105,6 +135,8 @@ public class AdminDao {
 				m.setUserId(rset.getString("userId"));
 				m.setUserPassword(rset.getString("password"));
 			 	m.setUserEmail(rset.getString("email"));
+				m.setUserProfileOriginalFile(rset.getString("userprofileoriginalfile"));
+				m.setUserProfileRenamedFile(rset.getString("userprofilerenamedfile"));
 			 	m.setEnrollDate(rset.getDate("enrolldate"));
 			 	memberList.add(m);
 			 	}
