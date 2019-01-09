@@ -1,6 +1,8 @@
 package semi.board.rank.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -26,19 +28,46 @@ public class RankingBoardListServlet extends HttpServlet {
 		
 		request.setCharacterEncoding("utf-8");
 		
-		System.out.println("game rank servlet");
-		String gameId = request.getParameter("gameId");
-		System.out.println("아이디 : " + gameId);
+		int best1;
+		try {
+			best1 = Integer.parseInt(request.getParameter("best1"));
+		} catch(NumberFormatException e) {
+			best1 = 1;
+		}
 		
-		RankService rankService = new RankService();
+		int best10;
+		try {
+			best10 = Integer.parseInt(request.getParameter("best10"));
+		} catch(NumberFormatException e) {
+			best10 = 10;
+		}
 		
-		Rank r = rankService.viewOne(gameId);
-		System.out.println("확인 : " + r);
+		List<Rank> list = new RankService().selectRankList(best1, best10);
+		List<Rank> finalList = new ArrayList<>();
+		ArrayList<Long> RuntimeSort = new ArrayList<>();
 		
-		List<Rank> list = new RankService().selectRankList();
+		for(Rank r : list) {
+			int runtime = (int)r.getGameruntime();
+			
+			int hours = (runtime / 60 / 60) % 24;
+			int minutes = (runtime / 60) % 60;
+			int seconds = runtime % 60;
+			
+			String endRuntime = hours + "시간 " + minutes + "분 " + seconds + "초";
+			
+			RuntimeSort.add(r.getGameruntime());
+			Collections.sort(RuntimeSort);
+			
+			Rank modifiedR = new Rank(r.getPlayno(), r.getGameId(), r.getUserprofilerenamedfile(),
+									r.getGameruntime(), r.getGameescapedate(), endRuntime);
+			
+			finalList.add(modifiedR);
+		}
 		
-		request.setAttribute("rank", r);
-		request.setAttribute("list", list);
+		
+		request.setAttribute("list", finalList);
+		request.setAttribute("best1", best1);
+		request.setAttribute("best10", best10);
 		
 		request.getRequestDispatcher("/WEB-INF/views/board/rank/RankingBoard.jsp").forward(request, response);
 	}

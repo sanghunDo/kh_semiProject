@@ -10,23 +10,13 @@ import semi.board.rank.model.vo.Rank;
 
 public class RankService {
 
-	public List<Rank> selectRankList() {
+	public List<Rank> selectRankList(int best1, int best10) {
 		Connection conn = getConnection();
 		
-		List<Rank> list = new RankDao().selectRankList(conn);
+		List<Rank> list = new RankDao().selectRankList(conn, best1, best10);
 		close(conn);
 		
 		return list;
-	}
-
-	public Rank viewOne(String gameId) {
-		
-		Connection conn = getConnection();
-		
-		Rank r = new RankDao().viewOne(conn, gameId);
-		close(conn);
-		
-		return r;
 	}
 
 }

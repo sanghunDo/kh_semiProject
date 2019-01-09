@@ -12,6 +12,7 @@ public class Rank implements Serializable {
 	private String userprofilerenamedfile;
 	private long gameruntime;
 	private Date gameescapedate;
+	private String endRuntime;
 	
 	public Rank() {}
 
@@ -21,6 +22,26 @@ public class Rank implements Serializable {
 		this.userprofilerenamedfile = userprofilerenamedfile;
 		this.gameruntime = gameruntime;
 		this.gameescapedate = gameescapedate;
+	}
+
+	public Rank(int playno, String gameId, String userprofilerenamedfile, Date gameescapedate, String endRuntime) {
+		super();
+		this.playno = playno;
+		this.gameId = gameId;
+		this.userprofilerenamedfile = userprofilerenamedfile;
+		this.gameescapedate = gameescapedate;
+		this.setEndRuntime(endRuntime);
+	}
+
+	public Rank(int playno, String gameId, String userprofilerenamedfile, long gameruntime, Date gameescapedate,
+			String endRuntime) {
+		super();
+		this.playno = playno;
+		this.gameId = gameId;
+		this.userprofilerenamedfile = userprofilerenamedfile;
+		this.gameruntime = gameruntime;
+		this.gameescapedate = gameescapedate;
+		this.endRuntime = endRuntime;
 	}
 
 	public int getPlayno() {
@@ -71,5 +92,13 @@ public class Rank implements Serializable {
 	public String toString() {
 		return "Rank [playno=" + playno + ", gameId=" + gameId + ", userprofilerenamedfile=" + userprofilerenamedfile
 				+ ", gameruntime=" + gameruntime + ", gameescapedate=" + gameescapedate + "]";
+	}
+
+	public String getEndRuntime() {
+		return endRuntime;
+	}
+
+	public void setEndRuntime(String endRuntime) {
+		this.endRuntime = endRuntime;
 	}
 }
