@@ -79,7 +79,6 @@ public class MemberRegisterEndServlet extends HttpServlet {
 		Member m = new Member();
 		m.setUserId(userId);
 		m.setUserPassword(userPassword);
-		System.out.println(m.getUserPassword());
 		m.setUserEmail(userEmail);
 		m.setUserProfileOriginalFile(userProfileOriginalFile);
 		m.setUserProfileRenamedFile(userProfileRenamedFile);

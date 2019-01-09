@@ -129,8 +129,7 @@ public class MemberService {
 
 		return result;
 	}
-	
-	// 회원 비밀번호 변경
+
 	public int updatePassword(Member m) {
 		// DB와 연결
 		Connection conn = getConnection();

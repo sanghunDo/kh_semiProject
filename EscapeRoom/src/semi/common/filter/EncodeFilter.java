@@ -8,9 +8,7 @@ import javax.servlet.FilterConfig;
 import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
-import javax.servlet.annotation.WebFilter;
 
-@WebFilter("/*")
 public class EncodeFilter implements Filter {
 
 	@Override
@@ -24,7 +22,6 @@ public class EncodeFilter implements Filter {
 			throws IOException, ServletException {
 		request.setCharacterEncoding("UTF-8");
 		System.out.println("UTF-8 인코딩 처리됨@EncodeFilter");
-		System.out.println("--------------------------------");
 		chain.doFilter(request, response);
 	}
 

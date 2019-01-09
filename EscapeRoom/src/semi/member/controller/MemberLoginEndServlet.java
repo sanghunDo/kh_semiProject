@@ -61,12 +61,10 @@ public class MemberLoginEndServlet extends HttpServlet {
 		String url = request.getRequestURL().toString();
 		String uri = request.getRequestURI();
 		
-		System.out.println("+++++++++++++++++++++++++++++++++++++++");
 		System.out.println("referer@MemberLoginServlet=" + referer);
 		System.out.println("origin@MemberLoginServlet=" + origin);
 		System.out.println("url@MemberLoginServlet=" + url);
 		System.out.println("uri@MemberLoginServlet=" + uri);
-		System.out.println("+++++++++++++++++++++++++++++++++++++++");
 		
 		// 크롬외 브라우저용
 		if(origin == null) {
