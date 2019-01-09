@@ -35,13 +35,15 @@ public class AdminService {
 	}
 
 	public List<Member> selectMemberList(int cPage, int numPerPage) {
-		List<Member> memberList = new ArrayList<Member>();
-		return memberList;
+		Connection conn = getConnection();
+		List<Member> list = new AdminDao().selectMemberList(conn, cPage, numPerPage);
+		return list;
 	}
 	
 	public int selectMemberCount() {
-		int m = 0;
-		return m;
+		Connection conn = getConnection();
+		int totalContent = new AdminDao().selectMemberCount(conn);
+		return totalContent;
 	}
 	
 	

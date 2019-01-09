@@ -22,7 +22,7 @@
                 <a href="<%=request.getContextPath()%>/member/login">LOGIN</a>
 			<%}else{ %>
 				<%if("admin".equals(loggedInMember.getUserId())){ %>
-					<a href="<%=request.getContextPath()%>/admin/adminMemberList">ADMIN</a>
+					<a href="<%=request.getContextPath()%>/admin/adminBoard">ADMIN</a>
 					&nbsp;&nbsp;
 				<%} %>
                 <a href="<%=request.getContextPath()%>/member/memberView?userId=<%=loggedInMember.getUserId()%>">MY PAGE</a>

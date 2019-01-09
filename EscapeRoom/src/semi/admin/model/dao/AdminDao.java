@@ -1,5 +1,7 @@
 package semi.admin.model.dao;
 
+import static semi.common.JDBCTemplate.close;
+
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
@@ -13,17 +15,13 @@ import java.util.Properties;
 
 import semi.member.model.vo.Member;
 
-import semi.admin.model.service.AdminService;
-
-import static semi.common.JDBCTemplate.*;
-
 public class AdminDao {
 	private Properties prop = new Properties();
 	
 	public AdminDao() {
 		// (WebContent/WEB-INF/)classes 폴더에서부터 시작하여 해당파일까지의 절대 경로
 		// WEB-INF 폴더 아래에 넣어두면 서버에서 서비스 할 때 외부에서 URL로 직접 접근할 수 없게 되어 보안성이 좋다.
-		String fileName = AdminDao.class.getResource("/sql/member-query.properties").getPath();
+		String fileName = AdminDao.class.getResource("/sql/admin/admin-query.properties").getPath();
 		
 		try {
 			prop.load(new FileReader(fileName));
@@ -61,17 +59,6 @@ public class AdminDao {
 				m.setUserEmail("email");
 				m.setUserProfileOriginalFile(rset.getString("userprofileoriginalfile"));
 				
-				/*
-				아이디
-				프로필 사진
-				비밀번호
-				이메일
-				가입한 날짜
-				플레이 시간
-				클리어한 날짜
-				작성한 게시글 수
-				작성한 댓글 수
-				*/
 			}
 			
 		} catch (Exception e) {
@@ -86,27 +73,37 @@ public class AdminDao {
 	}
 	
 	// 관리자용 전체 회원 목록 보기
-	public List<Member> selectMemberList(Connection conn) {
-		List<Member> memberList = new ArrayList<Member>();
+	public List<Member> selectMemberList(Connection conn, int cPage, int numPerPage) {
+		List<Member> list = null;
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
-		String query = prop.getProperty("select * from member");
-
+		String query = prop.getProperty("selectMemberListByPaging");
 		try {
 			// 쿼리문 완성하기
 			pstmt = conn.prepareStatement(query);
-			Member m = new Member();
+			int startRnum = (cPage-1)*numPerPage+1;
+			int endRnum = cPage*numPerPage;
+			System.out.println(startRnum);
+			System.out.println(endRnum);
+			pstmt.setInt(1, startRnum);
+			pstmt.setInt(2, endRnum);
 			
 			// 쿼리 실행
 			rset = pstmt.executeQuery();
 			
+			list = new ArrayList<>();
+			
 			// 실행 후 결과를 list에 담기
 			while(rset.next()) {
-				m.setUserId(rset.getString("userId"));
-				m.setUserPassword(rset.getString("password"));
-			 	m.setUserEmail(rset.getString("email"));
+				Member m = new Member();
+				m.setUserId(rset.getString("userid"));
+				m.setUserPassword(rset.getString("userpassword"));
+			 	m.setUserEmail(rset.getString("useremail"));
+			 	m.setUserProfileOriginalFile("userProfileOriginalFile");
+			 	m.setUserProfileRenamedFile("userProfileRenamedFile");
 			 	m.setEnrollDate(rset.getDate("enrolldate"));
-			 	memberList.add(m);
+			 	
+			 	list.add(m);
 			 	}
 			
 		} catch (SQLException e) {
@@ -117,43 +114,10 @@ public class AdminDao {
 			close(pstmt);
 		}
 		
-		return memberList;
+		return list;
 	}
 	
-	// 회원 아이디로 검색시 목록 보여주기
-	public List<Member> selectMemberListById(Connection conn) {
-		List<Member> memberListById = new ArrayList<Member>();
-		PreparedStatement pstmt = null;
-		ResultSet rset = null;	
-		String query = prop.getProperty("select * from member where userid = ?");
-		
-		try {
-			// 쿼리문 완성하기
-			pstmt = conn.prepareStatement(query);
-			Member m = new Member();
-			
-			// 쿼리문 실행
-			rset = pstmt.executeQuery();
-			
-			// 실행 후 결과를 list에 담기
-			while(rset.next()) {
-				m.setUserId(rset.getString("memberId"));
-				m.setUserPassword(rset.getString("password"));
-			 	m.setUserEmail(rset.getString("email"));
-			 	m.setEnrollDate(rset.getDate("enrolldate"));
-			 	memberListById.add(m);
-			 }
-			
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			// 자원 반납
-			close(rset);
-			close(pstmt);
-		}
-		
-		return memberListById;
-	}
+
 	
 	// 회원 이메일로 검색시 목록 보여주기
 	public List<Member> selectMemberListByEmail(Connection conn) {
@@ -199,5 +163,31 @@ public class AdminDao {
 	public List selectComment() {
 		List commentList = new ArrayList();
 		return commentList;
+	}
+	
+	//관리창 유저정보 토탈 회원수
+	public int selectMemberCount(Connection conn) {
+		PreparedStatement pstmt = null;
+		int totalContent = 0;
+		ResultSet rset = null;
+		String query = prop.getProperty("selectMemberCount");
+		
+		try {
+			pstmt=conn.prepareStatement(query);
+			rset = pstmt.executeQuery();
+			if(rset.next()) {
+				totalContent = rset.getInt("cnt");
+			}
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+			
+		}
+		
+		return totalContent;
 	}
 }
