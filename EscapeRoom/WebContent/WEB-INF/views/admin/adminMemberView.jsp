@@ -64,9 +64,9 @@ if(!getUserProfileOriginalFile.test(fileExt) && $userProfileOriginalFile.val().l
 	
 // 비밀번호
 if(!getUserPwd.test($userPwd.val())){
-	alert("비밀번호는 ~자리여야,  합니다.");
-	$userEmail.val("");
-	$userEmail.focus();
+	alert("비밀번호는 영문 대소문자, 숫자가 들어가고 5~19자리여야 합니다.");
+	$userPwd.val("");
+	$userPwd.focus();
 	return false;
 }
 
@@ -94,17 +94,17 @@ function changeProfile(){
 function changePwd(){
 	var bool = confirm("회원의 비밀번호를 변경하시겠습니까?");
 	
-	if(bool) {
-		
-	}
+
 };
 
 // 회원 삭제 기능
 function deleteMember(){
-	var bool = confirm("정말로 삭제하시겠습니까?");
+	var bool = confirm("정말로 이 회원을 삭제하시겠습니까?");
 	
 	if(bool) {
-
+		var form = document.memberDeleteFrm;
+		form.action = "<%=request.getContextPath()%>/admin/adminMemberDelete"
+		form.submint()
 	}
 	
 };
@@ -169,7 +169,6 @@ function deleteMember(){
 				   required
 				   readonly/></td>
 	</tr>
-	<!-- 추가예정: 플레이 시간, 클리어한 날짜, 작성한 게시글 수, 작성한 댓글 수 -->
 </table>
 </form>
 <div id="user-update">

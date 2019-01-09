@@ -39,14 +39,14 @@ window.onload=function(){
 	$("#prologue").on('click', {cnt:0} ,function(e){
 		var cnt = e.data.cnt++;
 		var target = $("#prologue").find("h2");
+		if(cnt==4){
+			$("#msgBox").removeClass("me");
+		}
 		if(cnt==17){
 			$(this).parent().fadeOut(3000); //마지막 대사 이후 클릭시 메인게임으로 이동.
 			setTimeout(function(){
-				location.href="<%=request.getContextPath()%>/game/gameMain?userId=<%=request.getParameter("userId")%>";
+				location.href="<%=request.getContextPath()%>/game/gameMain";
 			}, 3000);
-		}
-		if(cnt==4){
-			$("#msgBox").removeClass("me");
 		}
 		//대사 테이블에서 한 문장씩 가져옴.
 		$.ajax({

@@ -4,7 +4,7 @@
 <%@ page import="semi.admin.controller.*" %>
 <%@ page import="semi.member.model.vo.Member" %>
 <% 
-	List<Member> memberList = (List<Member>)request.getAttribute("memberList");
+	List<Member> list = (List<Member>)request.getAttribute("list");
 	
 	Member m = (Member)request.getAttribute("member");
 	// header.jsp의 userId 변수명 충돌 방지용
@@ -50,7 +50,7 @@ $(function(){
 	</thead>	
 	<tbody>
 	<%
-		for(Member member : memberList) {
+		for(Member member : list) {
 	%>	
 	<tr>
 		<td><%=member.getUserId() %></td>
@@ -74,7 +74,7 @@ $(function(){
 			<input type="search" name="" id="검색할 이메일을 입력하세요." />
     </div>
 	<button>검색하기</button>
-	<%if(memberList == null || memberList.isEmpty()) {%>
+	<%if(list == null || list.isEmpty()) {%>
 		<p>검색 결과가 없습니다.</p>
 	<%} else {%>
 		<!-- 검색 결과 표시하기 -->

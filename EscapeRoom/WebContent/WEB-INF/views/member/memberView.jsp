@@ -128,7 +128,7 @@ function readURL(input){
 
 </script>
 <section id="memberView-Container">
-	<h2>회원 정보 보기</h2>
+	<h2>- Edit Profile -</h2>
 	<form action="<%=request.getContextPath() %>/member/memberUpdateEnd" 
 		  method="post"
 		  name="memberUpdateFrm"
@@ -156,7 +156,7 @@ function readURL(input){
 		  		</td>
 		  	</tr>
 			<tr>
-				<th>프로필 사진</th>
+				<th>프로필<br />사진</th>
 					<td>
 						<div id="userProfile-Div">
 						<input type="file" name="userProfile" id="userProfile" accept="image/jpg, image/jpeg, image/png, image/gif">
@@ -170,6 +170,7 @@ function readURL(input){
 						<br />
 						<input type="checkbox" name="delProfile" id="delProfile" />
 						<label for="del_Profile">프로필사진 삭제</label>
+						<br /><br />
 						<img src="<%=request.getContextPath() %>/upload/member/<%=userProfileRenamedFile %>"/>
 						<%}
 						else {%>

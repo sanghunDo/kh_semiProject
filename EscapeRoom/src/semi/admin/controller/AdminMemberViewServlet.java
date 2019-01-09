@@ -46,15 +46,13 @@ public class AdminMemberViewServlet extends HttpServlet {
 		
 		// 1. 파라미터 핸들링
 		String userId = request.getParameter("userId");
-		String password = request.getParameter("password");
 		
 		// 2. 비즈니스 로직
 		Member m = new AdminService().selectOne("userId");
-		System.out.println("adminMemberView@AdminMemberViewServlet" + m);
 		
 		// 3. view단 처리
 		// 회원정보가 없을 경우
-		String view = "/WEB-INF/views/admin/adminMemberView.jsp";
+		String view = "";
 		String msg = "";
 		String loc = "/";
 		
@@ -67,7 +65,7 @@ public class AdminMemberViewServlet extends HttpServlet {
 		request.setAttribute("member", m);
 		request.setAttribute("msg", msg);
 		request.setAttribute("loc", loc);
-		request.getRequestDispatcher(view).forward(request, response);
+		request.getRequestDispatcher("/WEB-INF/views/admin/adminMemberView.jsp").forward(request, response);            
 	}
 
 	/**
