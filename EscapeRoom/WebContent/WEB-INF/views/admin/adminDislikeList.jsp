@@ -51,7 +51,7 @@ $(function(){
 	<% %>
 </table>
 <button id="deleteArticleBtn">삭제하기</button>
-<!-- 게시글 검색하기 -->
+<!-- 비추천 게시글 검색하기 -->
 <div class="search-container">
 	<select name="searchOpt" id="searchOpt">
 		<option value="title">제목</option>

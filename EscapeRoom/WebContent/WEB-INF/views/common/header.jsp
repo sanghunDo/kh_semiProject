@@ -22,7 +22,7 @@
                 <a href="<%=request.getContextPath()%>/member/login">LOGIN</a>
 			<%}else{ %>
 				<%if("admin".equals(loggedInMember.getUserId())){ %>
-					<a href="<%=request.getContextPath()%>/admin/adminView">ADMIN</a>
+					<a href="<%=request.getContextPath()%>/admin/adminMemberList">ADMIN</a>
 					&nbsp;&nbsp;
 				<%} %>
                 <a href="<%=request.getContextPath()%>/member/memberView?userId=<%=loggedInMember.getUserId()%>">MY PAGE</a>
@@ -35,7 +35,7 @@
 		<div id="menu">
 			<ul>
 				<li><a href="<%=request.getContextPath()%>/home">HOME</a></li>
-				<li><a href="<%=request.getContextPath()%>/notice/noticeList">NOTICE</a></li>
+				<li><a href="<%=request.getContextPath()%>/notice">NOTICE</a></li>
 				<li><a href="<%=request.getContextPath()%>/board/rank/rankingBoardList">RANKING</a></li>
 				<li><a href="">SOLVE</a></li>
 				<li><a href="<%=request.getContextPath()%>/board/free/freeBoardList">FREE</a></li>
@@ -47,6 +47,14 @@
 	</header>
 	<script>
 		$(".enter-game").click(function(){
+			if(<%=loggedInMember==null%>){
+				var alert = confirm("로그인하지 않아서 랭킹에 등록되지 않습니다. 계속 진행하시겠습니까?")
+				if(!alert) {
+					location.href='<%=request.getContextPath()%>/member/login';
+					return;
+				}
+			}
+			
 			//게임화면 팝업
 			var url = "<%=request.getContextPath()%>/game/gameStart?userId=<%=loggedInMember!=null?loggedInMember.getUserId():"guest"%>";
  			var status = "width=1024px, height=678px";

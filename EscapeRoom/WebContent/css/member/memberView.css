@@ -4,35 +4,27 @@ body{
 	color:white;
 }
 
-div#logo{
-	width: 500px;
-	margin: 0 auto;
-	color: white;
-	font-size: 70px;
-	font-family: 'Amatic SC', serif;
-	text-shadow: 4px 4px 2px gray;
-	letter-spacing: 4px;
-	padding-top: 20px;
-	padding-left: 80px;
-	padding-bottom: 50px;
-}
-
 h2{
 	padding-top:10px;
 	margin-left:62px;
 	font-size:18px;
-	margin-left:114px;
+	margin-left:210px;
 }
 
 #memberView-Container{
-	width:420px;
-	height:520px;
+	width:550px;
+	height:600px;
 	border:1px solid #5D5D5D;
 	border-radius:20px;
 	margin: 0 auto;
 }
 
-#userId_, #userPassword_, #userPassword__, #userEmail{
+#memberView-Container img{
+	width: 100px;
+	hegiht: 100px;
+}
+
+#userId_, #userEmail{
 	width:275px;
 	height:25px;
 	outline:none;
@@ -45,6 +37,11 @@ h2{
 table{
 	border-collapse: collapse;
 	margin-left:56px;
+}
+
+th{
+	padding-bottom: 15px;
+	text-align: center;
 }
 
 td{

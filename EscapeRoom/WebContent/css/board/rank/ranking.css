@@ -9,32 +9,40 @@ h2 {
 
 div#top3 {
 	width : 950px;
-	height : 130px;
-	border : 1px solid #FDCF27;
+	height : 500px;
 	margin : auto;
-	margin-top : 15px;
 	text-align : center;
 }
 
-div#top3 table#tbl-top3 {
+div#top1-container {
+	width : 400px;
+	height : 230px;
+	border : 2px solid #FFDB0B;
+	border-radius : 50px;
 	margin : auto;
-	width : 850px;
-	height : 130px;
-	border : 1px solid black;
+	text-align : center;
 }
 
-div#top3 table#tbl-top3 th {
-	font-family: 'Noto Serif KR', serif;
-	color : white;
+div#top2-container {
+	width : 400px;
+	height : 230px;
+	border : 2px solid #CACED2;
+	border-radius : 50px;
+	margin : auto;
+	margin-left : 50px;
+	margin-top : 50px;
 	text-align : center;
-	padding : 0;
 }
 
-div#top3 table#tbl-top3 td {
-	font-family: 'Noto Serif KR', serif;
-	color : white;
+div#top3-container {
+	width : 400px;
+	height : 230px;
+	border : 2px solid #D49C75;
+	border-radius : 50px;
+	margin : auto;
+	margin-right : 40px;
+	margin-top : -233px;
 	text-align : center;
-	padding : 0;
 }
 
 div#from4to10 {

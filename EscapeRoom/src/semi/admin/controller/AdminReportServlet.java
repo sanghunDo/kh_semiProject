@@ -28,12 +28,14 @@ public class AdminReportServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// 회원 신고기능 서블릿
 		// 관리자로 로그인되었는지 확인하기
 		String userId = request.getParameter("userid");
 		String password = request.getParameter("password");
 		System.out.printf("[%s, %s]\n", userId, password);
 		
 		Member loggedInMember = (Member)request.getSession().getAttribute("loggedInMember");
+		System.out.println("loggedInMember.getuserId:"+loggedInMember.getUserId());
 		if(loggedInMember != null || !"admin".equals(loggedInMember.getUserId())) {
 			request.setAttribute("msg", "잘못된 경로로 접근하셨습니다.");
 			request.setAttribute("loc", "/");

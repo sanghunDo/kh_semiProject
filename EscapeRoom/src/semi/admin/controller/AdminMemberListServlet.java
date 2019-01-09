@@ -31,6 +31,7 @@ public class AdminMemberListServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// 회원 전체보기 서블릿
 		// 회원정보 가져와서 request로 전송하기
 		// 1. 파라미터 핸들링
 		// 관리자로 로그인되었는지 확인하기
@@ -39,12 +40,13 @@ public class AdminMemberListServlet extends HttpServlet {
 		System.out.printf("[%s, %s]\n", userId, password);
 		
 		Member loggedInMember = (Member)request.getSession().getAttribute("loggedInMember");
-		if(loggedInMember != null || !"admin".equals(loggedInMember.getUserId())) {
+		System.out.println("loggedInMember.getuserId:"+loggedInMember.getUserId());
+		if(loggedInMember == null || !"admin".equals(loggedInMember.getUserId())) {
 			request.setAttribute("msg", "잘못된 경로로 접근하셨습니다.");
 			request.setAttribute("loc", "/");
 			request.getRequestDispatcher("/WEB-INF/views/common/msg.jsp").forward(request, response);
 			return;
-			}
+		}
 
 		// 페이징
 		int cPage;
@@ -77,7 +79,7 @@ public class AdminMemberListServlet extends HttpServlet {
 		String msg = "";
 		String loc = "";
 				
-		request.getRequestDispatcher("/WEB-INF/views/admin/memberFinder.jsp").forward(request, response);				
+		request.getRequestDispatcher("/WEB-INF/views/admin/adminMemberSearch.jsp").forward(request, response);				
 	}
 
 	/**

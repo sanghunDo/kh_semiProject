@@ -19,4 +19,14 @@ public class RankService {
 		return list;
 	}
 
+	public Rank viewOne(String gameId) {
+		
+		Connection conn = getConnection();
+		
+		Rank r = new RankDao().viewOne(conn, gameId);
+		close(conn);
+		
+		return r;
+	}
+
 }

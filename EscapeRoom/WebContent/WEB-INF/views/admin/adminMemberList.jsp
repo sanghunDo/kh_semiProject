@@ -6,24 +6,16 @@
 <% 
 	List<Member> memberList = (List<Member>)request.getAttribute("memberList");
 	
-	Member m = (Member)request.getAttribute("member");
-	// header.jsp의 userId 변수명 충돌 방지용
-	String userId_1 = m.getUserId();
-	String userPassword = m.getUserPassword();
-	String userEmail = m.getUserEmail()!=null?m.getUserEmail():"";
-	String userProfileOriginalFile = m.getUserProfileOriginalFile()!=null?m.getUserProfileOriginalFile():"";	
-	String userProfileRenamedFile = m.getUserProfileRenamedFile()!=null?m.getUserProfileRenamedFile():"";
-	Date enrollDate = m.getEnrollDate();
 
 	int cPage = (int)request.getAttribute("cPage");
 	int numPerPage = (int)request.getAttribute("numPerPage");
 	String pageBar = (String)request.getAttribute("pageBar");
 	
-	if(session.getAttribute("userId")!=null && session.getAttribute("userId").equals("admin")) {
+/* 	if(session.getAttribute("userId")!=null && session.getAttribute("userId").equals("admin")) {
 		
 	} else {
 		
-	}
+	} */
 %>
 <%@ include file="/WEB-INF/views/common/header.jsp" %>
 <link rel="stylesheet" href="<%=request.getContextPath() %>/css/boardCommunityTable.css" />
@@ -39,6 +31,7 @@ $(function(){
 <h2>관리자 전용 게시판</h2>
 <h3>전체 회원 정보</h3>
 <!-- 전체 회원 목록 표시 -->
+<section id = "memberList-container">
 <table id="memberList">
 	<thead>
 	<tr>
@@ -95,4 +88,5 @@ $(function(){
 		<%=pageBar %>
 	<%} %>
 </div>
+</section>
 <%@ include file="/WEB-INF/views/common/footer.jsp" %>

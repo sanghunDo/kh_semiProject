@@ -17,14 +17,15 @@ public class EncryptWrapper extends HttpServletRequestWrapper {
 	@Override
 	public String getParameter(String key) {
 		String value = "";
-		
+		System.out.println("@#!$@$#%#%#%%!$!@$!@#");
+		System.out.println(key);
 		// 패스워드가 전달됐을때만 암호화
-		if(key != null && ("userPassword".equals(key) || "userPassword_new".equals(key))) {
+		if(key != null && ("userPassword".equals(key) || "userPassword_New".equals(key))) {
 			System.out.println("암호화 전@EncryptWrapper : " + super.getParameter(key));
 			
 			value = getSha512(super.getParameter(key));
 			
-			System.out.println();
+			System.out.println(value);
 		}
 		
 		return value;
@@ -64,6 +65,7 @@ public class EncryptWrapper extends HttpServletRequestWrapper {
 		// 5. Base64인코더를 사용해서 암호화된 바이트배열 => 문자열 변환
 		// Base64 인코딩 : ByteArray를 64개의 문자로 이루어진 문자열로 변환하는 방법
 		encUserPassword = Base64.getEncoder().encodeToString(encBytes);
+		System.out.println("암호화 후@EncryptWrapper : " + encUserPassword);
 		
 		return encUserPassword;
 	}
