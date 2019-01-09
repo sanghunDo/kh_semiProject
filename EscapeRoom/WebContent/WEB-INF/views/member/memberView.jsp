@@ -8,7 +8,8 @@
 <%
 	/* return타입이 Object이기때문에 형변환 필수 */
 	Member m = (Member) request.getAttribute("member");
-	String userId_ = m.getUserId(); // header.jsp에서 memberId 변수명을 이미 사용중이므로 _ 추가
+	String userId_ = m.getUserId();
+	System.out.println("멤버뷰 유저아이디 : " + userId_);
 	String userPassword = m.getUserPassword();
 	String userEmail = m.getUserEmail()!=null?m.getUserEmail():"";
 	String userProfileOriginalFile = m.getUserProfileOriginalFile()!=null?m.getUserProfileOriginalFile():"";	
@@ -99,13 +100,15 @@ function deleteMember(){
 
 // 비밀번호 변경 팝업 요청
 function updatePassword(){
+	
 	var url = "<%=request.getContextPath() %>/member/updatePassword?userId=<%=userId_%>";
+	
 	// 팝업창 이름
 	var title = "updatePassword";
 	var status = "left=500px, top=200px, width=400px, height=400px";
 	
 	open(url, title, status);
-}
+ }
 
 // 프로필 사진 변경
 $(function(){
@@ -129,6 +132,9 @@ function readURL(input){
 </script>
 <section id="memberView-Container">
 	<h2>- Edit Profile -</h2>
+	<input type="hidden" name="userIdTest" name="userIdTest" 
+		  				   id="userIdTest"
+		  				   value="<%=userId_%>"/>
 	<form action="<%=request.getContextPath() %>/member/memberUpdateEnd" 
 		  method="post"
 		  name="memberUpdateFrm"
@@ -167,22 +173,27 @@ function readURL(input){
 						
 						<!-- 실제 파일이 있는 경우만 보여주기 -->
 						<%if(m.getUserProfileRenamedFile() != null) { %>
-						<br />
+						<br /><br />
 						<input type="checkbox" name="delProfile" id="delProfile" />
 						<label for="del_Profile">프로필사진 삭제</label>
 						<br /><br />
-						<img src="<%=request.getContextPath() %>/upload/member/<%=userProfileRenamedFile %>"/>
-						<%}
+						<div id="profile-Container">
+							<img id="profilePre" src="<%=request.getContextPath() %>/upload/member/<%=userProfileRenamedFile %>"/>
+						</div>
+						<%} // end of if : 프사 있는 경우
 						else {%>
-						   <img width="100px" height="100px" id="null-Profile" src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/04/Antu_im-user-offline.svg/512px-Antu_im-user-offline.svg.png">
-						<%} %>
+						<br /><br />
+						<div id="profile-Container">
+						   <img id="profilePre" src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/04/Antu_im-user-offline.svg/512px-Antu_im-user-offline.svg.png">
+						</div>
+						<%} // end of else : 프사 없는 경우 기본 프사 보여주기 %>
 						</div>
 					</td>
-					<td>
+					<!-- <td>
 						<div id="profile-Container">
 							<img id="profilePre" src="" alt="" />
 						</div>
-					</td>
+					</td> -->
 				</tr>
 		</table>
 		  <input type="submit" id="editInfo-Btn" value="회원정보 수정" />

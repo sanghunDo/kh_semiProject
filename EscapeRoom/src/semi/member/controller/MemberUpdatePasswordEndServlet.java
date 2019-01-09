@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import semi.member.model.dao.MemberDao;
 import semi.member.model.service.MemberService;
 import semi.member.model.vo.Member;
 
@@ -16,28 +17,23 @@ import semi.member.model.vo.Member;
 @WebServlet("/member/updatePasswordEnd")
 public class MemberUpdatePasswordEndServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public MemberUpdatePasswordEndServlet() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// 1. 파라미터 핸들링
-		String userId = (String) request.getParameter("userId");
-		System.out.println("userId@MemberUpdatePasswordEndServlet = " + userId);
+
+//		String userId = (String)request.getParameter("userId");
+		String userId = (String) request.getAttribute("userId");
+		System.out.println("유저아이디(userId)@MemberUpdatePasswordEndServlet = " + userId);
 		
 		String userPassword = (String) request.getParameter("userPassword");
-		System.out.println("userPassword@MemberUpdatePasswordEndServlet = " + userPassword);
+		System.out.println("원래 비밀번호(userPassword)@MemberUpdatePasswordEndServlet = " + userPassword);
 		
 		String userPassword_New = (String) request.getParameter("userPassword_New");
-		System.out.println("userPassword_New@MemberUpdatePasswordEndServlet = " + userPassword_New);
+		userPassword_New = new MemberDao().getSha512(userPassword_New);
+		System.out.println("새 비밀번호(userPassword_New)@MemberUpdatePasswordEndServlet = " + userPassword_New);
 
 		// 2. 비즈니스 로직
 		// 기존 비밀번호 확인
@@ -52,7 +48,7 @@ public class MemberUpdatePasswordEndServlet extends HttpServlet {
 		String msg = "";
 		String loc = "";
 		
-		System.out.println("기존비밀번호체크 : " + result);
+		System.out.println("result@MemberUpdatePasswordEndServlet, 기존비밀번호체크 : " + result);
 
 		if (result == MemberService.LOGIN_OK) {
 			// 새 비밀번호 변경
