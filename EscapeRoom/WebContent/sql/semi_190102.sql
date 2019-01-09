@@ -320,8 +320,20 @@ insert into game_prologue(no, content) values(17,'남길...말은');
 select * from game_scenario order by no;
 commit;
 
-select * from member;
 --19.01.09 member테이블에 보유 코인, 쪽지개수 컬럼 추가
 alter table member add(coin number default 300);
 alter table member add(hintpaper number default 0);
 alter table member add(enrolldate date default sysdate);
+--19.01.09 notice 테이블 추가
+create table notice(
+    noticeno number,
+    noticetitle varchar2(50),
+    noticecontent varchar2(2000),
+    noticeoriginalfile varchar2(100),
+    noticerenamedfile varchar2(100),
+    noticedate date default sysdate,
+    noticeurgent char(1),
+    constraint pk_board_solve_noticeno primary key(noticeno),
+    constraint ck_board_notice_noticeurgent check (noticeurgent in ('Y','N'))
+);
+create sequence seq_notice_noticeno;
