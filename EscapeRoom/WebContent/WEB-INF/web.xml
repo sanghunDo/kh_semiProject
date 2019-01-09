@@ -4,7 +4,6 @@
   <welcome-file-list>
     <welcome-file>index.jsp</welcome-file>
   </welcome-file-list>
-<<<<<<< HEAD
   <filter>
     <filter-name>EncodeFilter</filter-name>
     <filter-class>semi.common.filter.EncodeFilter</filter-class>
@@ -14,10 +13,8 @@
     <url-pattern>/*</url-pattern>
   </filter-mapping>
   <description>-----jsp연결-----</description>
-=======
   <description>-----필터-----</description>
   <description>-----jsp연결 : Member-----</description>
->>>>>>> origin/jaesun
   <servlet>
     <servlet-name>MemberLoginServlet</servlet-name>
     <jsp-file>/WEB-INF/views/member/login.jsp</jsp-file>
@@ -27,8 +24,6 @@
     <url-pattern>/member/login</url-pattern>
   </servlet-mapping>
   <servlet>
-<<<<<<< HEAD
-=======
     <servlet-name>MemberUpdatePasswordServlet</servlet-name>
     <jsp-file>/WEB-INF/views/member/updatePassword.jsp</jsp-file>
   </servlet>
@@ -38,7 +33,6 @@
   </servlet-mapping>
   <description>-----jsp연결 : Home, Notice-----</description>
   <servlet>
->>>>>>> origin/jaesun
     <servlet-name>gotoHome</servlet-name>
     <jsp-file>/WEB-INF/views/home.jsp</jsp-file>
   </servlet>
@@ -47,17 +41,6 @@
     <url-pattern>/home</url-pattern>
   </servlet-mapping>
   <servlet>
-<<<<<<< HEAD
-=======
-    <servlet-name>gotoNotice</servlet-name>
-    <jsp-file>/WEB-INF/views/notice/noticeList.jsp</jsp-file>
-  </servlet>
-  <servlet-mapping>
-    <servlet-name>gotoNotice</servlet-name>
-    <url-pattern>/notice</url-pattern>
-  </servlet-mapping>
-  <servlet>
->>>>>>> origin/jaesun
     <servlet-name>gotoRank</servlet-name>
     <jsp-file>/WEB-INF/views/rank/RankingBoard.jsp</jsp-file>
   </servlet>
@@ -65,7 +48,6 @@
     <servlet-name>gotoRank</servlet-name>
     <url-pattern>/rank</url-pattern>
   </servlet-mapping>
-<<<<<<< HEAD
   <servlet>
     <servlet-name>gotoNoticeForm</servlet-name>
     <jsp-file>/WEB-INF/views/notice/noticeForm.jsp</jsp-file>
@@ -74,6 +56,4 @@
     <servlet-name>gotoNoticeForm</servlet-name>
     <url-pattern>/notice/noticeForm</url-pattern>
   </servlet-mapping>
-=======
->>>>>>> origin/jaesun
 </web-app>
