@@ -13,91 +13,95 @@
 <img src="<%=request.getContextPath() %>/images/game/gameMain/game_start_again.jpeg" alt="" id="back-ground"/>
 <div id="wrap">
 	<input type="hidden" value=0 />
-	<div id="pause-menu-container">
-		<div id="pause-menu">
-			<ul>
-				<li><h3>플레이 시간</h3><span id="time"></span></li>
-				<li>
-				    <div class="button_base b06_3d_swap">
-				        <div>상점</div>
-				        <div>상점</div>
-				    </div>
-				</li>
-				<li>
-					<div class="button_base b06_3d_swap">
-				        <div>도움말</div>
-				        <div>도움말</div>
-				    </div></li>
-				<li>
-					<div class="button_base b06_3d_swap">
-				        <div>게임종료</div>
-				        <div>게임종료</div>
-				    </div>
-				</li>
-			</ul>
-		</div>
-		    <!-- 상점 -->
-		<%-- <div id="store">
-		        <div id="store-Top">
-		            <img id="item" src="<%=request.getContextPath()%>/images/coin.png" alt="" />
-		            &nbsp;&nbsp;<span id="userCoin">50</span>
-		            &nbsp;&nbsp;&nbsp;&nbsp;
-		            <img id="item" src="<%=request.getContextPath()%>/images/hint_paper.png" alt="" />
-		            &nbsp;&nbsp;<span id="hintPaper">3</span>
-		        </div>
-		        
-		        <p id="store-Help">힌트쪽지를 구매할 수 있습니다.</p>
-		        <div id="myStore-Btn">
-		            <h2>쪽지 구매하기</h2>&nbsp;&nbsp;&nbsp;
-		            <img id="price" src="<%=request.getContextPath() %>/images/coin.png" alt="" />
-		            <h2>50</h2>
-		        </div>
-		        
-		        <p id="store-Help">구매한 쪽지의 내용은 랜덤입니다.<br>
-		            뽑은 쪽지가 얼마나 유용할지는 알 수 없으며,<br>
-		            쪽지를 읽으면 보유 쪽지수가 차감됩니다.<br>
-		            (쪽지는 보관되지 않습니다.)</p>
-		        <div id="myStore-Btn">
-		            <h2>쪽지 읽기</h2>&nbsp;&nbsp;&nbsp;
-		            <img id="price" src="<%=request.getContextPath() %>/images/hint_paper.png" alt="" />
-		            <h2>1</h2>
-		        </div>
-		    </div> --%>
-		    
-		    <!-- 도움말 -->
-		    <div id="store">
-		        <div id="game-Help">
-		            <h1>&lt; 도 움 말 &gt;</h1>
-		            <span>방 안에 있는 단서들과 아이템들을 이용하여<br>
-		               	 	주어진 이 공간을 탈출하는 게임입니다.<br>
-		                	단서는 물건 들을 클릭하면 얻을 수 있습니다.<br><br>
-		                	단, 비밀번호나 열쇠 등으로 잠겨있는 곳은 직접 풀어야 합니다.<br><br>
-		               		 열쇠 등의 각종 도구를 얻게되면<br>
-		               		 화면 하단의 인벤토리로 옮겨지며<br>
-		               		 필요할 때 획득한 아이템을 클릭하여 사용할 수 있습니다.<br><br></span>
-		            <span id="haha">당신이 이 방에서 탈출할 수 있기를.<br>ESCAPE, IF YOU CAN.</span>
-		        </div>
-		    </div>
-	</div>
-	<div id="pause"><img src="<%=request.getContextPath() %>/images/game/gameMain/pause.png" alt="" /></div>
-	<div id="inventory">
-		<div id="prev"><span>◀</span></div>
-		<div id="next"><span>▶</span></div>
-		<div id="obj-list-container">
-			<div id="obj-list">
-				<div id="obj1"></div>
-				<div id="obj2"></div>
-				<div id="obj3"></div>
-				<div id="obj4"></div>
-				<div id="obj5"></div>
-				<div id="obj6"></div>
-				<div id="obj7"></div>
-				<div id="obj8"></div>
-				<div id="obj9"></div>
-				<div id="obj10"></div>
+		<div id="pause-menu-container">
+			<div id="pause-menu">
+				<ul>
+					<li><h3>플레이 시간</h3>
+						<span id="time"></span></li>
+					<li>
+						<div class="button_base b06_3d_swap" id="btn-store">
+							<div>상점</div>
+							<div>상점</div>
+						</div>
+					</li>
+					<li>
+						<div class="button_base b06_3d_swap" id="btn-help">
+							<div>도움말</div>
+							<div>도움말</div>
+						</div>
+					</li>
+					<li>
+						<div class="button_base b06_3d_swap">
+							<div>게임종료</div>
+							<div>게임종료</div>
+						</div>
+					</li>
+				</ul>
+			</div>
+			<div id="store">
+				<div id="store-Top">
+					<img id="item" src="<%=request.getContextPath()%>/images/coin.png"
+						alt="" /> &nbsp;&nbsp;<span id="userCoin">50</span>
+					&nbsp;&nbsp;&nbsp;&nbsp; <img id="item"
+						src="<%=request.getContextPath()%>/images/hint_paper.png" alt="" />
+					&nbsp;&nbsp;<span id="hintPaper">3</span>
+				</div>
+				<p id="store-Help">힌트쪽지를 구매할 수 있습니다.</p>
+				<div id="myStore-Btn">
+					<h2>쪽지 구매하기</h2>
+					&nbsp;&nbsp;&nbsp; <img id="price"
+						src="<%=request.getContextPath()%>/images/coin.png" alt="" />
+					<h2>50</h2>
+				</div>
+				<p id="store-Help">
+					구매한 쪽지의 내용은 랜덤입니다.<br> 뽑은 쪽지가 얼마나 유용할지는 알 수 없으며,<br> 쪽지를
+					읽으면 보유 쪽지수가 차감됩니다.<br> (쪽지는 보관되지 않습니다.)
+				</p>
+				<div id="myStore-Btn">
+					<h2>쪽지 읽기</h2>
+					&nbsp;&nbsp;&nbsp; <img id="price"
+						src="<%=request.getContextPath()%>/images/hint_paper.png" alt="" />
+					<h2>1</h2>
+				</div>
+				<div class="close">=</div>
+			</div>
+			<!-- 도움말 -->
+			<div id="help">
+				<div id="game-Help">
+					<h1>&lt; 도 움 말 &gt;</h1>
+					<span>방 안에 있는 단서들과 아이템들을 이용하여<br> 주어진 이 공간을 탈출하는 게임입니다.<br>
+						단서는 물건 들을 클릭하면 얻을 수 있습니다.<br>
+					<br> 단, 비밀번호나 열쇠 등으로 잠겨있는 곳은 직접 풀어야 합니다.<br>
+					<br> 열쇠 등의 각종 도구를 얻게되면<br> 화면 하단의 인벤토리로 옮겨지며<br> 필요할
+						때 획득한 아이템을 클릭하여 사용할 수 있습니다.<br>
+					<br></span> <span id="haha">당신이 이 방에서 탈출할 수 있기를.<br>ESCAPE,
+						IF YOU CAN.
+					</span>
+				</div>
+				<div class="close">=</div>
 			</div>
 		</div>
-	</div>
+		<div id="buy-result"></div>
+		<div id="pause"><img src="<%=request.getContextPath()%>/images/game/gameMain/pause.png" alt="" /></div>
+		<div id="inventory">
+			<div id="prev"><span>◀</span></div>
+			<div id="next"><span>▶</span></div>
+			<div id="obj-list-container">
+				<div id="obj-list">
+					<div id="obj1"></div>
+					<div id="obj2"></div>
+					<div id="obj3"></div>
+					<div id="obj4"></div>
+					<div id="obj5"></div>
+					<div id="obj6"></div>
+					<div id="obj7"></div>
+					<div id="obj8"></div>
+					<div id="obj9"></div>
+					<div id="obj10"></div>
+				</div>
+			</div>
+		</div>
+
 </div>
 <script>
 var record = setInterval(timer, 1000);
@@ -147,7 +151,36 @@ $("#pause").on("click", {flag:1}, function(e){
 		record = setInterval(timer, 1000);
 	}
 });
-
+$("#btn-store").on('click', function(){
+	$("#store").slideDown();
+});
+$("#btn-help").on('click', function(){
+	$("#help").slideDown();
+});
+$(".close").on('click', function(){
+	$(this).parent().slideUp();
+});
+$("#myStore-Btn").on('click', function(){
+	var html = "";
+	$.ajax({
+		url:"<%=request.getContextPath()%>/game/buyHint",
+		type:"get",
+		success: function(result){
+			if(result>0)
+				html = "<h2>구매가 완료되었습니다.</h2>"
+			else
+				html = "<h2>보유 코인이 부족합니다.</h2>"
+		},
+		complete: function(){
+			$("#pause-menu-container").css("opacity", .4);
+			$("#buy-result").html(html).show();
+			setTimeout(function(){
+				$("#pause-menu-container").css("opacity", 1);
+				$("#buy-result").hide();
+			}, 1500);
+		}
+	});
+});
 </script>
 </body>
 </html>
