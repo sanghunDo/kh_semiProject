@@ -16,7 +16,7 @@ import semi.board.free.model.vo.BoardComment;
 /**
  * Servlet implementation class FreeBoardCommentUpdate
  */
-@WebServlet("/board/free/freeBoardCommentUpdate")
+@WebServlet("/board/free/freeBoardCommentUpdate.do")
 public class FreeBoardCommentUpdate extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -33,30 +33,16 @@ public class FreeBoardCommentUpdate extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		
+		request.setCharacterEncoding("utf-8");
 		int commentNo = Integer.parseInt(request.getParameter("commentNo"));
 		String commentUpdate = request.getParameter("commentUpdate");
-		int postNo = Integer.parseInt(request.getParameter("postNo"));
-		System.out.println("commentNo"+commentNo);
-		System.out.println("commentContent"+commentUpdate);
-		System.out.println("postNo"+postNo);
+	
 	
 		int result = new FreeBoardDao().commentUpdate(commentNo,commentUpdate);
-		System.out.println("result="+result);
-		
-		String view = "/WEB-INF/views/common/msg.jsp";
-		String msg = "";
-		String loc = "/board/free/freeBoardView?postNo="+postNo ;
-		
-		if(result >0 ) {
-			msg ="댓글이 성공적으로 수정되었습니다.";
-			
-		}else {
-			msg = "수정실패";
-		}
-		request.setAttribute("msg", msg);
-		request.setAttribute("loc", loc);
-		request.getRequestDispatcher(view).forward(request, response);
+		String getUpdateComment = new FreeBoardDao().getUpdateComment(commentNo);
+
+		response.setContentType("application/json; charset=utf-8");
+		new Gson().toJson(getUpdateComment,response.getWriter());
 	}
 	
 
