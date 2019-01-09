@@ -24,6 +24,63 @@ img#null-Profile{
 }
 </style>
 <script>
+//회원 정보 수정 유효성 검사
+function updateValidate(){
+// 프로필 사진명 변수
+var $userProfileOrigianlFile = $("#userProfile");
+var fileText = $userProfileOriginalFile.val().subString($userProfileOriginalFile.val().lastIndexOf(".") + 1);
+var getUserProfileOriginalFile = RegExp(/jpg|jpeg|png|gif/i);
+
+// 비밀번호 변수
+var $userPassword_1 = $("#userPassword_1"); // 기존 비밀번호
+var $userPassword_2 = $("#userPassword_2"); // 비교할 비밀번호
+var getUserPassword = RegExp(/^(?=.*[A-Za-z])(?=.*[0-9])(?=.*[#?!@$%^&*-]).{5,19}$/);
+
+// 이메일 변수
+var $userEmail = $("#userEamil")
+var getUserEmail = RegExp(/^[a-z0-9_+.-]+@([a-z0-9-]+\.)+[a-z0-9]{2,4}$/);
+
+// 공백 확인
+//비밀번호
+if($userPwd.val() == "") {
+	alert("비밀번호를 입력해주세요.");
+	$userPwd.focus();
+	return false;
+}
+
+// 이메일
+if($userEmail.val() == "") {
+	alert("이메일을 입력해주세요.");
+	$userEmail.focus();
+	return false;
+}
+
+// 유효성 검사
+// 프로필 사진
+if(!getUserProfileOriginalFile.test(fileExt) && $userProfileOriginalFile.val().length > 0){
+	alert("첨부 파일은 jpg, jpeg, png, gif로 된 이미지만 가능합니다.");
+	return false;
+}
+	
+// 비밀번호
+if(!getUserPwd.test($userPwd.val())){
+	alert("비밀번호는 ~자리여야,  합니다.");
+	$userEmail.val("");
+	$userEmail.focus();
+	return false;
+}
+
+// 이메일
+if(!getUserEmail.test($userEmail.val())){
+	alert("이메일 형식에 맞게 입력해주세요.");
+	$userEmail.val("");
+	$userEmail.focus();
+	return false;
+}
+
+return true;
+}
+
 // 프로필 사진 변경
 function changeProfile(){
 	var bool = confirm("프로필 이미지를 변경하시겠습니까?");
@@ -60,7 +117,7 @@ function deleteMember(){
 	  method="post"
 	  name="adminMemberViewFrm"
 	  onsubmit="return updateValidate();">
-<table id="memberView">
+<table id="tbl-memberView">
 	<tr>
 		<th>아이디</th>
 		<td><input type="text"
@@ -91,8 +148,7 @@ function deleteMember(){
 				   name="userPwd"
 				   id="userPwd"
 				   value="<%=m.getUserPassword() %>"
-				   required
-				   readonly/>
+				   required/>
 		</td>
 	</tr>
 	<tr>
@@ -113,30 +169,7 @@ function deleteMember(){
 				   required
 				   readonly/></td>
 	</tr>
-	<tr>
-		<th>플레이 시간</th>
-		<td><input type="text" />
-		<!-- 클리어한 기준 플레이 시간 가져오기 -->
-		</td>
-	</tr>
-	<tr>
-		<th>클리어한 날짜</th>
-		<td><input type="text" />
-		<!-- 클리어 날짜 가져오기 -->
-		</td>
-	</tr>
-	<tr>
-		<th>작성한 게시글 수</th>
-		<td><input type="text" />
-		<!-- 게시글 수 가져오기 -->
-		</td>
-	</tr>
-	<tr>
-		<th>작성한 댓글 수</th>
-		<td><input type="text" />
-		<!-- 댓글 수 가져오기 -->
-		</td>
-	</tr>
+	<!-- 추가예정: 플레이 시간, 클리어한 날짜, 작성한 게시글 수, 작성한 댓글 수 -->
 </table>
 </form>
 <div id="user-update">

@@ -36,30 +36,38 @@ public class AdminDao {
 	
 	// 로그인 여부 확인
 	public int loginCheck(Connection conn, Member m) {
+		// -1: 없는 아이디, 0: 아직 로그인 안 됨, 1: 로그인 됨
 		int result = -1;
+		
+		// DB로 SQL문 요청하기 위한 객체 생성
 		PreparedStatement pstmt = null;
+		
+		// select 문ㅇ르 통해서 데이터를 가져오고 ResultSet 객체에 데이터 저장
 		ResultSet rset = null;
+		
 		String query = prop.getProperty("loginCheck");
 		
 		try {
+			// 1. statement 객체 생성 및 미완성 쿼리문 완성
 			pstmt = conn.prepareStatement(query);
 			pstmt.setString(1, m.getUserId());
 			pstmt.setString(2, m.getUserPassword());
 			pstmt.setString(3, m.getUserId());
 			
+			// 2. 쿼리 실행: DQL(select)라 executeQuery()
 			rset = pstmt.executeQuery();
 			
-			//3.결과 변수  result에 담기
+			// 3. 결과 변수  result에 담기
 			if(rset.next()) {
-				result = rset.getInt("login_check");
+				result = rset.getInt("logincheck"); // 컬럼명
 			}
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
+			// 4. 자원 반납
 			close(rset);
 			close(pstmt);
-			
 		}
 		
 		return result;
@@ -73,13 +81,18 @@ public class AdminDao {
 		String query = prop.getProperty("selectOne");
 		
 		try {
-			// 쿼리문 완성하기
-			String jdbcUrl = "jdbc:oracle:thin@localhost:1521:orcl";
-			String dbId = ""; // 계정 아이디
-			String dbPwd = ""; // 계정 비밀번호
-			Class.forName("oracle.jdbc.driver.OracleDriver");
-			
+			// 미완성 쿼리문 완성시
+			/*
+			 * String jdbcUrl = "jdbc:oracle:thin@localhost:1521:orcl";
+			 * String dbId = ""; // 계정 아이디
+			 * String dbPwd = ""; // 계정 비밀번호
+			 * Class.forName("oracle.jdbc.driver.OracleDriver");
+			 */
+
 			pstmt = conn.prepareStatement(query);
+			
+			// 미완성된 쿼리
+			pstmt.setString(1, userId);
 			
 			// 쿼리 실행
 			rset = pstmt.executeQuery();
@@ -88,19 +101,17 @@ public class AdminDao {
 			if(rset.next()) {
 				m.setUserId("userid");
 				m.setUserPassword("userPassword");
-				m.setUserEmail("email");
 				m.setUserProfileOriginalFile(rset.getString("userprofileoriginalfile"));
+				m.setUserProfileRenamedFile(rset.getString("userprofilerenamedfile"));
+				m.setUserEmail("email");
+				m.setEnrollDate(rset.getDate("enrolldate"));
 				
 				/*
-				아이디
-				프로필 사진
-				비밀번호
-				이메일
-				가입한 날짜
-				플레이 시간
-				클리어한 날짜
-				작성한 게시글 수
-				작성한 댓글 수
+				 * 추가?
+				 * 플레이 시간
+				 * 클리어한 날짜
+				 * 작성한 게시글 수
+				 * 작성한 댓글 수
 				*/
 			}
 			
@@ -116,22 +127,22 @@ public class AdminDao {
 	}
 	
 	// 관리자용 전체 회원 목록 보기
-	public List<Member> selectMemberList(Connection conn) {
+	public List<Member> selectMemberList(Connection conn, String userId) {
 		List<Member> memberList = new ArrayList<Member>();
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		String query = prop.getProperty("select * from member");
 
 		try {
-			// 쿼리문 완성하기
+			// 미완성 쿼리문
 			pstmt = conn.prepareStatement(query);
-			Member m = new Member();
-			
+	
 			// 쿼리 실행
 			rset = pstmt.executeQuery();
 			
 			// 실행 후 결과를 list에 담기
 			while(rset.next()) {
+				Member m = new Member();
 				m.setUserId(rset.getString("userId"));
 				m.setUserPassword(rset.getString("password"));
 			 	m.setUserEmail(rset.getString("email"));
@@ -144,7 +155,6 @@ public class AdminDao {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
-			// 자원 반납
 			close(rset);
 			close(pstmt);
 		}
@@ -153,25 +163,29 @@ public class AdminDao {
 	}
 	
 	// 회원 아이디로 검색시 목록 보여주기
-	public List<Member> selectMemberListById(Connection conn) {
+	// @param userId
+	// @return
+	public List<Member> selectMemberListById(Connection conn, String userId) {
 		List<Member> memberListById = new ArrayList<Member>();
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;	
 		String query = prop.getProperty("select * from member where userid = ?");
 		
 		try {
-			// 쿼리문 완성하기
+			// 미완성 쿼리문
 			pstmt = conn.prepareStatement(query);
-			Member m = new Member();
 			
 			// 쿼리문 실행
 			rset = pstmt.executeQuery();
 			
 			// 실행 후 결과를 list에 담기
 			while(rset.next()) {
+				Member m = new Member();
 				m.setUserId(rset.getString("memberId"));
 				m.setUserPassword(rset.getString("password"));
 			 	m.setUserEmail(rset.getString("email"));
+				m.setUserProfileOriginalFile(rset.getString("userprofileoriginalfile"));
+				m.setUserProfileRenamedFile(rset.getString("userprofilerenamedfile"));
 			 	m.setEnrollDate(rset.getDate("enrolldate"));
 			 	memberListById.add(m);
 			 }
@@ -179,7 +193,6 @@ public class AdminDao {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
-			// 자원 반납
 			close(rset);
 			close(pstmt);
 		}
@@ -188,7 +201,7 @@ public class AdminDao {
 	}
 	
 	// 회원 이메일로 검색시 목록 보여주기
-	public List<Member> selectMemberListByEmail(Connection conn) {
+	public List<Member> selectMemberListByEmail(Connection conn, String userEamil) {
 		List<Member> memberListByEmail = new ArrayList<Member>();
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
@@ -207,6 +220,8 @@ public class AdminDao {
 				m.setUserId(rset.getString("memberId"));
 				m.setUserPassword(rset.getString("password"));
 				m.setUserEmail(rset.getString("email"));
+				m.setUserProfileOriginalFile(rset.getString("userprofileoriginalfile"));
+				m.setUserProfileRenamedFile(rset.getString("userprofilerenamedfile"));
 				m.setEnrollDate(rset.getDate("enrolldate"));
 				memberListByEmail.add(m);
 			}
@@ -227,7 +242,7 @@ public class AdminDao {
 		return articleList;
 	}
 	
-	// 댓글 검색시 목록 보여주기
+	// 댓글로 검색시 목록 보여주기
 	public List selectComment() {
 		List commentList = new ArrayList();
 		return commentList;

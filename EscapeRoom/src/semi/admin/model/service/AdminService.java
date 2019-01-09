@@ -18,17 +18,23 @@ public class AdminService {
 	public static final String LOGIN = "1";
 	public static final String LOGOUT = "0";
 	
+	// 로그인 여부 호가인
 	public int loginCheck(Member m) {
 		int result = -1;
 		Connection conn = getConnection();
+		
+		result = new AdminDao().loginCheck(conn, m);
+		
 		close(conn);
 		return result;
 	}
 	
 	// 관리자용 회원정보 상세보기
 	public Member selectOne(String userId) {
-		Connection conn = getConnection();
+		Connection conn = getConnection();		
 		Member m = new AdminDao().selectOne(conn, userId);
+		
+		m = new AdminDao().selectOne(conn, userId);
 		
 		close(conn);
 		return m;
@@ -44,6 +50,4 @@ public class AdminService {
 		return m;
 	}
 	
-	
-
 }
