@@ -45,10 +45,10 @@
 			<div id="store">
 				<div id="store-Top">
 					<img id="item" src="<%=request.getContextPath()%>/images/coin.png"
-						alt="" /> &nbsp;&nbsp;<span id="userCoin">50</span>
+						alt="" /> &nbsp;&nbsp;<span id="userCoin"><%=loggedInMember!=null?loggedInMember.getCoin():"-" %></span>
 					&nbsp;&nbsp;&nbsp;&nbsp; <img id="item"
 						src="<%=request.getContextPath()%>/images/hint_paper.png" alt="" />
-					&nbsp;&nbsp;<span id="hintPaper">3</span>
+					&nbsp;&nbsp;<span id="hintPaper"><%=loggedInMember!=null?loggedInMember.getHintPaper():"-" %></span>
 				</div>
 				<p id="store-Help">힌트쪽지를 구매할 수 있습니다.</p>
 				<div id="myStore-Btn">
@@ -121,6 +121,24 @@ function show_message(msg){
 		$("#message").hide();
 	}, 1500);
 };
+var result = false;
+function loginCheck(){
+	$.ajax({
+		url:"<%=request.getContextPath()%>/game/loginCheck",
+		type: "post",
+		async:false,
+		success: function(member){
+			console.log(member);
+			if(member!="") {
+				$("#userCoin").text(member.coin);
+				$("#hintPaper").text(member.hintPaper);
+				result = true;
+			}
+		}
+	});
+	console.log(result);
+	return result;
+};
 $("#back-ground").fadeOut(2000);
 setTimeout(function(){
 	$("#back-ground").attr("src", "<%=request.getContextPath()%>/images/game/gameMain/test.png").show();
@@ -164,11 +182,10 @@ $("#pause").on("click", {flag:1}, function(e){
 	}
 });
 $("#btn-store").on('click', function(){
-	if(<%=loggedInMember==null%>){
-		show_message("로그인시 이용가능한 서비스입니다.");
-		return;
-	}
-	$("#store").slideDown();
+	var result = loginCheck();
+	console.log(result);
+	if(result){$("#store").slideDown();}
+	else{show_message("로그인시 이용가능한 서비스입니다.");}
 });
 $("#btn-help").on('click', function(){
 	$("#help").slideDown();
@@ -179,9 +196,6 @@ $(".close").on('click', function(){
 $("#myStore-Btn").on('click', function(){
 	$.ajax({
 		url:"<%=request.getContextPath()%>/game/buyHint",
-		<%if(loggedInMember!=null){%>
-		data: "userId="+<%=loggedInMember.getUserId()%>,
-		<%}%>
 		type:"get",
 		success: function(result){
 			if(result)
