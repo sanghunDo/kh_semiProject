@@ -1,10 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ page import = "java.util.*,semi.board.free.model.vo.*"  %>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<%@ include file="/WEB-INF/views/common/header.jsp"%>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<link rel="stylesheet" href="<%=request.getContextPath()%>/css/board/free/boardCommunityTable.css" />
 <%
 	List<FreeBoard> list = (List<FreeBoard>)request.getAttribute("list");
 	List<FreeBoard> bestList = (List<FreeBoard>)request.getAttribute("bestList");
@@ -12,7 +13,7 @@
 	int numPerPage = (int)request.getAttribute("numPerPage");
 	String pageBar = (String)request.getAttribute("pageBar");
 %>
-<link rel="stylesheet" href="<%=request.getContextPath()%>/css/boardCommunityTable.css" />
+<link rel="stylesheet" href="<%=request.getContextPath()%>/css/board/free/boardCommunityTable.css" />
 <title>자유게시판</title>
 </head>
 <body>
@@ -20,7 +21,7 @@
     <h3>자유게시판</h3>
     <!--new pic-->
     <hr>
-    <div id="write">글쓰기</div>
+    <div id="write" style="color:white"><a href="<%=request.getContextPath()%>/board/free/freeBoardInsert">글쓰기</a></div>
     <div class="sort">
         <span>추천순</span>
         <span>최신순</span>
@@ -56,13 +57,14 @@
              <%} else {
             	 for(FreeBoard fb:bestList) {
               %>
-                <tr class="best" bgcolor="yellow">
+          <tr class="best" bgcolor="rgb(255,187,187)" style="color:white;">
                         <td class="num">
                          	BEST
                         </td>
                         
                         <td class="title">
-                            <%=fb.getPostTitle() %>
+                        	 <a href="<%=request.getContextPath()%>/board/free/freeBoardView?postNo=<%=fb.getPostNo()%>">
+                            <%=fb.getPostTitle() %> [<%=fb.getBoard_comment_cnt() %>]
                         </td>
                         <td class="wirter">
                             <%=fb.getPostWriter()%>
@@ -74,7 +76,7 @@
                            <%=fb.getPostLike() %>
                         </td>
                         <td class="views">
-                           <%=fb.getReadCount() %>
+                           <%=fb.getPostReadCount() %>
                         </td>
                 </tr>
 			<%
@@ -101,13 +103,14 @@
             <%} else {
             	for(FreeBoard fb:list) {
             %>
-            <tr>
+            <tr style="color:white;">
                 <td class="num">
                    <%=fb.getPostNo() %>
                 </td>
                 
-                <td class="title">
-                   <%=fb.getPostTitle() %>
+                <td class="title" style="color:white;">
+                   <a href="<%=request.getContextPath()%>/board/free/freeBoardView?postNo=<%=fb.getPostNo()%>">
+                   <%=fb.getPostTitle() %> [<%=fb.getBoard_comment_cnt() %>]
                 </td>
                 <td class="wirter">
                 	<%=fb.getPostWriter() %>
@@ -119,7 +122,7 @@
                     <%=fb.getPostLike() %>
                 </td>
                 <td class="views">
-                   <%=fb.getReadCount() %>
+                   <%=fb.getPostReadCount() %>
                 </td>
             </tr>
             <%}
@@ -135,7 +138,7 @@
             <option value="id">아이디</option>
         </select>
         <input type="text" name="searchVal" id="searchVal">
-        <div id="search" style="width:50px">검색</div>
+        <div id="search" style="width:50px;position: relative;top: -42px;color: white;">검색</div>
     </div>
 
 </div>

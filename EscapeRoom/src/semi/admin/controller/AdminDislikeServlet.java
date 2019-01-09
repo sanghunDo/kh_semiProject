@@ -14,13 +14,13 @@ import semi.member.model.vo.Member;
  * Servlet implementation class AdminDislikeDeleteServlet
  */
 @WebServlet("/AdminDislikeDeleteServlet")
-public class AdminDislikeDeleteServlet extends HttpServlet {
+public class AdminDislikeServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public AdminDislikeDeleteServlet() {
+    public AdminDislikeServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -29,6 +29,7 @@ public class AdminDislikeDeleteServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// 비추천 기능 서블릿
 		// 1. 파라미터 핸들링
 		// 관리자로 로그인되었는지 확인하기
 		String userId = request.getParameter("userid");
@@ -53,9 +54,9 @@ public class AdminDislikeDeleteServlet extends HttpServlet {
 		String loc = "/";
 
 		if (m == null) {
-
+			//
 		} else {
-
+			//
 		}
 	}
 

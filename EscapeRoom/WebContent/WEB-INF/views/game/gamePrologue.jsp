@@ -17,6 +17,7 @@ window.onload=function(){
 </script>
 </head>
 <body>
+<img src="" alt="" id="background"/>
 <div id="warning">
 	<h1>! WARNING !</h1><br />
 	<p>본 게임은 다소 잔인하거나 불쾌한 장면이 포함되어 있을 수 있습니다.<br><br>
@@ -25,8 +26,7 @@ window.onload=function(){
 	   - 게임의 등장인물이나 배경은 모두 실제 인물이나 단체와 무관합니다. -</p>
 </div>
 <div id="prologue">
-	<img src="" alt="" />
-	<div id="msgBox">
+	<div id="msgBox" class="me">
 		<div><h2></h2></div>
 	</div>
 </div>
@@ -40,12 +40,14 @@ window.onload=function(){
 		var cnt = e.data.cnt++;
 		var target = $("#prologue").find("h2");
 		if(cnt==17){
-			$(this).parent().fadeOut(3000); //마지막 대사 이후 클릭시 화면전환.
+			$(this).parent().fadeOut(3000); //마지막 대사 이후 클릭시 메인게임으로 이동.
 			setTimeout(function(){
 				location.href="<%=request.getContextPath()%>/game/gameMain?userId=<%=request.getParameter("userId")%>";
 			}, 3000);
 		}
-		
+		if(cnt==4){
+			$("#msgBox").removeClass("me");
+		}
 		//대사 테이블에서 한 문장씩 가져옴.
 		$.ajax({
 			url:"<%=request.getContextPath()%>/game/prologue",
