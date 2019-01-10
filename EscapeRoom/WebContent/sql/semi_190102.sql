@@ -340,3 +340,31 @@ create table notice(
     constraint ck_board_notice_noticeurgent check (noticeurgent in ('Y','N'))
 );
 create sequence seq_notice_noticeno;
+insert into game_rank values(seq_game_rank_playno.nextval, 'qwerty', 4785, to_date('20190101', 'yyyymmdd'));
+insert into game_rank values(seq_game_rank_playno.nextval, 'abcde', 5587425, to_date('20190101', 'yyyymmdd'));
+insert into game_rank values(seq_game_rank_playno.nextval, 'wewe', 4646546, to_date('20190101', 'yyyymmdd'));
+insert into game_rank values(seq_game_rank_playno.nextval, 'hoho', 654654654654, to_date('20190101', 'yyyymmdd'));
+insert into game_rank values(seq_game_rank_playno.nextval, 'sun123', 545454545, to_date('20190101', 'yyyymmdd'));
+insert into game_rank values(seq_game_rank_playno.nextval, 'heyhey', 8789515, to_date('20190101', 'yyyymmdd'));
+insert into game_rank values(seq_game_rank_playno.nextval, 'babo', 3132135, to_date('20190101', 'yyyymmdd'));
+insert into game_rank values(seq_game_rank_playno.nextval, 'baboba', 9896232323, to_date('20190101', 'yyyymmdd'));
+insert into game_rank values(seq_game_rank_playno.nextval, 'chunjae', 56565655, to_date('20190101', 'yyyymmdd'));
+insert into game_rank values(seq_game_rank_playno.nextval, 'mungmung', 545646, to_date('20190101', 'yyyymmdd'));
+
+
+insert into member values('abc', '1234', 'abc@abc.com', null, null, default, default, default);
+insert into member values('qwerty', '1234', 'qwerty@qwerty.com', null, null, default, default);
+insert into member values('tomato', '1234', 'tomato@tomato.com', null, null, default, default, default);
+insert into member values('admin', '1234', 'abc@abc.com', null, null, default, default, default);
+insert into member values('abcde', '1234', 'abcde@abc.com', null, null, default,default,  default);
+insert into member values('wewe', '1234', 'wewe@abc.com', null, null, default, default, default);
+insert into member values('hoho', '1234', 'hoho@abc.com', null, null, default, default, default);
+insert into member values('sun123', '1234', 'sun123@abc.com', null, null, default, default, default);
+insert into member values('heyhey', '1234', 'heyhey@abc.com', null, null, default, default, default);
+insert into member values('babo', '1234', 'babo@abc.com', null, null, default, default, default);
+insert into member values('baboba', '1234', 'baboba@qwerty.com', null, null, default,default,  default);
+insert into member values('chunjae', '1234', 'chunjae@tomato.com', null, null, default, default, default);
+insert into member values('mungmung', '1234', 'mungmung@abc.com', null, null, default, default, default);
+
+create sequence seq_notice_noticeno;
+commit;

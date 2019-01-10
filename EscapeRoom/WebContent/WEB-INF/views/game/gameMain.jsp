@@ -12,6 +12,29 @@
 <script src="<%=request.getContextPath()%>/js/jquery-3.3.1.js"></script>
 <link href="https://fonts.googleapis.com/css?family=Noto+Serif+KR" rel="stylesheet">
 <link rel="stylesheet" href="<%=request.getContextPath() %>/css/game/gameMain.css" />
+<style>
+#hint{
+	position: absolute;
+	width: 40%;
+	height: 56%;
+	left: 30%;
+	top: 22%;	
+}
+#hint-paper{
+	position: absolute;
+	width: 400px;
+	height: 400px;
+}
+#hint div{
+    position: absolute;
+    width: 230px;
+    min-height: 50px;
+    top: 85px;
+    left: 64px;
+    transform: rotate(-9deg);
+    font-size: 35px;
+}
+</style>
 </head>
 <body>
 <%@ include file='/WEB-INF/views/game/gameBackground.jsp' %>
@@ -42,20 +65,32 @@
 				</div>
 			</div>
 		</div>
+		<div id="hint">
+			<img src="<%=request.getContextPath() %>/images/hint_paper.png" id="hint-paper" />
+			<div>gsagegsagegdgasgesegseagsegaesgesegasege</div>
+		</div>
 </div>
 <script>
+$("#back-ground").fadeOut(3000);
+setTimeout(function(){
+	$("#back-ground").attr("src", "<%=request.getContextPath()%>/images/game/gameMain/test.png").show();
+	$("#wrap").show();
+}, 3001);
 var record = setInterval(timer, 1000);
 function timer(){
 	var sec = $("[type=hidden]").val();
 	$("[type=hidden]").val(++sec);
 };
-function show_message(msg){
+function show_message(msg, flag){
 	$("#pause-menu-container").addClass("paused");
-	$("#message").html("<h2>"+msg+"</h2>").show();
-	setTimeout(function(){
-		$("#pause-menu-container").removeClass("paused");
-		$("#message").hide();
-	}, 1500);
+	$("#message").html(msg).show();
+	
+	if(flag){
+		setTimeout(function(){
+			$("#pause-menu-container").removeClass("paused");
+			$("#message").hide();
+		}, 1500);
+	}
 };
 function show_record(){
 	var time = $("[type=hidden]").val();
@@ -70,7 +105,7 @@ function show_store(){
 			show_pause_menu("store");
 			$("#store").slideDown();
 		}
-		else{show_message("로그인시 이용가능한 서비스입니다.");}
+		else{show_message("<h2>로그인시 이용가능한 서비스입니다.</h2>", true);}
 	});
 };
 function show_help(){
@@ -96,19 +131,25 @@ function coin_hint_refresh(){
 	});
 };
 function buy_hint_paper(){
-	$("#myStore-Btn").on('click', function(){
+	$("#btn-buyHint").on('click', function(){
 		$.ajax({
 			url:"<%=request.getContextPath()%>/game/buyHint",
 			type:"get",
 			success: function(result){
 				if(result === "true"){
-					show_message("구매가 완료되었습니다.");
+					show_message("<h2>구매가 완료되었습니다.</h2>", true);
 					coin_hint_refresh();
 				}
 				else
-					show_message("보유 코인이 부족합니다.");
+					show_message("<h2>보유 코인이 부족합니다.</h2>", true);
 			}
 		});
+	});
+};
+function use_hint_paper(){
+	$("#btn-useHint").on('click', function(){
+		show_message("<h2>쪽지를 뽑는중입니다.</h2>", false);
+		$("#message h2").css({"animation":"bling .7s", "animation-iteration-count":"3"});
 	});
 };
 function show_pause_menu(menuName){
@@ -125,8 +166,7 @@ function show_pause_menu(menuName){
 };
 function active_esc(){
 	$("#btn-esc").on('click', function(){
-		$("#pause-menu-container").css("opacity", .4);
-		$("#message").html("<h2>게임을 종료하시겠습니까?</h2><button value='1'>◎ 확인</button><button>X 취소</button>").show();
+		show_message("<h2>게임을 종료하시겠습니까?</h2><button value='1'>◎ 확인</button><button>X 취소</button>", false);
 		$("#message").find("button").each(function(){
 			$(this).click(function(){
 				if($(this).val()==1){
@@ -134,7 +174,7 @@ function active_esc(){
 					self.close();
 				}
 				else {
-					$("#pause-menu-container").css("opacity", 1);
+					$("#pause-menu-container").removeClass("paused");
 					$(this).parent().hide();
 				}
 			});
@@ -146,14 +186,10 @@ function add_event_listener(){
 	show_help();
 	active_close();
 	buy_hint_paper();
+	use_hint_paper();
 	show_record();
 	active_esc();
 };
-$("#back-ground").fadeOut(3000);
-setTimeout(function(){
-	$("#back-ground").attr("src", "<%=request.getContextPath()%>/images/game/gameMain/test.png").show();
-	$("#wrap").show();
-}, 3001);
 
 $("#next").click(function(e){
 	$(this).css("visibility", "hidden").siblings("#prev").css("visibility", "visible");
