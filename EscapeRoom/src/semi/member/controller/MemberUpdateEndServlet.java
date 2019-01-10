@@ -117,7 +117,7 @@ public class MemberUpdateEndServlet extends HttpServlet {
 		m.setUserProfileOriginalFile(userProfileOriginalFile_);
 		m.setUserProfileRenamedFile(userProfileRenamedFile_);
 		
-		System.out.printf("[m@MemberRegisterEndServlet = %s]\n", m);
+		System.out.printf("[m@MemberUpdateEndServlet = %s]\n", m);
 		
 		int result = new MemberService().updateMember(m);
 		

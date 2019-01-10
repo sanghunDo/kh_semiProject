@@ -1,6 +1,8 @@
 package semi.member.controller;
 
 import java.io.IOException;
+import java.util.Enumeration;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -24,15 +26,22 @@ public class MemberUpdatePasswordEndServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// 1. 파라미터 핸들링
 
-//		String userId = (String)request.getParameter("userId");
-		String userId = (String) request.getAttribute("userId");
+		Enumeration<String> param = request.getParameterNames();
+		
+//		while(param.hasMoreElements()) {
+//			String name = param.nextElement();
+//			String value = request.getParameter(name);
+//			System.out.printf("[%s=%s]\n", name, value);
+//		}
+		
+		
+		String userId = request.getParameter("userId");
 		System.out.println("유저아이디(userId)@MemberUpdatePasswordEndServlet = " + userId);
 		
 		String userPassword = (String) request.getParameter("userPassword");
 		System.out.println("원래 비밀번호(userPassword)@MemberUpdatePasswordEndServlet = " + userPassword);
 		
 		String userPassword_New = (String) request.getParameter("userPassword_New");
-		userPassword_New = new MemberDao().getSha512(userPassword_New);
 		System.out.println("새 비밀번호(userPassword_New)@MemberUpdatePasswordEndServlet = " + userPassword_New);
 
 		// 2. 비즈니스 로직

@@ -27,6 +27,9 @@ public class EncryptWrapper extends HttpServletRequestWrapper {
 			
 			System.out.println("value@EncryptWrapper = " + value);
 		}
+		else {
+			value = super.getParameter(key);
+		}
 		
 		return value;
 	}

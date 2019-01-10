@@ -134,7 +134,7 @@ public class MemberService {
 	public int updatePassword(Member m) {
 		// DB와 연결
 		Connection conn = getConnection();
-		
+		System.out.println("서비스ㅡㅡㅡㅡ"+m.getUserPassword());
 		int result = new MemberDao().updatePassword(conn, m);
 		
 		// DML(INSERT, UPDATE, DELETE)이므로 반드시 트랜잭션처리 해야 한다.
