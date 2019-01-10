@@ -64,7 +64,6 @@ public class RankingBoardListServlet extends HttpServlet {
 			finalList.add(modifiedR);
 		}
 		
-		
 		request.setAttribute("list", finalList);
 		request.setAttribute("best1", best1);
 		request.setAttribute("best10", best10);
