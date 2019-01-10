@@ -520,5 +520,14 @@ margin-left: 106px;
 .bestContent{
 	margin-top:-38px;
 }
+.contentPhoto{
+    width: 522px;
+    height: 406px;
+    position: center;
+    /* margin: 0 auto; */
+    /* align-content: center; */
+    position: relative;
+    left: 114px;	
+}
 
 
