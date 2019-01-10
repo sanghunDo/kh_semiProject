@@ -33,20 +33,20 @@ public class FreeBoardListView extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		int postNo = Integer.parseInt(request.getParameter("postNo"));
-		
+		String memberId = request.getParameter("loggedInMember");
 		FreeBoard fb = new FreeBoardDao().selectByPostNo(postNo);
+	
 		//댓글
 		List<BoardComment> commentList = new FreeBoardDao().selectAllComment(postNo);
 		List<BoardComment> bestCommentList = new FreeBoardDao().selectBestComment(postNo);
 		
-//		System.out.println("postNo"+postNo);
+		System.out.println("postNo"+postNo);
 		String view = "/WEB-INF/views/common/msg.jsp";
 		if(fb == null) {
 			view ="/WEB-INF/views/common/msg.jsp";
 			request.setAttribute("msg", "상세조회실패");
 			request.setAttribute("loc", "/board/boardList");
-			
-		}else {
+		} else {
 			view = "/WEB-INF/views/board/free/freeBoardView.jsp";
 			request.setAttribute("fb", fb);
 			request.setAttribute("commentList", commentList);

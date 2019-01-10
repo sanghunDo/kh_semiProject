@@ -1,27 +1,25 @@
 package semi.board.free.controller;
 
 import java.io.IOException;
+
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.google.gson.Gson;
-
-import semi.board.free.model.dao.FreeBoardDao;
-
 /**
- * Servlet implementation class FreeComment2Like
+ * Servlet implementation class NoEnter
  */
-@WebServlet("/board/free/freeBoardComment2Like.do")
-public class FreeComment2Like extends HttpServlet {
+@WebServlet("/board/free/NoEnter")
+public class NoEnter extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public FreeComment2Like() {
+    public NoEnter() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -30,18 +28,16 @@ public class FreeComment2Like extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.setCharacterEncoding("utf-8");
-		int commentNo =Integer.parseInt(request.getParameter("commentNo"));
-		int commentLikeAmount =Integer.parseInt(request.getParameter("commentLikeAmount"));
-		//String flag = request.getParameter("flag");
-		//System.out.println("commentNo"+commentNo);
-		//System.out.println("commentLikeAmount"+commentLikeAmount);
-		int result = new FreeBoardDao().updateLikey(commentNo,commentLikeAmount);
-		int likey = new FreeBoardDao().getLikey(commentNo);
-		//System.out.println("likey=대체뭐야..?"+likey);
+		String view = "/WEB-INF/views/common/msg.jsp";
+		String msg = "로그인한 사용자만 접근할 수 있습니다. 로그인 후 이용해주세요.";
+		String loc = "/member/login";
+
+
+		request.setAttribute("msg", msg);
+		request.setAttribute("loc", loc);
 		
-		response.setContentType("application/json; charset=utf-8");
-		new Gson().toJson(likey,response.getWriter());
+		RequestDispatcher reqDispatcher = request.getRequestDispatcher(view);
+		reqDispatcher.forward(request, response);
 	}
 
 	/**

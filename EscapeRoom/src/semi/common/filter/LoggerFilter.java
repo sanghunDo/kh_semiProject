@@ -35,13 +35,13 @@ public class LoggerFilter implements Filter {
 	 */
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
 		HttpServletRequest httpReq = (HttpServletRequest)request;
-		System.out.println(1);
+		
 		String uri = httpReq.getRequestURI();
 		
-		System.out.println("========================");
+/*		System.out.println("========================");
 		System.out.println("uri@LoggerFilter=" + uri);
-		System.out.println("========================");
-		// request.setAttribute("userId", request.getAttribute("userId"));
+		System.out.println("========================");*/
+		request.setAttribute("userId", request.getAttribute("userId"));
 		// pass the request along the filter chain
 		chain.doFilter(request, response);
 	}
