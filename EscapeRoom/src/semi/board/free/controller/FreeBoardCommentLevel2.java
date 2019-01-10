@@ -39,14 +39,6 @@ public class FreeBoardCommentLevel2 extends HttpServlet {
 		int commentRef = Integer.parseInt(request.getParameter("commentRef"));
 		String commentWriter = request.getParameter("commentWriter");
 		int commentLevel = Integer.parseInt(request.getParameter("commentLevel"));
-
-		System.out.println("대댓글등록서블릿 : level2Comment="+level2Comment);
-		System.out.println("대댓글등록서블릿 : ref="+ref);
-		System.out.println("대댓글등록서블릿 : commentRef="+commentRef);
-		System.out.println("대댓글등록서블릿 : commentWriter="+commentWriter);
-		System.out.println("대댓글등록서블릿 : commentLevel="+commentLevel);
-
-
 		
 		BoardComment bc = new BoardComment();
 		bc.setRef(ref);
@@ -64,7 +56,7 @@ public class FreeBoardCommentLevel2 extends HttpServlet {
 		response.setContentType("application/json; charset=utf-8");
 		String data = bc.getCommentWriter()+"/"+
 				comment_date+"/"+
-				bc.getCommentContent();
+				bc.getCommentContent()+"/"+bc.getCommentLike()+"/"+bc.getCommentDislike();
 		
 		new Gson().toJson(data,response.getWriter());
 		

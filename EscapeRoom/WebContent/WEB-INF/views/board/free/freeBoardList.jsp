@@ -57,8 +57,8 @@
              <%} else {
             	 for(FreeBoard fb:bestList) {
               %>
-          <tr class="best" bgcolor="rgb(255,187,187)" style="color:white;">
-                        <td class="num">
+          <tr class="best" bgcolor="rgb(255,187,187)">
+                        <td class="num"  style="color:red;">
                          	BEST
                         </td>
                         

@@ -2,6 +2,7 @@ package semi.board.free.controller;
 
 import java.io.IOException;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -16,7 +17,7 @@ import semi.board.free.model.vo.BoardComment;
 /**
  * Servlet implementation class FreeBoardCommentUpdate
  */
-@WebServlet("/board/free/freeBoardCommentUpdate.do")
+@WebServlet("/board/free/freeBoardCommentUpdate")
 public class FreeBoardCommentUpdate extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -36,13 +37,32 @@ public class FreeBoardCommentUpdate extends HttpServlet {
 		request.setCharacterEncoding("utf-8");
 		int commentNo = Integer.parseInt(request.getParameter("commentNo"));
 		String commentUpdate = request.getParameter("commentUpdate");
+	    int ref = Integer.parseInt(request.getParameter("ref"));
 	
-	
-		int result = new FreeBoardDao().commentUpdate(commentNo,commentUpdate);
+	    System.out.println("commentNo="+commentNo);
+	    System.out.println("commentUpdate="+commentUpdate);
+	    System.out.println("ref="+ref);
+
+	    int result = new FreeBoardDao().commentUpdate(commentNo,commentUpdate);
 		String getUpdateComment = new FreeBoardDao().getUpdateComment(commentNo);
 
-		response.setContentType("application/json; charset=utf-8");
-		new Gson().toJson(getUpdateComment,response.getWriter());
+		String view = "/WEB-INF/views/common/msg.jsp";
+		String msg = "";
+		String loc = "/";
+
+		if(result>0) {
+			msg = "댓글을 수정하였습니다.";
+			loc ="/board/free/freeBoardView?postNo="+ref;
+
+		}else {
+			msg = "댓글 수정에 실패했습니다.";	
+			loc ="/board/free/freeBoardView?postNo="+ref;
+		}
+		request.setAttribute("msg", msg);
+		request.setAttribute("loc", loc);
+		
+		RequestDispatcher reqDispatcher = request.getRequestDispatcher(view);
+		reqDispatcher.forward(request, response);
 	}
 	
 
