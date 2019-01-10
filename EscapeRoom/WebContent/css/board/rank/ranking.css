@@ -145,3 +145,10 @@ p.playerInfo{
    color:white;
    font-family : 'Noto Serif KR', serif;
 }
+
+img {
+   width : 120px;
+   height : 120px;
+   margin-top : -115px;
+   margin-left : 140px;
+}

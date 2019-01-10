@@ -22,12 +22,10 @@
             <p id="label-for-grade">1st</p>
             <!-- 유저 프로필 이미지 시작 -->
 	         <%if(list.get(0).getUserprofilerenamedfile() == null || list.get(0).getUserprofilerenamedfile().isEmpty()) { %>
-	            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/04/Antu_im-user-offline.svg/512px-Antu_im-user-offline.svg.png"
-	                style="width : 120px; height : 120px; margin-top : -115px; margin-left : 140px;"/>
+	            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/04/Antu_im-user-offline.svg/512px-Antu_im-user-offline.svg.png"/>
 	         <%}
 	            else {%>
-	            <img src="<%=request.getContextPath() %>/upload/member/<%=list.get(0).getUserprofilerenamedfile() %>" alt="" 
-	            style="width : 120px; height : 120px; margin-top : -115px; margin-left : 140px;"/>
+	            <img src="<%=request.getContextPath() %>/upload/member/<%=list.get(0).getUserprofilerenamedfile() %>" alt="" />
 	         <% } %>
 	            
 	         <!-- 유저 프로필 이미지 끝 -->
@@ -49,12 +47,10 @@
             <p id="label-for-grade">2nd</p>
             <!-- 유저 프로필 이미지 시작 -->
 	         <%if(list.get(1).getUserprofilerenamedfile() == null || list.get(1).getUserprofilerenamedfile().isEmpty()) { %>
-	            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/04/Antu_im-user-offline.svg/512px-Antu_im-user-offline.svg.png"
-	                style="width : 120px; height : 120px; margin-top : -115px; margin-left : 140px;"/>
+	            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/04/Antu_im-user-offline.svg/512px-Antu_im-user-offline.svg.png"/>
 	         <%}
 	            else {%>
-	            <img src="<%=request.getContextPath() %>/upload/member/<%=list.get(1).getUserprofilerenamedfile() %>" alt="" 
-	            style="width : 120px; height : 120px; margin-top : -115px; margin-left : 140px;"/>
+	            <img src="<%=request.getContextPath() %>/upload/member/<%=list.get(1).getUserprofilerenamedfile() %>" alt="" />
 	         <% } %>
 	            
 	         <!-- 유저 프로필 이미지 끝 -->
@@ -76,12 +72,10 @@
             <p id="label-for-grade">3rd</p>
             <!-- 유저 프로필 이미지 시작 -->
 	         <%if(list.get(2).getUserprofilerenamedfile() == null || list.get(2).getUserprofilerenamedfile().isEmpty()) { %>
-	            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/04/Antu_im-user-offline.svg/512px-Antu_im-user-offline.svg.png"
-	                style="width : 120px; height : 120px; margin-top : -115px; margin-left : 140px;"/>
+	            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/04/Antu_im-user-offline.svg/512px-Antu_im-user-offline.svg.png"/>
 	         <%}
 	            else {%>
-	            <img src="<%=request.getContextPath() %>/upload/member/<%=list.get(2).getUserprofilerenamedfile() %>" alt="" 
-	            style="width : 120px; height : 120px; margin-top : -115px; margin-left : 140px;"/>
+	            <img src="<%=request.getContextPath() %>/upload/member/<%=list.get(2).getUserprofilerenamedfile() %>" alt="" />
 	         <% } %>
 	            
 	         <!-- 유저 프로필 이미지 끝 -->
@@ -92,8 +86,9 @@
          <p class="playerInfo"><%=list.get(2).getGameescapedate()%></p>
          
          <%} %>
+   		</div>
    </div>
-   
+
    <div id="from4to10">
       <!-- 4등부터 10등까지의 테이블은 AJAX 사용하기! -->
       <table id="tbl-Rank4-10">
@@ -122,8 +117,8 @@
          </tr>
          <% }}%>
       </table>
-   </div>
-   
+   	</div>
+   	
    <!-- 댓글 시작  -->
    <div id="reply-container">
       <h2>Reply</h2>
