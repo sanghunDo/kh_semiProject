@@ -291,7 +291,7 @@ h1{
    margin:0 auto;
 }
 
-#myStore-Btn{
+#btn-buyHint, #btn-useHint{
    border:1px solid black;
    border-radius:20px;
    background:black;
@@ -362,4 +362,9 @@ h2{
 #message button:hover{
 	border: 1px solid white;
 	border-radius: 3px;
+}
+@-webkit-keyframes bling{
+	0%{opacity: 1;}
+	50%{opacity: .2;}
+	100%{opacity: 1;}
 }
