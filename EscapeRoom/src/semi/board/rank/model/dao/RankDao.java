@@ -31,7 +31,7 @@ public class RankDao {
 		}
 	}
 	
-	public List<Rank> selectRankList(Connection conn) {
+	public List<Rank> selectRankList(Connection conn, int best1, int best10) {
 		
 		List<Rank> list = null;
 		PreparedStatement pstmt = null;
@@ -41,6 +41,12 @@ public class RankDao {
 		try {
 			pstmt = conn.prepareStatement(query);
 			
+			int top1 = best1;
+			int top10 = best10;
+			
+			pstmt.setInt(1, top1);
+			pstmt.setInt(2, top10);
+			
 			rset = pstmt.executeQuery();
 			
 			list = new ArrayList<>();
@@ -49,6 +55,7 @@ public class RankDao {
 				Rank r = new Rank();
 				r.setPlayno(rset.getInt("playno"));
 				r.setGameId(rset.getString("gameid"));
+				r.setUserprofilerenamedfile(rset.getString("userprofilerenamedfile"));
 				r.setGameruntime(rset.getLong("gameruntime"));
 				r.setGameescapedate(rset.getDate("gameescapedate"));
 				
@@ -64,36 +71,4 @@ public class RankDao {
 		
 		return list;
 	}
-
-	public Rank viewOne(Connection conn, String gameId) {
-		
-		Rank r = null;
-		PreparedStatement pstmt = null;
-		ResultSet rset = null;
-		String query = prop.getProperty("selectbest3");
-		
-		try {
-			pstmt = conn.prepareStatement(query);
-			pstmt.setString(1, gameId);
-			
-			rset = pstmt.executeQuery();
-			
-			while(rset.next()) {
-				r = new Rank();
-				r.setPlayno(rset.getInt("playno"));
-				r.setGameId(rset.getString("gameId"));
-				r.setUserprofilerenamedfile(rset.getString("userprofilerenamedfile"));
-				r.setGameruntime(rset.getLong("gameruntime"));
-				r.setGameescapedate(rset.getDate("gameescapedate"));
-			}
-			
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			close(rset);
-			close(pstmt);
-		}
-		
-		return r;
-	}	
 }

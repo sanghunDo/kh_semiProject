@@ -1,3 +1,5 @@
+
+
 package semi.common.wrapper;
 
 import java.nio.charset.Charset;
@@ -17,15 +19,13 @@ public class EncryptWrapper extends HttpServletRequestWrapper {
 	@Override
 	public String getParameter(String key) {
 		String value = "";
-		System.out.println("@#!$@$#%#%#%%!$!@$!@#");
-		System.out.println(key);
 		// 패스워드가 전달됐을때만 암호화
 		if(key != null && ("userPassword".equals(key) || "userPassword_New".equals(key))) {
 			System.out.println("암호화 전@EncryptWrapper : " + super.getParameter(key));
 			
 			value = getSha512(super.getParameter(key));
 			
-			System.out.println(value);
+			System.out.println("value@EncryptWrapper = " + value);
 		}
 		
 		return value;

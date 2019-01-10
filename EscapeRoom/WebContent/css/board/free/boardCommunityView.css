@@ -210,8 +210,8 @@
             cursor: pointer;
     		color: white;
     		position: relative;
-    		top: -145px;
-    left: 42px;
+    		top: -17px;
+    left: 18px;
         }
         .level2CommentWrite:hover{
             text-decoration: underline;
@@ -255,17 +255,32 @@
 
             position: relative;
              left: 81px;
-            top: -35px;
+            top: -36px;
         }
-              
+            .updateCommentEnd{
+            display:none;
+              position: relative;
+    top: -122px;
+    left: -35px;
+    margin: 11px;
+    margin-bottom: -78px;
+    width: 1000px;
+    height: 116px;
+    resize: none;
+    cursor:pointer;
+            }  
         .comment-Update{
             display:none;
-            position: relative;
-            top: -48px;        
+              position: relative;
+    top: -122px;
+    left: -35px;
+    margin: 11px;
+    margin-bottom: -78px;
+    width: 1000px;
+    height: 116px;
+    resize: none;
         }
-        #commentUpdateEnd{
-            display:none;
-        }
+       
      
         
            .commentUpdate{
@@ -279,6 +294,23 @@
             border-radius: 3px;
             margin-bottom:  12px;
             margin: 5px;
+            cursor:pointer;
+         }
+         
+         
+         
+         .commentUpdateEnd{
+         display:none;
+          border: 1px solid #999;
+            width: 50px;
+            text-align: center;
+            color: #666;
+            font-size: 12px;
+            padding: 7px 10px 6px;
+            border-radius: 3px;
+            margin-bottom:  12px;
+            margin: 5px;
+            cursor:pointer;
          }
 
      		.commentUpdate:hover{
@@ -308,14 +340,37 @@
           
           .comment-Content{
           
-             padding-bottom: 44px;
-    		margin-left: 10px;
-    		color: white;
+               color: white;
     position: relative;
-    top: -115px;
+    top: -68px;
     left: 16px;
 }
+.commentUpdateEnd{
+	
+            border: 1px solid #999;
+            width: 50px;
+            text-align: center;
+            color: #666;
+            font-size: 12px;
+            padding: 7px 10px 6px;
+            border-radius: 3px;
+            margin-bottom:  12px;
+            margin: 5px;
+}
 
+.commentDeleteBtn{
+	
+	border: 1px solid #999;
+            width: 50px;
+            text-align: center;
+            color: #666;
+            font-size: 12px;
+            padding: 7px 10px 6px;
+            border-radius: 3px;
+            margin-bottom:  12px;
+            margin: 5px;
+            cursor:pointer;
+}
  span#level2CommentList{
             margin-left: 21px;
     		position: relative;
@@ -375,10 +430,7 @@ table#tbl-comment button.btn-insert2{
     	
     	background:#383838;
     }
-    .comment-Area{
-    	
-    	height: 100px;
-    }
+    
     .level2CommentWrite-textArea{
     width: 800px;height: 30px;resize:none;
     
@@ -426,6 +478,7 @@ table#tbl-comment button.btn-insert2{
     position: relative;
     left: 841px;
     top: -24px;
+    cursor:pointer;
 }
 .level2Like{
 	
@@ -433,15 +486,18 @@ table#tbl-comment button.btn-insert2{
 	 position: relative;
     top: -45px;
     left: 681px;
+    cursor:pointer;
 }
 .level2Dislike{
 	    position: relative;
     top: -66px;
     left: 759px;
      margin-left: 106px;
+     cursor:pointer;
 }
 .level2_area{
 /* 	display:none; */
 }
+
 
 

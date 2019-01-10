@@ -2,6 +2,7 @@ package semi.board.free.controller;
 
 import java.io.IOException;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -33,30 +34,35 @@ public class FreeBoardCommentUpdate extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		
+		request.setCharacterEncoding("utf-8");
 		int commentNo = Integer.parseInt(request.getParameter("commentNo"));
 		String commentUpdate = request.getParameter("commentUpdate");
-		int postNo = Integer.parseInt(request.getParameter("postNo"));
-		System.out.println("commentNo"+commentNo);
-		System.out.println("commentContent"+commentUpdate);
-		System.out.println("postNo"+postNo);
+	    int ref = Integer.parseInt(request.getParameter("ref"));
 	
-		int result = new FreeBoardDao().commentUpdate(commentNo,commentUpdate);
-		System.out.println("result="+result);
-		
+	    System.out.println("commentNo="+commentNo);
+	    System.out.println("commentUpdate="+commentUpdate);
+	    System.out.println("ref="+ref);
+
+	    int result = new FreeBoardDao().commentUpdate(commentNo,commentUpdate);
+		String getUpdateComment = new FreeBoardDao().getUpdateComment(commentNo);
+
 		String view = "/WEB-INF/views/common/msg.jsp";
 		String msg = "";
-		String loc = "/board/free/freeBoardView?postNo="+postNo ;
-		
-		if(result >0 ) {
-			msg ="댓글이 성공적으로 수정되었습니다.";
-			
+		String loc = "/";
+
+		if(result>0) {
+			msg = "댓글을 수정하였습니다.";
+			loc ="/board/free/freeBoardView?postNo="+ref;
+
 		}else {
-			msg = "수정실패";
+			msg = "댓글 수정에 실패했습니다.";	
+			loc ="/board/free/freeBoardView?postNo="+ref;
 		}
 		request.setAttribute("msg", msg);
 		request.setAttribute("loc", loc);
-		request.getRequestDispatcher(view).forward(request, response);
+		
+		RequestDispatcher reqDispatcher = request.getRequestDispatcher(view);
+		reqDispatcher.forward(request, response);
 	}
 	
 

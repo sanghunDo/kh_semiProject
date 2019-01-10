@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import semi.member.model.dao.MemberDao;
 import semi.member.model.service.MemberService;
 import semi.member.model.vo.Member;
 
@@ -35,6 +36,8 @@ public class MemberLoginEndServlet extends HttpServlet {
 		String userId = request.getParameter("userId");
 		String userPassword = request.getParameter("userPassword");
 		System.out.printf("[%s, %s]\n", userId, userPassword);
+		userPassword = new MemberDao().getSha512(userPassword);
+		System.out.printf("로그인 한 후 암호화된 비밀번호 : [%s, %s]\n", userId, userPassword);
 		
 		Member m = new Member();
 		m.setUserId(userId);
@@ -46,7 +49,7 @@ public class MemberLoginEndServlet extends HttpServlet {
 		// return 1 : 로그인성공
 		// return 0 : 패스워드 틀림
 		// return -1 : 존재하지 않는 아이디
-		System.out.println("[로그인 결과 : " + result + "]");
+		System.out.println("[로그인 결과 : " + result + "]@MemberLoginEndServlet");
 		
 		// 3. view단 처리
 		String view = "";
@@ -102,7 +105,7 @@ public class MemberLoginEndServlet extends HttpServlet {
 			HttpSession session = request.getSession(true);
 			
 			// timeout설정 : web.xml보다 우선 순위 높음, 단위 : 초
-			session.setMaxInactiveInterval(10 * 60);
+			session.setMaxInactiveInterval(240 * 60);
 			
 			// Client의 ip주소 가져오기
 			String ip = request.getRemoteAddr();
