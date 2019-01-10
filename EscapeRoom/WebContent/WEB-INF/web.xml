@@ -33,14 +33,6 @@
   </servlet-mapping>
   <description>-----jsp연결 : Home, Notice-----</description>
   <servlet>
-    <servlet-name>gotoHome</servlet-name>
-    <jsp-file>/WEB-INF/views/home.jsp</jsp-file>
-  </servlet>
-  <servlet-mapping>
-    <servlet-name>gotoHome</servlet-name>
-    <url-pattern>/home</url-pattern>
-  </servlet-mapping>
-  <servlet>
     <servlet-name>gotoNoticeForm</servlet-name>
     <jsp-file>/WEB-INF/views/notice/noticeForm.jsp</jsp-file>
   </servlet>
