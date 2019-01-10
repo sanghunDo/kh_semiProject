@@ -478,6 +478,7 @@ table#tbl-comment button.btn-insert2{
     position: relative;
     left: 841px;
     top: -24px;
+    cursor:pointer;
 }
 .level2Like{
 	
@@ -485,15 +486,18 @@ table#tbl-comment button.btn-insert2{
 	 position: relative;
     top: -45px;
     left: 681px;
+    cursor:pointer;
 }
 .level2Dislike{
 	    position: relative;
     top: -66px;
     left: 759px;
      margin-left: 106px;
+     cursor:pointer;
 }
 .level2_area{
 /* 	display:none; */
 }
+
 
 

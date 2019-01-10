@@ -92,8 +92,8 @@
             </dl>
 
             <dl class="bestCommentOpinion" style="position: relative;top: -120px;left: -33px; color:black;">
-                <span style="padding:10px">추천<%=bc.getCommentLike() %></span>
-                <span style="padding:10px">비추천<%=bc.getCommentDislike() %></span>
+                <span style="padding:10px" class="bestCommentLike">추천<%=bc.getCommentLike() %></span>
+                <span style="padding:10px" class="bestCommentDisike">비추천<%=bc.getCommentDislike() %></span>
                 <span style="padding:10px">신고하기</span>
             </dl>
 
@@ -268,7 +268,7 @@
               console.log(data);
               
               var div = $("<div class='level2_area' level2No='"+no+"'><div>");
-              for(var i in data){
+              for(var i=0; i<data.length; i++){
                  var user = data[i];
                  
                  var html = "<hr />"
@@ -277,11 +277,12 @@
                   html+="<div class='info'>"+ user.commentWriter + "</div>";
                   html+="<div class='level2Comment'>"+ user.commentContent + "</div>";
                   html+="<div class='level2Date'>"+ user.commentDate + "</div>";
-                  html+="<div class='level2Report'>신고하기</div>";
-                  html+="<div class='level2Like'>추천 23</div>";
-                  html+="<div class='level2Dislike'>비추천 0</div>";
+                  html+="<div class='level2Report'>신고하기</div>";                               
+				  html+="<div class='level2Like' onclick='level2Like("+user.commentNo+","+user.commentLike+");' no="+i+">추천 "+user.commentLike+"</div>";
+ 				  /* html+="<div class='level2Like' no="+i+">추천"+user.commentLike+"</div>"; */
+                  html+="<div class='level2Dislike'onclick='level2Dislike("+user.commentNo+","+user.commentDislike+");' no="+i+">비추천 "+user.commentDislike+"</div>";
                
-               div.append(html);
+                  div.append(html);
                
             
               }
@@ -316,20 +317,23 @@
                var userId = data_split[0];
                var commentDate = data_split[1];
                var commentContent=data_split[2];
+               var commentLike=data_split[3];
+               var commentDislike=data_split[4];
+
                
                var div = $("<div class='level2_area'><div>");
             
             
                
                var html = "<hr />";
-               html+=
+                html+=
                "<span class='reply_icon'><img src='<%=request.getContextPath()%>/images/freeBoard/commentReply.png'></span>";
                 html+="<div class='info'>"+ userId + "</div>";
                 html+="<div class='level2Comment'>"+ commentContent + "</div>";
                 html+="<div class='level2Date'>"+ commentDate + "</div>";
                 html+="<div class='level2Report'>신고하기</div>";
-                html+="<div class='level2Like'>추천 23</div>";
-                html+="<div class='level2Dislike'>비추천 0</div>";
+                html+="<div class='level2Like'>추천 "+ commentLike + "</div>";
+                html+="<div class='level2Dislike'>비추천 "+ commentDislike + "</div>";
                
             	div.append(html);
                
@@ -346,17 +350,10 @@
     	  var no = $(this).attr("no");
     	  var commentUpdate = $(".comment-Update[no="+no+"]").val();
     	  var commentNo = $(".commentNo[commentNum="+no+"]").val();
-    	
-    	  $.ajax({
-	           url:"<%=request.getContextPath()%>/board/free/freeBoardCommentUpdate.do",
-	           data:{commentUpdate:commentUpdate, commentNo:commentNo},
-	           success:function(data){
-	              alert("수정이 완료되었습니다.");
-	        
-	         
-	           }
-	           
-	      });
+    	  var ref = $("[name=ref]").val();
+    	  
+		  location.href = "<%=request.getContextPath()%>/board/free/freeBoardCommentUpdate?commentUpdate="+commentUpdate+
+				  "&commentNo="+commentNo+"&ref="+ref;
 
     });
 
@@ -408,9 +405,57 @@
 	           
 	    });
 	});
-	
- 	
- 	
+
+ 	/* 대댓글 추천 */
+    function level2Like(item, item2){
+ 		var commentNo = item;
+ 		var commentLikeAmount = item2;
+ 		console.log("commentNo="+commentNo);
+ 		console.log("commentLikeAmount="+commentLikeAmount);
+
+ 	/* 	$(function() {
+ 			var no = $(this).attr("no");
+ 			console.log("도달!"+no); 
+     		
+ 		}); */
+    	 $(".level2Like").on("click",function(){
+     	    var no = $(this).attr("no");
+     		console.log("도달!"+no); 
+    	      	        
+ 	     $.ajax({
+  	           url:"<%=request.getContextPath()%>/board/free/freeBoardComment2Like.do",
+  	           data:{commentNo:commentNo, commentLikeAmount:commentLikeAmount},
+  	           success:function(data){
+  	             	console.log("머야!!!"+data);
+  	        	    //$(".level2Like[no="+no+"]").html("추천 "+data);
+  	           }
+  	           
+  	    	}); //에이젝스 
+    	 });
+ 	}
+ 	/* 대댓글 비추천 */
+ 	function level2Dislike(item, item2){
+ 		var commentNo = item;
+ 		var commentDislikeAmount = item2;
+ 		console.log("commentNo="+commentNo);
+ 		console.log("commentDislike="+commentDislikeAmount);
+ 		
+ 		$(".level2Dislike").on("click",function(){
+     	    var no = $(this).attr("no");
+     		 
+    	      	        
+  	    $.ajax({
+  	           url:"<%=request.getContextPath()%>/board/free/freeBoardComment1Dislike.do",
+  	           data:{commentNo : commentNo, commentDislikeAmount : commentDislikeAmount},
+  	           success:function(data){
+  	             	console.log(data);
+  	        	    $(".level2Dislike[no="+no+"]").html("비추천 "+data); 
+  	           }
+  	           
+  	    	}); //에이젝스
+    	 });
+ 	}
+ 	  	
     function likey(item){
        var postNo =  $("#postNo").val(); 
        console.log("postNo",postNo);
