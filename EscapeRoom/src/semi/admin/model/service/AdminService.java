@@ -21,29 +21,40 @@ public class AdminService {
 	public int loginCheck(Member m) {
 		int result = -1;
 		Connection conn = getConnection();
+		
+		result = new AdminDao().loginCheck(conn, m);
+		
 		close(conn);
+		
 		return result;
 	}
 	
-	// 관리자용 회원정보 상세보기
+	// 관리자용 회원 정보 상세보기
 	public Member selectOne(String userId) {
-		Connection conn = getConnection();
+		Connection conn = getConnection();		
 		Member m = new AdminDao().selectOne(conn, userId);
-		
 		close(conn);
 		return m;
 	}
 
+	// 관리자용 전체 회원 목록 보기
 	public List<Member> selectMemberList(int cPage, int numPerPage) {
-		List<Member> memberList = new ArrayList<Member>();
-		return memberList;
+		Connection conn = getConnection();
+		List<Member> list = new AdminDao().selectMemberList(conn, cPage, numPerPage);
+		close(conn);
+		return list;
 	}
 	
+	// 관리자용 전체 회원 수 보기
 	public int selectMemberCount() {
-		int m = 0;
-		return m;
+		Connection conn = getConnection();
+		int totalContent = new AdminDao().selectMemberCount(conn);
+		close(conn);
+		return totalContent;
 	}
 	
+	// 관리자용 신고된 게시글 보기
 	
-
+	// 관리자용 신고된 댓글 보기
+	
 }

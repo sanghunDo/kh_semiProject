@@ -367,4 +367,21 @@ insert into member values('chunjae', '1234', 'chunjae@tomato.com', null, null, d
 insert into member values('mungmung', '1234', 'mungmung@abc.com', null, null, default, default, default);
 
 create sequence seq_notice_noticeno;
+create table game_hint(
+    no number,
+    content varchar2(200)
+);
+
+insert into game_hint values(1, '일부 아이템은 여러번 사용할 수 있습니다.');
+insert into game_hint values(2, '넌 탈출할 수 없어..');
+insert into game_hint values(3, '화분은 망치로 깰 수 있습니다.');
+insert into game_hint values(4, '문은 두 개의 잠금장치를 모두 해제해야 합니다.');
+insert into game_hint values(5, '금고는 부술 수 없습니다.');
+insert into game_hint values(6, '창문밖에는 아무것도 없습니다.');
+insert into game_hint values(7, '형광등은 드라이버로 열 수 있습니다.');
+insert into game_hint values(8, '침대 뒤에 공간있어요.');
+insert into game_hint values(9, '행렬');
+insert into game_hint values(10, '위를 올려다 보세요.');
+
+
 commit;

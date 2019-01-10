@@ -4,6 +4,7 @@
 <%@ page import = "semi.admin.controller.*" %>
 <%
 	List<Member> list = (List<Member>)request.getAttribute("list");
+	
 	// 신고된 게시글 목록도 불러오기
    	
    int cPage = (int)request.getAttribute("cPage");
@@ -17,28 +18,38 @@ h2{
 	color: white;
 }
 
-section#memberList-container, #reportList-container {
+table a:link {
+	color: blue;
+}
+table a:visited {
+	color: purple;
+}
+table a:hover {
+	color: red;
+}
+
+section#memberList-container, #reportArtcList-container, #reportCmtList-container {
    text-align: center;
 }
 
-section#memberList-container, #reportList-container{
+section#memberList-container, #reportArtcList-container, #reportCmtList-container{
    width: 100%;
    border: 1px solid gray;
    border-collapse: collapse;
 }
 
-table#tbl-member, #tbl-report {
+table#tbl-member, #tbl-report-artc, #tbl-report-cmt {
    width: 100%;
    border: 1px solid gray;
    border-collapse: collapse;
 }
 
-table#tbl-member, #tbl-report th {
+table#tbl-member, #tbl-report-artc, #tbl-report-cmt th {
    border: 1px solid gray;
    padding: 1px;
    background : white;
 }
-table#tbl-member, #tbl-report td{
+table#tbl-member, #tbl-report-artc, #tbl-report-cmt td{
    border: 1px solid gray;
    padding: 1px;
    background : white;
@@ -90,7 +101,7 @@ div#pageBar a{
 	<%if(list == null || list.isEmpty()) { %>
 	   		<tr>
 			<td>
-				회원이 없습니다. 데이터베이스 연동을 확인해주세요.
+				불러올 회원 목록이 없습니다. 개발자에게 문의하세요.
 			</td>
 		</tr>
 	<%}
@@ -98,10 +109,9 @@ div#pageBar a{
 			for(Member m : list){
 	%>
 		<tr>
-			<!-- 회원아이디 클릭시 adminMemberView로 이동 -->
 			<td>
-				<a href="<%=request.getContextPath()%>/admin/adminMemberView?UserId=<%=m.getUserId()%>">
-				<%=m.getUserId() %>
+				<a href="<%=request.getContextPath()%>/admin/adminMemberView?userId=<%=m.getUserId()%>">
+				<%=m.getUserId()%>
 				</a>
 			</td>
 			<td><%=m.getUserEmail() %></td>
@@ -114,35 +124,87 @@ div#pageBar a{
 <div id="pageBar"><%=pageBar %></div>
 </section>
 <hr />
-<h2>신고된 게시글 & 댓글 목록</h2>
-<section id="reportList-container">
-	<table id="tbl-report">
+<h2>신고된 게시글 목록</h2>
+<section id="reportArtcList-container">
+	<table id="tbl-report-artc">
 		<thead>
 			<tr>
+				<th>카테고리</th>
 				<th>글번호</th>
-				<th>제목</th>
-				<th>글쓴이</th>
+				<th>게시글제목</th>
+				<th>게시글작성자</th>
 				<th>날짜</th>
-				<th>추천수</th>
-				<th>조회수</th>
+				<th>신고사유</th>
+				<th>신고내용</th>
 			</tr>
 		</thead>
 		<tbody>
 			<tr>
+				<td>F(자유)</td>
 				<td>1</td>
 				<td>멍멍</td>
 				<td>강아지</td>
 				<td>19/01/01</td>
-				<td>1</td>
-				<td>6</td>
+				<td>개털 알레르기</td>
+				<td>으악</td>
+			</tr>
+			<tr>
+				<td>S(공략)</td>
+				<td>3</td>
+				<td>야옹</td>
+				<td>고양이</td>
+				<td>19/01/03</td>
+				<td>고양이털 알레르기</td>
+				<td>꺄악</td>
 			</tr>
 		</tbody>
 	</table>
 </section>
-<!-- 아이디 클릭시 회원정보 상세내역(+사진파일) + 개인정보 수정/탈퇴 가능 -->
-<!-- 신고받은 게시글&댓글 보이는 섹션 -->
-<!-- 회원목록/신고글/신고댓글 보는 버튼/안 보는 버튼 -->
-<!-- 버튼 클릭시 displayNone 사용해서 섹션 숨김 기능 -->
-<!-- 추가기능: 새로운 신고 게시글/댓글 있을시 알림 뜨게 만들기 -->
+<div id="pageBar"><%=pageBar %></div>
+<h2>신고된 댓글 목록</h2>
+<section id="reportCmtList-container">
+	<table id="tbl-report-cmt">
+		<thead>
+			<tr>
+				<th>카테고리</th>
+				<th>게시글번호</th>
+				<th>댓글번호</th>
+				<th>댓글내용</th>
+				<th>댓글작성자</th>
+				<th>신고사유</th>
+				<th>신고내용</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td>F(자유)</td>
+				<td>2</td>
+				<td>3</td>
+				<td>멍멍멍멍</td>
+				<td>강아지</td>
+				<td>개털 알레르기</td>
+				<td>으악</td>
+			</tr>
+			<tr>
+				<td>S(공략)</td>
+				<td>3</td>
+				<td>6</td>
+				<td>야옹야옹</td>
+				<td>고양이</td>
+				<td>고양이털 알레르기</td>
+				<td>꺄악</td>
+			</tr>
+			<tr>
+				<td>R(랭킹)</td>
+				<td>0</td>
+				<td>7</td>
+				<td>짹짹짹짹</td>
+				<td>참새</td>
+				<td>참새깃털 알레르기</td>
+				<td>끼엑</td>
+			</tr>
+		</tbody>
+	</table>
+</section>
 <div id="pageBar"><%=pageBar %></div>
 <%@ include file="/WEB-INF/views/common/footer.jsp"%>

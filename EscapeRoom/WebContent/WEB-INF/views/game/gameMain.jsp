@@ -18,21 +18,30 @@
 	width: 40%;
 	height: 56%;
 	left: 30%;
-	top: 22%;	
+	top: 22%;
+	display: none;
 }
 #hint-paper{
 	position: absolute;
 	width: 400px;
 	height: 400px;
 }
-#hint div{
-    position: absolute;
-    width: 230px;
-    min-height: 50px;
-    top: 85px;
-    left: 64px;
-    transform: rotate(-9deg);
+#hint>div{
+	position: absolute;
+    width: 275px;
+    top: 54px;
+    left: 47px;
+    transform: rotate(-8deg);
     font-size: 35px;
+    word-break: break-all;
+}
+#hint div#close-hint{
+    position: relative;
+    width: 100%;
+    text-align: right;
+    font-size: 19px;
+    /* margin-right: 5px; */
+    cursor: pointer;
 }
 </style>
 </head>
@@ -67,7 +76,7 @@
 		</div>
 		<div id="hint">
 			<img src="<%=request.getContextPath() %>/images/hint_paper.png" id="hint-paper" />
-			<div>gsagegsagegdgasgesegseagsegaesgesegasege</div>
+			<div><div id="close-hint">X</div></div>
 		</div>
 </div>
 <script>
@@ -75,7 +84,7 @@ $("#back-ground").fadeOut(3000);
 setTimeout(function(){
 	$("#back-ground").attr("src", "<%=request.getContextPath()%>/images/game/gameMain/test.png").show();
 	$("#wrap").show();
-}, 3001);
+}, 3100);
 var record = setInterval(timer, 1000);
 function timer(){
 	var sec = $("[type=hidden]").val();
@@ -134,7 +143,7 @@ function buy_hint_paper(){
 	$("#btn-buyHint").on('click', function(){
 		$.ajax({
 			url:"<%=request.getContextPath()%>/game/buyHint",
-			type:"get",
+			type:"post",
 			success: function(result){
 				if(result === "true"){
 					show_message("<h2>구매가 완료되었습니다.</h2>", true);
@@ -142,14 +151,52 @@ function buy_hint_paper(){
 				}
 				else
 					show_message("<h2>보유 코인이 부족합니다.</h2>", true);
+			},
+			error: function(){
+				show_message("<h2>예기치 못한 오류가 발생했습니다.</h2>");
 			}
 		});
 	});
 };
 function use_hint_paper(){
 	$("#btn-useHint").on('click', function(){
-		show_message("<h2>쪽지를 뽑는중입니다.</h2>", false);
-		$("#message h2").css({"animation":"bling .7s", "animation-iteration-count":"3"});
+		$.ajax({
+			url:"<%=request.getContextPath()%>/game/useHint",
+			type:"post",
+			success: function(data){
+				if(data === "true"){
+					show_message("<h2>쪽지를 뽑는중입니다.</h2>", false);
+					get_hint();
+					$("#message h2").css({"animation":"bling .7s", "animation-iteration-count":"3"});
+					setTimeout(function(){
+						$("#message").hide();
+						$("#hint").show();
+					}, 2500);
+					close_hint_paper();
+					coin_hint_refresh();
+				}else{
+					show_message("<h2>쪽지를 구매해주세요.</h2>", true);
+				}
+			},
+			error: function(){
+				show_message("<h2>예기치 못한 오류가 발생했습니다.</h2>");
+			}
+		});
+	});
+};
+function close_hint_paper(){
+	$("#close-hint").on('click', function(){
+		$("#hint").hide();
+		$("#pause-menu-container").removeClass("paused");
+	});
+};
+function get_hint(){
+	$.ajax({
+		url: "<%=request.getContextPath()%>/game/getHint",
+		type:"post",
+		success: function(data){
+			$("#close-hint").after(data);
+		}
 	});
 };
 function show_pause_menu(menuName){
@@ -234,6 +281,7 @@ $(window).on('keyup', function(e){
 		opener.parent.sessionStorage.removeItem("game");
 	}
 }).on('beforeunload', function(){
+	confirm("");
 	opener.parent.sessionStorage.removeItem("game");
 });
 </script>

@@ -33,22 +33,17 @@ public class AdminBoardServlet extends HttpServlet {
    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
       // 회원 전체보기 서블릿
       // 회원정보 가져와서 request로 전송하기
-      // 1. 파라미터 핸들링
-      // 관리자로 로그인되었는지 확인하기
-      String userId = request.getParameter("userid");
-      String password = request.getParameter("password");
-      System.out.printf("[%s, %s]\n", userId, password);
-      
-      Member loggedInMember = (Member)request.getSession().getAttribute("loggedInMember");
-      
-      //관리자가 아니거나 로그인상태가 아니면 사이트 접근 금지
+      // 0. 관리자로 로그인되었는지 확인하기
+	  // 관리자가 아니거나 로그인상태가 아니면 사이트 접근 금지
+	  Member loggedInMember = (Member)request.getSession().getAttribute("loggedInMember");
       if(loggedInMember == null || !"admin".equals(loggedInMember.getUserId())) {
          request.setAttribute("msg", "잘못된 경로로 접근하셨습니다.");
          request.setAttribute("loc", "/");
          request.getRequestDispatcher("/WEB-INF/views/common/msg.jsp").forward(request, response);
          return;
       }
-
+      
+      // 1. 파라미터 핸들링
       // 페이징
       int cPage;
       try {

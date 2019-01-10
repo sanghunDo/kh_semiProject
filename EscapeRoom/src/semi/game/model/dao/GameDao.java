@@ -65,5 +65,43 @@ public class GameDao {
 		}
 		return result;
 	}
+	
+	public int useHint(Connection conn, Member m) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		String query = prop.getProperty("useHint");
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, m.getUserId());
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
+	}
+	
+	public String getHint(Connection conn, int num) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String query = prop.getProperty("getHint");
+		String hint = "";
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1, num);
+			rset = pstmt.executeQuery();
+			if(rset.next()) {
+				hint = rset.getString("content");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return hint;
+	}
 
 }

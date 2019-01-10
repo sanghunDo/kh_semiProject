@@ -1,0 +1,13 @@
+* 변경사항
+sql에 admin 폴더랑 admin-query.properties 만듬
+AdminDao에서 리소스를 member-query.properties 대신 admin-query.properties로 변경
+adminBoard에서 회원 아이디 클릭시 관리자용 회원정보 상세보 페이지로 이동됨
+db에 관리자용 신고게시글&댓글 데이터 추가
+
+* 구현기능
+아이디 클릭시 회원정보 상세내역(+사진파일) + 개인정보 수정/탈퇴 가능
+관리자용 회원정보 상세보기 페이지에서 수정기능 구현 예정
+adminBoard에서 admin_report_table 연동 확인->
+신고받은 게시글 & 댓글 보이는 섹션
+회원목록/신고글/신고댓글 보는 버튼/안 보는 버튼: 클릭시 displayNone 사용해서 섹션 숨기기
+추가기능: 새로운 신고 게시글/댓글 있을시 알림 뜨게 만들기
