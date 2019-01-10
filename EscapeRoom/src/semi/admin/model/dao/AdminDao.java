@@ -21,7 +21,7 @@ public class AdminDao {
    public AdminDao() {
       // (WebContent/WEB-INF/)classes 폴더에서부터 시작하여 해당파일까지의 절대 경로
       // WEB-INF 폴더 아래에 넣어두면 서버에서 서비스 할 때 외부에서 URL로 직접 접근할 수 없게 되어 보안성이 좋다.
-      String fileName = AdminDao.class.getResource("/sql/member/member-query.properties").getPath();
+      String fileName = AdminDao.class.getResource("/sql/admin/admin-query.properties").getPath();
       
       try {
          prop.load(new FileReader(fileName));
@@ -32,6 +32,38 @@ public class AdminDao {
       }
    }
    
+   public int loginCheck(Connection conn, Member m) {
+		int result = -1;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String query = prop.getProperty("loginCheck");
+		
+		try {
+			//1.statement객체 생성 및 미완성쿼리문 완성
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, m.getUserId());
+			pstmt.setString(2, m.getUserPassword());
+			pstmt.setString(3, m.getUserId());
+			
+			//2.쿼리실행
+			rset = pstmt.executeQuery();
+			
+			//3.결과 변수  result에 담기
+			if(rset.next()) {
+				result = rset.getInt("login_check");
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+			
+		}
+		
+		return result;
+	}
+   
    // 관리자용 회원 정보 상세보기
    public Member selectOne(Connection conn, String userId) {
       Member m = null;
@@ -41,21 +73,22 @@ public class AdminDao {
       
       try {
          pstmt = conn.prepareStatement(query);
-         
          pstmt.setString(1, userId);
          
          // 쿼리 실행
          rset = pstmt.executeQuery();
          
          // 실행 후 결과를 m에 담기
-         if(rset.next()) {
-            m.setUserId("userid");
-            m.setUserPassword("userPassword");
-            m.setUserEmail("email");
+         while(rset.next()) {
+        	m = new Member();
+            m.setUserId(rset.getString("userid"));
+            m.setUserPassword(rset.getString("userPassword"));
+            m.setUserEmail(rset.getString("email"));
             m.setUserProfileOriginalFile(rset.getString("userprofileoriginalfile"));
-            m.setUserProfileOriginalFile("userProfileOriginalFile");
-            m.setUserProfileRenamedFile("userProfileRenamedFile");
+            m.setUserProfileOriginalFile(rset.getString("userProfileOriginalFile"));
+            m.setUserProfileRenamedFile(rset.getString("userProfileRenamedFile"));
             m.setEnrollDate(rset.getDate("enrolldate"));
+            
          }
          
       } catch (Exception e) {
@@ -63,7 +96,7 @@ public class AdminDao {
       } finally  {
          // 자원 반납
          close(rset);
-         close(conn);
+         close(pstmt);
       }
       
       return m;
@@ -140,6 +173,12 @@ public class AdminDao {
       return totalContent;
    }
       
+   // 관리자용 신고 게시글 목록 보여주기
+   
+   
+   // 관리자용 신고 댓글 목록 보여주기
+   
+   
    // 회원 이메일로 검색시 목록 보여주기
    public List<Member> selectMemberListByEmail(Connection conn) {
       List<Member> memberListByEmail = new ArrayList<Member>();

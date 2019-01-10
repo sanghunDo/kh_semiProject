@@ -18,6 +18,17 @@ public class AdminService {
 	public static final String LOGIN = "1";
 	public static final String LOGOUT = "0";
 	
+	public int loginCheck(Member m) {
+		int result = -1;
+		Connection conn = getConnection();
+		
+		result = new AdminDao().loginCheck(conn, m);
+		
+		close(conn);
+		
+		return result;
+	}
+	
 	// 관리자용 회원 정보 상세보기
 	public Member selectOne(String userId) {
 		Connection conn = getConnection();		
@@ -41,5 +52,9 @@ public class AdminService {
 		close(conn);
 		return totalContent;
 	}
+	
+	// 관리자용 신고된 게시글 보기
+	
+	// 관리자용 신고된 댓글 보기
 	
 }

@@ -28,18 +28,22 @@ public class AdminMemberUpdateServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// 관리자로 로그인되었는지 확인하기
-		String userId = request.getParameter("userid");
-		String password = request.getParameter("password");
-		System.out.printf("[%s, %s]\n", userId, password);
-		
+		// 관리자용 회원정보 수정하는 서블릿
+		// 회원정보 가져와서 request로 전송
+		// 0. 관리자로 로그인되었는지 확인하기
 		Member loggedInMember = (Member)request.getSession().getAttribute("loggedInMember");
-		if(loggedInMember != null || !"admin".equals(loggedInMember.getUserId())) {
+		if(loggedInMember != null && !"admin".equals(loggedInMember.getUserId())) {
 			request.setAttribute("msg", "잘못된 경로로 접근하셨습니다.");
 			request.setAttribute("loc", "/");
 			request.getRequestDispatcher("/WEB-INF/views/common/msg.jsp").forward(request, response);
 			return;
 			}
+		
+		// 1. 파라미터 핸들링
+		
+		// 2. 비즈니스 로직
+		
+		// 3. view단 처리
 		
 	}
 
