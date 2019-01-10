@@ -7,6 +7,8 @@
 %>
 <link rel="stylesheet" href="<%=request.getContextPath()%>/css/board/free/boardCommunityForm.css" />
 <title>자유게시판</title>
+<script src="<%=request.getContextPath()%>/js/jquery-3.3.1.js"></script>
+
 <script>
 function validate(){
 	var content = $("textarea[name=content]");
@@ -19,6 +21,16 @@ function validate(){
 	$("form[name=updateForm]").submit();
 	return true;
 }
+
+$("[name=up_file]").on("click",function(){
+    console.log("바뀌는거마즘..");
+   
+       /* 값이 없으면 숨기기 */
+       $("#fname").css("display","hidden");
+
+      
+  
+});
 </script>
 <div class="container">
     <h3>수정하기</h3>
@@ -50,7 +62,7 @@ function validate(){
                 </td>
             </tr>
             <tr>
-                <td class="content">
+                <td class="content">     
                         <textarea name="content" id="content" cols="30" rows="10" style="margin-top: 3px; width: 1004px; height: 506px; resize:none;">
                         <%=fb.getPostContent() %>
                         </textarea>
@@ -60,12 +72,15 @@ function validate(){
                 <th scope="col">첨부파일</th>
                 <td>			
                         <input type="file" name="up_file">
-                        <input type="checkbox" name="del_file" id="del_file" />
+                        <div id="fname"><%=fb.getPostOriginalFile()!=null?fb.getPostOriginalFile():""%></div>
                         
 						<input type="hidden" name="old_renamed_file" value="<%=fb.getPostRenamedFile()%>" />
 						<input type="hidden" name="old_original_file" value="<%=fb.getPostOriginalFile()%>" />
-						<label for="del_file1">첨부파일 삭제</label>
-                </td>
+						<%if(fb.getPostOriginalFile() != null){ %>			
+						<input type="checkbox" name="del_file" id="del_file" />
+						<label for="del_file">첨부파일 삭제</label>
+						<%} %>
+                 </td>
             </tr>
            <!--  <tr>
                     <th scope="col">첨부파일2</th>
