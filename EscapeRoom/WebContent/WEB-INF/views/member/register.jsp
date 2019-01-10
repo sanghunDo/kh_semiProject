@@ -15,12 +15,12 @@ function registerValidate(){
 	
 	// 아이디 검사
 	var $userId_ = $("#userId_"); // 유저 아이디
-	var getUserId = RegExp(/^[a-z0-9][a-z0-9]{4,11}$/); // 유저 아이디 유효성 검사
+	var getUserId = RegExp(/^[a-zA-Z]+[a-zA-Z0-9]{4,11}$/); // 유저 아이디 유효성 검사
 	
 	// 비밀번호 검사
 	var $userPassword_ = $("#userPassword_"); // 유저 비밀번호
 	var $userPassword__ = $("#userPassword__"); // 비교할 유저 비밀번호
-	var getUserPassword = RegExp(/^(?=.*[A-Za-z])(?=.*[0-9])(?=.*[#?!@$%^&*-]).{5,19}$/); // 유저 비밀번호 유효성 검사
+	var getUserPassword = RegExp(/^(?=.*[A-Za-z])(?=.*[0-9])(?=.*[#?!@$%^&*-_]).{5,19}$/); // 유저 비밀번호 유효성 검사
 
 	// 이메일 검사 
 	var $userEmail = $("#userEmail"); // 유저 이메일
@@ -41,7 +41,7 @@ function registerValidate(){
 	
 	// 아이디 유효성 검사
 	if(!getUserId.test($userId_.val())){
-		alert("아이디는 영소문자와 숫자를 포함한 5~12 자리로 입력해주세요.");
+		alert("아이디는 영문자로 시작하고, 5~12자 영문자 또는 숫자를 입력해주세요.");
 		$userId_.val("");
 		$userId_.focus();
 		return false;
@@ -71,7 +71,7 @@ function registerValidate(){
 	
 	// 비밀번호 유효성 검사
 	if(!getUserPassword.test($userPassword_.val())){
-		alert("비밀번호는 영문자와 숫자, 특수 문자를 포함한 6~20 자리로 입력해주세요.");
+		alert("비밀번호는 영문자와 숫자, 특수 문자를 포함한 \n6~20 자리로 입력해주세요.\n특수문자는 '#?!@$%^&*-_'만 가능합니다.");
 		$userPassword_.val("");
 		$userPassword_.focus();
 		return false;
@@ -123,7 +123,7 @@ function registerValidate(){
 }
 
 function checkIdDuplicate(){
-	var getUserId = RegExp(/^[a-z0-9][a-z0-9]{4,11}$/); // 유저 아이디 유효성 검사
+	var getUserId = RegExp(/^[a-zA-Z]+[a-zA-Z0-9]{4,11}$/); // 유저 아이디 유효성 검사
 	// 아이디 중복검사폼 전송
 	var $userId = $("#userId_").val();
 	if($userId == ""){
@@ -132,7 +132,7 @@ function checkIdDuplicate(){
 	}
 	
 	if(!getUserId.test($userId)){
-		alert("아이디는 영문자와 숫자를 포함한 5~12 자리로 입력해주세요.");
+		alert("아이디는 영문자로 시작하고, 5~12자 영문자 또는 숫자를 입력해주세요.");
 		return;
 	}
 	

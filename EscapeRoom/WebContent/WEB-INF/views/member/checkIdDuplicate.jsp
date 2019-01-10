@@ -15,7 +15,7 @@
 <script>
 function checkIdDuplicate(){
 	var userId = $("#userId").val(); // 유저 아이디
-	var getUserId = RegExp(/^(?=.*[A-Za-z])(?=.*[0-9]).{5,15}$/); // 유저 아이디 유효성 검사
+	var getUserId = RegExp(/^[a-zA-Z]+[a-zA-Z0-9]{4,11}$/); // 유저 아이디 유효성 검사
 	
 	if(userId == ""){
 		alert("아이디를 입력해주세요.");
@@ -23,7 +23,7 @@ function checkIdDuplicate(){
 	}
 	
 	if(!getUserId.test(userId)){
-		alert("아이디는 영문자와 숫자를 포함한 5~15 자리로 입력해주세요.");
+		alert("아이디는 영문자로 시작하고, 5~12자 영문자 또는 숫자를 입력해주세요.");
 		return;
 	}
 	

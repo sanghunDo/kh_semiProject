@@ -60,7 +60,7 @@ div#updatePassword-Container table tr:last-of-type td{
 
 		// 비밀번호 유효성 검사
 		if (!getUserPassword.test($userPassword_New.val())) {
-			alert("비밀번호는 영문자와 숫자, 특수 문자를 포함한 6~20 자리로 입력해주세요.");
+			alert("비밀번호는 영문자와 숫자, 특수 문자를 포함한 \n6~20 자리로 입력해주세요.\n특수문자는 '#?!@$%^&*-_'만 가능합니다.");
 			$userPassword_New.val("");
 			$userPassword_New.focus();
 			
