@@ -66,6 +66,8 @@
             border-radius: 3px;
             margin-bottom:  12px;
             margin: 5px;
+            top: 96px;
+                position: relative;
          }
 
           .button:hover{
@@ -88,9 +90,10 @@
             float: right;
         }
         #goList{
-            float: right;
-        position: relative;
-        top: -77px;
+        float: right;
+    	position: relative;
+    	top: 8px;
+    	margin-bottom: 82px;
 
         }
         .commentSubmit{
@@ -185,7 +188,7 @@
         }
         .bestCommentOpinion{
             text-align: right;
-            color:white;
+            
         
         }
         .bestCommentOpinion span:hover{
@@ -255,7 +258,7 @@
 
             position: relative;
              left: 81px;
-            top: -36px;
+            top: 59px;
         }
             .updateCommentEnd{
             display:none;
@@ -295,6 +298,8 @@
             margin-bottom:  12px;
             margin: 5px;
             cursor:pointer;
+            position: relative;
+    		left: 39px;
          }
          
          
@@ -356,6 +361,10 @@
             border-radius: 3px;
             margin-bottom:  12px;
             margin: 5px;
+                position: relative;
+    left: 35px;
+            
+            
 }
 
 .commentDeleteBtn{
@@ -370,6 +379,8 @@
             margin-bottom:  12px;
             margin: 5px;
             cursor:pointer;
+            position: relative;
+    left: 50px;
 }
  span#level2CommentList{
             margin-left: 21px;
@@ -415,7 +426,8 @@ table#tbl-comment button.btn-insert2{
 }
     dl .CommentOpinion{
     position: relative;
-    top: -111px;
+    top: -64px;
+        color: white;
     }
     dd .comment{
     style="padding-bottom: 44px;margin-left: 10px; color: white; position: relative; top: -43px;left: 16px;"
@@ -470,15 +482,15 @@ table#tbl-comment button.btn-insert2{
 	 margin-left: 106px;
     position: relative;
     top: -45px;
-    left: 47px;
+    left: 127px;
 	
 }
 .level2Report{
-	margin-left: 106px;
+margin-left: 106px;
     position: relative;
-    left: 841px;
-    top: -24px;
-    cursor:pointer;
+    left: 299px;
+    top: -66px;
+    cursor: pointer;
 }
 .level2Like{
 	
@@ -498,6 +510,15 @@ table#tbl-comment button.btn-insert2{
 .level2_area{
 /* 	display:none; */
 }
-
+.bestEdit{
+	display: inline-flex;
+	position: relative;
+	left: 177px;
+	top: -57px;
+	
+}
+.bestContent{
+	margin-top:-38px;
+}
 
 
