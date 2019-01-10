@@ -31,6 +31,12 @@ window.onload=function(){
 	</div>
 </div>
 <script>
+	$(window).on('keyup', function(e){
+		opener.parent.sessionStorage.removeItem("game");
+	}).on('beforeunload', function(){
+		opener.parent.sessionStorage.removeItem("game");
+	});
+
 	setTimeout(function(){
 		$("#warning").css("display", "none");
 		$("#prologue").fadeIn(1000);
@@ -43,6 +49,7 @@ window.onload=function(){
 			$("#msgBox").removeClass("me");
 		}
 		if(cnt==17){
+			$("body, #background").css({"animation": "bang .1s", "animation-iteration-count": "3"});
 			$(this).parent().fadeOut(3000); //마지막 대사 이후 클릭시 메인게임으로 이동.
 			setTimeout(function(){
 				location.href="<%=request.getContextPath()%>/game/gameMain";
@@ -57,7 +64,10 @@ window.onload=function(){
 			success: function(data){
 				target.removeAttr("style");
 				//대사에 해당되는 이미지가 있던 없던 불러와서 이미지를 추가함. 이미지가 없으면 "", 있으면 해당 파일이름.
-				$("#prologue").find("img").attr("src", data.fileName);
+				if(data.fileName!=""){
+					$("#background").attr("src", "<%=request.getContextPath()%>/images/game/prologue/"+data.fileName).fadeIn(1500);
+				}
+				
 				target.text(data.content);
 				target.parent().css("width",target.outerWidth());
 				var length = data.content.length;

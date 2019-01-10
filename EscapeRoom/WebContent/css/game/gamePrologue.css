@@ -5,6 +5,8 @@ body, html{
    padding: 0px;
    margin: 0 auto;
    background:black;
+   position: relative;
+   overflow: hidden;
 }
 
 div#warning{
@@ -42,15 +44,15 @@ div#prologue{
 	position: relative;
 	width: 100%;
 	height: 100%;
-	background: black;
 	top: 0;
 	display: none;
 }
 img#background{
 	position: fixed;
-	width: 800px;
+	width: 650px;
 	height: 600px;
-	margin: 0 auto;
+	left: 200px;
+	display: none;
 }
 div#prologue div#msgBox{
 	position: relative;
@@ -123,4 +125,10 @@ div#msgBox.me:after{
     left: 709px;
     border-left: 0px solid white;
     transform: rotateZ(35deg);
+}
+@-webkit-keyframes bang{
+	0%{left: 0px;}
+	33%{left: -100px;}
+	66%{left: 100px;}
+	99%{left: 0px;};
 }

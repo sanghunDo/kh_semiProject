@@ -121,12 +121,11 @@ function show_message(msg){
 		$("#message").hide();
 	}, 1500);
 };
-
-$("#back-ground").fadeOut(2000);
+$("#back-ground").fadeOut(3000);
 setTimeout(function(){
 	$("#back-ground").attr("src", "<%=request.getContextPath()%>/images/game/gameMain/test.png").show();
 	$("#wrap").show();
-}, 2500);
+}, 3500);
 
 $("#next").click(function(e){
 	$(this).css("visibility", "hidden").siblings("#prev").css("visibility", "visible");
@@ -167,6 +166,9 @@ $("#pause").on("click", {flag:1}, function(e){
 $(window).on('keyup', function(e){
 	if(e.keyCode==27){
 		$("#pause").trigger("click");
+	}
+	if(e.keyCode==87&&isCtrl==true){
+		opener.parent.sessionStorage.removeItem("game");
 	}
 }).on('beforeunload', function(){
 	opener.parent.sessionStorage.removeItem("game");

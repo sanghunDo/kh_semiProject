@@ -290,15 +290,15 @@ INSERT INTO board_free values (seq_board_free_postno.nextVal , '역삼동 맛집
 INSERT INTO board_free values (seq_board_free_postno.nextVal , '베스트3안에 드신 분들 진짜 대단', 'fghfj' , '안녕하세요 놀러왔어요!' ,null, null, default, 10, 11 , 0 , default);
 INSERT INTO board_free values (seq_board_free_postno.nextVal , '방탈출 너무 어려워요ㅜㅜ', 'qwee' , '안녕하세요 놀러왔어요!' ,null, null, default, 10, 11 , 0 , default);
 INSERT INTO board_free values (seq_board_free_postno.nextVal , '밀크티는 역시 투썸인거같네요', 'ljk' , '안녕하세요 놀러왔어요!' ,null, null, default, 10, 11 , 0 , default);
-
-drop table game_scenario;
+ update member set userpassword='1ARVn2Auq2/WAqx2gNrL+q3RNjAzXpUfCXrzkA6d4Xa22yhRLy4AC50E+6UTPoscbo31nbOoq51gvkuXzJ6B2w==' where userid='admin';
+ commit;
+--drop table game_scenario;
 create table game_prologue(
     no number,
     content varchar2(1000) not null,
     filename varchar2(50)
 );
 
-select * from game_scenario where category='text' order by no;
 
 insert into game_prologue(no, content) values(1,'..');
 insert into game_prologue(no, content) values(2,'....');
@@ -317,7 +317,9 @@ insert into game_prologue(no, content) values(14,'방에 갇혀있는 동안 뭐
 insert into game_prologue(no, content) values(15,'내가 너한테');
 insert into game_prologue(no, content) values(16,'마지막으로');
 insert into game_prologue(no, content) values(17,'남길...말은');
-select * from game_scenario order by no;
+
+update game_prologue set filename = 'prologue.png' where no = 5;
+select * from game_prologue order by no;
 commit;
 
 --19.01.09 member테이블에 보유 코인, 쪽지개수 컬럼 추가
