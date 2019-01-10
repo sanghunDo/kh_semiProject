@@ -8,6 +8,11 @@ body, html{
    background: black;
    font-family:'Noto Serif KR', serif;
 }
+img#back-ground{
+	position: fixed;
+	width: 1008px;
+	height: 704px;
+}
 div#wrap{
 	position: relative;
 	width: 100%;
@@ -22,7 +27,7 @@ div#inventory{
 	top: 100%;
 	margin: 0 auto;
 	background: lightgray;
-	opacity: .7;
+	opacity: .9;
 	border: 2px solid gray;
 	border-radius: 15px;
 }
@@ -41,7 +46,7 @@ div#inventory div#prev:hover, div#inventory div#next:hover{cursor: pointer;opaci
 div#inventory div#prev:hover span, div#inventory div#next:hover span{transform: scale(1.2);}
 div#inventory div#obj-list-container{
 	position: relative;
-	width: 535px;
+	width: 565px;
 	height: 75%;
 	top: 7%;
 	margin: 0 auto;
@@ -51,6 +56,7 @@ div#inventory div#obj-list{
 	position: relative;
 	width: 200%;
 	height: 100%;
+	margin-left: 13px;
 	white-space: nowrap;
 }
 div#inventory div#obj-list div{
@@ -59,11 +65,19 @@ div#inventory div#obj-list div{
 	width: 90px;
 	height: 90px;
 	top: 13%;
-	margin-right: 14px;
-	border: 1px solid black;
+	margin-right: 16px;
+	border: 1px solid gray;
+	cursor: pointer;
+}
+div#inventory div#obj-list div:hover{
+	border: 1px solid white;
+	/* box-shadow: 2px 2px 15px white; */
 }
 div#inventory div#obj-list div#obj5{
-	margin-right: 0;
+	margin-right: 21px;
+}
+.selected{
+	box-shadow: 0px 0px 25px brown;
 }
 div#inventory:before{
 	content:"open"; 
@@ -367,4 +381,34 @@ h2{
 	0%{opacity: 1;}
 	50%{opacity: .2;}
 	100%{opacity: 1;}
+}
+#hint{
+	position: absolute;
+	width: 40%;
+	height: 56%;
+	left: 30%;
+	top: 22%;
+	display: none;
+}
+#hint-paper{
+	position: absolute;
+	width: 400px;
+	height: 400px;
+}
+#hint>div:last-of-type{
+	position: absolute;
+    width: 275px;
+    top: 85px;
+    left: 50px;
+    transform: rotate(-8deg);
+    font-size: 35px;
+    word-break: break-all;
+}
+#hint div#close-hint{
+	position: absolute;
+    top: 38px;
+    left: 297px;
+    transform: rotate(-8deg);
+    font-size: 19px;
+    cursor: pointer;
 }

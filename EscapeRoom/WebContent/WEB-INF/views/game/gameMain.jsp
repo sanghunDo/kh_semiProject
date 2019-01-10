@@ -12,41 +12,10 @@
 <script src="<%=request.getContextPath()%>/js/jquery-3.3.1.js"></script>
 <link href="https://fonts.googleapis.com/css?family=Noto+Serif+KR" rel="stylesheet">
 <link rel="stylesheet" href="<%=request.getContextPath() %>/css/game/gameMain.css" />
-<style>
-#hint{
-	position: absolute;
-	width: 40%;
-	height: 56%;
-	left: 30%;
-	top: 22%;
-	display: none;
-}
-#hint-paper{
-	position: absolute;
-	width: 400px;
-	height: 400px;
-}
-#hint>div{
-	position: absolute;
-    width: 275px;
-    top: 54px;
-    left: 47px;
-    transform: rotate(-8deg);
-    font-size: 35px;
-    word-break: break-all;
-}
-#hint div#close-hint{
-    position: relative;
-    width: 100%;
-    text-align: right;
-    font-size: 19px;
-    /* margin-right: 5px; */
-    cursor: pointer;
-}
-</style>
+<link rel="stylesheet" href="<%=request.getContextPath() %>/css/game/gameObject.css" />
 </head>
 <body>
-<%@ include file='/WEB-INF/views/game/gameBackground.jsp' %>
+<img src="<%=request.getContextPath() %>/images/game/gameMain/game_start_again.jpeg" alt="" id="back-ground"/>
 <div id="wrap">
 	<input type="hidden" value=0 />
 		<div id="pause-menu-container">
@@ -76,13 +45,15 @@
 		</div>
 		<div id="hint">
 			<img src="<%=request.getContextPath() %>/images/hint_paper.png" id="hint-paper" />
-			<div><div id="close-hint">X</div></div>
+			<div id="close-hint">X</div>
+			<div></div>
 		</div>
 </div>
+<%@ include file="/WEB-INF/views/game/gameController.jsp" %>
 <script>
 $("#back-ground").fadeOut(3000);
 setTimeout(function(){
-	$("#back-ground").attr("src", "<%=request.getContextPath()%>/images/game/gameMain/test.png").show();
+	$("#back-ground").attr("src", "<%=request.getContextPath()%>/images/game/gameMain/background.png").show();
 	$("#wrap").show();
 }, 3100);
 var record = setInterval(timer, 1000);
@@ -172,7 +143,6 @@ function use_hint_paper(){
 						$("#message").hide();
 						$("#hint").show();
 					}, 2500);
-					close_hint_paper();
 					coin_hint_refresh();
 				}else{
 					show_message("<h2>쪽지를 구매해주세요.</h2>", true);
@@ -187,6 +157,7 @@ function use_hint_paper(){
 function close_hint_paper(){
 	$("#close-hint").on('click', function(){
 		$("#hint").hide();
+		$("#hint div:last").text("");
 		$("#pause-menu-container").removeClass("paused");
 	});
 };
@@ -195,7 +166,7 @@ function get_hint(){
 		url: "<%=request.getContextPath()%>/game/getHint",
 		type:"post",
 		success: function(data){
-			$("#close-hint").after(data);
+			$("#close-hint+div").text(data);
 		}
 	});
 };
@@ -236,6 +207,7 @@ function add_event_listener(){
 	use_hint_paper();
 	show_record();
 	active_esc();
+	close_hint_paper();
 };
 
 $("#next").click(function(e){
@@ -255,10 +227,16 @@ $("#inventory").on('click',{flag:0},function(e){
 		e.stopPropagation();
 	});
 });
+$("#obj-list div").each(function(){
+	$(this).on('click', function(){
+		$(this).toggleClass("selected");
+		$(this).siblings().removeClass("selected");
+	});
+});
 $("#pause").on("click", {flag:1}, function(e){
 	var $target = $(this);
 	var cnt = e.data.flag++;
-	$("#back-ground").toggleClass("paused");
+	$("img").toggleClass("paused");
 	if(cnt%2!=0){
 		$target.children().attr("src", "<%=request.getContextPath()%>/images/game/gameMain/play.png");
 		$("#pause-menu-container").show();

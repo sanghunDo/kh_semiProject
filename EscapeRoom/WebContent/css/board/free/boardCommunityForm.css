@@ -33,6 +33,7 @@
             padding: 8px 10px 9px;
             border-bottom : solid 1px #d2d2d2;
             line-height:18px;
+            color: white;
             
         }
         .sub_news .date,.sub_news .views{
@@ -90,4 +91,14 @@
         #goList{
             margin-top: 10px;
             float: left;
+        }
+        #fname{
+position: relative;
+    left: 78px;
+    top: -21px;
+    font-size: 14px;
+    background: black;
+ 
+    
+    width: 129px;
         }

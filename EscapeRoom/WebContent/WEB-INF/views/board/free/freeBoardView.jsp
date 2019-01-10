@@ -48,8 +48,15 @@
             <tr>
                 <th scope="col">내용</th>
                 <td class="content" style="height: 500px;">
-                
+                       <%if(fb.getPostRenamedFile()!=null){ %>
+                       		<img src='<%=request.getContextPath()%>/upload/freeBoard/<%=fb.getPostRenamedFile() %>' class="contentPhoto" alt="지원하지 않는 사진 입니다."  />
+                       		<br />
+                       		<br />
+                       		<br />
+                       		<%=fb.getPostContent() %>
+                       <%} else {%>
                        <%=fb.getPostContent() %>
+                       <%} %>
                 </td>
             </tr>
     </table>

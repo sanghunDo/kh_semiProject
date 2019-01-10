@@ -13,7 +13,10 @@
 	int cPage = (int)request.getAttribute("cPage");
 	int numPerPage = (int)request.getAttribute("numPerPage");
 	String pageBar = (String)request.getAttribute("pageBar");
-
+	String searchVal = (String)request.getAttribute("searchVal");
+	String searchType = (String)request.getAttribute("searchType");
+	System.out.println("searchVal="+searchVal);
+	System.out.println("searchType="+searchType);
 
 %>
 <link rel="stylesheet" href="<%=request.getContextPath()%>/css/board/free/boardCommunityTable.css" />
@@ -161,7 +164,7 @@ function noEnter(){
             <option no="2" value="content">내용</option>
             <option no="3" value="id">아이디</option>
         </select>
-        <input type="text" name="searchVal" id="searchVal">
+        <input type="text" name="searchVal" id="searchVal" value="<%=searchVal%>">
         <div id="search" style="width:50px;position: relative;top: -42px;color: white;">검색</div>
     </div>
 
@@ -180,7 +183,8 @@ function noEnter(){
 			var option = $("#searchOpt option:selected").val();
 			var searchVal = $("#searchVal").val();
 			location.href = "<%=request.getContextPath()%>/board/free/freeBoardSearch?searchType="+option+"&searchVal="+searchVal;
-     });
+  });
+
 
 </script>
 </body>

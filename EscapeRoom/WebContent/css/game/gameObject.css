@@ -1,0 +1,8 @@
+@charset "UTF-8";
+.backObj{
+	position: absolute;
+    top: 150px;
+    left: 200px;
+    cursor: pointer;
+    transform: rotateZ(1deg);
+}
