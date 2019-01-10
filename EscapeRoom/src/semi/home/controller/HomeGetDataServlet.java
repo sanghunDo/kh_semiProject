@@ -14,7 +14,7 @@ import semi.home.model.service.HomeService;
 /**
  * Servlet implementation class HomeGetDataServlet
  */
-@WebServlet("/home/homeGetData")
+@WebServlet("/home")
 public class HomeGetDataServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
