@@ -31,6 +31,9 @@ public class AdminMemberListServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// 회원 전체보기 서블릿
+		// 회원정보 가져와서 request로 전송하기
+		// 1. 파라미터 핸들링
 		// 관리자로 로그인되었는지 확인하기
 		String userId = request.getParameter("userid");
 		String password = request.getParameter("password");
@@ -43,8 +46,6 @@ public class AdminMemberListServlet extends HttpServlet {
 			request.getRequestDispatcher("/WEB-INF/views/common/msg.jsp").forward(request, response);
 			return;
 			}
-
-		// 파라미터 핸들링
 
 		// 페이징
 		int cPage;
@@ -62,21 +63,21 @@ public class AdminMemberListServlet extends HttpServlet {
 			}
 			System.out.printf("[cPage=%s, numPerPage=%s]\n", cPage, numPerPage);
 
-		// 비즈니스 로직
+		// 2. 비즈니스 로직
 		// 2. 1. 컨텐츠 영역
-		List<Member> list = new AdminService().selectMemberList(cPage, numPerPage);
+		List<Member> memberList = new AdminService().selectMemberList(cPage, numPerPage);
 		
-		// 2.2.페이지바 영역
+		// 2. 2. 페이지바 영역
 		// 전체 컨텐츠 수(전체 회원 수)를 구하기
 		int totalContent = new AdminService().selectMemberCount();
 		System.out.printf("[totalContent=%s]\n", totalContent);
 
-		// view단 처리
+		// 3. view단 처리
 		// 실패시 사용
+		String view = "/WEB-INF/views/common/msg.jsp";
 		String msg = "";
 		String loc = "";
-		
-		
+				
 		request.getRequestDispatcher("/WEB-INF/views/admin/memberFinder.jsp").forward(request, response);				
 	}
 

@@ -2,15 +2,16 @@
     pageEncoding="UTF-8"%>
 <%@ page import="java.util.*" %>
 <%
-	// 자바 코드 입력란
+	Member m = (Member)request.getAttribute("member");
+	//header.jsp의 userId 변수명 충돌 방지용
+	String userId_1 = m.getUserId();
+	String userPassword = m.getUserPassword();
+	String userEmail = m.getUserEmail()!=null?m.getUserEmail():"";
+	String userProfileOriginalFile = m.getUserProfileOriginalFile()!=null?m.getUserProfileOriginalFile():"";	
+	String userProfileRenamedFile = m.getUserProfileRenamedFile()!=null?m.getUserProfileRenamedFile():"";
 %>
 <%@ include file="/WEB-INF/views/common/header.jsp" %>
 <link rel="stylesheet" href="<%=request.getContextPath() %>>/css/borderCommunityTable.css"/>
-<style>
-table#ReportList{
-	
-}
-</style>
 <script>
 $(function(){
 	// 게시글 삭제하기
@@ -25,34 +26,72 @@ $(function(){
 	
 });
 </script>
-<body>
 <div class="container">
 <h2>관리자 전용 게시판</h2>
 <h3>신고된 게시글 목록</h3>
 <!-- 신고 수 일정 이상 달성하면 자동으로 이 게시판으로 이동됨 -->
-<!-- 게시글 DB에서 삭제, 타 게시판으로 이동 -->
+<!-- 게시글 DB에서 삭제 -->
+<!-- 타 게시판으로 이동? -->
+<!-- 신고된 댓글 목록도 추가 -->
 </div>
-<table id="ReportList">
+<table id="ReportArticleList">
 	<tr>
+		<th>카테고리</th> <!-- 자유/공략 -->
 		<th>글번호</th>
 		<th>제목</th>
 		<th>글쓴이</th>
 		<th>날짜</th>
 		<th>추천수</th>
 		<th>조회수</th>
-	</tr>
-	<tr>
+		<th>신고사유</th>
+		<th>신고내용</th>
 	</tr>
 </table>
+<table id="Report">
+	<tr>
+		<td><%= %></td>
+		<td><%= %></td>
+		<td><%= %></td>
+		<td><%= %></td>
+		<td><%= %></td>
+		<td><%= %></td>
+		<td><%= %></td>
+		<td><%= %></td>
+		<td><%= %></td>
+	</tr>
+</table>
+<button id="moveArticleBtn">이동하기</button>
 <button id="deleteArticleBtn">삭제하기</button>
-    <div class="search-container">
-        <select name="searchOpt" id="searchOpt">
-            <option value="title">제목</option>
-            <option value="content">내용</option>
-            <option value="id">아이디</option>
-        </select>
-        <input type="text" name="searchVal" id="searchVal">
-        <div id="search" style="width:50px">검색</div>
-    </div>
-</body>
-</html>
+<table id="ReportCmtList">
+	<tr>
+		<th>카테고리</th> <!-- 자유/랭킹/공략 -->
+		<th>게시글 번호</th>
+		<th>댓글 번호</th>
+		<th>댓글 작성자</th>
+		<th>댓글 내용</th>
+		<th>신고 사유</th>
+		<th>신고 내용</th>
+	</tr>
+	<tr>
+		<td><%= %></td>
+		<td><%= %></td>
+		<td><%= %></td>
+		<td><%= %></td>
+		<td><%= %></td>
+		<td><%= %></td>
+		<td><%= %></td>
+	</tr>
+</table>
+<!-- 신고된 게시글 검색하기 -->
+<div class="article-search-container">
+	<select name="searchOpt" id="searchOpt">
+		<option value="title">제목</option>
+		<option value="content">내용</option>
+		<option value="titleAndContent">제목+내용</option>
+		<option value="writer-id">글쓴이 아이디</option>
+		<option value="comment-id">댓글 아이디</option>
+     </select>
+	<input type="text" name="searchVal" id="searchVal">
+	<div id="search" style="width:50px">검색</div>
+</div>
+<%@ include file="/WEB-INF/views/common/footer.jsp" %>

@@ -24,9 +24,10 @@ public class GamePrologueServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		List<PrologueObj> scenario = new GameService().getPrologueScenario();
 		int index = Integer.parseInt(request.getParameter("index"));
-		
-		response.setContentType("application/json; charset=utf-8");
-		new Gson().toJson(scenario.get(index), response.getWriter());
+		if(index<scenario.size()) {
+			response.setContentType("application/json; charset=utf-8");
+			new Gson().toJson(scenario.get(index), response.getWriter());
+		}
 	}
 
 	/**

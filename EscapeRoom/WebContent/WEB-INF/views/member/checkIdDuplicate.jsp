@@ -4,6 +4,7 @@
 	boolean isUsable = (boolean)request.getAttribute("isUsable");
 	String userId = (String)request.getAttribute("userId");
 	System.out.printf("[%s %s]\n", isUsable, userId);
+	System.out.println("userId@checkIdDuplicate.jsp=" + userId);
 %>
 <!DOCTYPE html>
 <html>
@@ -13,15 +14,16 @@
 <script src="<%=request.getContextPath() %>/js/jquery-3.3.1.js"></script>
 <script>
 function checkIdDuplicate(){
-	var userId = $("#userId"); // 유저 아이디
-	var getUserId = RegExp(/^[a-zA-Z0-9]{4,20}$/); // 유저 아이디 유효성 검사
-	if(userId.val() == ""){
+	var userId = $("#userId").val(); // 유저 아이디
+	var getUserId = RegExp(/^(?=.*[A-Za-z])(?=.*[0-9]).{5,15}$/); // 유저 아이디 유효성 검사
+	
+	if(userId == ""){
 		alert("아이디를 입력해주세요.");
 		return;
 	}
 	
-	if(!getUserId.test(userId.val())){
-		alert("아이디는 영문자나 숫자를 포함한 5~21 자리로 입력해주세요.");
+	if(!getUserId.test(userId)){
+		alert("아이디는 영문자와 숫자를 포함한 5~15 자리로 입력해주세요.");
 		return;
 	}
 	
@@ -44,7 +46,7 @@ function setUserId(userId){
 }
 </script>
 <style>
-#checkId-container{
+#checkId-Container{
 	text-align: center;
 	padding-top: 50px;
 }
@@ -57,7 +59,7 @@ span#duplicated{
 </style>
 </head>
 <body>
-	<div id="checkId-container">
+	<div id="checkId-Container">
 	<%if(isUsable){ %>
 		[<%=userId %>]는 사용가능합니다.
 		<br /><br />

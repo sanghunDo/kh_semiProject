@@ -13,6 +13,7 @@ import java.util.List;
 import java.util.Properties;
 
 import semi.game.model.vo.PrologueObj;
+import semi.member.model.vo.Member;
 public class GameDao {
 	private Properties prop = new Properties();
 
@@ -48,6 +49,21 @@ public class GameDao {
 		}
 		
 		return scenario;
+	}
+	public int buyHint(Connection conn, Member m) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String query = prop.getProperty("buyHint");
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, m.getUserId());
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
 	}
 
 }
