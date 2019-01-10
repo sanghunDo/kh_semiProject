@@ -18,18 +18,19 @@ import semi.member.model.vo.Member;
  * Servlet implementation class GameLoginCheckServlet
  */
 @WebServlet("/game/coinHintRefresh")
-public class GameLoginCheckServlet extends HttpServlet {
+public class GameCoinHintRefreshServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = (HttpSession)request.getSession(false);
+		Member m = null;
 		if(session!=null) {
-			Member m = (Member)session.getAttribute("loggedInMember");
+			m = (Member)session.getAttribute("loggedInMember");
 			if(m!=null) {
 				m = new MemberService().selectOne(m.getUserId());
 			}
-			new Gson().toJson(m,response.getWriter());
 		}
+		new Gson().toJson(m,response.getWriter());
 	}
 
 	/**

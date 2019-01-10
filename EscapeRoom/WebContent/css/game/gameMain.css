@@ -83,7 +83,7 @@ div#pause{
 	top: 10px;
 }
 div#pause img{width: 35px;}
-img#back-ground.paused{
+.paused{
 	opacity: .5;
 }
 div#pause-menu-container{

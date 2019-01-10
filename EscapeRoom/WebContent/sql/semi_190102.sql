@@ -291,6 +291,7 @@ INSERT INTO board_free values (seq_board_free_postno.nextVal , '베스트3안에
 INSERT INTO board_free values (seq_board_free_postno.nextVal , '방탈출 너무 어려워요ㅜㅜ', 'qwee' , '안녕하세요 놀러왔어요!' ,null, null, default, 10, 11 , 0 , default);
 INSERT INTO board_free values (seq_board_free_postno.nextVal , '밀크티는 역시 투썸인거같네요', 'ljk' , '안녕하세요 놀러왔어요!' ,null, null, default, 10, 11 , 0 , default);
  update member set userpassword='1ARVn2Auq2/WAqx2gNrL+q3RNjAzXpUfCXrzkA6d4Xa22yhRLy4AC50E+6UTPoscbo31nbOoq51gvkuXzJ6B2w==' where userid='admin';
+ update member set coin=1000 where userid='tkdgnstkdgns';
  commit;
 --drop table game_scenario;
 create table game_prologue(
