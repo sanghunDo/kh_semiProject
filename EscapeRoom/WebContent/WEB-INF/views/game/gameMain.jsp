@@ -14,33 +14,11 @@
 <link rel="stylesheet" href="<%=request.getContextPath() %>/css/game/gameMain.css" />
 </head>
 <body>
-<img src="<%=request.getContextPath() %>/images/game/gameMain/game_start_again.jpeg" alt="" id="back-ground"/>
+<%@ include file='/WEB-INF/views/game/gameBackground.jsp' %>
 <div id="wrap">
 	<input type="hidden" value=0 />
 		<div id="pause-menu-container">
 			<div id="pause-menu">
-				<ul>
-					<li><h3>플레이 시간</h3>
-						<span id="time"></span></li>
-					<li>
-						<div class="button_base b06_3d_swap" id="btn-store">
-							<div>상점</div>
-							<div>상점</div>
-						</div>
-					</li>
-					<li>
-						<div class="button_base b06_3d_swap" id="btn-help">
-							<div>도움말</div>
-							<div>도움말</div>
-						</div>
-					</li>
-					<li>
-						<div class="button_base b06_3d_swap" id="btn-esc">
-							<div>게임종료</div>
-							<div>게임종료</div>
-						</div>
-					</li>
-				</ul>
 			</div>
 			<div id="store">
 				<div id="store-Top">
@@ -125,7 +103,7 @@ $("#back-ground").fadeOut(3000);
 setTimeout(function(){
 	$("#back-ground").attr("src", "<%=request.getContextPath()%>/images/game/gameMain/test.png").show();
 	$("#wrap").show();
-}, 3500);
+}, 3001);
 
 $("#next").click(function(e){
 	$(this).css("visibility", "hidden").siblings("#prev").css("visibility", "visible");
