@@ -4,9 +4,13 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.Properties;
 
 import semi.board.rank.model.vo.Rank;
+import static semi.common.JDBCTemplate.*;
 
 public class HomeDao {
 
@@ -25,8 +29,30 @@ public class HomeDao {
 	}
 	
 	public Rank selectRankTop(Connection conn) {
-		
-		return null;
+		Rank r = null;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String query = prop.getProperty("selectRankTop");
+
+		try {
+			pstmt = conn.prepareStatement(query);
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+	            r = new Rank();
+	            r.setGameId(rset.getString("userid"));
+	            r.setUserprofilerenamedfile(rset.getString("userprofilerenamedfile"));
+	            r.setGameruntime(rset.getLong("gameruntime"));
+	            r.setGameescapedate(rset.getDate("gameescapedate"));
+	         }
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return r;
 	}
 
 }

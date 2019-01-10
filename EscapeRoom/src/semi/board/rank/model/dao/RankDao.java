@@ -32,7 +32,6 @@ public class RankDao {
    }
    
    public List<Rank> selectRankList(Connection conn) {
-      
       List<Rank> list = null;
       PreparedStatement pstmt = null;
       ResultSet rset = null;
