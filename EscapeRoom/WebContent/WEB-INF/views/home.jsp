@@ -58,7 +58,7 @@ h2{
 	height:350px;
 	margin:0 auto;
 	color:white;
-	margin-bottom:30px;
+	margin-bottom:50px;
 	text-align:center;
 }
 
@@ -162,7 +162,7 @@ img#rankOne-Profile{
 </style>
 <div id="main-Container">
 	<div id="admin-Container">
-		<button id="admin-Btn">홈 화면 편집하기</button>
+		<button id="admin-Btn" onclick="changeNoticeLink();">홈 화면 편집하기</button>
 	</div>
 	<div id="notice-Link">
 		<h3 id="ani-Text">&lt;공지사항&gt; 런칭기념 가입시 300코인 무료증정 이벤트 진행중 !!</h3>
@@ -195,9 +195,7 @@ img#rankOne-Profile{
 					</div>
 				</td>
 			</tr>
-		</table>
-			
-			
+		</table>	
 		</div>
 	</div>
 	
@@ -273,4 +271,10 @@ img#rankOne-Profile{
 		</table>
 	</div>
 </div>
+
+<script>
+function changeNoticeLink(){
+	location.href = "<%=request.getContextPath()%>/admin/changeNoticeLink";
+}
+</script>
 <%@ include file="/WEB-INF/views/common/footer.jsp" %>
