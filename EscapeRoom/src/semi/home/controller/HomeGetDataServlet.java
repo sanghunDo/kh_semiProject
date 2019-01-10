@@ -1,11 +1,15 @@
 package semi.home.controller;
 
 import java.io.IOException;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import semi.board.rank.model.vo.Rank;
+import semi.home.model.service.HomeService;
 
 /**
  * Servlet implementation class HomeGetDataServlet
@@ -26,6 +30,14 @@ public class HomeGetDataServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		//공지사항 링크
+		
+		//랭킹 1위 정보
+		Rank r = new HomeService().selectRankTop();
+		//자유게시판 인기게시물 top3
+		
+		//공략게시판 인기게시물 top3
 		
 		String view = "/WEB-INF/views/home.jsp";
 		request.getRequestDispatcher(view).forward(request, response);
