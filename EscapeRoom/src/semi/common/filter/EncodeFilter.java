@@ -22,12 +22,13 @@ public class EncodeFilter implements Filter {
 	@Override
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
 			throws IOException, ServletException {
+		System.out.println(2);
 		request.setCharacterEncoding("UTF-8");
 		System.out.println("--------------------------------");
 		System.out.println("UTF-8 인코딩 처리됨@EncodeFilter");
 		System.out.println("--------------------------------");
-		String userId = request.getParameter("userId");
-		request.setAttribute("userId", userId);
+		// String userId = request.getParameter("userId");
+		// request.setAttribute("userId", userId);
 		chain.doFilter(request, response);
 	}
 

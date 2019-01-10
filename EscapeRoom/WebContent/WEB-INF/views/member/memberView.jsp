@@ -9,11 +9,11 @@
 	/* return타입이 Object이기때문에 형변환 필수 */
 	Member m = (Member) request.getAttribute("member");
 	String userId_ = m.getUserId();
-	System.out.println("멤버뷰 유저아이디 : " + userId_);
+	System.out.println("멤버뷰jsp 유저아이디 : " + userId_);
 	String userPassword = m.getUserPassword();
 	String userEmail = m.getUserEmail()!=null?m.getUserEmail():"";
 	String userProfileOriginalFile = m.getUserProfileOriginalFile()!=null?m.getUserProfileOriginalFile():"";	
-	String userProfileRenamedFile = m.getUserProfileRenamedFile()!=null?m.getUserProfileRenamedFile():request.getContextPath()+"images/nonProfile.png";
+	String userProfileRenamedFile = m.getUserProfileRenamedFile()!=null?m.getUserProfileRenamedFile():"../images/nonProfile.png";
 %>
 <script>
 /* 회원정보수정 유효성 검사 */
@@ -184,7 +184,7 @@ function readURL(input){
 						else {%>
 						<br /><br />
 						<div id="profile-Container">
-						   <img id="profilePre" src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/04/Antu_im-user-offline.svg/512px-Antu_im-user-offline.svg.png">
+						   <img id="profilePre" src="<%=userProfileRenamedFile%>">
 						</div>
 						<%} // end of else : 프사 없는 경우 기본 프사 보여주기 %>
 						</div>

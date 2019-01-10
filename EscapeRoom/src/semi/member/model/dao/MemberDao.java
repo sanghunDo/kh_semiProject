@@ -46,7 +46,7 @@ public class MemberDao {
 		// SELECT문을 통해서 데이터를 가져온다면 ResultSet 객체에 그 데이터를 저장해야 한다.
 		ResultSet rset = null;
 		String query = prop.getProperty("loginCheck");
-		System.out.println("멤버다오"+m.getUserPassword());
+		System.out.println("멤버다오 로그인 체크 : "+m.getUserPassword());
 
 		try {
 			// 1. Statement객체 생성 및 미완성쿼리문 완성
@@ -253,6 +253,7 @@ public class MemberDao {
 			// 미완성된 쿼리문
 			pstmt.setString(1, m.getUserPassword());
 			pstmt.setString(2, m.getUserId());
+			System.out.println("멤버다오 업데이트 패스워드 : "+m.getUserPassword());
 			
 			// 2. 쿼리문 실행 : 완성된 쿼리를 가지고 있는 pstmt실행(파라미터 없음)
 			// DML : INSERT, UPDATE, DELETE => excuteUpdate()

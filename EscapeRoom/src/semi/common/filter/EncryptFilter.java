@@ -36,6 +36,7 @@ public class EncryptFilter implements Filter {
 	 * @see Filter#doFilter(ServletRequest, ServletResponse, FilterChain)
 	 */
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
+		System.out.println(3);
 		// 암호화래퍼객체 생성
 		EncryptWrapper encRequest = new EncryptWrapper((HttpServletRequest)request);
 		System.out.println("~~~~~~~~~~~~~~~~~~~~~~~");
@@ -45,7 +46,7 @@ public class EncryptFilter implements Filter {
 		// ServletRequest타입의 파라미터에
 		// EncryptWrapper객체 (encRequest) 전달
 		// 계층도 : ServletRequest - HttpServletRequest - HttpServletRequestWrapper - EncryptWrapper
-		request.setAttribute("userId", request.getAttribute("userId"));
+		// request.setAttribute("userId", request.getAttribute("userId"));
 		chain.doFilter(encRequest, response);
 	}
 
