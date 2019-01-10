@@ -1,2 +1,0 @@
-<link rel="stylesheet" href="<%=request.getContextPath() %>/css/game/gameBackground.css" />
-<img src="<%=request.getContextPath() %>/images/game/gameMain/game_start_again.jpeg" alt="" id="back-ground"/>

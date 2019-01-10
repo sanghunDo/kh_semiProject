@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <front>
-	<door value="0"></door>
-	<rock value="1"></rock>
+	<obj>
+		<objLevel>1</objLevel>
+		<objName>bookshelf.png</objName>
+	</obj>
 </front>
