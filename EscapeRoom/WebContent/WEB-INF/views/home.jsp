@@ -1,6 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ page import="semi.board.rank.model.vo.*" %>
 <%@ include file="/WEB-INF/views/common/header.jsp" %>
+
+<%
+	Rank r = (Rank) request.getAttribute("rankTop");
+%>
+
 <link href="https://fonts.googleapis.com/css?family=Noto+Serif+KR" rel="stylesheet">
 <style>
 #main-Container{
@@ -64,9 +70,8 @@ h2{
 
 #rank-One_Info{
 	position:relative;
-	border:1px solid white;
-	width:300px;
-	height:250px;
+	width:270px;
+	height:260px;
 	top:3px;
 	display:inline-block;
 }
@@ -85,21 +90,21 @@ h2{
 	margin:0 auto;
 }
 
-table{
+table.board{
 	width:100%;
 	color:white;
 	border-collapse:collapse;
 	margin-bottom:30px;
 }
 
-table th{
+table.board th{
 	color:white;
 	padding:5px;
 	text-align:center;
 	border-bottom:1px solid white;
 }
 
-table td{
+table.board td{
 	color:white;
 	padding:5px;
 	text-align:center;
@@ -116,6 +121,44 @@ table td{
 	background:black;
 	color:white;
 }
+
+#rankTable{
+	width:470px;
+	height:300px;
+	margin:0 auto;
+	color:white;
+}
+
+table#player-Details{
+	text-align:center;
+	width:250px;
+	color:white;
+	border:1px double gray;
+	border-radius:10px;
+	background:#5D5D5D;
+	margin:0 auto;
+	margin-top:10px;
+}
+
+table#player-Details td{
+	margin-left:10px;
+}
+
+#congratulations{
+	color:white;
+	font-family: 'Roboto Slab', serif;
+	font-size:27px;
+	text-align:center;
+	margin-top:10px;
+	margin-bottom:10px;
+}
+
+img#rankOne-Profile{
+	width:100px;
+	height:100px;
+	display:block;
+	margin:0 auto;
+}
 </style>
 <div id="main-Container">
 	<div id="admin-Container">
@@ -128,17 +171,39 @@ table td{
 	<div id="rank-One">
 		<h1>☆★ 금주 랭킹 1위 ★☆</h1>
 		<div id="temp-Container">
-			<img id="medal-Img" src="<%=request.getContextPath()%>/images/home/gold_medal.png" alt="" />
-			<div id="rank-One_Info">
-				<!-- <span id="number1">tempName12</span>
-				<span>클리어 시간 : 23분</span> -->
-			</div>
+		<table id="rankTable">
+			<tr>
+				<td><img id="medal-Img" src="<%=request.getContextPath()%>/images/home/gold_medal.png" alt="" /></td>
+				<td>
+					<div id="rank-One_Info">
+						<p id="congratulations">CONGRATULATIONS</p>
+						<img id="rankOne-Profile" src="<%=request.getContextPath() %>/upload/member<%=r.getUserprofilerenamedfile() %>" alt="" />
+						<table id="player-Details">
+							<tr>
+								<th>아이디 </th>
+								<td><%=r.getGameId() %></td>
+							</tr>
+							<tr>
+								<th>클리어 시간  </th>
+								<td><%=r.getEndRuntime() %></td>
+							</tr>
+							<tr>
+								<th>클리어 날짜  </th>
+								<td><%=r.getGameescapedate() %></td>
+							</tr>
+						</table>
+					</div>
+				</td>
+			</tr>
+		</table>
+			
+			
 		</div>
 	</div>
 	
 	<div id="posts">
 		<h2>인기 게시물</h2>
-		<table id="board-Free">
+		<table class="board" id="board-Free">
 			<tr>
 				<th>글번호</th>
 				<th>제목</th>
@@ -172,7 +237,7 @@ table td{
 				<td>테스트</td>
 			</tr>
 		</table>
-		<table id="board-Solve">
+		<table class="board" id="board-Solve">
 			<tr>
 				<th>글번호</th>
 				<th>제목</th>

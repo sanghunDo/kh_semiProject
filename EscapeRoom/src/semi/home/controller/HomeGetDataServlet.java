@@ -35,11 +35,34 @@ public class HomeGetDataServlet extends HttpServlet {
 		
 		//랭킹 1위 정보
 		Rank r = new HomeService().selectRankTop();
+
+		int runtime = (int) r.getGameruntime() / 1000;
+        
+        int hours = runtime / 3600;
+        int minutes = (runtime % 3600) / 60;
+        int seconds = runtime % 60;
+        
+        String endRuntime = "";
+        
+        if(hours >= 1) {
+           endRuntime += hours + "시간 " + minutes + "분 " + seconds + "초";
+        }
+        else if(hours < 1 && minutes >= 1) {
+           endRuntime += minutes + "분" + seconds + "초";
+        }
+        else if(hours < 1 && minutes < 1) {
+           endRuntime += seconds + "초";
+        }
+        
+        Rank modifiedR = new Rank(r.getGameId(), r.getGameruntime(), r.getUserprofilerenamedfile(), r.getGameescapedate(), endRuntime);
+		
 		//자유게시판 인기게시물 top3
 		
 		//공략게시판 인기게시물 top3
 		
 		String view = "/WEB-INF/views/home.jsp";
+		
+		request.setAttribute("rankTop", modifiedR);
 		request.getRequestDispatcher(view).forward(request, response);
 	}
 
