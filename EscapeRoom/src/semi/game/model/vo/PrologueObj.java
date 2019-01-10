@@ -1,6 +1,9 @@
 package semi.game.model.vo;
 
-public class PrologueObj {
+import java.io.Serializable;
+
+public class PrologueObj implements Serializable{
+	private static final long serialVersionUID = 1L;
 	private int no;
 	private String content;
 	private String fileName;
