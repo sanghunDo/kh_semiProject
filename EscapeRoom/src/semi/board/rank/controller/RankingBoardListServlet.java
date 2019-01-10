@@ -19,64 +19,57 @@ import semi.board.rank.model.vo.Rank;
  */
 @WebServlet("/board/rank/rankingBoardList")
 public class RankingBoardListServlet extends HttpServlet {
-	private static final long serialVersionUID = 1L;
+   private static final long serialVersionUID = 1L;
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-		request.setCharacterEncoding("utf-8");
-		
-		int best1;
-		try {
-			best1 = Integer.parseInt(request.getParameter("best1"));
-		} catch(NumberFormatException e) {
-			best1 = 1;
-		}
-		
-		int best10;
-		try {
-			best10 = Integer.parseInt(request.getParameter("best10"));
-		} catch(NumberFormatException e) {
-			best10 = 10;
-		}
-		
-		List<Rank> list = new RankService().selectRankList(best1, best10);
-		List<Rank> finalList = new ArrayList<>();
-		ArrayList<Long> RuntimeSort = new ArrayList<>();
-		
-		for(Rank r : list) {
-			int runtime = (int)r.getGameruntime();
-			
-			int hours = (runtime / 60 / 60) % 24;
-			int minutes = (runtime / 60) % 60;
-			int seconds = runtime % 60;
-			
-			String endRuntime = hours + "시간 " + minutes + "분 " + seconds + "초";
-			
-			RuntimeSort.add(r.getGameruntime());
-			Collections.sort(RuntimeSort);
-			
-			Rank modifiedR = new Rank(r.getPlayno(), r.getGameId(), r.getUserprofilerenamedfile(),
-									r.getGameruntime(), r.getGameescapedate(), endRuntime);
-			
-			finalList.add(modifiedR);
-		}
-		
-		request.setAttribute("list", finalList);
-		request.setAttribute("best1", best1);
-		request.setAttribute("best10", best10);
-		
-		request.getRequestDispatcher("/WEB-INF/views/board/rank/RankingBoard.jsp").forward(request, response);
-	}
+   /**
+    * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+    */
+   protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+      
+      request.setCharacterEncoding("utf-8");
+      
+      List<Rank> list = new RankService().selectRankList();
+      List<Rank> finalList = new ArrayList<>();
+      
+      for(Rank r : list) {
+         int runtime = (int)r.getGameruntime() / 1000;
+         
+         int hours = runtime / 3600;
+         int minutes = (runtime % 3600) / 60;
+         int seconds = runtime % 60;
+         
+         String endRuntime = "";
+         
+         if(hours >= 1) {
+            endRuntime += hours + "시간 " + minutes + "분 " + seconds + "초";
+         }
+         else if(hours < 1 && minutes >= 1) {
+            endRuntime += minutes + "분" + seconds + "초";
+         }
+         else if(hours < 1 && minutes < 1) {
+            endRuntime += seconds + "초";
+         }
+         
+         Rank modifiedR = new Rank(r.getGameId(), r.getGameruntime(), r.getUserprofilerenamedfile(), r.getGameescapedate(), endRuntime);
+         
+         finalList.add(modifiedR);
+         
+//         System.out.println("아이디 : " + r.getGameId() +" 원래 게임런타임 : " + r.getGameruntime() + " 시간 변환 런타임 : " + endRuntime);
+      }
+      
+      System.out.println("최종 리스트 : " + finalList);
+      
+      request.setAttribute("list", finalList);
+      
+      request.getRequestDispatcher("/WEB-INF/views/board/rank/RankingBoard.jsp").forward(request, response);
+   }
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
-	}
+   /**
+    * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+    */
+   protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+      // TODO Auto-generated method stub
+      doGet(request, response);
+   }
 
 }

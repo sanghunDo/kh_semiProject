@@ -1,148 +1,147 @@
 @charset "UTF-8";
 
 h2 {
-	font-family: 'Fredericka the Great', cursive;
-	font-size : 50px;
-	color : #F11C24;
-	text-align : center;
+   font-family: 'Fredericka the Great', cursive;
+   font-size : 50px;
+   color : #F11C24;
+   text-align : center;
 }
 
 div#top3 {
-	width : 950px;
-	height : 500px;
-	margin : auto;
-	text-align : center;
+   width : 950px;
+   height : 500px;
+   margin : auto;
+   text-align : center;
 }
 
 div#top1-container {
-	width : 400px;
-	height : 230px;
-	border : 2px solid #FFDB0B;
-	border-radius : 50px;
-	margin : auto;
-	text-align : center;
+   width : 400px;
+   height : 230px;
+   border : 2px solid #FFDB0B;
+   border-radius : 50px;
+   margin : auto;
+   text-align : center;
 }
 
 div#top2-container {
-	width : 400px;
-	height : 230px;
-	border : 2px solid #CACED2;
-	border-radius : 50px;
-	margin : auto;
-	margin-left : 50px;
-	margin-top : 50px;
-	text-align : center;
+   width : 400px;
+   height : 230px;
+   border : 2px solid #CACED2;
+   border-radius : 50px;
+   margin : auto;
+   margin-left : 50px;
+   margin-top : 50px;
+   text-align : center;
 }
 
 div#top3-container {
-	width : 400px;
-	height : 230px;
-	border : 2px solid #D49C75;
-	border-radius : 50px;
-	margin : auto;
-	margin-right : 40px;
-	margin-top : -233px;
-	text-align : center;
+   width : 400px;
+   height : 230px;
+   border : 2px solid #D49C75;
+   border-radius : 50px;
+   margin : auto;
+   margin-right : 40px;
+   margin-top : -233px;
+   text-align : center;
 }
 
 div#from4to10 {
-	width : 950px;
-	height : 485px;
-	border : 1px solid white;
-	margin : auto;
-	margin-top : 75px;
-	text-align : center;
+   width : 950px;
+   height : 485px;
+   border : 1px solid white;
+   margin : auto;
+   margin-top : 75px;
+   text-align : center;
 }
 
 div#from4to10 table#tbl-Rank4-10 {
-	margin : auto;
-	width : 850px;
-	height : 480px;
-	border : 1px solid black;
+   margin : auto;
+   width : 850px;
+   height : 480px;
+   border : 1px solid black;
 }
 
 div#from4to10 table#tbl-Rank4-10 th {
-	font-family : 'Noto Serif KR', serif;
-	color : white;
-	text-align : center;
-	padding : 0;
+   font-family : 'Noto Serif KR', serif;
+   color : white;
+   text-align : center;
+   padding : 0;
 }
 
 div#from4to10 table#tbl-Rank4-10 td {
-	font-family : 'Noto Serif KR', serif;
-	color : white;
-	text-align : center;
-	padding : 0;
+   font-family : 'Noto Serif KR', serif;
+   color : white;
+   text-align : center;
+   padding : 0;
 }
 
 div#reply-container {
-	margin : auto;
-	text-align : center;
+   margin : auto;
+   text-align : center;
 }
 
 div#reply-container h2 {
-	color : white;
-	font-family: 'East Sea Dokdo', cursive;
-	font-size : 75px;
+   color : white;
+   font-family: 'East Sea Dokdo', cursive;
+   font-size : 75px;
 }
 
 div#reply-container p {
-	color : red;
-	font-family: 'Noto Serif KR', serif;
-	font-size : 15px;
-	margin-top : -55px;
+   color : red;
+   font-family: 'Noto Serif KR', serif;
+   font-size : 15px;
+   margin-top : -55px;
 }
 
 div#reply-container div#reply {
-	width : 950px;
-	height : 500px;
-	background : rgba(239, 239, 239, 0.5);
-	margin : auto;
+   width : 950px;
+   height : 500px;
+   background : rgba(239, 239, 239, 0.5);
+   margin : auto;
 }
 
 div#first{
-	width : 100px;
-	height : 100px;
-	border : 2px solid #FFDB0B;
-	border-radius : 40px;
-	background : #FFDB0B;
-	margin-left : -2px;
-	margin-top : -2px;
-	text-align : center;
+   width : 100px;
+   height : 100px;
+   border : 2px solid #FFDB0B;
+   border-radius : 40px;
+   background : #FFDB0B;
+   margin-left : -2px;
+   margin-top : -2px;
+   text-align : center;
 }
 
 div#second{
-	width : 100px;
-	height : 100px;
-	border : 2px solid #CACED2;
-	border-radius : 40px;
-	background : #CACED2;
-	margin-left : -2px;
-	margin-top : -2px;
-	text-align : center;
-	
+   width : 100px;
+   height : 100px;
+   border : 2px solid #CACED2;
+   border-radius : 40px;
+   background : #CACED2;
+   margin-left : -2px;
+   margin-top : -2px;
+   text-align : center;
+   
 }
 
 div#third{
-	width : 100px;
-	height : 100px;
-	border : 2px solid #D49C75;
-	border-radius : 40px;
-	background : #D49C75;
-	margin-left : -2px;
-	margin-top : -2px;
-	text-align : center;
+   width : 100px;
+   height : 100px;
+   border : 2px solid #D49C75;
+   border-radius : 40px;
+   background : #D49C75;
+   margin-left : -2px;
+   margin-top : -2px;
+   text-align : center;
 }
 
 p#label-for-grade{
-	color : black;
+   color : black;
     font-family: 'Abril Fatface', cursive;
     font-size : 35px;
     margin-top : 25px;
 }
 
 p.playerInfo{
-	color:white;
-	font-family : 'Noto Serif KR', serif;
+   color:white;
+   font-family : 'Noto Serif KR', serif;
 }
-
