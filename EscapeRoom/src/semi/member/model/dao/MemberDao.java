@@ -35,7 +35,7 @@ public class MemberDao {
 
 	}
 
-	// 로그인 여부 확인
+	// 회원 유무 여부 확인
 	public int loginCheck(Connection conn, Member m) {
 		// -1은 없는 아이디
 		int result = -1;
@@ -46,7 +46,7 @@ public class MemberDao {
 		// SELECT문을 통해서 데이터를 가져온다면 ResultSet 객체에 그 데이터를 저장해야 한다.
 		ResultSet rset = null;
 		String query = prop.getProperty("loginCheck");
-		System.out.println("멤버다오 로그인 체크 : "+m.getUserPassword());
+		System.out.println("멤버다오 비밀번호 체크 : "+m.getUserPassword());
 
 		try {
 			// 1. Statement객체 생성 및 미완성쿼리문 완성
@@ -74,6 +74,83 @@ public class MemberDao {
 		return result;
 
 	}
+	
+	// 이메일 유무 확인
+	public int emailCheck(Connection conn, Member m) {
+		int result = -1;
+		
+		// DB로 SQL문 요청하기 위해 객체 생성
+		PreparedStatement pstmt = null;
+
+		// SELECT문을 통해서 데이터를 가져온다면 ResultSet 객체에 그 데이터를 저장해야 한다.
+		ResultSet rset = null;
+
+		String query = prop.getProperty("emailCheck");
+
+		try {
+			// 1. Statement객체 생성 및 미완성쿼리문 완성
+			pstmt = conn.prepareStatement(query);
+
+			// 쿼리문 미완성
+			pstmt.setString(1, m.getUserEmail());
+
+			// 2. 쿼리문 실행 : DQL(SELECT) 이므로 excuteQuery()
+			rset = pstmt.executeQuery();
+			
+			// 3. 결과 m에 담기
+			if (rset.next()) { // 하나의 결과값만 돌려주면 되기 때문에 while문 대신 if문 작성
+				result = rset.getInt("emailcheck"); // 컬럼명
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			// 자원반납
+			close(rset);
+			close(pstmt);
+		}
+
+		return result;
+	}
+	
+	// 해당 이메일 회원 아이디 찾기
+	public Member findIdByEmail(Connection conn, String userEmail) {
+		Member loggedInMember = null;
+		
+		// DB로 SQL문 요청하기 위해 객체 생성
+		PreparedStatement pstmt = null;
+
+		// SELECT문을 통해서 데이터를 가져온다면 ResultSet 객체에 그 데이터를 저장해야 한다.
+		ResultSet rset = null;
+
+		String query = prop.getProperty("findIdByEmail");
+
+		try {
+			// 1. Statement객체 생성 및 미완성쿼리문 완성
+			pstmt = conn.prepareStatement(query);
+
+			// 쿼리문 미완성
+			pstmt.setString(1, userEmail);
+
+			// 2. 쿼리문 실행 : DQL(SELECT) 이므로 excuteQuery()
+			rset = pstmt.executeQuery();
+			
+			// 3. 결과 loggedInMember에 담기
+			if (rset.next()) { // 다음 행이 있다면 실행
+				loggedInMember = new Member();
+				loggedInMember.setUserId(rset.getString("userId"));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			// 자원반납
+			close(rset);
+			close(pstmt);
+		}
+
+		return loggedInMember;
+		
+	}
+	
 
 	// 회원정보보기
 	public Member selectOne(Connection conn, String userId) {
@@ -97,7 +174,7 @@ public class MemberDao {
 			// 2. 쿼리문 실행 : DQL(SELECT) 이므로 excuteQuery()
 			rset = pstmt.executeQuery();
 			
-			// 3. 결과 m에 담기
+			// 3. 결과 loggedInMember에 담기
 			while (rset.next()) { // 다음 행이 있다면 실행
 				loggedInMember = new Member();
 				loggedInMember.setUserId(rset.getString("userid"));
@@ -267,6 +344,8 @@ public class MemberDao {
 		
 		return result;
 	}
+	
+
 
 	public String getSha512(String userPassword) {
 		/**
@@ -300,4 +379,8 @@ public class MemberDao {
 		
 		return encUserPassword;
 	}
+
+
+
+
 }
