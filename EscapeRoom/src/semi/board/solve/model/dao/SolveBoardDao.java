@@ -1,6 +1,4 @@
-package semi.board.free.model.dao;
-
-
+package semi.board.solve.model.dao;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -10,10 +8,10 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import semi.board.free.model.vo.BoardComment;
-import semi.board.free.model.vo.FreeBoard;
+import semi.board.solve.model.vo.BoardComment;
+import semi.board.solve.model.vo.SolveBoard;
 
-public class FreeBoardDao {
+public class SolveBoardDao {
 	public static void commit(Connection conn) {
 	      try {
 	         if(conn!=null && !conn.isClosed())
@@ -33,12 +31,12 @@ public class FreeBoardDao {
 	   }
 	
 	
-	public List<FreeBoard> boardSelectAll(int cPage, int numPerPage) {
-		List<FreeBoard> list = null;
+	public List<SolveBoard> boardSelectAll(int cPage, int numPerPage) {
+		List<SolveBoard> list = null;
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
-		String query = "select * from ( select rownum as rnum, v.* from( select v.*, (select count(*) from board_comment_free where ref = v.postNo) as board_comment_cnt from board_free v  order by postNo desc) v ) v where rnum between ? and ?";
+		String query = "select * from ( select rownum as rnum, v.* from( select v.*, (select count(*) from board_comment_solve where ref = v.postNo) as board_comment_cnt from board_solve v  order by postNo desc) v ) v where rnum between ? and ?";
 		
 		//1. 클래스등록확인
 		try {
@@ -58,20 +56,20 @@ public class FreeBoardDao {
 			
 			list = new ArrayList<>();
 			while(rset.next()) {
-				FreeBoard fb = new FreeBoard();
-				fb.setPostNo(rset.getInt("postno"));
-				fb.setPostTitle(rset.getString("posttitle"));
-				fb.setPostWriter(rset.getString("postwriter"));
-				fb.setPostContent(rset.getString("postcontent"));
-				fb.setPostOriginalFile(rset.getString("postoriginalfile"));
-				fb.setPostRenamedFile(rset.getString("postrenamedfile"));
-				fb.setPostLike(rset.getInt("postlike"));
-				fb.setPostDislike(rset.getInt("postdislike"));
-				fb.setPostDate(rset.getDate("postdate"));
-				fb.setPostReadCount(rset.getInt("postreadcount"));
-				fb.setBoard_comment_cnt(rset.getInt("board_comment_cnt"));
+				SolveBoard sb = new SolveBoard();
+				sb.setPostNo(rset.getInt("postno"));
+				sb.setPostTitle(rset.getString("posttitle"));
+				sb.setPostWriter(rset.getString("postwriter"));
+				sb.setPostContent(rset.getString("postcontent"));
+				sb.setPostOriginalFile(rset.getString("postoriginalfile"));
+				sb.setPostRenamedFile(rset.getString("postrenamedfile"));
+				sb.setPostLike(rset.getInt("postlike"));
+				sb.setPostDislike(rset.getInt("postdislike"));
+				sb.setPostDate(rset.getDate("postdate"));
+				sb.setPostReadCount(rset.getInt("postreadcount"));
+				sb.setBoard_comment_cnt(rset.getInt("board_comment_cnt"));
 				
-				list.add(fb);
+				list.add(sb);
 				
 			}
 		} catch (ClassNotFoundException e) {
@@ -100,7 +98,7 @@ public class FreeBoardDao {
 		int totalContent = 0;
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
-		String query = "select count(*) as cnt from board_free";
+		String query = "select count(*) as cnt from board_solve";
 		
 		//1. 클래스등록확인
 		try {
@@ -134,12 +132,12 @@ public class FreeBoardDao {
 		return totalContent;
 	}
 
-	public List<FreeBoard> boardSelectBest3() {
-		List<FreeBoard> bestList = null;
+	public List<SolveBoard> boardSelectBest3() {
+		List<SolveBoard> bestList = null;
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
-		String query = "select * from ( select rownum as rnum, v.* from( select v.*, (select count(*) from board_comment_free where ref = v.postNo) as board_comment_cnt from board_free v  order by postlike desc) v ) v where ROWNUM <4";
+		String query = "select * from ( select rownum as rnum, v.* from( select v.*, (select count(*) from board_comment_solve where ref = v.postNo) as board_comment_cnt from board_solve v  order by postlike desc) v ) v where ROWNUM <4";
 		
 		//1. 클래스등록확인
 		try {
@@ -155,20 +153,20 @@ public class FreeBoardDao {
 			
 			bestList = new ArrayList<>();
 			while(rset.next()) {
-				FreeBoard fb = new FreeBoard();
-				fb.setPostNo(rset.getInt("postno"));
-				fb.setPostTitle(rset.getString("posttitle"));
-				fb.setPostWriter(rset.getString("postwriter"));
-				fb.setPostContent(rset.getString("postcontent"));
-				fb.setPostOriginalFile(rset.getString("postoriginalfile"));
-				fb.setPostRenamedFile(rset.getString("postrenamedfile"));
-				fb.setPostLike(rset.getInt("postlike"));
-				fb.setPostDislike(rset.getInt("postdislike"));
-				fb.setPostDate(rset.getDate("postdate"));
-				fb.setPostReadCount(rset.getInt("postreadcount"));
-				fb.setBoard_comment_cnt(rset.getInt("board_comment_cnt"));
+				SolveBoard sb = new SolveBoard();
+				sb.setPostNo(rset.getInt("postno"));
+				sb.setPostTitle(rset.getString("posttitle"));
+				sb.setPostWriter(rset.getString("postwriter"));
+				sb.setPostContent(rset.getString("postcontent"));
+				sb.setPostOriginalFile(rset.getString("postoriginalfile"));
+				sb.setPostRenamedFile(rset.getString("postrenamedfile"));
+				sb.setPostLike(rset.getInt("postlike"));
+				sb.setPostDislike(rset.getInt("postdislike"));
+				sb.setPostDate(rset.getDate("postdate"));
+				sb.setPostReadCount(rset.getInt("postreadcount"));
+				sb.setBoard_comment_cnt(rset.getInt("board_comment_cnt"));
 				
-				bestList.add(fb);
+				bestList.add(sb);
 				
 			}
 		} catch (ClassNotFoundException e) {
@@ -191,12 +189,12 @@ public class FreeBoardDao {
 		return bestList;
 	}
 
-	public FreeBoard selectByPostNo(int postNo) {
-		FreeBoard fb = null;
+	public SolveBoard selectByPostNo(int postNo) {
+		SolveBoard sb = null;
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
-		String query = "select * from ( select rownum as rnum, v.* from( select v.*, (select count(*) from board_comment_free where ref = v.postNo) as board_comment_cnt from board_free v  order by postdate desc) v ) v  where postno =?";
+		String query = "select * from ( select rownum as rnum, v.* from( select v.*, (select count(*) from board_comment_solve where ref = v.postNo) as board_comment_cnt from board_solve v  order by postdate desc) v ) v  where postno =?";
 		
 		//1. 클래스등록확인
 		try {
@@ -210,18 +208,18 @@ public class FreeBoardDao {
 			rset = pstmt.executeQuery();
 			
 			if(rset.next()) {
-				fb = new FreeBoard();
-				fb.setPostNo(rset.getInt("postno"));
-				fb.setPostTitle(rset.getString("posttitle"));
-				fb.setPostWriter(rset.getString("postwriter"));
-				fb.setPostContent(rset.getString("postcontent"));
-				fb.setPostOriginalFile(rset.getString("postoriginalfile"));
-				fb.setPostRenamedFile(rset.getString("postrenamedfile"));
-				fb.setPostLike(rset.getInt("postlike"));
-				fb.setPostDislike(rset.getInt("postdislike"));
-				fb.setPostDate(rset.getDate("postdate"));
-				fb.setPostReadCount(rset.getInt("postreadcount"));	
-				fb.setBoard_comment_cnt(rset.getInt("board_comment_cnt"));
+				sb = new SolveBoard();
+				sb.setPostNo(rset.getInt("postno"));
+				sb.setPostTitle(rset.getString("posttitle"));
+				sb.setPostWriter(rset.getString("postwriter"));
+				sb.setPostContent(rset.getString("postcontent"));
+				sb.setPostOriginalFile(rset.getString("postoriginalfile"));
+				sb.setPostRenamedFile(rset.getString("postrenamedfile"));
+				sb.setPostLike(rset.getInt("postlike"));
+				sb.setPostDislike(rset.getInt("postdislike"));
+				sb.setPostDate(rset.getDate("postdate"));
+				sb.setPostReadCount(rset.getInt("postreadcount"));	
+				sb.setBoard_comment_cnt(rset.getInt("board_comment_cnt"));
 			}
 			
 			} catch (ClassNotFoundException e) {
@@ -241,14 +239,14 @@ public class FreeBoardDao {
 			}
 			//2. Connection 객체 생성
 			
-			return fb;
+			return sb;
 		}
 
-	public int updateBoard(FreeBoard fb) {
+	public int updateBoard(SolveBoard sb) {
 		int result = 0;
 		Connection conn = null;
 		PreparedStatement pstmt = null;
-		String query = "UPDATE board_free SET posttitle = ?, postcontent=? ,postoriginalfile=? , postrenamedfile=? where postno = ?";
+		String query = "UPDATE board_solve SET posttitle = ?, postcontent=? ,postoriginalfile=? , postrenamedfile=? where postno = ?";
 		
 		try {
 			Class.forName("oracle.jdbc.driver.OracleDriver");
@@ -259,11 +257,11 @@ public class FreeBoardDao {
 			
 			pstmt = conn.prepareStatement(query);
 			
-			pstmt.setString(1, fb.getPostTitle());
-			pstmt.setString(2, fb.getPostContent());
-			pstmt.setString(3, fb.getPostOriginalFile());
-			pstmt.setString(4, fb.getPostRenamedFile());
-			pstmt.setInt(5, fb.getPostNo());
+			pstmt.setString(1, sb.getPostTitle());
+			pstmt.setString(2, sb.getPostContent());
+			pstmt.setString(3, sb.getPostOriginalFile());
+			pstmt.setString(4, sb.getPostRenamedFile());
+			pstmt.setInt(5, sb.getPostNo());
 			
 			result = pstmt.executeUpdate();
 			
@@ -290,12 +288,12 @@ public class FreeBoardDao {
 		return result;
 	}
 
-	public FreeBoard selectByNo(int postNo) {
-		FreeBoard fb = null;
+	public SolveBoard selectByNo(int postNo) {
+		SolveBoard sb = null;
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
-		String query = "select * from board_free where postno=?";
+		String query = "select * from board_solve where postno=?";
 		try {
 			Class.forName("oracle.jdbc.driver.OracleDriver");
 			conn = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe", 
@@ -309,17 +307,17 @@ public class FreeBoardDao {
 			
 			rset = pstmt.executeQuery();
 			if(rset.next()) {
-				fb = new FreeBoard();
-				fb.setPostNo(rset.getInt("postno"));
-				fb.setPostTitle(rset.getString("posttitle"));
-				fb.setPostWriter(rset.getString("postwriter"));
-				fb.setPostContent(rset.getString("postcontent"));
-				fb.setPostOriginalFile(rset.getString("postoriginalfile"));
-				fb.setPostRenamedFile(rset.getString("postrenamedfile"));
-				fb.setPostLike(rset.getInt("postlike"));
-				fb.setPostDislike(rset.getInt("postdislike"));
-				fb.setPostDate(rset.getDate("postdate"));
-				fb.setPostReadCount(rset.getInt("postreadcount"));	
+				sb = new SolveBoard();
+				sb.setPostNo(rset.getInt("postno"));
+				sb.setPostTitle(rset.getString("posttitle"));
+				sb.setPostWriter(rset.getString("postwriter"));
+				sb.setPostContent(rset.getString("postcontent"));
+				sb.setPostOriginalFile(rset.getString("postoriginalfile"));
+				sb.setPostRenamedFile(rset.getString("postrenamedfile"));
+				sb.setPostLike(rset.getInt("postlike"));
+				sb.setPostDislike(rset.getInt("postdislike"));
+				sb.setPostDate(rset.getDate("postdate"));
+				sb.setPostReadCount(rset.getInt("postreadcount"));	
 			}
 
 			} catch (ClassNotFoundException e) {
@@ -338,14 +336,14 @@ public class FreeBoardDao {
 				
 			}
 		
-		return fb;
+		return sb;
 	}
 
 	public int deleteBoard(int postNo) {
 		int result = 0;
 		Connection conn = null;
 		PreparedStatement pstmt = null;
-		String query = "delete from board_free where postno=?";
+		String query = "delete from board_solve where postno=?";
 		try {
 			Class.forName("oracle.jdbc.driver.OracleDriver");
 			conn = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe", 
@@ -384,7 +382,7 @@ public class FreeBoardDao {
 		PreparedStatement pstmt = null;
 		Connection conn = null;
 		ResultSet rset = null;
-		String query = "select * from board_comment_free where ref = ?";
+		String query = "select * from board_comment_solve where ref = ?";
 		
 		try {
 			Class.forName("oracle.jdbc.driver.OracleDriver");
@@ -435,7 +433,7 @@ public class FreeBoardDao {
 		PreparedStatement pstmt = null;
 		Connection conn = null;
 		ResultSet rset = null;
-		String query = "select * from (select * from board_comment_free where ref=? order by commentlike desc) where ROWNUM <4 and commentlike>0";
+		String query = "select * from (select * from board_comment_solve where ref=? order by commentlike desc) where ROWNUM <4 and commentlike>0";
 		
 		try {
 			Class.forName("oracle.jdbc.driver.OracleDriver");
@@ -485,7 +483,7 @@ public class FreeBoardDao {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		String query = 
-	    "INSERT INTO board_comment_free (commentno,  commentlevel,  commentwriter,  commentcontent,  ref,  commentref) VALUES (seq_comment_free_commentno.nextVal, ? ,  ? ,  ? , ? , ?)";
+	    "INSERT INTO board_comment_solve (commentno,  commentlevel,  commentwriter,  commentcontent,  ref,  commentref) VALUES (seq_comment_free_commentno.nextVal, ? ,  ? ,  ? , ? , ?)";
 		
 		try {
 			Class.forName("oracle.jdbc.driver.OracleDriver");
@@ -530,7 +528,7 @@ public class FreeBoardDao {
 		int result = 0;
 		Connection conn = null;
 		PreparedStatement pstmt = null;
-		String query = "UPDATE board_comment_free SET commentcontent = ? where commentno = ?";
+		String query = "UPDATE board_comment_solve SET commentcontent = ? where commentno = ?";
 		
 		try {
 			Class.forName("oracle.jdbc.driver.OracleDriver");
@@ -574,7 +572,7 @@ public class FreeBoardDao {
 		int result = 0;
 		Connection conn = null;
 		PreparedStatement pstmt = null;
-		String query = "delete from board_comment_free where commentno=?";
+		String query = "delete from board_comment_solve where commentno=?";
 		try {
 			Class.forName("oracle.jdbc.driver.OracleDriver");
 			conn = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe", 
@@ -584,7 +582,7 @@ public class FreeBoardDao {
 			
 			pstmt = conn.prepareStatement(query);
 			pstmt.setInt(1, commentNo);
-//			fb.setPostNo(rset.getInt("postno"));
+//			sb.setPostNo(rset.getInt("postno"));
 //			
 			result = pstmt.executeUpdate();	
 			
@@ -614,7 +612,7 @@ public class FreeBoardDao {
 		int commentLikey = 0;
 		int result = 0;
 		ResultSet rset = null;
-		String query = "UPDATE board_comment_free SET commentlike = ?+1 where commentNo = ?";
+		String query = "UPDATE board_comment_solve SET commentlike = ?+1 where commentNo = ?";
 		try {
 			Class.forName("oracle.jdbc.driver.OracleDriver");
 			conn = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe", 
@@ -655,7 +653,7 @@ public class FreeBoardDao {
 		int likey = 0;
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
-		String query = "select commentlike from board_comment_free where commentNo=?";
+		String query = "select commentlike from board_comment_solve where commentNo=?";
 		
 		//1. 클래스등록확인
 		try {
@@ -696,7 +694,7 @@ public class FreeBoardDao {
 		int commentLikey = 0;
 		int result = 0;
 		ResultSet rset = null;
-		String query = "UPDATE board_free SET postlike = ?+1 where postno = ?";
+		String query = "UPDATE board_solve SET postlike = ?+1 where postno = ?";
 		try {
 			Class.forName("oracle.jdbc.driver.OracleDriver");
 			conn = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe", 
@@ -736,7 +734,7 @@ public class FreeBoardDao {
 		int likey = 0;
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
-		String query = "select postlike from board_free where postNo=?";
+		String query = "select postlike from board_solve where postNo=?";
 		
 		//1. 클래스등록확인
 		try {
@@ -777,7 +775,7 @@ public class FreeBoardDao {
 		int commentLikey = 0;
 		int result = 0;
 		ResultSet rset = null;
-		String query = "UPDATE board_free SET postdislike = ?+1 where postno = ?";
+		String query = "UPDATE board_solve SET postdislike = ?+1 where postno = ?";
 		try {
 			Class.forName("oracle.jdbc.driver.OracleDriver");
 			conn = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe", 
@@ -817,7 +815,7 @@ public class FreeBoardDao {
 		int dislikey = 0;
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
-		String query = "select postdislike from board_free where postNo=?";
+		String query = "select postdislike from board_solve where postNo=?";
 		
 		//1. 클래스등록확인
 		try {
@@ -859,7 +857,7 @@ public class FreeBoardDao {
 		String date = "";
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
-		String query = "select commentdate from board_comment_free where commentno=?";
+		String query = "select commentdate from board_comment_solve where commentno=?";
 		
 		try {
 			Class.forName("oracle.jdbc.driver.OracleDriver");
@@ -898,7 +896,7 @@ public class FreeBoardDao {
 		PreparedStatement pstmt = null;
 		Connection conn = null;
 		ResultSet rset = null;
-		String query = "select * from board_comment_free where ref = ? and commentlevel=2 and commentref = ?";
+		String query = "select * from board_comment_solve where ref = ? and commentlevel=2 and commentref = ?";
 		
 		try {
 			Class.forName("oracle.jdbc.driver.OracleDriver");
@@ -951,7 +949,7 @@ public class FreeBoardDao {
 		int commentLikey = 0;
 		int result = 0;
 		ResultSet rset = null;
-		String query = "UPDATE board_comment_free SET commentdislike = ?+1 where commentNo = ?";
+		String query = "UPDATE board_comment_solve SET commentdislike = ?+1 where commentNo = ?";
 		try {
 			Class.forName("oracle.jdbc.driver.OracleDriver");
 			conn = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe", 
@@ -993,7 +991,7 @@ public class FreeBoardDao {
 		int dislike = 0;
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
-		String query = "select commentdislike from board_comment_free where commentNo=?";
+		String query = "select commentdislike from board_comment_solve where commentNo=?";
 		
 		//1. 클래스등록확인
 		try {
@@ -1033,7 +1031,7 @@ public class FreeBoardDao {
 		String getUpdateComment = "";
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
-		String query = "select commentcontent from board_comment_free where commentNo=?";
+		String query = "select commentcontent from board_comment_solve where commentNo=?";
 		
 		//1. 클래스등록확인
 		try {
@@ -1068,12 +1066,12 @@ public class FreeBoardDao {
 		return getUpdateComment;
 	}
 
-	public int insertPost(FreeBoard fb) {
+	public int insertPost(SolveBoard sb) {
 		int result = 0;
 		PreparedStatement pstmt = null;
 		Connection conn = null;
 		String query = 
-	    "INSERT INTO board_free (postno, posttitle, postwriter, postcontent,postoriginalfile, postrenamedfile, postdate, postreadcount, postlike, postdislike, postreport ) values ( seq_board_free_postno.nextVal , ?, ? , ? ,?, ?, default, default, default , default , default)";
+	    "INSERT INTO board_solve (postno, posttitle, postwriter, postcontent,postoriginalfile, postrenamedfile, postdate, postreadcount, postlike, postdislike, postreport ) values ( seq_board_solve_postno.nextVal , ?, ? , ? ,?, ?, default, default, default , default , default)";
 		
 		try {
 			Class.forName("oracle.jdbc.driver.OracleDriver");
@@ -1084,11 +1082,11 @@ public class FreeBoardDao {
 			
 			pstmt = conn.prepareStatement(query);
 			
-			pstmt.setString(1, fb.getPostTitle());
-			pstmt.setString(2, fb.getPostWriter());
-			pstmt.setString(3, fb.getPostContent());
-			pstmt.setString(4, fb.getPostOriginalFile());
-			pstmt.setString(5, fb.getPostRenamedFile());
+			pstmt.setString(1, sb.getPostTitle());
+			pstmt.setString(2, sb.getPostWriter());
+			pstmt.setString(3, sb.getPostContent());
+			pstmt.setString(4, sb.getPostOriginalFile());
+			pstmt.setString(5, sb.getPostRenamedFile());
 	
 			result = pstmt.executeUpdate();
 					
@@ -1118,7 +1116,7 @@ public class FreeBoardDao {
 		int lastSeq = 0;
 		String query = 
 				
-	"select * from ( select rownum as rnum, v.* from(SELECT LAST_VALUE(postno) OVER (ORDER BY postno ROWS BETWEEN UNBOUNDED PRECEDING AND UNBOUNDED FOLLOWING) AS L_postno FROM  board_free ) v) v where rnum = 1 ";
+	"select * from ( select rownum as rnum, v.* from(SELECT LAST_VALUE(postno) OVER (ORDER BY postno ROWS BETWEEN UNBOUNDED PRECEDING AND UNBOUNDED FOLLOWING) AS L_postno FROM  board_solve ) v) v where rnum = 1 ";
 		
 		try {
 			Class.forName("oracle.jdbc.driver.OracleDriver");
@@ -1155,12 +1153,12 @@ public class FreeBoardDao {
 		return lastSeq;
 	}
 
-	public List<FreeBoard> searchByTitle(String searchVal, int cPage, int numPerPage) {
-		List<FreeBoard> list = null;
+	public List<SolveBoard> searchByTitle(String searchVal, int cPage, int numPerPage) {
+		List<SolveBoard> list = null;
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
-		String query = "select * from ( select rownum as rnum, v.* from( select v.*, (select count(*) from board_comment_free where ref = v.postNo) as board_comment_cnt from board_free v  where posttitle like ? order by postlike desc) v ) v where rnum between ? and ?";
+		String query = "select * from ( select rownum as rnum, v.* from( select v.*, (select count(*) from board_comment_solve where ref = v.postNo) as board_comment_cnt from board_solve v  where posttitle like ? order by postlike desc) v ) v where rnum between ? and ?";
 		
 		try {
 			Class.forName("oracle.jdbc.driver.OracleDriver");
@@ -1180,20 +1178,20 @@ public class FreeBoardDao {
 			
 			list = new ArrayList<>();
 			while(rset.next()) {
-				FreeBoard fb = new FreeBoard();
-				fb.setPostNo(rset.getInt("postno"));
-				fb.setPostTitle(rset.getString("posttitle"));
-				fb.setPostWriter(rset.getString("postwriter"));
-				fb.setPostContent(rset.getString("postcontent"));
-				fb.setPostOriginalFile(rset.getString("postoriginalfile"));
-				fb.setPostRenamedFile(rset.getString("postrenamedfile"));
-				fb.setPostLike(rset.getInt("postlike"));
-				fb.setPostDislike(rset.getInt("postdislike"));
-				fb.setPostDate(rset.getDate("postdate"));
-				fb.setPostReadCount(rset.getInt("postreadcount"));
-				fb.setBoard_comment_cnt(rset.getInt("board_comment_cnt"));
+				SolveBoard sb = new SolveBoard();
+				sb.setPostNo(rset.getInt("postno"));
+				sb.setPostTitle(rset.getString("posttitle"));
+				sb.setPostWriter(rset.getString("postwriter"));
+				sb.setPostContent(rset.getString("postcontent"));
+				sb.setPostOriginalFile(rset.getString("postoriginalfile"));
+				sb.setPostRenamedFile(rset.getString("postrenamedfile"));
+				sb.setPostLike(rset.getInt("postlike"));
+				sb.setPostDislike(rset.getInt("postdislike"));
+				sb.setPostDate(rset.getDate("postdate"));
+				sb.setPostReadCount(rset.getInt("postreadcount"));
+				sb.setBoard_comment_cnt(rset.getInt("board_comment_cnt"));
 				
-				list.add(fb);
+				list.add(sb);
 				
 			}
 		} catch (ClassNotFoundException e) {
@@ -1216,12 +1214,12 @@ public class FreeBoardDao {
 		return list;
 	}
 
-	public List<FreeBoard> searchByContent(String searchVal, int cPage, int numPerPage) {
-		List<FreeBoard> list = null;
+	public List<SolveBoard> searchByContent(String searchVal, int cPage, int numPerPage) {
+		List<SolveBoard> list = null;
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
-		String query = "select * from ( select rownum as rnum, v.* from( select v.*, (select count(*) from board_comment_free where ref = v.postNo) as board_comment_cnt from board_free v  where postcontent like ? order by postlike desc) v ) v where rnum between ? and ?";
+		String query = "select * from ( select rownum as rnum, v.* from( select v.*, (select count(*) from board_comment_solve where ref = v.postNo) as board_comment_cnt from board_solve v  where postcontent like ? order by postlike desc) v ) v where rnum between ? and ?";
 		
 		try {
 			Class.forName("oracle.jdbc.driver.OracleDriver");
@@ -1241,20 +1239,20 @@ public class FreeBoardDao {
 			
 			list = new ArrayList<>();
 			while(rset.next()) {
-				FreeBoard fb = new FreeBoard();
-				fb.setPostNo(rset.getInt("postno"));
-				fb.setPostTitle(rset.getString("posttitle"));
-				fb.setPostWriter(rset.getString("postwriter"));
-				fb.setPostContent(rset.getString("postcontent"));
-				fb.setPostOriginalFile(rset.getString("postoriginalfile"));
-				fb.setPostRenamedFile(rset.getString("postrenamedfile"));
-				fb.setPostLike(rset.getInt("postlike"));
-				fb.setPostDislike(rset.getInt("postdislike"));
-				fb.setPostDate(rset.getDate("postdate"));
-				fb.setPostReadCount(rset.getInt("postreadcount"));
-				fb.setBoard_comment_cnt(rset.getInt("board_comment_cnt"));
+				SolveBoard sb = new SolveBoard();
+				sb.setPostNo(rset.getInt("postno"));
+				sb.setPostTitle(rset.getString("posttitle"));
+				sb.setPostWriter(rset.getString("postwriter"));
+				sb.setPostContent(rset.getString("postcontent"));
+				sb.setPostOriginalFile(rset.getString("postoriginalfile"));
+				sb.setPostRenamedFile(rset.getString("postrenamedfile"));
+				sb.setPostLike(rset.getInt("postlike"));
+				sb.setPostDislike(rset.getInt("postdislike"));
+				sb.setPostDate(rset.getDate("postdate"));
+				sb.setPostReadCount(rset.getInt("postreadcount"));
+				sb.setBoard_comment_cnt(rset.getInt("board_comment_cnt"));
 				
-				list.add(fb);
+				list.add(sb);
 				
 			}
 		} catch (ClassNotFoundException e) {
@@ -1277,13 +1275,13 @@ public class FreeBoardDao {
 		return list;
 	}
 
-	public List<FreeBoard> searchById(String searchVal, int cPage, int numPerPage) {
-		List<FreeBoard> list = null;
+	public List<SolveBoard> searchById(String searchVal, int cPage, int numPerPage) {
+		List<SolveBoard> list = null;
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		String query =
-"select * from ( select rownum as rnum, v.* from( select v.*, (select count(*) from board_comment_free where ref = v.postNo) as board_comment_cnt from board_free v  where postwriter like ? order by postlike desc) v ) v where rnum between ? and ?";
+"select * from ( select rownum as rnum, v.* from( select v.*, (select count(*) from board_comment_solve where ref = v.postNo) as board_comment_cnt from board_solve v  where postwriter like ? order by postlike desc) v ) v where rnum between ? and ?";
 		
 		try {
 			Class.forName("oracle.jdbc.driver.OracleDriver");
@@ -1303,20 +1301,20 @@ public class FreeBoardDao {
 			
 			list = new ArrayList<>();
 			while(rset.next()) {
-				FreeBoard fb = new FreeBoard();
-				fb.setPostNo(rset.getInt("postno"));
-				fb.setPostTitle(rset.getString("posttitle"));
-				fb.setPostWriter(rset.getString("postwriter"));
-				fb.setPostContent(rset.getString("postcontent"));
-				fb.setPostOriginalFile(rset.getString("postoriginalfile"));
-				fb.setPostRenamedFile(rset.getString("postrenamedfile"));
-				fb.setPostLike(rset.getInt("postlike"));
-				fb.setPostDislike(rset.getInt("postdislike"));
-				fb.setPostDate(rset.getDate("postdate"));
-				fb.setPostReadCount(rset.getInt("postreadcount"));
-				fb.setBoard_comment_cnt(rset.getInt("board_comment_cnt"));
+				SolveBoard sb = new SolveBoard();
+				sb.setPostNo(rset.getInt("postno"));
+				sb.setPostTitle(rset.getString("posttitle"));
+				sb.setPostWriter(rset.getString("postwriter"));
+				sb.setPostContent(rset.getString("postcontent"));
+				sb.setPostOriginalFile(rset.getString("postoriginalfile"));
+				sb.setPostRenamedFile(rset.getString("postrenamedfile"));
+				sb.setPostLike(rset.getInt("postlike"));
+				sb.setPostDislike(rset.getInt("postdislike"));
+				sb.setPostDate(rset.getDate("postdate"));
+				sb.setPostReadCount(rset.getInt("postreadcount"));
+				sb.setBoard_comment_cnt(rset.getInt("board_comment_cnt"));
 				
-				list.add(fb);
+				list.add(sb);
 				
 			}
 		} catch (ClassNotFoundException e) {
@@ -1344,7 +1342,7 @@ public class FreeBoardDao {
 		int totalContent = 0;
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
-		String query = "select count(*) as cnt from board_free where posttitle like ?";
+		String query = "select count(*) as cnt from board_solve where posttitle like ?";
 		
 		try {
 			Class.forName("oracle.jdbc.driver.OracleDriver");
@@ -1383,7 +1381,7 @@ public class FreeBoardDao {
 		int totalContent = 0;
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
-		String query = "select count(*) as cnt from board_free where postcontent like ?";
+		String query = "select count(*) as cnt from board_solve where postcontent like ?";
 		
 		try {
 			Class.forName("oracle.jdbc.driver.OracleDriver");
@@ -1422,7 +1420,7 @@ public class FreeBoardDao {
 		int totalContent = 0;
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
-		String query = "select count(*) as cnt from board_free where postwriter like ?";
+		String query = "select count(*) as cnt from board_solve where postwriter like ?";
 		
 		try {
 			Class.forName("oracle.jdbc.driver.OracleDriver");
@@ -1460,7 +1458,7 @@ public class FreeBoardDao {
 		Connection conn = null;
 		int result = 0;
 		PreparedStatement pstmt = null;
-		String query = "update board_free set postreadcount=postreadcount + 1 where postno = ?";
+		String query = "update board_solve set postreadcount=postreadcount + 1 where postno = ?";
 			
 		try {
 			Class.forName("oracle.jdbc.driver.OracleDriver");
@@ -1471,6 +1469,86 @@ public class FreeBoardDao {
 			pstmt = conn.prepareStatement(query);
 			//쿼리문미완성
 			pstmt.setInt(1, postNo);
+			//쿼리 실행
+			result = pstmt.executeUpdate();
+			
+			if(result >0) commit(conn);
+		    else rollback(conn);
+			
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}finally {
+			try {
+				pstmt.close();
+				conn.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+		}
+		
+				
+		return result;
+	}
+
+	public int reportPost(int postNo) {
+		Connection conn = null;
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String query = "update board_solve set postreport='Y' where postno = ?";
+			
+		try {
+			Class.forName("oracle.jdbc.driver.OracleDriver");
+			conn = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe", 
+					"escape_if_you_can", //아이디 
+					"escape_if_you_can");//비번
+			
+			pstmt = conn.prepareStatement(query);
+			//쿼리문미완성
+			pstmt.setInt(1, postNo);
+			//쿼리 실행
+			result = pstmt.executeUpdate();
+			
+			if(result >0) commit(conn);
+		    else rollback(conn);
+			
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}finally {
+			try {
+				pstmt.close();
+				conn.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+		}
+		
+				
+		return result;
+	}
+	
+	public int reportComment(int commentNo) {
+		Connection conn = null;
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String query = "update board_comment_solve set commentreport='Y' where commentno = ?";
+			
+		try {
+			Class.forName("oracle.jdbc.driver.OracleDriver");
+			conn = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe", 
+					"escape_if_you_can", //아이디 
+					"escape_if_you_can");//비번
+			
+			pstmt = conn.prepareStatement(query);
+			//쿼리문미완성
+			pstmt.setInt(1, commentNo);
 			//쿼리 실행
 			result = pstmt.executeUpdate();
 			
