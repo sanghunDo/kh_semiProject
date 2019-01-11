@@ -130,6 +130,50 @@ public class AdminDao {
 	   return result;
    }
    
+   // 관리자용 비밀번호 수정하기
+   public int updatePassword(Connection conn, Member m) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String query = prop.getProperty("updatePassword");
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			
+			pstmt.setString(1, m.getUserPassword());
+			pstmt.setString(2, m.getUserId());
+			System.out.println("AdminDao updatePassword: " + m.getUserPassword());
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+   
+   // 관리자용 회원 삭제
+   public int deleteMember(Connection conn, String userId) {
+	int result = 0;
+	PreparedStatement pstmt = null;
+	
+	String query = prop.getProperty("deleteMember");
+	
+	try {
+		pstmt = conn.prepareStatement(query);
+		
+		pstmt.setString(1, userId);
+		
+		result = pstmt.executeUpdate();
+	} catch (SQLException e) {
+		e.printStackTrace();
+	} 
+	
+	return result;
+   }
+   
+   
    // 관리자용 전체 회원 목록 보기
    public List<Member> selectMemberList(Connection conn, int cPage, int numPerPage) {
       List<Member> list = null;
@@ -252,5 +296,5 @@ public class AdminDao {
       List commentList = new ArrayList();
       return commentList;
    }
-   
+
 }

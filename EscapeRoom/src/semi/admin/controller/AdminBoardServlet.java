@@ -58,6 +58,7 @@ public class AdminBoardServlet extends HttpServlet {
          } catch(NumberFormatException e) {
          numPerPage = 5;
          }
+      System.out.printf("[cPage=%s, numPerPage=%s]\n", cPage, numPerPage);
 
       // 2. 비즈니스 로직
       // 2. 1. 컨텐츠 영역
@@ -120,13 +121,13 @@ public class AdminBoardServlet extends HttpServlet {
             
       // 3. view단 처리
       // 실패시 사용
-      //String view = "/WEB-INF/views/.jsp";
-      //String msg = "";
-      //String loc = "/";
+      String view = "/WEB-INF/views/common/msg.jsp";
+      String msg = "";
+      String loc = "/home";
 
-      //request.setAttribute("view", view); // 
-      //request.setAttribute("msg", msg); // 실패했을 시 사용
-      //request.setAttribute("loc", loc); // 실패했을 시 사용
+      request.setAttribute("view", view); // 
+      request.setAttribute("msg", msg); // 실패했을 시 사용
+      request.setAttribute("loc", loc); // 실패했을 시 사용
 
       // request 객체에 속성 등록
       System.out.println(list);

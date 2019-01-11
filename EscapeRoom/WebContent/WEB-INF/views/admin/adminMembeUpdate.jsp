@@ -37,7 +37,7 @@ $(function(){
 });
 </script>
 <h2>관리자 전용 게시판</h2>
-<h3>전체 회원 정보</h3>
+<h3>회원 정보 수정하기</h3>
 <!-- 전체 회원 목록 표시 -->
 <table id="memberList">
 	<thead>

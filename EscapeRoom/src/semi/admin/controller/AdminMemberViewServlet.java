@@ -57,7 +57,7 @@ public class AdminMemberViewServlet extends HttpServlet {
 		if(m == null) {
 			view = "/WEB-INF/views/common/msg.jsp";
 			msg = "해당 회원이 존재하지 않습니다.";
-			loc = "/";
+			loc = "/home";
 		}
 		
 		// request 객체에 속성 등록
