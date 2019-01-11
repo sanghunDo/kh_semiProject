@@ -215,7 +215,7 @@
         <div class="button" id="update" onclick="updateBoard();">수정</div>
         <div class="button" id="delete" onclick="deleteBoard();">삭제</div>     
     <%} %>
-        <div class="button" id="goList">목록</div>
+        <div class="button" id="goList" onclick="goList();">목록</div>
 </div>
 
 <form action="<%=request.getContextPath()%>/board/free/freeBoardDelete" name="boardDelFrm" method="post">
@@ -224,10 +224,16 @@
 </form>
 
 <script>
+/* 목록  */
+ function goList(){
+	 var referrer =  document.referrer;
+	 location.href = referrer; 
+}
+/* 글 수정 */
    function updateBoard(){
       location.href="<%=request.getContextPath()%>/board/free/freeBoardUpdate?postNo=<%=fb.getPostNo()%>";   
    }
-   
+/* 글 삭제 */  
    function deleteBoard(){
       if(!confirm("정말 게시글을 삭제하시겠습니까?")){
          return;

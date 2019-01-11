@@ -105,9 +105,16 @@ function check(){
             -->
     </table>
 </form>
-    <div class="button" id="goList">목록</div>
+   
     <div class="button" id="submit" onclick="return validate();">등록</div>
-    <div class="button" id="cancel">취소</div>
+    <div class="button" id="cancel" onclick="goList();">취소</div>
 
 </div>
+<script>
+function goList(){
+
+	 var referrer =  document.referrer;
+	 location.href = referrer; 
+}
+</script>
 </html>
