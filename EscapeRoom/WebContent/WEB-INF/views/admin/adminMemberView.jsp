@@ -3,11 +3,11 @@
     pageEncoding="UTF-8"%>
 <%@ page import="java.util.*" %>
 <%@ page import="semi.admin.controller.*" %>
-<%@ page import="semi.member.model.vo.*" %>
 <%
 	Member m = (Member) request.getAttribute("member");
 	//header.jsp에서 userId 변수명을 이미 사용중이므로 살짝 변경
 	String userId_ = m.getUserId(); 
+	System.out.println("어드민멤버뷰.jsp 회원아이디: " + userId_);
 	String userPassword = m.getUserPassword();
 	String userEmail = m.getUserEmail()!=null?m.getUserEmail():"";
 	String userProfileOriginalFile = m.getUserProfileOriginalFile()!=null?m.getUserProfileOriginalFile():"";	

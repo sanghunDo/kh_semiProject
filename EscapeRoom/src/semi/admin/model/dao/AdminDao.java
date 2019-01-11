@@ -37,6 +37,7 @@ public class AdminDao {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		String query = prop.getProperty("loginCheck");
+		System.out.println("AdminDao 로그인 체크 : "+m.getUserPassword());
 		
 		try {
 			//1.statement객체 생성 및 미완성쿼리문 완성
@@ -82,11 +83,13 @@ public class AdminDao {
          while(rset.next()) {
         	m = new Member();
             m.setUserId(rset.getString("userid"));
-            m.setUserPassword(rset.getString("userPassword"));
-            m.setUserEmail(rset.getString("email"));
+            m.setUserPassword(rset.getString("userpassword"));
+            m.setUserEmail(rset.getString("useremail"));
             m.setUserProfileOriginalFile(rset.getString("userprofileoriginalfile"));
             m.setUserProfileOriginalFile(rset.getString("userProfileOriginalFile"));
             m.setUserProfileRenamedFile(rset.getString("userProfileRenamedFile"));
+            m.setCoin(rset.getInt("coin"));
+            m.setHintPaper(rset.getInt("hintpaper"));
             m.setEnrollDate(rset.getDate("enrolldate"));
             
          }
@@ -100,6 +103,31 @@ public class AdminDao {
       }
       
       return m;
+   }
+   
+   // 관리자용 회원 정보 수정하기
+   public int updateMember(Connection conn, Member m) {
+	   int result = 0;
+	   PreparedStatement pstmt = null;
+	   String query = prop.getProperty("updateMember");
+	   
+	   try {
+		   pstmt = conn.prepareStatement(query);
+		   
+		   pstmt.setString(1, m.getUserId());
+		   pstmt.setString(2, m.getUserEmail());
+		   pstmt.setString(3, m.getUserProfileOriginalFile());
+		   pstmt.setString(4, m.getUserProfileRenamedFile());
+		   
+		   result = pstmt.executeUpdate();
+		   
+	   } catch (SQLException e) {
+		   e.printStackTrace();
+	   } finally {
+		   close(pstmt);
+	   }
+
+	   return result;
    }
    
    // 관리자용 전체 회원 목록 보기

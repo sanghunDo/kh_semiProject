@@ -36,6 +36,21 @@ public class AdminService {
 		close(conn);
 		return m;
 	}
+	
+	// 관리자용 회원 수정하기
+	public int updateMember(Member m) {
+		Connection conn = getConnection();
+		int result = 0;
+		result = new AdminDao().updateMember(conn, m);
+		
+		// DML의 update문이므로 트랜잭션 처리
+		if(result>0)
+			commit(conn);
+		else 
+			rollback(conn);
+		close(conn);
+		return result;
+	}
 
 	// 관리자용 전체 회원 목록 보기
 	public List<Member> selectMemberList(int cPage, int numPerPage) {
