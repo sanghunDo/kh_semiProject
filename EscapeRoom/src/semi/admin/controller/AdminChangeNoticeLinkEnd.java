@@ -1,7 +1,6 @@
-package semi.admin;
+package semi.admin.controller;
 
 import java.io.IOException;
-import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -13,16 +12,16 @@ import semi.notice.model.service.noticeService;
 import semi.notice.model.vo.Notice;
 
 /**
- * Servlet implementation class AdminChangeNoticeLink
+ * Servlet implementation class AdminChangeNoticeLinkEnd
  */
-@WebServlet("/admin/changeNoticeLink")
-public class AdminChangeNoticeLink extends HttpServlet {
+@WebServlet("/admin/changeNoticeLinkEnd")
+public class AdminChangeNoticeLinkEnd extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public AdminChangeNoticeLink() {
+    public AdminChangeNoticeLinkEnd() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -32,11 +31,14 @@ public class AdminChangeNoticeLink extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		//현재 링크되어있는 공지사항 객체  및 공지사항 전체 리스트 호출
-		/*List<Notice> list = new noticeService().*/
+		int noticeNo = Integer.parseInt(request.getParameter("noticeNo"));
+		Notice n = new noticeService().selectOneNotice(noticeNo);
 		
-		String view = "/WEB-INF/views/admin/changeNoticeLink.jsp";
+		System.out.println("확인1 : " + noticeNo);
+		System.out.println("확인2 : " + n);
 		
+		String view = "/home";
+		request.setAttribute("linkedNotice", n);
 		request.getRequestDispatcher(view).forward(request, response);
 	}
 
