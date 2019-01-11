@@ -236,7 +236,7 @@ $("#obj-list div").each(function(){
 $("#pause").on("click", {flag:1}, function(e){
 	var $target = $(this);
 	var cnt = e.data.flag++;
-	$("img").not("#pause img").toggleClass("paused");
+	$("img").not("#pause img, #hint img").toggleClass("paused");
 	if(cnt%2!=0){
 		$target.children().attr("src", "<%=request.getContextPath()%>/images/game/gameMain/play.png");
 		$("#pause-menu-container").show();
