@@ -1,22 +1,22 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ page import = "java.util.*,semi.board.free.model.vo.*"  %>
+<%@ page import = "java.util.*,semi.board.solve.model.vo.*"  %>
 <%@ include file="/WEB-INF/views/common/header.jsp"%>
 <%
-   FreeBoard fb = (FreeBoard)request.getAttribute("fb");
+   SolveBoard sb = (SolveBoard)request.getAttribute("sb");
    List<BoardComment> commentList = (List<BoardComment>)request.getAttribute("commentList");
    List<BoardComment> bestCommentList = (List<BoardComment>)request.getAttribute("bestCommentList");
    
 %>
-<link rel="stylesheet" href="<%=request.getContextPath()%>/css/board/free/boardCommunityView.css" />
+<link rel="stylesheet" href="<%=request.getContextPath()%>/css/board/solve/boardCommunityView.css" />
 <script src="<%=request.getContextPath()%>/js/jquery-3.3.1.js"></script>
 
 
-<title>자유게시판</title>
+<title>공략게시판</title>
 
 
 <div class="container">
-        <h3 style="color: white">자유게시판</h3>
+        <h3 style="color: white">공략게시판</h3>
     <!--new pic-->
     <hr style="margin-bottom: 36px;">
    
@@ -34,28 +34,28 @@
             <tr>
                 <th scope="col">제목</th>
                 <td class="title">
-                       <%=fb.getPostTitle() %>
+                       <%=sb.getPostTitle() %>
                 </td>
             </tr>
 
             <tr>
                 <th scope="col">글쓴이</th>
                 <td class="writer">
-                       <%=fb.getPostWriter() %>
+                       <%=sb.getPostWriter() %>
                 </td>
             </tr>
 
             <tr>
                 <th scope="col">내용</th>
                 <td class="content" style="height: 500px;">
-                       <%if(fb.getPostRenamedFile()!=null){ %>
-                       		<img src='<%=request.getContextPath()%>/upload/freeBoard/<%=fb.getPostRenamedFile() %>' class="contentPhoto" alt="지원하지 않는 사진 입니다."  />
+                       <%if(sb.getPostRenamedFile()!=null){ %>
+                       		<img src='<%=request.getContextPath()%>/upload/solveBoard/<%=sb.getPostRenamedFile() %>' class="contentPhoto" alt="지원하지 않는 사진 입니다."  />
                        		<br />
                        		<br />
                        		<br />
-                       		<%=fb.getPostContent() %>
+                       		<%=sb.getPostContent() %>
                        <%} else {%>
-                       <%=fb.getPostContent() %>
+                       <%=sb.getPostContent() %>
                        <%} %>
                 </td>
             </tr>
@@ -63,19 +63,19 @@
 
     <div id="declaration">
         
-    <i onclick="report('<%=fb.getPostNo()%>');">신고하기</i>
+    <i onclick="Postreport('<%=sb.getPostNo()%>');">신고하기</i>
     </div>
 
     <div class="opinion">
         <div id="good">
-            <b><span id="like"><%=fb.getPostLike()%></span></b>
-            <img src='<%=request.getContextPath()%>/images/freeBoard/like.png' onclick="likey('<%=fb.getPostLike()%>')">
+            <b><span id="like"><%=sb.getPostLike()%></span></b>
+            <img src='<%=request.getContextPath()%>/images/freeBoard/like.png' onclick="likey('<%=sb.getPostLike()%>')">
             <span id="likeComment">추천</span>
         </div>
 
         <div id="bad">
-           <b><span id="dislike"><%=fb.getPostDislike()%></span></b>
-            <img src='<%=request.getContextPath()%>/images/freeBoard/dislike.png' onclick="disLikey('<%=fb.getPostDislike()%>')">
+           <b><span id="dislike"><%=sb.getPostDislike()%></span></b>
+            <img src='<%=request.getContextPath()%>/images/freeBoard/dislike.png' onclick="disLikey('<%=sb.getPostDislike()%>')">
             <span id="dislikeComment">비추천</span>
         </div>
     </div>
@@ -115,14 +115,14 @@
 
     <div id="comment-container" style="color:white;">
         <p>
-            <span style="color: red; font-size:29px;" ><%=fb.getBoard_comment_cnt()%></span>개의 댓글
+            <span style="color: red; font-size:29px;" ><%=sb.getBoard_comment_cnt()%></span>개의 댓글
         </p>
             <div class="comment-editor">
                    댓글쓰기
                 <hr>
                 <!-- 댓글 삽입 서블릿을 위한 폼 -->
-                <form action="<%=request.getContextPath() %>/board/free/FreeBoardCommentInsert" name="commentSubmitFrm">
-                <input type="hidden" name="ref" value="<%=fb.getPostNo() %>" />
+                <form action="<%=request.getContextPath() %>/board/solve/solveBoardCommentInsert" name="commentSubmitFrm">
+                <input type="hidden" name="ref" value="<%=sb.getPostNo() %>" />
                 <input type="hidden" name="userId" value="<%=loggedInMember.getUserId()%>"/>
                 <input type="hidden" name="commentLevel" value="1" />
                 <input type="hidden" name="commentRef" value="0" />
@@ -159,9 +159,9 @@
                  </dl>
                  
                  <!-- 댓글 삭제를 위한 폼 -->
-                    <form action="<%=request.getContextPath()%>/board/free/freeBoardCommentDelete" name="commentDeleteFrm">
+                    <form action="<%=request.getContextPath()%>/board/solve/solveBoardCommentDelete" name="commentDeleteFrm">
                     <input type="hidden" value="<%=bc.getCommentNo() %>" name="commentNo" class="commentNo" commentNo="<%=i%>"/>
-                    <input type="hidden" value="<%=fb.getPostNo() %>" name="postNo" id="postNo"/>
+                    <input type="hidden" value="<%=sb.getPostNo() %>" name="postNo" id="postNo"/>
                     </form>
                     
                  
@@ -211,16 +211,16 @@
                </div><!-- level2CommentListDiv 끝 -->
              </dl>
         </div> <!-- end of . comment-container -->
-   <%if(loggedInMember!= null && ("admin".equals(loggedInMember.getUserId()) ||  fb.getPostWriter().equals(loggedInMember.getUserId()))) {%>
+   <%if(loggedInMember!= null && ("admin".equals(loggedInMember.getUserId()) ||  sb.getPostWriter().equals(loggedInMember.getUserId()))) {%>
         <div class="button" id="update" onclick="updateBoard();">수정</div>
         <div class="button" id="delete" onclick="deleteBoard();">삭제</div>     
     <%} %>
         <div class="button" id="goList" onclick="goList();">목록</div>
 </div>
 
-<form action="<%=request.getContextPath()%>/board/free/freeBoardDelete" name="boardDelFrm" method="post">
-<input type="hidden" name="postNo" value="<%=fb.getPostNo()%>" id="postNo"/>
-<input type="hidden" name="rName" value="<%=fb.getPostRenamedFile()%>" />
+<form action="<%=request.getContextPath()%>/board/solve/solveBoardDelete" name="boardDelFrm" method="post">
+<input type="hidden" name="postNo" value="<%=sb.getPostNo()%>" id="postNo"/>
+<input type="hidden" name="rName" value="<%=sb.getPostRenamedFile()%>" />
 </form>
 
 <script>
@@ -231,7 +231,7 @@
 }
 /* 글 수정 */
    function updateBoard(){
-      location.href="<%=request.getContextPath()%>/board/free/freeBoardUpdate?postNo=<%=fb.getPostNo()%>";   
+      location.href="<%=request.getContextPath()%>/board/solve/solveBoardUpdate?postNo=<%=sb.getPostNo()%>";   
    }
 /* 글 삭제 */  
    function deleteBoard(){
@@ -277,7 +277,7 @@
        
     
          $.ajax({
-          url:"<%=request.getContextPath()%>/board/free/freeBoardComment2.do",
+          url:"<%=request.getContextPath()%>/board/solve/solveBoardComment2.do",
            data:{level2Comment:level2Comment, ref:ref, commentRef:commentRef, commentWriter:commentWriter,  commentLevel:commentLevel},
            success:function(data){
            
@@ -323,7 +323,7 @@
        
   
    	 $.ajax({
-      url:"<%=request.getContextPath()%>/board/free/CommentLevel2Insert.do",
+      url:"<%=request.getContextPath()%>/board/solve/CommentLevel2Insert.do",
          data:{level2Comment:level2Comment, ref:ref, commentRef:commentRef, commentWriter:commentWriter,  commentLevel:commentLevel},
          success:function(data){
          
@@ -371,7 +371,7 @@
     	  var commentNo = $(".commentNo[commentNum="+no+"]").val();
     	  var ref = $("[name=ref]").val();
     	  
-		  location.href = "<%=request.getContextPath()%>/board/free/freeBoardCommentUpdate?commentUpdate="+commentUpdate+
+		  location.href = "<%=request.getContextPath()%>/board/solve/solveBoardCommentUpdate?commentUpdate="+commentUpdate+
 				  "&commentNo="+commentNo+"&ref="+ref;
 
     });
@@ -402,7 +402,7 @@
  	   }
  	       
  	        $.ajax({
- 	           url:"<%=request.getContextPath()%>/board/free/freeBoardComment1Like.do",
+ 	           url:"<%=request.getContextPath()%>/board/solve/solveBoardComment1Like.do",
  	           data:{commentNo:commentNo, commentLikeAmount:commentLikeAmount},
  	           success:function(data){
  	              $(".comment1Like[commentNum="+no+"]").html(data);
@@ -427,7 +427,7 @@
 	 	}
 	        
 	    $.ajax({
-	           url:"<%=request.getContextPath()%>/board/free/freeBoardComment1Dislike.do",
+	           url:"<%=request.getContextPath()%>/board/solve/solveBoardComment1Dislike.do",
 	           data:{commentNo:commentNo, commentDislikeAmount:commentDislikeAmount},
 	           success:function(data){
 	             	console.log(data);
@@ -437,11 +437,11 @@
 	    });
 	});
  	
-	  /*게시글 & 댓글 신고하기*/
+	  /*댓글 신고하기*/
     function report(item){
     	var commentNo = item;
     	console.log("신고하기 버튼"+item);
-        var url = "<%=request.getContextPath() %>/board/free/freeBoardCommentReport?commentNo="+commentNo;
+        var url = "<%=request.getContextPath() %>/board/solve/solveBoardCommentReport?commentNo="+commentNo;
     	   
     	   // 팝업창 이름
         var title = "Report";
@@ -450,6 +450,16 @@
     	open(url, title, status);
     }
 
+	  /* 게시글 신고 */
+	  function Postreport(item){
+		  var postNo = item;
+		  console.log("postNo="+postNo);
+		  var url = "<%=request.getContextPath() %>/board/solve/solveBoardPostReport?postNo="+postNo;
+	      var title = "Report";
+	      var status = "left=500px, top=200px, width=600px, height=600px";
+	    	   
+	      open(url, title, status);
+	  }
  	/* 대댓글 추천 */
     function level2Like(item, item2){
  	
@@ -475,7 +485,7 @@
  				}
  				
  	 		   $.ajax({
- 	  	           url:"<%=request.getContextPath()%>/board/free/freeBoardComment1Like.do",
+ 	  	           url:"<%=request.getContextPath()%>/board/solve/solveBoardComment1Like.do",
  	  	           data:{commentNo : commentNo, commentLikeAmount : commentLikeAmount},
  	  	           beforeSend:function(){
  	  	        	 ajax_last_num = ajax_last_num  + 1;
@@ -508,7 +518,7 @@
  				var no = $(this).attr("no");
  	 			//console.log("no=모야"+no);
  	 		   $.ajax({
- 	  	           url:"<%=request.getContextPath()%>/board/free/freeBoardComment1Dislike.do",
+ 	  	           url:"<%=request.getContextPath()%>/board/solve/solveBoardComment1Dislike.do",
  	  	           data:{commentNo : commentNo, commentDislikeAmount : commentDislikeAmount},
  	  	           beforeSend:function(){
 	  	        	 ajax_last_num = ajax_last_num  + 1;
@@ -542,7 +552,7 @@
 	   }
          
         $.ajax({
-           url:"<%=request.getContextPath()%>/board/free/freeBoardLike.do",
+           url:"<%=request.getContextPath()%>/board/solve/solveBoardLike.do",
            data:{postNo:postNo, likey:item},
            success:function(data){
               $("#like").html(data);
@@ -566,7 +576,7 @@
 	   }
        
           $.ajax({
-              url:"<%=request.getContextPath()%>/board/free/freeBoardDisike.do",
+              url:"<%=request.getContextPath()%>/board/solve/solveDisike.do",
               data:{postNo:postNo, dislikey:item},
               success:function(data){
                  $("#dislike").html(data);

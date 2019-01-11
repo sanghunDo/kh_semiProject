@@ -1,4 +1,4 @@
-package semi.board.free.controller;
+package semi.board.solve.controller;
 
 import java.io.IOException;
 
@@ -8,20 +8,19 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import semi.board.free.model.dao.FreeBoardDao;
-import semi.board.free.model.vo.FreeBoard;
+import semi.board.solve.model.dao.SolveBoardDao;
 
 /**
- * Servlet implementation class FreeBoardListUpdate
+ * Servlet implementation class solveBoardComment1Delete
  */
-@WebServlet("/board/free/freeBoardUpdate")
-public class FreeBoardListUpdate extends HttpServlet {
+@WebServlet("/board/solve/solveBoardCommentDelete")
+public class solveBoardComment1Delete extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public FreeBoardListUpdate() {
+    public solveBoardComment1Delete() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -30,13 +29,24 @@ public class FreeBoardListUpdate extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-	    int postNo = Integer.parseInt(request.getParameter("postNo"));
-	    
-	    FreeBoard fb = new FreeBoardDao().selectByNo(postNo);
-	    request.setAttribute("freeBoard", fb);
-	    String view = "/WEB-INF/views/board/free/freeBoardUpdate.jsp";
-	    request.getRequestDispatcher(view).forward(request, response);
+		int commentNo = Integer.parseInt(request.getParameter("commentNo"));
+		int postNo = Integer.parseInt(request.getParameter("postNo"));
+
+		int result = new SolveBoardDao().deleteComment(commentNo);
+		
+		String view = "/WEB-INF/views/common/msg.jsp";
+		String msg = "";
+		String loc = "/board/solve/solveBoardView?postNo="+postNo ;
+		
+		if(result >0 ) {
+			msg ="게시물 수정성공";
+			
+		}else {
+			msg = "수정실패";
+		}
+		request.setAttribute("msg", msg);
+		request.setAttribute("loc", loc);
+		request.getRequestDispatcher(view).forward(request, response);
 	}
 
 	/**

@@ -1,42 +1,35 @@
-package semi.board.free.controller;
+package semi.board.solve.controller;
 
 import java.io.IOException;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import semi.board.free.model.dao.FreeBoardDao;
-import semi.board.free.model.vo.FreeBoard;
-
 /**
- * Servlet implementation class FreeBoardListUpdate
+ * Servlet implementation class NoEnter
  */
-@WebServlet("/board/free/freeBoardUpdate")
-public class FreeBoardListUpdate extends HttpServlet {
+@WebServlet("/board/solve/NoEnter")
+public class noEnter extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public FreeBoardListUpdate() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
-
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-	    int postNo = Integer.parseInt(request.getParameter("postNo"));
-	    
-	    FreeBoard fb = new FreeBoardDao().selectByNo(postNo);
-	    request.setAttribute("freeBoard", fb);
-	    String view = "/WEB-INF/views/board/free/freeBoardUpdate.jsp";
-	    request.getRequestDispatcher(view).forward(request, response);
+		String view = "/WEB-INF/views/common/msg.jsp";
+		String msg = "로그인한 사용자만 접근할 수 있습니다. 로그인 후 이용해주세요.";
+		String loc = "/member/login";
+
+
+		request.setAttribute("msg", msg);
+		request.setAttribute("loc", loc);
+		
+		RequestDispatcher reqDispatcher = request.getRequestDispatcher(view);
+		reqDispatcher.forward(request, response);
 	}
 
 	/**

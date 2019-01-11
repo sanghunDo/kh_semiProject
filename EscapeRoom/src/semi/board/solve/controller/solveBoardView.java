@@ -1,4 +1,4 @@
-package semi.board.free.controller;
+package semi.board.solve.controller;
 
 import java.io.IOException;
 import java.util.List;
@@ -10,21 +10,21 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import semi.board.free.model.dao.FreeBoardDao;
-import semi.board.free.model.vo.BoardComment;
-import semi.board.free.model.vo.FreeBoard;
+import semi.board.solve.model.vo.BoardComment;
+import semi.board.solve.model.vo.SolveBoard;
+import semi.board.solve.model.dao.SolveBoardDao;
 
 /**
- * Servlet implementation class FreeBoardListView
+ * Servlet implementation class solveBoardView
  */
-@WebServlet("/board/free/freeBoardView")
-public class FreeBoardListView extends HttpServlet {
+@WebServlet("/board/solve/solveBoardView")
+public class solveBoardView extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public FreeBoardListView() {
+    public solveBoardView() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -35,11 +35,11 @@ public class FreeBoardListView extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		int postNo = Integer.parseInt(request.getParameter("postNo"));
 		String memberId = request.getParameter("loggedInMember");
-		FreeBoard fb = new FreeBoardDao().selectByPostNo(postNo);
+		SolveBoard sb = new SolveBoardDao().selectByPostNo(postNo);
 	
 		//댓글
-		List<BoardComment> commentList = new FreeBoardDao().selectAllComment(postNo);
-		List<BoardComment> bestCommentList = new FreeBoardDao().selectBestComment(postNo);
+		List<BoardComment> commentList = new SolveBoardDao().selectAllComment(postNo);
+		List<BoardComment> bestCommentList = new SolveBoardDao().selectBestComment(postNo);
 		
 		Cookie[] cookies = request.getCookies();
 		String postCookieVal = "";
@@ -61,7 +61,7 @@ public class FreeBoardListView extends HttpServlet {
 		}
 		
 		if(!hasRead) {
-			int result = new FreeBoardDao().increaseReadCount(postNo);
+			int result = new SolveBoardDao().increaseReadCount(postNo);
 			
 			Cookie postCookie = new Cookie("postCookie", postCookieVal + "|" + postNo + "|");
 			response.addCookie(postCookie); 
@@ -70,13 +70,13 @@ public class FreeBoardListView extends HttpServlet {
 		
 		
 		String view = "/WEB-INF/views/common/msg.jsp";
-		if(fb == null) {
+		if(sb == null) {
 			view ="/WEB-INF/views/common/msg.jsp";
 			request.setAttribute("msg", "상세조회실패");
-			request.setAttribute("loc", "/board/boardList");
+			request.setAttribute("loc", "/board/solve/solveBoardList");
 		} else {
-			view = "/WEB-INF/views/board/free/freeBoardView.jsp";
-			request.setAttribute("fb", fb);
+			view = "/WEB-INF/views/board/solve/solveBoardView.jsp";
+			request.setAttribute("sb", sb);
 			request.setAttribute("commentList", commentList);
 			request.setAttribute("bestCommentList", bestCommentList);
 		
