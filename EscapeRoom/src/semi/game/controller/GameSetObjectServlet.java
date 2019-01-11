@@ -9,6 +9,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.google.gson.Gson;
+
 import semi.game.model.service.GameService;
 import semi.game.model.vo.MainObj;
 
@@ -22,8 +24,10 @@ public class GameSetObjectServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		List<MainObj> objList = new GameService().getObjList();
 		
-		request.setAttribute("objList", objList);
-		request.getRequestDispatcher("/WEB-INF/views/game/gameObject_xml.jsp").forward(request, response);
+/*		request.setAttribute("objList", objList);
+		request.getRequestDispatcher("/WEB-INF/views/game/gameObject_xml.jsp").forward(request, response);*/
+		response.setContentType("application/json; charset=utf-8");
+		new Gson().toJson(objList, response.getWriter());
 	}
 
 	/**

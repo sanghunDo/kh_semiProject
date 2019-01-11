@@ -15,7 +15,14 @@
 <link rel="stylesheet" href="<%=request.getContextPath() %>/css/game/gameObject.css" />
 </head>
 <body>
-<img src="<%=request.getContextPath() %>/images/game/gameMain/game_start_again.jpeg" alt="" id="back-ground"/>
+<div id="background-container">
+	<div id="background">
+		<img src="<%=request.getContextPath() %>/images/game/gameMain/game_start_again.jpeg" id="front"/>
+	</div>
+	<div id="sub-background">
+		<img src="<%=request.getContextPath() %>/images/game/gameMain/background.png"/>
+	</div>
+</div>
 <div id="wrap">
 	<input type="hidden" value=0 />
 		<div id="pause-menu-container">
@@ -54,9 +61,10 @@
 </div>
 <%@ include file="/WEB-INF/views/game/gameController.jsp" %>
 <script>
-$("#back-ground").fadeOut(3000);
+$("#background").fadeOut(3000);
 setTimeout(function(){
-	$("#back-ground").attr("src", "<%=request.getContextPath()%>/images/game/gameMain/back/background.png").show();
+	$("#background img:first").attr("src", "<%=request.getContextPath()%>/images/game/gameMain/front/background.png")
+	$("#background").show();
 	$("#wrap").show();
 }, 3100);
 var record = setInterval(timer, 1000);

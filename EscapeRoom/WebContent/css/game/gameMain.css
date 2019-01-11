@@ -8,10 +8,19 @@ body, html{
    background: black;
    font-family:'Noto Serif KR', serif;
 }
-img#back-ground{
-	position: fixed;
+div#background-container{
+	position: absolute;
 	width: 1008px;
 	height: 704px;
+	overflow: hidden;
+}
+div#background, div#sub-background{
+	position: absolute;
+	width: 1008px;
+	height: 704px;
+}
+div#sub-background{
+	left: 1008px;
 }
 div#wrap{
 	position: relative;
@@ -71,7 +80,6 @@ div#inventory div#obj-list div{
 }
 div#inventory div#obj-list div:hover{
 	border: 1px solid white;
-	/* box-shadow: 2px 2px 15px white; */
 }
 div#inventory div#obj-list div#obj5{
 	margin-right: 21px;
@@ -86,7 +94,6 @@ div#inventory:before{
 	height: 15%; 
 	top: -50px;
 	font-size: 30px;
-	color: gray;
 	text-align: center;
 	cursor: pointer;
 }

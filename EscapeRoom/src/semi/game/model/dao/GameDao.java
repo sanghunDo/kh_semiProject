@@ -117,8 +117,10 @@ public class GameDao {
 				MainObj m = new MainObj();
 				m.setObjNo(rset.getInt("objno"));
 				m.setObjName(rset.getString("objname"));
-				m.setComent(rset.getString("coment"));
+				m.setSecondName(rset.getString("secondname")==null?"":rset.getString("secondname"));
+				m.setThirdName(rset.getString("thirdname")==null?"":rset.getString("thirdname"));
 				m.setPosition(rset.getString("position"));
+				m.setObjLevel(rset.getInt("objlevel"));
 				m.setRefNo(rset.getInt("refno"));
 				m.setIsItem(rset.getString("isitem"));
 				list.add(m);

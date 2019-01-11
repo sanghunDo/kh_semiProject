@@ -1,9 +1,9 @@
 @charset "UTF-8";
-#wrap>img{
+#background .obj{
 	position: absolute;
     cursor: pointer;
+    opacity: 1;
 }
-#wrap .obj{opacity: 0}
 
 #bs_4_books{
 	top: 265px;

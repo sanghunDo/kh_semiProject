@@ -6,26 +6,31 @@ public class MainObj implements Serializable{
 	private static final long serialVersionUID = 1L;
 	private int objNo;
 	private String objName;
-	private String coment;
+	private String secondName;
+	private String thirdName;
 	private String position;
+	private int objLevel;
 	private int refNo;
 	private String isItem;
 	
 	public MainObj() {}
 	
-	public MainObj(int objNo, String objName, String coment, String position, int refNo, String isItem) {
+	public MainObj(int objNo, String objName, String secondName, String thirdName, String coment, String position, int objLevel, int refNo, String isItem) {
 		this.objNo = objNo;
 		this.objName = objName;
-		this.coment = coment;
+		this.secondName = secondName;
+		this.thirdName = thirdName;
 		this.position = position;
+		this.objLevel = objLevel;
 		this.refNo = refNo;
 		this.isItem = isItem;
 	}
 
 	@Override
 	public String toString() {
-		return "MainObj [objNo=" + objNo + ", objName=" + objName + ", coment=" + coment + ", position=" + position
-				+ ", refNo=" + refNo + ", isItem=" + isItem + "]";
+		return "MainObj [objNo=" + objNo + ", objName=" + objName + ", secondName=" + secondName + ", thirdName="
+				+ thirdName + ", position=" + position + ", objLevel=" + objLevel + ", refNo=" + refNo + ", isItem="
+				+ isItem + "]";
 	}
 
 	public int getObjNo() {
@@ -44,12 +49,20 @@ public class MainObj implements Serializable{
 		this.objName = objName;
 	}
 
-	public String getComent() {
-		return coment;
+	public String getSecondName() {
+		return secondName;
 	}
 
-	public void setComent(String coment) {
-		this.coment = coment;
+	public void setSecondName(String secondName) {
+		this.secondName = secondName;
+	}
+
+	public String getThirdName() {
+		return thirdName;
+	}
+
+	public void setThirdName(String thirdName) {
+		this.thirdName = thirdName;
 	}
 
 	public String getPosition() {
@@ -58,6 +71,14 @@ public class MainObj implements Serializable{
 
 	public void setPosition(String position) {
 		this.position = position;
+	}
+
+	public int getObjLevel() {
+		return objLevel;
+	}
+
+	public void setObjLevel(int objLevel) {
+		this.objLevel = objLevel;
 	}
 
 	public int getRefNo() {
@@ -75,4 +96,5 @@ public class MainObj implements Serializable{
 	public void setIsItem(String isItem) {
 		this.isItem = isItem;
 	}
+
 }

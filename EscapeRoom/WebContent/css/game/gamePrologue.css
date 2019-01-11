@@ -88,7 +88,7 @@ div#msgBox:before{
     height: 28px;
     border: 2px solid white;
     border-right: 0px;
-    top: -32px;
+    top: -31px;
     left: -2px;
     text-align: center;
     font-family: 'Song Myung', serif;
@@ -99,7 +99,7 @@ div#msgBox:after{
     position: absolute;
     content: " ";
     height: 37px;
-    top: -34px;
+    top: -33px;
     left: 95px;
     border-right: 2px solid white;
     transform: rotateZ(-35deg);
@@ -111,7 +111,7 @@ div#msgBox.me:before{
     height: 28px;
     border: 2px solid white;
     border-left: 0px;
-    top: -32px;
+    top: -31px;
     left: 720px;
     text-align: center;
     font-family: 'Song Myung', serif;
