@@ -3,8 +3,26 @@
 	position: absolute;
     cursor: pointer;
 }
-.backObj{
-    top: 150px;
-    left: 200px;
-    transform: rotateZ(1deg);
+#wrap .obj{opacity: 0}
+
+#bs_4_books{
+	top: 265px;
+	left: 323px;
+}
+#bs_3_box{
+	top: 367px;
+    left: 378px;
+}
+#bs_2_books{
+	top: 470px;
+	left: 331px;
+}
+#bs_1_toolbox{
+	top:570px;
+	left: 415px;
+}
+#clicked{
+	width: 700px;
+	left: 150px;
+	top: 85px;
 }

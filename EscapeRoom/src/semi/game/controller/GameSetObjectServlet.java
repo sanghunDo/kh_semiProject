@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * Servlet implementation class GameSetObjectServlet
  */
-@WebServlet("/game/setObject")
+@WebServlet({"/game/setObject", "/game/getObject"})
 public class GameSetObjectServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
