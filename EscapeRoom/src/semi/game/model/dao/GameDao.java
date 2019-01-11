@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 
+import semi.game.model.vo.MainObj;
 import semi.game.model.vo.PrologueObj;
 import semi.member.model.vo.Member;
 public class GameDao {
@@ -102,6 +103,33 @@ public class GameDao {
 		}
 		
 		return hint;
+	}
+	public List<MainObj> getObjList(Connection conn) {
+		List<MainObj> list = null;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String query = prop.getProperty("getObjList");
+		try {
+			pstmt = conn.prepareStatement(query);
+			rset = pstmt.executeQuery();
+			list = new ArrayList<>();
+			while(rset.next()) {
+				MainObj m = new MainObj();
+				m.setObjNo(rset.getInt("objno"));
+				m.setObjName(rset.getString("objname"));
+				m.setComent(rset.getString("coment"));
+				m.setPosition(rset.getString("position"));
+				m.setRefNo(rset.getInt("refno"));
+				m.setIsItem(rset.getString("isitem"));
+				list.add(m);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return list;
 	}
 
 }
