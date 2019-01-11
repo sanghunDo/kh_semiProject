@@ -279,8 +279,7 @@
               
               var div = $("<div class='level2_area' level2No='"+no+"'><div>");
               for(var i=0; i<data.length; i++){
-                 var user = data[i];
-                 
+                 var user = data[i]; 
                  var html = "<hr />"
                  html+=
                  "<span class='reply_icon'><img src='<%=request.getContextPath()%>/images/freeBoard/commentReply.png'></span>";

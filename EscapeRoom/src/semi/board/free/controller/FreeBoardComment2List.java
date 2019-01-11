@@ -57,8 +57,8 @@ public class FreeBoardComment2List extends HttpServlet {
 		
 		//int result = new FreeBoardDao().insertComment(bc);
 		List<BoardComment> commentList = new FreeBoardDao().selectAllCommentLevel2(ref,commentRef);
-		String comment_date = new FreeBoardDao().getDate(commentRef);
-		System.out.println("comment_date:"+comment_date);
+//		String comment_date = new FreeBoardDao().getDate(commentRef);
+//		System.out.println("comment_date:"+comment_date);
 		//System.out.println("서블릿 도달"+comment2);
 		response.setContentType("application/json; charset=utf-8");
 /*		String data = bc.getCommentWriter()+"/"+

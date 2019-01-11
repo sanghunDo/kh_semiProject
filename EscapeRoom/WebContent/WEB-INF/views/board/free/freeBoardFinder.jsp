@@ -195,7 +195,7 @@ function noEnter(){
 		   case "id" : $("#id").attr("selected", true); break;
 		   }
 
-		});
+	});
 	 
 
 </script>
