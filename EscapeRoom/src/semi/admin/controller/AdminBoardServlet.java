@@ -120,12 +120,21 @@ public class AdminBoardServlet extends HttpServlet {
             
       // 3. view단 처리
       // 실패시 사용
+      //String view = "/WEB-INF/views/.jsp";
+      //String msg = "";
+      //String loc = "/";
+
+      //request.setAttribute("view", view); // 
+      //request.setAttribute("msg", msg); // 실패했을 시 사용
+      //request.setAttribute("loc", loc); // 실패했을 시 사용
+
+      // request 객체에 속성 등록
       System.out.println(list);
       request.setAttribute("list", list);
       request.setAttribute("pageBar", pageBar);
       request.setAttribute("cPage", cPage);
       request.setAttribute("numPerPage", numPerPage);
-      request.getRequestDispatcher("/WEB-INF/views/admin/adminBoard.jsp").forward(request, response);            
+      request.getRequestDispatcher("/WEB-INF/views/admin/adminBoard.jsp").forward(request, response);
    }
 
    /**
