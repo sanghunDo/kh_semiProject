@@ -51,18 +51,18 @@ public class MemberService {
 	
 	// 해당 이메일 회원 정보 보기
 	public Member findIdByEmail(String userEmail) {
-		Member loggedInMember = null;
+		Member m = null;
 		
 		Connection conn = getConnection();
 		
-		loggedInMember = new MemberDao().findIdByEmail(conn, userEmail);
+		m = new MemberDao().findIdByEmail(conn, userEmail);
 		
 		// DQL(SELECT)이므로 트랜잭션 처리 하지 않는다.
 
 		// 자원반납
 		close(conn);
 
-		return loggedInMember;
+		return m;
 	}
 	
 	// 회원정보보기

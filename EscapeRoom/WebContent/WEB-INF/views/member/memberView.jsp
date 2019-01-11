@@ -13,7 +13,7 @@
 	String userPassword = m.getUserPassword();
 	String userEmail = m.getUserEmail()!=null?m.getUserEmail():"";
 	String userProfileOriginalFile = m.getUserProfileOriginalFile()!=null?m.getUserProfileOriginalFile():"";	
-	String userProfileRenamedFile = m.getUserProfileRenamedFile()!=null?m.getUserProfileRenamedFile():"../images/nonProfile.png";
+	String userProfileRenamedFile = m.getUserProfileRenamedFile()!=null?m.getUserProfileRenamedFile():"";
 %>
 <script>
 /* 회원정보수정 유효성 검사 */
@@ -184,7 +184,7 @@ function readURL(input){
 						else {%>
 						<br /><br />
 						<div id="profile-Container">
-						   <img id="profilePre" src="<%=userProfileRenamedFile%>">
+						   <img id="profilePre" src="<%=request.getContextPath()%>/images/nonProfile.png">
 						</div>
 						<%} // end of else : 프사 없는 경우 기본 프사 보여주기 %>
 						</div>
