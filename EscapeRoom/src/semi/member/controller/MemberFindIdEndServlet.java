@@ -32,10 +32,12 @@ public class MemberFindIdEndServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// 1. 파라미터 핸들링
 		String userEmail = request.getParameter("userEmail");
+		String userId = request.getParameter("userId");
 		System.out.println("userEmail@MemberFindIdEndServlet = " + userEmail);
 	
 		Member m = new Member();
 		m.setUserEmail(userEmail);
+		m.setUserId(userId);
 		System.out.printf("[m@MemberFindIdEndServlet = %s]\n", m);
 		
 		// 2. 업무로직요청
@@ -49,14 +51,14 @@ public class MemberFindIdEndServlet extends HttpServlet {
 		
 		// 1. 이메일이 존재하는 경우
 		if(result == MemberService.EMAIL_OK) {
-			Member loggedInMember = new MemberService().findIdByEmail(userEmail);
+			m = new MemberService().findIdByEmail(userEmail);
 			view = "/WEB-INF/views/member/memberFindId.jsp";
 			loc = "/member/memberFindIdEnd";
 		}
 		else {
 			view = "/WEB-INF/views/common/msg.jsp";
 			msg = "해당 이메일이 존재하지 않습니다.";
-			loc = "/home";			
+			loc = "/member/findId";			
 		}
 		request.setAttribute("member", m);
 		request.setAttribute("msg", msg);

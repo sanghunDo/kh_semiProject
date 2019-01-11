@@ -114,7 +114,7 @@ public class MemberDao {
 	
 	// 해당 이메일 회원 아이디 찾기
 	public Member findIdByEmail(Connection conn, String userEmail) {
-		Member loggedInMember = null;
+		Member m = null;
 		
 		// DB로 SQL문 요청하기 위해 객체 생성
 		PreparedStatement pstmt = null;
@@ -134,10 +134,11 @@ public class MemberDao {
 			// 2. 쿼리문 실행 : DQL(SELECT) 이므로 excuteQuery()
 			rset = pstmt.executeQuery();
 			
-			// 3. 결과 loggedInMember에 담기
+			// 3. 결과 m에 담기
 			if (rset.next()) { // 다음 행이 있다면 실행
-				loggedInMember = new Member();
-				loggedInMember.setUserId(rset.getString("userId"));
+				m = new Member();
+				m.setUserId(rset.getString("userId"));
+				m.setUserEmail(rset.getString("userEmail"));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -147,7 +148,7 @@ public class MemberDao {
 			close(pstmt);
 		}
 
-		return loggedInMember;
+		return m;
 		
 	}
 	
