@@ -6,22 +6,32 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <link rel="stylesheet" href="<%=request.getContextPath()%>/css/board/free/boardCommunityTable.css" />
+<script src="<%=request.getContextPath()%>/js/jquery-3.3.1.js"></script>
 <%
 	List<FreeBoard> list = (List<FreeBoard>)request.getAttribute("list");
 	List<FreeBoard> bestList = (List<FreeBoard>)request.getAttribute("bestList");
 	int cPage = (int)request.getAttribute("cPage");
 	int numPerPage = (int)request.getAttribute("numPerPage");
 	String pageBar = (String)request.getAttribute("pageBar");
+
+
 %>
 <link rel="stylesheet" href="<%=request.getContextPath()%>/css/board/free/boardCommunityTable.css" />
 <title>자유게시판</title>
+<script>
+function noEnter(){
+	location.href = "<%=request.getContextPath()%>/board/free/NoEnter";
+}
+</script>
 </head>
 <body>
 <div class="container">
     <h3>자유게시판</h3>
     <!--new pic-->
     <hr>
-    <div id="write" style="color:white"><a href="<%=request.getContextPath()%>/board/free/freeBoardInsert">글쓰기</a></div>
+    <%if(loggedInMember != null){ %>
+    <div id="write" style="color:white"><a href="<%=request.getContextPath()%>/board/free/freeBoardInsert?userId=<%=loggedInMember.getUserId()%>">글쓰기</a></div>
+    <%} %>
     <div class="sort">
         <span>추천순</span>
         <span>최신순</span>
@@ -58,14 +68,21 @@
             	 for(FreeBoard fb:bestList) {
               %>
           <tr class="best" bgcolor="rgb(255,187,187)">
-                        <td class="num"  style="color:red;">
-                         	BEST
-                        </td>
+                <td class="num"  style="color:red;">
+                    BEST
+                </td>
                         
-                        <td class="title">
-                        	 <a href="<%=request.getContextPath()%>/board/free/freeBoardView?postNo=<%=fb.getPostNo()%>">
-                            <%=fb.getPostTitle() %> [<%=fb.getBoard_comment_cnt() %>]
-                        </td>
+                <%if(loggedInMember!=null) {%>
+                <td class="title">
+                   <a href="<%=request.getContextPath()%>/board/free/freeBoardView?postNo=<%=fb.getPostNo()%>"> 
+                   <%=fb.getPostTitle() %> [<%=fb.getBoard_comment_cnt() %>]
+                </td>
+                <%} else { %>
+                   <td class="title" onclick="noEnter();">
+                   <%=fb.getPostTitle() %> [<%=fb.getBoard_comment_cnt() %>]
+                   </td>
+                	
+                <%} %>
                         <td class="wirter">
                             <%=fb.getPostWriter()%>
                         </td>
@@ -103,15 +120,22 @@
             <%} else {
             	for(FreeBoard fb:list) {
             %>
-            <tr style="color:white;">
+            <tr>
                 <td class="num">
                    <%=fb.getPostNo() %>
                 </td>
                 
-                <td class="title" style="color:white;">
-                   <a href="<%=request.getContextPath()%>/board/free/freeBoardView?postNo=<%=fb.getPostNo()%>">
+                <%if(loggedInMember!=null) {%>
+                <td class="title">
+                   <a href="<%=request.getContextPath()%>/board/free/freeBoardView?postNo=<%=fb.getPostNo()%>"> 
                    <%=fb.getPostTitle() %> [<%=fb.getBoard_comment_cnt() %>]
                 </td>
+                <%} else { %>
+                   <td class="title" onclick="noEnter();">
+                   <%=fb.getPostTitle() %> [<%=fb.getBoard_comment_cnt() %>]
+                   </td>
+                	
+                <%} %>
                 <td class="wirter">
                 	<%=fb.getPostWriter() %>
                 </td>
@@ -133,9 +157,9 @@
    
     <div class="search-container">
         <select name="searchOpt" id="searchOpt">
-            <option value="title">제목</option>
-            <option value="content">내용</option>
-            <option value="id">아이디</option>
+            <option no="1" value="title">제목</option>
+            <option no="2" value="content">내용</option>
+            <option no="3" value="id">아이디</option>
         </select>
         <input type="text" name="searchVal" id="searchVal">
         <div id="search" style="width:50px;position: relative;top: -42px;color: white;">검색</div>
@@ -145,5 +169,19 @@
 <div id="pageBar">
 <%=pageBar %>
 </div>
+<script>
+/* function search(){
+	var no = 
+	var option = $("option").val();
+	console.log("option="+option);
+	 */
+	 $("#search").on("click", function(){
+
+			var option = $("#searchOpt option:selected").val();
+			var searchVal = $("#searchVal").val();
+			location.href = "<%=request.getContextPath()%>/board/free/freeBoardSearch?searchType="+option+"&searchVal="+searchVal;
+     });
+
+</script>
 </body>
 </html>

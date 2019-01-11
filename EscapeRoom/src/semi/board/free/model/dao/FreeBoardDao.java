@@ -38,7 +38,7 @@ public class FreeBoardDao {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
-		String query = "select * from ( select rownum as rnum, v.* from( select v.*, (select count(*) from board_comment_free where ref = v.postNo) as board_comment_cnt from board_free v  order by postdate desc) v ) v where rnum between ? and ?";
+		String query = "select * from ( select rownum as rnum, v.* from( select v.*, (select count(*) from board_comment_free where ref = v.postNo) as board_comment_cnt from board_free v  order by postNo desc) v ) v where rnum between ? and ?";
 		
 		//1. 클래스등록확인
 		try {
@@ -1069,7 +1069,399 @@ public class FreeBoardDao {
 		return getUpdateComment;
 	}
 
+	public int insertPost(FreeBoard fb) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		Connection conn = null;
+		String query = 
+	    "INSERT INTO board_free (postno, posttitle, postwriter, postcontent,postoriginalfile, postrenamedfile, postdate, postreadcount, postlike, postdislike, postreport ) values ( seq_board_free_postno.nextVal , ?, ? , ? ,?, ?, default, default, default , default , default)";
+		
+		try {
+			Class.forName("oracle.jdbc.driver.OracleDriver");
+			conn = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe", 
+					"semi", //아이디 
+					"semi");//비번
+			
+			
+			pstmt = conn.prepareStatement(query);
+			
+			pstmt.setString(1, fb.getPostTitle());
+			pstmt.setString(2, fb.getPostWriter());
+			pstmt.setString(3, fb.getPostContent());
+			pstmt.setString(4, fb.getPostOriginalFile());
+			pstmt.setString(5, fb.getPostRenamedFile());
 	
+			result = pstmt.executeUpdate();
+					
+			if(result >0) commit(conn);
+		    else rollback(conn);
+			
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				pstmt.close();
+				conn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+			
+		}
+		return result;
+	}
+	
+	public int getLastSeq() {
+		Connection conn = null;
+		ResultSet rset = null;
+		PreparedStatement pstmt = null;
+		int lastSeq = 0;
+		String query = 
+				
+	"select * from ( select rownum as rnum, v.* from(SELECT LAST_VALUE(postno) OVER (ORDER BY postno ROWS BETWEEN UNBOUNDED PRECEDING AND UNBOUNDED FOLLOWING) AS L_postno FROM  board_free ) v) v where rnum = 1 ";
+		
+		try {
+			Class.forName("oracle.jdbc.driver.OracleDriver");
+			conn = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe", 
+					"semi", //아이디 
+					"semi");//비번
+			
+			pstmt = conn.prepareStatement(query); 
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				lastSeq = rset.getInt("L_postno");
+				
+			}
+			
+		
+			System.out.println("Dao안에 lastSeq="+lastSeq);
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				pstmt.close();
+				conn.close();
+				rset.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+			
+		}
+		
+		
+		return lastSeq;
+	}
+
+	public List<FreeBoard> searchByTitle(String searchVal, int cPage, int numPerPage) {
+		List<FreeBoard> list = null;
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String query = "select * from ( select rownum as rnum, v.* from( select v.*, (select count(*) from board_comment_free where ref = v.postNo) as board_comment_cnt from board_free v  where posttitle like ? order by postlike desc) v ) v where rnum between ? and ?";
+		
+		//1. 클래스등록확인
+		try {
+			Class.forName("oracle.jdbc.driver.OracleDriver");
+			conn = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe", 
+					"semi", //아이디 
+					"semi");//비번
+			
+			pstmt = conn.prepareStatement(query);
+	        int startRnum = (cPage-1)*numPerPage +1;
+	        int endRnum = cPage*numPerPage;
+
+	         pstmt.setString(1, "%"+searchVal+"%");
+	         pstmt.setInt(2, startRnum);
+	         pstmt.setInt(3, endRnum);
+	        
+			rset = pstmt.executeQuery();
+			
+			list = new ArrayList<>();
+			while(rset.next()) {
+				FreeBoard fb = new FreeBoard();
+				fb.setPostNo(rset.getInt("postno"));
+				fb.setPostTitle(rset.getString("posttitle"));
+				fb.setPostWriter(rset.getString("postwriter"));
+				fb.setPostContent(rset.getString("postcontent"));
+				fb.setPostOriginalFile(rset.getString("postoriginalfile"));
+				fb.setPostRenamedFile(rset.getString("postrenamedfile"));
+				fb.setPostLike(rset.getInt("postlike"));
+				fb.setPostDislike(rset.getInt("postdislike"));
+				fb.setPostDate(rset.getDate("postdate"));
+				fb.setPostReadCount(rset.getInt("postreadcount"));
+				fb.setBoard_comment_cnt(rset.getInt("board_comment_cnt"));
+				
+				list.add(fb);
+				
+			}
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				rset.close();
+				pstmt.close();
+				conn.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+		}
+	
+		
+		return list;
+	}
+
+	public List<FreeBoard> searchByContent(String searchVal, int cPage, int numPerPage) {
+		List<FreeBoard> list = null;
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String query = "select * from ( select rownum as rnum, v.* from( select v.*, (select count(*) from board_comment_free where ref = v.postNo) as board_comment_cnt from board_free v  where postcontent like ? order by postlike desc) v ) v where rnum between ? and ?";
+		
+		//1. 클래스등록확인
+		try {
+			Class.forName("oracle.jdbc.driver.OracleDriver");
+			conn = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe", 
+					"semi", //아이디 
+					"semi");//비번
+			
+			pstmt = conn.prepareStatement(query);
+	        int startRnum = (cPage-1)*numPerPage +1;
+	        int endRnum = cPage*numPerPage;
+
+	         pstmt.setString(1, "%"+searchVal+"%");
+	         pstmt.setInt(2, startRnum);
+	         pstmt.setInt(3, endRnum);
+	        
+			rset = pstmt.executeQuery();
+			
+			list = new ArrayList<>();
+			while(rset.next()) {
+				FreeBoard fb = new FreeBoard();
+				fb.setPostNo(rset.getInt("postno"));
+				fb.setPostTitle(rset.getString("posttitle"));
+				fb.setPostWriter(rset.getString("postwriter"));
+				fb.setPostContent(rset.getString("postcontent"));
+				fb.setPostOriginalFile(rset.getString("postoriginalfile"));
+				fb.setPostRenamedFile(rset.getString("postrenamedfile"));
+				fb.setPostLike(rset.getInt("postlike"));
+				fb.setPostDislike(rset.getInt("postdislike"));
+				fb.setPostDate(rset.getDate("postdate"));
+				fb.setPostReadCount(rset.getInt("postreadcount"));
+				fb.setBoard_comment_cnt(rset.getInt("board_comment_cnt"));
+				
+				list.add(fb);
+				
+			}
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				rset.close();
+				pstmt.close();
+				conn.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+		}
+	
+		
+		return list;
+	}
+
+	public List<FreeBoard> searchById(String searchVal, int cPage, int numPerPage) {
+		List<FreeBoard> list = null;
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String query =
+"select * from ( select rownum as rnum, v.* from( select v.*, (select count(*) from board_comment_free where ref = v.postNo) as board_comment_cnt from board_free v  where postwriter like ? order by postlike desc) v ) v where rnum between ? and ?";
+		
+		//1. 클래스등록확인
+		try {
+			Class.forName("oracle.jdbc.driver.OracleDriver");
+			conn = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe", 
+					"semi", //아이디 
+					"semi");//비번
+			
+			pstmt = conn.prepareStatement(query);
+	        int startRnum = (cPage-1)*numPerPage +1;
+	        int endRnum = cPage*numPerPage;
+
+	         pstmt.setString(1, "%"+searchVal+"%");
+	         pstmt.setInt(2, startRnum);
+	         pstmt.setInt(3, endRnum);
+	        
+			rset = pstmt.executeQuery();
+			
+			list = new ArrayList<>();
+			while(rset.next()) {
+				FreeBoard fb = new FreeBoard();
+				fb.setPostNo(rset.getInt("postno"));
+				fb.setPostTitle(rset.getString("posttitle"));
+				fb.setPostWriter(rset.getString("postwriter"));
+				fb.setPostContent(rset.getString("postcontent"));
+				fb.setPostOriginalFile(rset.getString("postoriginalfile"));
+				fb.setPostRenamedFile(rset.getString("postrenamedfile"));
+				fb.setPostLike(rset.getInt("postlike"));
+				fb.setPostDislike(rset.getInt("postdislike"));
+				fb.setPostDate(rset.getDate("postdate"));
+				fb.setPostReadCount(rset.getInt("postreadcount"));
+				fb.setBoard_comment_cnt(rset.getInt("board_comment_cnt"));
+				
+				list.add(fb);
+				
+			}
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				rset.close();
+				pstmt.close();
+				conn.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+		}
+	
+		
+		return list;
+	}
+
+	public int searchByTitleCount(String searchVal) {
+		Connection conn = null;
+		int totalContent = 0;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String query = "select count(*) as cnt from board_free where posttitle like ?";
+		
+		//1. 클래스등록확인
+		try {
+			Class.forName("oracle.jdbc.driver.OracleDriver");
+			conn = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe", 
+					"semi", //아이디 
+					"semi");//비번
+			
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, "%"+searchVal+"%");
+			rset = pstmt.executeQuery();
+			if(rset.next()) {
+				totalContent = rset.getInt("cnt");
+			}
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}finally {
+			try {
+				rset.close();
+				pstmt.close();
+				conn.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+		}
+		
+		
+		return totalContent;
+	}
+	
+	public int searchByContentCount(String searchVal) {
+		Connection conn = null;
+		int totalContent = 0;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String query = "select count(*) as cnt from board_free where postcontent like ?";
+		
+		//1. 클래스등록확인
+		try {
+			Class.forName("oracle.jdbc.driver.OracleDriver");
+			conn = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe", 
+					"semi", //아이디 
+					"semi");//비번
+			
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, "%"+searchVal+"%");
+			rset = pstmt.executeQuery();
+			if(rset.next()) {
+				totalContent = rset.getInt("cnt");
+			}
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}finally {
+			try {
+				rset.close();
+				pstmt.close();
+				conn.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+		}
+		
+		
+		return totalContent;
+	}
+
+	public int searchByIdCount(String searchVal) {
+		Connection conn = null;
+		int totalContent = 0;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String query = "select count(*) as cnt from board_free where postwriter like ?";
+		
+		//1. 클래스등록확인
+		try {
+			Class.forName("oracle.jdbc.driver.OracleDriver");
+			conn = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe", 
+					"semi", //아이디 
+					"semi");//비번
+			
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, "%"+searchVal+"%");
+			rset = pstmt.executeQuery();
+			if(rset.next()) {
+				totalContent = rset.getInt("cnt");
+			}
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}finally {
+			try {
+				rset.close();
+				pstmt.close();
+				conn.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+		}
+		
+		
+		return totalContent;
+	}
 	
 }
 	

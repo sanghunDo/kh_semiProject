@@ -17,7 +17,7 @@ import semi.notice.model.vo.Notice;
 
 public class noticeDao {
 
-private Properties prop = new Properties();
+	private Properties prop = new Properties();
 	
 	public noticeDao() {
 		String fileName = noticeDao.class.getResource("/sql/notice/notice-query.properties").getPath();

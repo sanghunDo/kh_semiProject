@@ -291,6 +291,7 @@ INSERT INTO board_free values (seq_board_free_postno.nextVal , '베스트3안에
 INSERT INTO board_free values (seq_board_free_postno.nextVal , '방탈출 너무 어려워요ㅜㅜ', 'qwee' , '안녕하세요 놀러왔어요!' ,null, null, default, 10, 11 , 0 , default);
 INSERT INTO board_free values (seq_board_free_postno.nextVal , '밀크티는 역시 투썸인거같네요', 'ljk' , '안녕하세요 놀러왔어요!' ,null, null, default, 10, 11 , 0 , default);
  update member set userpassword='1ARVn2Auq2/WAqx2gNrL+q3RNjAzXpUfCXrzkA6d4Xa22yhRLy4AC50E+6UTPoscbo31nbOoq51gvkuXzJ6B2w==' where userid='admin';
+ update member set coin=1000 where userid='tkdgnstkdgns';
  commit;
 --drop table game_scenario;
 create table game_prologue(
@@ -339,3 +340,48 @@ create table notice(
     constraint ck_board_notice_noticeurgent check (noticeurgent in ('Y','N'))
 );
 create sequence seq_notice_noticeno;
+insert into game_rank values(seq_game_rank_playno.nextval, 'qwerty', 4785, to_date('20190101', 'yyyymmdd'));
+insert into game_rank values(seq_game_rank_playno.nextval, 'abcde', 5587425, to_date('20190101', 'yyyymmdd'));
+insert into game_rank values(seq_game_rank_playno.nextval, 'wewe', 4646546, to_date('20190101', 'yyyymmdd'));
+insert into game_rank values(seq_game_rank_playno.nextval, 'hoho', 654654654654, to_date('20190101', 'yyyymmdd'));
+insert into game_rank values(seq_game_rank_playno.nextval, 'sun123', 545454545, to_date('20190101', 'yyyymmdd'));
+insert into game_rank values(seq_game_rank_playno.nextval, 'heyhey', 8789515, to_date('20190101', 'yyyymmdd'));
+insert into game_rank values(seq_game_rank_playno.nextval, 'babo', 3132135, to_date('20190101', 'yyyymmdd'));
+insert into game_rank values(seq_game_rank_playno.nextval, 'baboba', 9896232323, to_date('20190101', 'yyyymmdd'));
+insert into game_rank values(seq_game_rank_playno.nextval, 'chunjae', 56565655, to_date('20190101', 'yyyymmdd'));
+insert into game_rank values(seq_game_rank_playno.nextval, 'mungmung', 545646, to_date('20190101', 'yyyymmdd'));
+
+
+insert into member values('abc', '1234', 'abc@abc.com', null, null, default, default, default);
+insert into member values('qwerty', '1234', 'qwerty@qwerty.com', null, null, default, default);
+insert into member values('tomato', '1234', 'tomato@tomato.com', null, null, default, default, default);
+insert into member values('admin', '1234', 'abc@abc.com', null, null, default, default, default);
+insert into member values('abcde', '1234', 'abcde@abc.com', null, null, default,default,  default);
+insert into member values('wewe', '1234', 'wewe@abc.com', null, null, default, default, default);
+insert into member values('hoho', '1234', 'hoho@abc.com', null, null, default, default, default);
+insert into member values('sun123', '1234', 'sun123@abc.com', null, null, default, default, default);
+insert into member values('heyhey', '1234', 'heyhey@abc.com', null, null, default, default, default);
+insert into member values('babo', '1234', 'babo@abc.com', null, null, default, default, default);
+insert into member values('baboba', '1234', 'baboba@qwerty.com', null, null, default,default,  default);
+insert into member values('chunjae', '1234', 'chunjae@tomato.com', null, null, default, default, default);
+insert into member values('mungmung', '1234', 'mungmung@abc.com', null, null, default, default, default);
+
+create sequence seq_notice_noticeno;
+create table game_hint(
+    no number,
+    content varchar2(200)
+);
+
+insert into game_hint values(1, '일부 아이템은 여러번 사용할 수 있습니다.');
+insert into game_hint values(2, '넌 탈출할 수 없어..');
+insert into game_hint values(3, '화분은 망치로 깰 수 있습니다.');
+insert into game_hint values(4, '문은 두 개의 잠금장치를 모두 해제해야 합니다.');
+insert into game_hint values(5, '금고는 부술 수 없습니다.');
+insert into game_hint values(6, '창문밖에는 아무것도 없습니다.');
+insert into game_hint values(7, '형광등은 드라이버로 열 수 있습니다.');
+insert into game_hint values(8, '침대 뒤에 공간있어요.');
+insert into game_hint values(9, '행렬');
+insert into game_hint values(10, '위를 올려다 보세요.');
+
+
+commit;

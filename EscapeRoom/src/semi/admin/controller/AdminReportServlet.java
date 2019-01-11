@@ -12,7 +12,7 @@ import semi.member.model.vo.Member;
 /**
  * Servlet implementation class AdminReportServlet
  */
-@WebServlet("/AdminReportServlet")
+@WebServlet("/AdminReportSevlet")
 public class AdminReportServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -28,20 +28,26 @@ public class AdminReportServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// 회원 신고기능 서블릿
-		// 관리자로 로그인되었는지 확인하기
-		String userId = request.getParameter("userid");
-		String password = request.getParameter("password");
-		System.out.printf("[%s, %s]\n", userId, password);
-		
+		// 신고된 게시판 & 댓글 서블릿
+		// 게시판 & 댓글 DB에서 가져와서 request로 전송
+		// 0. 관리자로 로그인되었는지 확인하기
+		// 관리자가 아니거나 URL로 접근하거나 로그인된 상태가 아니면 접근 금지	
 		Member loggedInMember = (Member)request.getSession().getAttribute("loggedInMember");
-		System.out.println("loggedInMember.getuserId:"+loggedInMember.getUserId());
-		if(loggedInMember != null || !"admin".equals(loggedInMember.getUserId())) {
+		if(loggedInMember != null && !"admin".equals(loggedInMember.getUserId())) {
 			request.setAttribute("msg", "잘못된 경로로 접근하셨습니다.");
 			request.setAttribute("loc", "/");
 			request.getRequestDispatcher("/WEB-INF/views/common/msg.jsp").forward(request, response);
 			return;
 			}
+		
+		// 1. 파라미터 핸들링
+		
+		
+		// 2. 비즈니스 로직
+		
+		
+		// 3. view단 처리
+		
 	}
 
 	/**

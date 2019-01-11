@@ -24,5 +24,21 @@ public class GameService {
 		else rollback(conn);
 		close(conn);
 	}
+
+	public void useHint(Member m) {
+		Connection conn = getConnection();
+		int result = new GameDao().useHint(conn, m);
+		if(result>0) commit(conn);
+		else rollback(conn);
+		close(conn);
+	}
+	
+	public String getHint(int num) {
+		Connection conn = getConnection();
+		String result = new GameDao().getHint(conn, num);
+		close(conn);
+		return result;
+	}
+
 	
 }

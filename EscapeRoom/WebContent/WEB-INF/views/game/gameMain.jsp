@@ -12,78 +12,16 @@
 <script src="<%=request.getContextPath()%>/js/jquery-3.3.1.js"></script>
 <link href="https://fonts.googleapis.com/css?family=Noto+Serif+KR" rel="stylesheet">
 <link rel="stylesheet" href="<%=request.getContextPath() %>/css/game/gameMain.css" />
+<link rel="stylesheet" href="<%=request.getContextPath() %>/css/game/gameObject.css" />
 </head>
 <body>
 <img src="<%=request.getContextPath() %>/images/game/gameMain/game_start_again.jpeg" alt="" id="back-ground"/>
 <div id="wrap">
 	<input type="hidden" value=0 />
 		<div id="pause-menu-container">
-			<div id="pause-menu">
-				<ul>
-					<li><h3>플레이 시간</h3>
-						<span id="time"></span></li>
-					<li>
-						<div class="button_base b06_3d_swap" id="btn-store">
-							<div>상점</div>
-							<div>상점</div>
-						</div>
-					</li>
-					<li>
-						<div class="button_base b06_3d_swap" id="btn-help">
-							<div>도움말</div>
-							<div>도움말</div>
-						</div>
-					</li>
-					<li>
-						<div class="button_base b06_3d_swap" id="btn-esc">
-							<div>게임종료</div>
-							<div>게임종료</div>
-						</div>
-					</li>
-				</ul>
-			</div>
-			<div id="store">
-				<div id="store-Top">
-					<img id="item" src="<%=request.getContextPath()%>/images/coin.png"
-						alt="" /> &nbsp;&nbsp;<span id="userCoin"><%=loggedInMember!=null?loggedInMember.getCoin():"-" %></span>
-					&nbsp;&nbsp;&nbsp;&nbsp; <img id="item"
-						src="<%=request.getContextPath()%>/images/hint_paper.png" alt="" />
-					&nbsp;&nbsp;<span id="hintPaper"><%=loggedInMember!=null?loggedInMember.getHintPaper():"-" %></span>
-				</div>
-				<p id="store-Help">힌트쪽지를 구매할 수 있습니다.</p>
-				<div id="myStore-Btn">
-					<h2>쪽지 구매하기</h2>
-					&nbsp;&nbsp;&nbsp; <img id="price"
-						src="<%=request.getContextPath()%>/images/coin.png" alt="" />
-					<h2>50</h2>
-				</div>
-				<p id="store-Help">
-					구매한 쪽지의 내용은 랜덤입니다.<br> 뽑은 쪽지가 얼마나 유용할지는 알 수 없으며,<br> 쪽지를
-					읽으면 보유 쪽지수가 차감됩니다.<br> (쪽지는 보관되지 않습니다.)
-				</p>
-				<div id="myStore-Btn">
-					<h2>쪽지 읽기</h2>
-					&nbsp;&nbsp;&nbsp; <img id="price"
-						src="<%=request.getContextPath()%>/images/hint_paper.png" alt="" />
-					<h2>1</h2>
-				</div>
-				<div class="close">=</div>
-			</div>
-			<!-- 도움말 -->
-			<div id="help">
-				<div id="game-Help">
-					<h1>&lt; 도 움 말 &gt;</h1>
-					<span>방 안에 있는 단서들과 아이템들을 이용하여<br> 주어진 이 공간을 탈출하는 게임입니다.<br>
-						단서는 물건 들을 클릭하면 얻을 수 있습니다.<br>
-					<br> 단, 비밀번호나 열쇠 등으로 잠겨있는 곳은 직접 풀어야 합니다.<br>
-					<br> 열쇠 등의 각종 도구를 얻게되면<br> 화면 하단의 인벤토리로 옮겨지며<br> 필요할
-						때 획득한 아이템을 클릭하여 사용할 수 있습니다.<br>
-					<br></span> <span id="haha">당신이 이 방에서 탈출할 수 있기를.<br>ESCAPE,
-						IF YOU CAN.
-					</span>
-				</div>
-				<div class="close">=</div>
-			</div>
+			<div id="pause-menu"></div>
+			<div id="store"></div>
+			<div id="help"></div>
 		</div>
 		<div id="message"></div>
 		<div id="pause"><img src="<%=request.getContextPath()%>/images/game/gameMain/pause.png" alt="" /></div>
@@ -105,27 +43,172 @@
 				</div>
 			</div>
 		</div>
-
+		<div id="hint">
+			<img src="<%=request.getContextPath() %>/images/hint_paper.png" id="hint-paper" />
+			<div id="close-hint">X</div>
+			<div></div>
+		</div>
 </div>
+<%@ include file="/WEB-INF/views/game/gameController.jsp" %>
 <script>
+$("#back-ground").fadeOut(3000);
+setTimeout(function(){
+	$("#back-ground").attr("src", "<%=request.getContextPath()%>/images/game/gameMain/background.png").show();
+	$("#wrap").show();
+}, 3100);
 var record = setInterval(timer, 1000);
 function timer(){
 	var sec = $("[type=hidden]").val();
 	$("[type=hidden]").val(++sec);
 };
-function show_message(msg){
-	$("#pause-menu-container").css("opacity", .4);
-	$("#message").html("<h2>"+msg+"</h2>").show();
-	setTimeout(function(){
-		$("#pause-menu-container").css("opacity", 1);
-		$("#message").hide();
-	}, 1500);
+function show_message(msg, flag){
+	$("#pause-menu-container").addClass("paused");
+	$("#message").html(msg).show();
+	
+	if(flag){
+		setTimeout(function(){
+			$("#pause-menu-container").removeClass("paused");
+			$("#message").hide();
+		}, 1500);
+	}
 };
-$("#back-ground").fadeOut(3000);
-setTimeout(function(){
-	$("#back-ground").attr("src", "<%=request.getContextPath()%>/images/game/gameMain/test.png").show();
-	$("#wrap").show();
-}, 3500);
+function show_record(){
+	var time = $("[type=hidden]").val();
+	var h = Math.floor(time/3600);
+	var m = Math.floor((time%3600)/60);
+	var s = (time%3600)%60;
+	$("#time").text(h+"시간 "+m+"분 "+s+"초");	
+};
+function show_store(){
+	$("#btn-store").on('click', function(){
+		if(<%=loggedInMember!=null%>){
+			show_pause_menu("store");
+			$("#store").slideDown();
+		}
+		else{show_message("<h2>로그인시 이용가능한 서비스입니다.</h2>", true);}
+	});
+};
+function show_help(){
+	$("#btn-help").on('click', function(){
+		show_pause_menu("help");
+		$("#help").slideDown();
+	});
+};
+function active_close(){
+	$(".close").on('click', function(){
+		$(this).parent().slideUp();
+	});
+};
+function coin_hint_refresh(){
+	$.ajax({
+		url: "<%=request.getContextPath()%>/game/coinHintRefresh",
+		type: "get",
+		dataType: "json",
+		success: function(data){
+			$("#userCoin").text(data.coin);
+			$("#hintPaper").text(data.hintPaper);
+		}
+	});
+};
+function buy_hint_paper(){
+	$("#btn-buyHint").on('click', function(){
+		$.ajax({
+			url:"<%=request.getContextPath()%>/game/buyHint",
+			type:"post",
+			success: function(result){
+				if(result === "true"){
+					show_message("<h2>구매가 완료되었습니다.</h2>", true);
+					coin_hint_refresh();
+				}
+				else
+					show_message("<h2>보유 코인이 부족합니다.</h2>", true);
+			},
+			error: function(){
+				show_message("<h2>예기치 못한 오류가 발생했습니다.</h2>");
+			}
+		});
+	});
+};
+function use_hint_paper(){
+	$("#btn-useHint").on('click', function(){
+		$.ajax({
+			url:"<%=request.getContextPath()%>/game/useHint",
+			type:"post",
+			success: function(data){
+				if(data === "true"){
+					show_message("<h2>쪽지를 뽑는중입니다.</h2>", false);
+					get_hint();
+					$("#message h2").css({"animation":"bling .7s", "animation-iteration-count":"3"});
+					setTimeout(function(){
+						$("#message").hide();
+						$("#hint").show();
+					}, 2500);
+					coin_hint_refresh();
+				}else{
+					show_message("<h2>쪽지를 구매해주세요.</h2>", true);
+				}
+			},
+			error: function(){
+				show_message("<h2>예기치 못한 오류가 발생했습니다.</h2>");
+			}
+		});
+	});
+};
+function close_hint_paper(){
+	$("#close-hint").on('click', function(){
+		$("#hint").hide();
+		$("#hint div:last").text("");
+		$("#pause-menu-container").removeClass("paused");
+	});
+};
+function get_hint(){
+	$.ajax({
+		url: "<%=request.getContextPath()%>/game/getHint",
+		type:"post",
+		success: function(data){
+			$("#close-hint+div").text(data);
+		}
+	});
+};
+function show_pause_menu(menuName){
+	$.ajax({
+		url:"<%=request.getContextPath()%>/game/pauseMenu",
+		data: "menuName="+menuName,
+		type: "post",
+		dataType: "html",
+		success: function(data){
+			$("#"+menuName).html(data);
+			add_event_listener();
+		}
+	});
+};
+function active_esc(){
+	$("#btn-esc").on('click', function(){
+		show_message("<h2>게임을 종료하시겠습니까?</h2><button value='1'>◎ 확인</button><button>X 취소</button>", false);
+		$("#message").find("button").each(function(){
+			$(this).click(function(){
+				if($(this).val()==1){
+					opener.parent.sessionStorage.removeItem("game");
+					self.close();
+				}
+				else {
+					$("#pause-menu-container").removeClass("paused");
+					$(this).parent().hide();
+				}
+			});
+		});
+	});
+};
+function add_event_listener(){
+	show_store();
+	show_help();
+	active_close();
+	buy_hint_paper();
+	use_hint_paper();
+	show_record();
+	active_esc();
+	close_hint_paper();
+};
 
 $("#next").click(function(e){
 	$(this).css("visibility", "hidden").siblings("#prev").css("visibility", "visible");
@@ -144,25 +227,30 @@ $("#inventory").on('click',{flag:0},function(e){
 		e.stopPropagation();
 	});
 });
+$("#obj-list div").each(function(){
+	$(this).on('click', function(){
+		$(this).toggleClass("selected");
+		$(this).siblings().removeClass("selected");
+	});
+});
 $("#pause").on("click", {flag:1}, function(e){
+	var $target = $(this);
 	var cnt = e.data.flag++;
-	$("#back-ground").toggleClass("paused");
+	$("img").toggleClass("paused");
 	if(cnt%2!=0){
-		$(this).children().attr("src", "<%=request.getContextPath()%>/images/game/gameMain/play.png");
+		$target.children().attr("src", "<%=request.getContextPath()%>/images/game/gameMain/play.png");
 		$("#pause-menu-container").show();
+		show_pause_menu("pause-menu");
 		clearInterval(record);
-		var time = $("[type=hidden]").val();
-		var h = Math.floor(time/3600);
-		var m = Math.floor((time%3600)/60);
-		var s = (time%3600)%60;
-		$("#time").text(h+"시간 "+m+"분 "+s+"초");
 	}
 	else{
-		$(this).children().attr("src", "<%=request.getContextPath()%>/images/game/gameMain/pause.png");
+		$target.children().attr("src", "<%=request.getContextPath()%>/images/game/gameMain/pause.png");
 		$("#pause-menu-container").hide();
+		$("#pause-menu").html("");
 		record = setInterval(timer, 1000);
 	}
 });
+
 $(window).on('keyup', function(e){
 	if(e.keyCode==27){
 		$("#pause").trigger("click");
@@ -171,62 +259,9 @@ $(window).on('keyup', function(e){
 		opener.parent.sessionStorage.removeItem("game");
 	}
 }).on('beforeunload', function(){
+	confirm("");
 	opener.parent.sessionStorage.removeItem("game");
 });
-$("#btn-store").on('click', function(){
-	if(<%=loggedInMember!=null%>){$("#store").slideDown();}
-	else{show_message("로그인시 이용가능한 서비스입니다.");}
-});
-$("#btn-help").on('click', function(){
-	$("#help").slideDown();
-});
-$(".close").on('click', function(){
-	$(this).parent().slideUp();
-});
-$("#btn-esc").on('click', function(){
-	$("#pause-menu-container").css("opacity", .4);
-	$("#message").html("<h2>게임을 종료하시겠습니까?</h2><button value='1'>◎ 확인</button><button>X 취소</button>").show();
-	$("#message").find("button").each(function(){
-		$(this).click(function(){
-			if($(this).val()==1){
-				opener.parent.sessionStorage.removeItem("game");
-				self.close();
-			}
-			else {
-				$("#pause-menu-container").css("opacity", 1);
-				$(this).parent().hide();
-			}
-		});
-	});
-});
-
-function coin_hint_refresh(){
-	$.ajax({
-		url: "<%=request.getContextPath()%>/game/coinHintRefresh",
-		type: "get",
-		dataType: "json",
-		success: function(data){
-			var member = JSON.parse(data);
-			$("#userCoin").text(member.coin);
-			$("#hintPaper").text(member.hintPaper);
-		}
-	});
-};
-$("#myStore-Btn").on('click', function(){
-	$.ajax({
-		url:"<%=request.getContextPath()%>/game/buyHint",
-		type:"get",
-		success: function(result){
-			if(result === "true"){
-				show_message("구매가 완료되었습니다.");
-				coin_hint_refresh();
-			}
-			else
-				show_message("보유 코인이 부족합니다.");
-		}
-	});
-});
-
 </script>
 </body>
 </html>

@@ -33,35 +33,6 @@
   </servlet-mapping>
   <description>-----jsp연결 : Home, Notice-----</description>
   <servlet>
-    <servlet-name>gotoHome</servlet-name>
-    <jsp-file>/WEB-INF/views/home.jsp</jsp-file>
-  </servlet>
-  <servlet-mapping>
-    <servlet-name>gotoHome</servlet-name>
-    <url-pattern>/home</url-pattern>
-  </servlet-mapping>
-  <servlet>
-<<<<<<< HEAD
-    <servlet-name>gotoNotice</servlet-name>
-    <jsp-file>/WEB-INF/views/notice/noticeList.jsp</jsp-file>
-  </servlet>
-  <servlet-mapping>
-    <servlet-name>gotoNotice</servlet-name>
-    <url-pattern>/notice</url-pattern>
-  </servlet-mapping>
-  <servlet>
-=======
->>>>>>> 7510a0c2945e07763ace83a5b59f394f2871f68b
-    <servlet-name>gotoRank</servlet-name>
-    <jsp-file>/WEB-INF/views/rank/RankingBoard.jsp</jsp-file>
-  </servlet>
-  <servlet-mapping>
-    <servlet-name>gotoRank</servlet-name>
-    <url-pattern>/rank</url-pattern>
-  </servlet-mapping>
-<<<<<<< HEAD
-=======
-  <servlet>
     <servlet-name>gotoNoticeForm</servlet-name>
     <jsp-file>/WEB-INF/views/notice/noticeForm.jsp</jsp-file>
   </servlet>
@@ -69,5 +40,4 @@
     <servlet-name>gotoNoticeForm</servlet-name>
     <url-pattern>/notice/noticeForm</url-pattern>
   </servlet-mapping>
->>>>>>> 7510a0c2945e07763ace83a5b59f394f2871f68b
 </web-app>

@@ -38,9 +38,9 @@ public class LoggerFilter implements Filter {
 		
 		String uri = httpReq.getRequestURI();
 		
-		System.out.println("========================");
+/*		System.out.println("========================");
 		System.out.println("uri@LoggerFilter=" + uri);
-		System.out.println("========================");
+		System.out.println("========================");*/
 		request.setAttribute("userId", request.getAttribute("userId"));
 		// pass the request along the filter chain
 		chain.doFilter(request, response);

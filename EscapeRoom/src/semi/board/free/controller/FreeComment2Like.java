@@ -34,11 +34,11 @@ public class FreeComment2Like extends HttpServlet {
 		int commentNo =Integer.parseInt(request.getParameter("commentNo"));
 		int commentLikeAmount =Integer.parseInt(request.getParameter("commentLikeAmount"));
 		//String flag = request.getParameter("flag");
-		System.out.println("commentNo"+commentNo);
-		System.out.println("commentLikeAmount"+commentLikeAmount);
+		//System.out.println("commentNo"+commentNo);
+		//System.out.println("commentLikeAmount"+commentLikeAmount);
 		int result = new FreeBoardDao().updateLikey(commentNo,commentLikeAmount);
 		int likey = new FreeBoardDao().getLikey(commentNo);
-		System.out.println("likey=대체뭐야..?"+likey);
+		//System.out.println("likey=대체뭐야..?"+likey);
 		
 		response.setContentType("application/json; charset=utf-8");
 		new Gson().toJson(likey,response.getWriter());
