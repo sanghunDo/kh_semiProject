@@ -43,7 +43,7 @@ $(function(){
 	<section>
         <div class="enterRoom">
             <div>Enter Room</div>
-            <div onclick="location.href='<%=request.getContextPath()%>/home/homeGetData'">
+            <div onclick="location.href='<%=request.getContextPath()%>/home'">
                 <div>Enter Room</div>
                 <div>Enter Room</div>
                 <div>Enter Room</div>

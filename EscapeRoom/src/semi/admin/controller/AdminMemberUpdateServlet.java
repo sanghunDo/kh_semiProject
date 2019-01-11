@@ -2,6 +2,8 @@ package semi.admin.controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.sql.Date;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -47,25 +49,34 @@ public class AdminMemberUpdateServlet extends HttpServlet {
 			return;
 			}
 		
-		// 0. 1. 유효성 타입 enctype으로 보냈는지 확인
-		if(!ServletFileUpload.isMultipartContent(request)) {
-			request.setAttribute("msg", "게시판작성오류![form:enctype]");
-			request.setAttribute("loc", "/main");
-			request.getRequestDispatcher("/WEB-INF/views/common/msg.jsp").forward(request, response);
-			return;
-				}
-		
-		// 0. 2. 전송값에 한글이 있을 경우 인코딩 처리
-		
 		// 1. 파라미터 핸들링
+		String userId = request.getParameter("userid");
+		System.out.println("userId@AdminMemberUpdateServlet = " + userId);
+		
+		String userEmail = request.getParameter("email");
+		System.out.println("userEmail@AdminMemberUpdateServlet = " + userEmail);
+		
+		String userProfileOriginalFile = request.getParameter("userprofileoriginalfile");
+		System.out.println("userProfileOriginalFile@AdminMemberUpdateServlet = " + userProfileOriginalFile);
+		
+		String userProfileRenamedFile = request.getParameter("userrenamedoriginalfile");
+		System.out.println("userProfileRenamedFile@AdminMemberUpdateServlet = " + userProfileRenamedFile);
+		
+		Member m = new Member();
 		
 		// 2. 비즈니스 로직
-		
-		
+		int result = new AdminService().updateMember(m);
+				
 		// 3. view단 처리
 		String view = "/WEB-INF/admin/adminMemberView";
 		String msg = "";
-		String loc = "";
+		String loc = "/admin/adminMemberView";
+		
+		if (result > 0) {
+			msg = "성공적으로 회원 정보를 수정하였습니다.";
+		} else {
+			msg = "회원 정보 수정에 실패하였습니다.";
+		}
 		
 		request.setAttribute("msg", msg);
 		request.setAttribute("loc", loc);

@@ -116,7 +116,7 @@ public class MemberLoginEndServlet extends HttpServlet {
 			
 			// 페이지 리다이렉트 : Client에게 돌려보낸 후, 해당 URL로 다시 요청하도록 함
 			String root = request.getContextPath();
-			response.sendRedirect(root + "/main");
+			response.sendRedirect(root + "/home");
 			
 		} else {
 			// 2. 로그인 실패한 경우
@@ -124,10 +124,10 @@ public class MemberLoginEndServlet extends HttpServlet {
 			
 			if(result == MemberService.WRONG_PASSWORD) {
 				msg = "패스워드를 잘 못 입력하셨습니다.";
-				loc = "/main";
+				loc = "/home";
 			} else if(result == MemberService.ID_NOT_EXIST) {
 				msg = "존재하지 않는 아이디입니다.";
-				loc = "/main";
+				loc = "/home";
 			}
 			
 			// 속성에 값 보관

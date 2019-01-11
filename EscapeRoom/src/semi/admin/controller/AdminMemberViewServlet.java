@@ -13,7 +13,7 @@ import semi.member.model.vo.Member;
 /**
  * Servlet implementation class AdminMemberViewServlet
  */
-@WebServlet(name = "adminMemberViewServlet", urlPatterns="/admin/adminMemberView")
+@WebServlet("/admin/adminMemberView")
 public class AdminMemberViewServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -46,6 +46,7 @@ public class AdminMemberViewServlet extends HttpServlet {
 		
 		// 2. 비즈니스 로직
 		Member m = new AdminService().selectOne(userId);
+		System.out.println("userId@AdminMemberViewServlet = " + m);
 		
 		// 3. view단 처리
 		// 비정상적인 요청으로 회원정보가 없을 경우
@@ -55,8 +56,8 @@ public class AdminMemberViewServlet extends HttpServlet {
 		
 		if(m == null) {
 			view = "/WEB-INF/views/common/msg.jsp";
-			loc = "/admin/adminBoard";
 			msg = "해당 회원이 존재하지 않습니다.";
+			loc = "/";
 		}
 		
 		// request 객체에 속성 등록
