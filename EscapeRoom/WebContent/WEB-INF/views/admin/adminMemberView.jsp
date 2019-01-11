@@ -3,6 +3,7 @@
     pageEncoding="UTF-8"%>
 <%@ page import="java.util.*" %>
 <%@ page import="semi.admin.controller.*" %>
+<%@ page import="semi.member.model.vo.*" %>
 <%
 	Member m = (Member) request.getAttribute("member");
 	//header.jsp에서 userId 변수명을 이미 사용중이므로 살짝 변경
@@ -42,6 +43,7 @@ img#null-Profile{
 					<th>프로필 사진</th>
 					<td>
 						<!-- 추가 -->
+						
 					</td>
 				</tr>
 				<tr>
@@ -62,6 +64,7 @@ img#null-Profile{
 						<%=m.getEnrollDate() %>
 					</td>
 				</tr>
+				
 		</table>
 	</section>
 	<input type="submit" id="userUpdate" value="회원정보 수정"/>
