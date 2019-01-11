@@ -6,6 +6,10 @@
 <%
 	Rank r = (Rank) request.getAttribute("rankTop");
 	Notice linkedNotice = (Notice) request.getAttribute("linkedNotice");
+	
+	if(linkedNotice == null){
+		linkedNotice = new Notice();
+	}
 	String category = "";
 	
 	if(linkedNotice != null && "N".equals(linkedNotice.getNoticeUrgent())) {
@@ -175,8 +179,8 @@ img#rankOne-Profile{
 		<button id="admin-Btn" onclick="changeNoticeLink();">상단 바 공지사항 링크 변경</button>
 	</div>
 	<div id="notice-Link">
-		<%-- <%=request.getContextPath()%>/notice/noticeView?noticeNo=<%=linkedNotice.getNoticeNo()%> --%>
-		<a href="#">
+		
+		<a href="<%=request.getContextPath()%>/notice/noticeView?noticeNo=<%=linkedNotice.getNoticeNo()%>">
 			<h3 id="ani-Text"><%=category %>&nbsp;&nbsp;<%=linkedNotice.getNoticeTitle() %></h3>
 		</a>
 	</div>
