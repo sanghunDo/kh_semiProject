@@ -1,8 +1,10 @@
 @charset "UTF-8";
-.backObj{
+#wrap>img{
 	position: absolute;
+    cursor: pointer;
+}
+.backObj{
     top: 150px;
     left: 200px;
-    cursor: pointer;
     transform: rotateZ(1deg);
 }

@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import semi.board.rank.model.vo.Rank;
 import semi.home.model.service.HomeService;
+import semi.notice.model.vo.Notice;
 
 /**
  * Servlet implementation class HomeGetDataServlet
@@ -32,6 +33,14 @@ public class HomeGetDataServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		//공지사항 링크
+		Notice n = null;
+
+		try {
+			n = new HomeService().selectLinkedNotice();
+			
+		} catch(NullPointerException e) {
+			n = new Notice();
+		}
 		
 		//랭킹 1위 정보
 		Rank r = new HomeService().selectRankTop();
@@ -62,6 +71,7 @@ public class HomeGetDataServlet extends HttpServlet {
 		
 		String view = "/WEB-INF/views/home.jsp";
 		
+		request.setAttribute("linkedNotice", n);
 		request.setAttribute("rankTop", modifiedR);
 		request.getRequestDispatcher(view).forward(request, response);
 	}
