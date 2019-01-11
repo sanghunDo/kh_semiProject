@@ -214,7 +214,7 @@ function checkIdDuplicate(){
 			<tr>
 				<td>
 					<div id="profile-Container">
-						 <img width="100px" height="100px" id="profilePre" src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/04/Antu_im-user-offline.svg/512px-Antu_im-user-offline.svg.png">
+						 <img width="100px" height="100px" id="profilePre" src="<%=request.getContextPath()%>/images/nonProfile.png">
 					</div>
 				</td>
 			</tr>
