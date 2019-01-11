@@ -1092,10 +1092,7 @@ public class FreeBoardDao {
 			pstmt.setString(5, fb.getPostRenamedFile());
 	
 			result = pstmt.executeUpdate();
-			
-			System.out.println("fb="+fb);
-			
-			
+					
 			if(result >0) commit(conn);
 		    else rollback(conn);
 			
@@ -1120,7 +1117,9 @@ public class FreeBoardDao {
 		ResultSet rset = null;
 		PreparedStatement pstmt = null;
 		int lastSeq = 0;
-		String query = "select seq_board_free_postno.currval from dual";
+		String query = 
+				
+	"select * from ( select rownum as rnum, v.* from(SELECT LAST_VALUE(postno) OVER (ORDER BY postno ROWS BETWEEN UNBOUNDED PRECEDING AND UNBOUNDED FOLLOWING) AS L_postno FROM  board_free ) v) v where rnum = 1 ";
 		
 		try {
 			Class.forName("oracle.jdbc.driver.OracleDriver");
@@ -1132,7 +1131,7 @@ public class FreeBoardDao {
 			rset = pstmt.executeQuery();
 			
 			if(rset.next()) {
-				lastSeq = rset.getInt("currval");
+				lastSeq = rset.getInt("L_postno");
 				
 			}
 			
