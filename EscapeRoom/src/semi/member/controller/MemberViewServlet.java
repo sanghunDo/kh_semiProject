@@ -45,7 +45,7 @@ public class MemberViewServlet extends HttpServlet {
 
 		if (m == null) {
 			view = "/WEB-INF/views/common/msg.jsp";
-			loc = "/main";
+			loc = "/home";
 			msg = "해당 회원이 존재하지 않습니다.";
 		}
 
