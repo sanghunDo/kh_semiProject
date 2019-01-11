@@ -87,13 +87,13 @@ public class MemberLoginEndServlet extends HttpServlet {
 			if(saveId != null) {
 				Cookie c = new Cookie("saveId", userId);
 				c.setMaxAge(7 * 24 * 60 * 60); // 쿠키유효기간 : 7일, 단위 : 초
-				c.setPath("/semi"); // 쿠키유효디렉토리 설정
+				c.setPath("/escape_if_you_can"); // 쿠키유효디렉토리 설정
 				response.addCookie(c);
 			} else {
 				// 현재 등록된 쿠키삭제 목적
 				Cookie c = new Cookie("saveId", userId);
 				c.setMaxAge(0); // 쿠키유효기간을 0으로 설정해서 삭제
-				c.setPath("/semi"); // 삭제하고자 하는 쿠키와 동일하게
+				c.setPath("/escape_if_you_can"); // 삭제하고자 하는 쿠키와 동일하게
 				response.addCookie(c);
 			}
 			

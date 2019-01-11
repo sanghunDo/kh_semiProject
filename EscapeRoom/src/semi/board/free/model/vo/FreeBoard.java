@@ -13,7 +13,7 @@ public class FreeBoard implements Serializable {
 	private Date postDate;
 	private int postLike;
 	private int postDislike;
-	private boolean postReport;
+	private String postReport;
 	private int postReadCount;
 	private int board_comment_cnt;
 	
@@ -23,7 +23,7 @@ public class FreeBoard implements Serializable {
 	}
 
 	public FreeBoard(int postNo, String postTitle, String postWriter, String postContent, String postOriginalFile,
-			String postRenamedFile, Date postDate, int postLike, int postDislike, boolean postReport, int postReadCount,int board_comment_cnt) {
+			String postRenamedFile, Date postDate, int postLike, int postDislike, String postReport, int postReadCount,int board_comment_cnt) {
 		
 		this.postNo = postNo;
 		this.postTitle = postTitle;
@@ -137,11 +137,11 @@ public class FreeBoard implements Serializable {
 		this.postDislike = postDislike;
 	}
 
-	public boolean isPostReport() {
+	public String isPostReport() {
 		return postReport;
 	}
 
-	public void setPostReport(boolean postReport) {
+	public void setPostReport(String postReport) {
 		this.postReport = postReport;
 	}
 	

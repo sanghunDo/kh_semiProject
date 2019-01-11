@@ -10,6 +10,7 @@ public class Notice {
 	private String noticeRenamedFile;
 	private String noticeUrgent;
 	private Date noticeDate;
+	private String noticeLinked;
 	
 	public Notice() {}
 	
@@ -39,10 +40,25 @@ public class Notice {
 		this.noticeDate = noticeDate;
 	}
 	
+	public Notice(int noticeNo,
+			  String noticeTitle,
+			  String noticeContent,
+			  String noticeOriginalFile,
+			  String noticeRenamedFile,
+			  String noticeUrgent,
+			  Date noticeDate,
+			  String noticeLinked) {
+		
+		this(noticeTitle, noticeContent, noticeOriginalFile, noticeRenamedFile, noticeUrgent);
+		this.noticeNo = noticeNo;
+		this.noticeDate = noticeDate;
+		this.noticeLinked = noticeLinked;
+	}
+	
 	@Override
 	public String toString() {
 		return noticeNo + " " + noticeTitle + " " + noticeContent + " " + noticeOriginalFile + " " +
-					noticeRenamedFile + " " + noticeUrgent + " " + noticeDate;
+					noticeRenamedFile + " " + noticeUrgent + " " + noticeDate + " " + noticeLinked;
 	}
 
 	public int getNoticeNo() {
@@ -99,5 +115,13 @@ public class Notice {
 
 	public void setNoticeDate(Date noticeDate) {
 		this.noticeDate = noticeDate;
+	}
+
+	public String getNoticeLinked() {
+		return noticeLinked;
+	}
+
+	public void setNoticeLinked(String noticeLinked) {
+		this.noticeLinked = noticeLinked;
 	}
 }

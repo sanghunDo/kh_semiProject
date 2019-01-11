@@ -7,9 +7,13 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Properties;
 
 import semi.board.rank.model.vo.Rank;
+import semi.notice.model.vo.Notice;
+
 import static semi.common.JDBCTemplate.*;
 
 public class HomeDao {
@@ -53,6 +57,74 @@ public class HomeDao {
 			close(pstmt);
 		}
 		return r;
+	}
+	
+	public List<Notice> selectAllNotice(Connection conn) {
+		List<Notice> list = null;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String query = prop.getProperty("selectAllNotice");
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			rset = pstmt.executeQuery();
+			
+			list = new ArrayList<>();
+			
+			while(rset.next()) {
+				Notice n = new Notice();
+				n.setNoticeNo(rset.getInt("noticeNo"));
+				n.setNoticeTitle(rset.getString("noticeTitle"));
+				n.setNoticeContent(rset.getString("noticeContent"));
+				n.setNoticeOriginalFile(rset.getString("noticeOriginalFile"));
+				n.setNoticeRenamedFile(rset.getString("noticeRenamedFile"));
+				n.setNoticeDate(rset.getDate("noticeDate"));
+				n.setNoticeUrgent(rset.getString("noticeUrgent"));
+				
+				list.add(n);
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return list;
+	}
+
+	public Notice selectLinkedNotice(Connection conn) {
+		Notice n = null;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String query = prop.getProperty("selectLinkedNotice");
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				n = new Notice();
+				
+				n.setNoticeNo(rset.getInt("noticeNo"));
+				n.setNoticeTitle(rset.getString("noticeTitle"));
+				n.setNoticeContent(rset.getString("noticeContent"));
+				n.setNoticeOriginalFile(rset.getString("noticeOriginalFile"));
+				n.setNoticeRenamedFile(rset.getString("noticeRenamedFile"));
+				n.setNoticeDate(rset.getDate("noticeDate"));
+				n.setNoticeUrgent(rset.getString("noticeUrgent"));
+				n.setNoticeLinked(rset.getString("noticeLinked"));
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return n;
 	}
 
 }

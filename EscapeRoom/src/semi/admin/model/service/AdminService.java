@@ -20,6 +20,7 @@ public class AdminService {
 	
 	public int loginCheck(Member m) {
 		int result = -1;
+		// DB와 연결
 		Connection conn = getConnection();
 		
 		result = new AdminDao().loginCheck(conn, m);
@@ -49,6 +50,38 @@ public class AdminService {
 		else 
 			rollback(conn);
 		close(conn);
+		return result;
+	}
+	
+	// 관리자용 회원 비밀번호 변경
+	public int updatePassword(Member m) {
+		Connection conn = getConnection();
+		int result = 0;
+		System.out.println("서비스: " + m.getUserPassword());
+		result = new AdminDao().updatePassword(conn, m);
+		
+		if (result > 0) {
+			commit(conn);
+		} else {
+			rollback(conn);
+		}
+		
+		return result;
+	}
+	
+	// 관리자용 회원 삭제하기
+	public int deleteMember(String userId) {
+		Connection conn = getConnection();
+		int result = new AdminDao().deleteMember(conn, userId);
+		
+		if (result > 0) {
+			commit(conn);
+		} else {
+			rollback(conn);
+		}
+		
+		close(conn);
+		
 		return result;
 	}
 

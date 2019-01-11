@@ -15,14 +15,14 @@ public class BoardComment implements Serializable {
 	private Date commentDate;
 	private int commentLike;
 	private int commentDislike;
-	private boolean commentReport;
+	private String commentReport;
 	
 	public BoardComment() {
 		
 	}
 	
 	public BoardComment(int commentNo, int commentLevel, String commentWriter, String commentContent, int ref,
-			int commentRef, Date commentDate, int commentLike, int commentDislike, boolean commentReport) {
+			int commentRef, Date commentDate, int commentLike, int commentDislike, String commentReport) {
 		this.commentNo = commentNo;
 		this.commentLevel = commentLevel;
 		this.commentWriter = commentWriter;
@@ -116,11 +116,11 @@ public class BoardComment implements Serializable {
 		this.commentDislike = commentDislike;
 	}
 
-	public boolean isCommentReport() {
+	public String isCommentReport() {
 		return commentReport;
 	}
 
-	public void setCommentReport(boolean commentReport) {
+	public void setCommentReport(String commentReport) {
 		this.commentReport = commentReport;
 	}
 	

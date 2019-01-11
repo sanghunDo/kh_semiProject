@@ -339,6 +339,26 @@ create table notice(
     constraint pk_board_solve_noticeno primary key(noticeno),
     constraint ck_board_notice_noticeurgent check (noticeurgent in ('Y','N'))
 );
+
+-- 미추가 데이터
+insert into notice values(seq_notice_noticeno.nextVal, '긴급공지테스트1입니다!!!', '긴급공지 테스트1 입니다.
+긴급공지 테스트1 입니다.
+긴급공지 테스트1 입니다.', 'urgent1.png', '20190109_195841561_348.png', to_date('20190101', 'yyyymmdd'), 'Y', 'N');
+insert into notice values(seq_notice_noticeno.nextVal, '버그 수정중입니다 !', '버그가 수정중입니다.
+게임이용에 불편을 드려 대단히 죄송합니다.
+빠른 시일 내에 복구하도록 하겠습니다.', 'event3.png', '20190109_201006238_424.png', to_date('20190102', 'yyyymmdd'), 'N', 'N');
+insert into notice values(seq_notice_noticeno.nextVal, '긴급공지 테스트2입니다 !!!', '긴급공지 테스트2 입니다.
+긴급공지 테스트2 입니다.
+긴급공지 테스트2 입니다.', 'urgent2.png', '20190109_201120911_160.png', to_date('20190103', 'yyyymmdd'), 'Y', 'N');
+insert into notice values(seq_notice_noticeno.nextVal, '채용공고 - 새 가족을 찾습니다 !!!', '근무형태 : 재택근무
+연봉 : ?
+우리의 가족이 되어주새오', 'event4.png', '20190109_201222201_991.png', to_date('20190104', 'yyyymmdd'), 'N', 'N');
+insert into notice values(seq_notice_noticeno.nextVal, '힌트 쪽지 가격이 50코인 !!', '런칭 기념 힌트쪽지 가격을 한 달간 100코인에서
+50퍼센트 할인된 50코인으로 할인 중입니다!!
+많이 플레이해주세요 !', 'event2.png', '20190109_201429373_28.png', to_date('20190105', 'yyyymmdd'), 'N', 'N');
+insert into notice values(seq_notice_noticeno.nextVal, '런칭 기념 가입 시 300코인 증정 !!', '런칭 기념 가입시 힌트쪽지를 살 수 있는 코인을 
+300개나?!? 빨리오세요!', 'event1.png', '20190109_201519476_756.png', to_date('20190106', 'yyyymmdd'), 'N', 'Y');
+insert into notice values(seq_notice_noticeno.nextVal, '대답요구!!!!!!!!!!!!', '대답요구!!!!!!!!!!!!!!!!!!!!!', '대답요구.png', '20190110_053019290_882.png', to_date('20190110', 'yyyymmdd'), 'N', 'N');
 create sequence seq_notice_noticeno;
 insert into game_rank values(seq_game_rank_playno.nextval, 'qwerty', 4785, to_date('20190101', 'yyyymmdd'));
 insert into game_rank values(seq_game_rank_playno.nextval, 'abcde', 5587425, to_date('20190101', 'yyyymmdd'));
@@ -372,6 +392,17 @@ create table game_hint(
     content varchar2(200)
 );
 
+insert into game_rank values(seq_game_rank_playno.nextval, 'qwerty', 4785, to_date('20190101', 'yyyymmdd'));
+insert into game_rank values(seq_game_rank_playno.nextval, 'abcde', 5587425, to_date('20190101', 'yyyymmdd'));
+insert into game_rank values(seq_game_rank_playno.nextval, 'wewe', 4646546, to_date('20190101', 'yyyymmdd'));
+insert into game_rank values(seq_game_rank_playno.nextval, 'hoho', 654654654654, to_date('20190101', 'yyyymmdd'));
+insert into game_rank values(seq_game_rank_playno.nextval, 'sun123', 545454545, to_date('20190101', 'yyyymmdd'));
+insert into game_rank values(seq_game_rank_playno.nextval, 'heyhey', 8789515, to_date('20190101', 'yyyymmdd'));
+insert into game_rank values(seq_game_rank_playno.nextval, 'babo', 3132135, to_date('20190101', 'yyyymmdd'));
+insert into game_rank values(seq_game_rank_playno.nextval, 'baboba', 9896232323, to_date('20190101', 'yyyymmdd'));
+insert into game_rank values(seq_game_rank_playno.nextval, 'chunjae', 56565655, to_date('20190101', 'yyyymmdd'));
+insert into game_rank values(seq_game_rank_playno.nextval, 'mungmung', 545646, to_date('20190101', 'yyyymmdd'));
+
 insert into game_hint values(1, '일부 아이템은 여러번 사용할 수 있습니다.');
 insert into game_hint values(2, '넌 탈출할 수 없어..');
 insert into game_hint values(3, '화분은 망치로 깰 수 있습니다.');
@@ -383,5 +414,42 @@ insert into game_hint values(8, '침대 뒤에 공간있어요.');
 insert into game_hint values(9, '행렬');
 insert into game_hint values(10, '위를 올려다 보세요.');
 
+select * from notice;
+drop table notice;
+alter table notice add(noticelinked char(1));
 
+create table notice(
+    noticeno number,
+    noticetitle varchar2(50),
+    noticecontent varchar2(2000),
+    noticeoriginalfile varchar2(100),
+    noticerenamedfile varchar2(100),
+    noticedate date default sysdate,
+    noticeurgent char(1),
+    noticelinked char(1),
+    constraint pk_board_solve_noticeno primary key(noticeno),
+    constraint ck_board_notice_noticeurgent check (noticeurgent in ('Y','N')),
+    constraint ck_board_notice_noticelinked check (noticelinked in ('Y', 'N'))
+);
+
+------------------------------------------------------------------
+-- 미추가 데이터
+insert into notice values(seq_notice_noticeno.nextVal, '긴급공지테스트1입니다!!!', '긴급공지 테스트1 입니다.
+긴급공지 테스트1 입니다.
+긴급공지 테스트1 입니다.', 'urgent1.png', '20190109_195841561_348.png', to_date('20190101', 'yyyymmdd'), 'Y', 'N');
+insert into notice values(seq_notice_noticeno.nextVal, '버그 수정중입니다 !', '버그가 수정중입니다.
+게임이용에 불편을 드려 대단히 죄송합니다.
+빠른 시일 내에 복구하도록 하겠습니다.', 'event3.png', '20190109_201006238_424.png', to_date('20190102', 'yyyymmdd'), 'N', 'N');
+insert into notice values(seq_notice_noticeno.nextVal, '긴급공지 테스트2입니다 !!!', '긴급공지 테스트2 입니다.
+긴급공지 테스트2 입니다.
+긴급공지 테스트2 입니다.', 'urgent2.png', '20190109_201120911_160.png', to_date('20190103', 'yyyymmdd'), 'Y', 'N');
+insert into notice values(seq_notice_noticeno.nextVal, '채용공고 - 새 가족을 찾습니다 !!!', '근무형태 : 재택근무
+연봉 : ?
+우리의 가족이 되어주새오', 'event4.png', '20190109_201222201_991.png', to_date('20190104', 'yyyymmdd'), 'N', 'N');
+insert into notice values(seq_notice_noticeno.nextVal, '힌트 쪽지 가격이 50코인 !!', '런칭 기념 힌트쪽지 가격을 한 달간 100코인에서
+50퍼센트 할인된 50코인으로 할인 중입니다!!
+많이 플레이해주세요 !', 'event2.png', '20190109_201429373_28.png', to_date('20190105', 'yyyymmdd'), 'N', 'N');
+insert into notice values(seq_notice_noticeno.nextVal, '런칭 기념 가입 시 300코인 증정 !!', '런칭 기념 가입시 힌트쪽지를 살 수 있는 코인을 
+300개나?!? 빨리오세요!', 'event1.png', '20190109_201519476_756.png', to_date('20190106', 'yyyymmdd'), 'N', 'Y');
+insert into notice values(seq_notice_noticeno.nextVal, '대답요구!!!!!!!!!!!!', '대답요구!!!!!!!!!!!!!!!!!!!!!', '대답요구.png', '20190110_053019290_882.png', to_date('20190110', 'yyyymmdd'), 'N', 'N');
 commit;

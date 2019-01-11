@@ -20,7 +20,7 @@ function registerValidate(){
 	// 비밀번호 검사
 	var $userPassword_ = $("#userPassword_"); // 유저 비밀번호
 	var $userPassword__ = $("#userPassword__"); // 비교할 유저 비밀번호
-	var getUserPassword = RegExp(/^(?=.*[A-Za-z])(?=.*[0-9])(?=.*[#?!@$%^&*-_]).{5,19}$/); // 유저 비밀번호 유효성 검사
+	var getUserPassword = RegExp(/^(?=.*[A-Za-z])(?=.*[0-9])(?=.*[#?!@$%^&*-]).{5,19}$/); // 유저 비밀번호 유효성 검사
 
 	// 이메일 검사 
 	var $userEmail = $("#userEmail"); // 유저 이메일
@@ -214,7 +214,7 @@ function checkIdDuplicate(){
 			<tr>
 				<td>
 					<div id="profile-Container">
-						 <img width="100px" height="100px" id="profilePre" src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/04/Antu_im-user-offline.svg/512px-Antu_im-user-offline.svg.png">
+						 <img width="100px" height="100px" id="profilePre" src="<%=request.getContextPath()%>/images/nonProfile.png">
 					</div>
 				</td>
 			</tr>

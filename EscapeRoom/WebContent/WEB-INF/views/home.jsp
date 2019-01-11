@@ -1,10 +1,24 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ page import="semi.board.rank.model.vo.*" %>
+<%@ page import="semi.board.rank.model.vo.*, semi.notice.model.vo.*" %>
 <%@ include file="/WEB-INF/views/common/header.jsp" %>
 
 <%
 	Rank r = (Rank) request.getAttribute("rankTop");
+	Notice linkedNotice = (Notice) request.getAttribute("linkedNotice");
+	
+	if(linkedNotice == null){
+		linkedNotice = new Notice();
+	}
+	String category = "";
+	
+	if(linkedNotice != null && "N".equals(linkedNotice.getNoticeUrgent())) {
+		category = "<공지사항>"; 
+	}
+	else{
+		category = "<긴급공지>";
+	}
+
 %>
 
 <link href="https://fonts.googleapis.com/css?family=Noto+Serif+KR" rel="stylesheet">
@@ -162,10 +176,13 @@ img#rankOne-Profile{
 </style>
 <div id="main-Container">
 	<div id="admin-Container">
-		<button id="admin-Btn" onclick="changeNoticeLink();">홈 화면 편집하기</button>
+		<button id="admin-Btn" onclick="changeNoticeLink();">상단 바 공지사항 링크 변경</button>
 	</div>
 	<div id="notice-Link">
-		<h3 id="ani-Text">&lt;공지사항&gt; 런칭기념 가입시 300코인 무료증정 이벤트 진행중 !!</h3>
+		
+		<a href="<%=request.getContextPath()%>/notice/noticeView?noticeNo=<%=linkedNotice.getNoticeNo()%>">
+			<h3 id="ani-Text"><%=category %>&nbsp;&nbsp;<%=linkedNotice.getNoticeTitle() %></h3>
+		</a>
 	</div>
 	
 	<div id="rank-One">
@@ -274,7 +291,7 @@ img#rankOne-Profile{
 
 <script>
 function changeNoticeLink(){
-	location.href = "<%=request.getContextPath()%>/admin/changeNoticeLink";
+	location.href = "<%=request.getContextPath()%>/admin/changeNoticeLink?=<%=linkedNotice.getNoticeNo()%>";
 }
 </script>
 <%@ include file="/WEB-INF/views/common/footer.jsp" %>

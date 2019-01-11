@@ -44,7 +44,7 @@ public class MemberRegisterEndServlet extends HttpServlet {
 		// 0. 유효성 타입 enctype으로 보냈는지 확인
 		if(!ServletFileUpload.isMultipartContent(request)) {
 			request.setAttribute("msg", "게시판작성오류![form:enctype]");
-			request.setAttribute("loc", "/main");
+			request.setAttribute("loc", "/home");
 			request.getRequestDispatcher("/WEB-INF/views/common/msg.jsp")
 				   .forward(request, response);
 			return; // 더 실행되지 않도록 return처리
@@ -97,7 +97,7 @@ public class MemberRegisterEndServlet extends HttpServlet {
 		int result = new MemberService().insertMember(m);
 		
 		String msg = "";
-		String loc = "/main";
+		String loc = "/home";
 		String view = "/WEB-INF/views/common/msg.jsp";
 		
 		if(result > 0) {
