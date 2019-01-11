@@ -325,34 +325,36 @@ create table game_object(
     coment varchar2(100) default '"....."',
     position varchar2(15),
     refno number default 0,
+    isitem char(2) default 'N' check(isitem in('Y','N')),
     constraint pk_objno primary key(objno)
 );
 drop table game_object;
-insert into game_object values(1, 'door_rock1', '"역시 잠겨있다."', 'front', default);
-insert into game_object values(2, 'door_rock2', '"비밀번호를 알아내야돼"', 'front', default);
-insert into game_object values(3, 'calendar', '"날짜가 이상해"', 'front', default);
-insert into game_object values(4, 'flowerpot', default, 'front', default);
-insert into game_object values(5, 'key_1', '"쓸모있어보이는 열쇠다!"', 'front', 15);
-insert into game_object values(6, 'safe', '"잠겨있다."', 'front', default);
-insert into game_object values(7, 'wire', '"금고안에 있었으니 어딘가 쓸데가 있을거야"', 'front', 2);
-insert into game_object values(8, 'driver', '"탈출하면 이걸로 찌를수 있겠군"', 'front', 26);
-insert into game_object values(9, 'bed', '"누워서 잠이나 잘까."', 'left', default);
-insert into game_object values(10, 'diary', '"날 가둔 녀석의 일기장인가?"', 'left', default);
-insert into game_object values(11, 'hintnote1', '"3-7,,, 무슨 뜻이지?"', 'left', default);
-insert into game_object values(12, 'bs_top_doll', '"불쌍한 녀석.."', 'back', default);
-insert into game_object values(13, 'bs_hintnote3', '"점이 3개가 있어 무슨 의미일까"', 'back', 23);
-insert into game_object values(14, 'bs_4f_books', '"정리가 하나도 안돼있다.."', 'back', default);
-insert into game_object values(15, 'bs_3f_box', '"이것도 잠겨있잖아?!"', 'back', default);
-insert into game_object values(16, 'bs_hintnote2', '"감히 안잡힌다.."', 'back', default);
-insert into game_object values(17, 'bs_3f_watch', default, 'back', default);
-insert into game_object values(18, 'bs_battery', '"유용할까?"', 'back', 2);
-insert into game_object values(19, 'bs_2f_books', '"숫자는 지긋지긋해 나는 문과출신인데.."', 'back', default);
-insert into game_object values(20, 'bs_1f_toolbox', '"안에 뭐가 들었는지 열어보자"', 'back', default);
-insert into game_object values(21, 'bs_hammer', '"여기서 탈출하면 망치로 찍어버릴거야"', 'back', 4);
-insert into game_object values(22, 'bs_knife', '"이걸론 죽이지 못할거야"', 'back', 12);
-insert into game_object values(23, 'water', '"이런데에 물이?!(핥짝핥짝)"', 'right', default);
-insert into game_object values(24, 'window', '"아무것도 없어, 어떻게든 빠져나가야돼"', 'right', default);
-insert into game_object values(25, 'letter', '"친절하게 편지도 남겨주셨군"', 'right', default);
-insert into game_object values(26, 'ceilinglight', '"열수 있을것 같아 보인다."', 'ceil', default);
-insert into game_object values(27, 'key_2', '"탈출에 성공할 수 있을거야!!!"', 'ceil', 1);
+insert into game_object values(1, 'door_lock1', '"역시 잠겨있다."', 'front', default, default);
+insert into game_object values(2, 'door_lock2', '"비밀번호를 알아내야돼"', 'front', default, default);
+insert into game_object values(3, 'calendar', '"날짜가 이상해"', 'front', default, default);
+insert into game_object values(4, 'flowerpot', default, 'front', default, default);
+insert into game_object values(5, 'key_1', '"쓸모있어보이는 열쇠다!"', 'front', 15, 'Y');
+insert into game_object values(6, 'safe', '"잠겨있다."', 'front', default, default);
+insert into game_object values(7, 'wire', '"금고안에 있었으니 어딘가 쓸데가 있을거야"', 'front', 2, 'Y');
+insert into game_object values(8, 'driver', '"탈출하면 이걸로 찌를수 있겠군"', 'front', 26, 'Y');
+insert into game_object values(9, 'bed', '"누워서 잠이나 잘까."', 'left', default, default);
+insert into game_object values(10, 'diary', '"날 가둔 녀석의 일기장인가?"', 'left', default, default);
+insert into game_object values(11, 'hintnote1', '"3-7,,, 무슨 뜻이지?"', 'left', default, 'Y');
+insert into game_object values(12, 'bs_top_doll', '"불쌍한 녀석.."', 'back', default, default);
+insert into game_object values(13, 'bs_hintnote3', '"점이 3개가 있어 무슨 의미일까"', 'back', 23, 'Y');
+insert into game_object values(14, 'bs_4f_books', '"정리가 하나도 안돼있다.."', 'back', default, default);
+insert into game_object values(15, 'bs_3f_box', '"이것도 잠겨있잖아?!"', 'back', default, default);
+insert into game_object values(16, 'bs_hintnote2', '"감히 안잡힌다.."', 'back', default, 'Y');
+insert into game_object values(17, 'bs_3f_watch', default, 'back', default, default);
+insert into game_object values(18, 'bs_battery', '"유용할까?"', 'back', 2, 'Y');
+insert into game_object values(19, 'bs_2f_books', '"숫자는 지긋지긋해 나는 문과출신인데.."', 'back', default, default);
+insert into game_object values(20, 'bs_1f_toolbox', '"안에 뭐가 들었는지 열어보자"', 'back', default, default);
+insert into game_object values(21, 'bs_hammer', '"여기서 탈출하면 망치로 찍어버릴거야"', 'back', 4, 'Y');
+insert into game_object values(22, 'bs_knife', '"이걸론 죽이지 못할거야"', 'back', 12, 'Y');
+insert into game_object values(23, 'water', '"이런데에 물이?!(핥짝핥짝)"', 'right', default, default);
+insert into game_object values(24, 'window', '"아무것도 없어, 어떻게든 빠져나가야돼"', 'right', default, default);
+insert into game_object values(25, 'letter', '"친절하게 편지도 남겨주셨군"', 'right', default, default);
+insert into game_object values(26, 'ceilinglight', '"열수 있을것 같아 보인다."', 'ceil', default, default);
+insert into game_object values(27, 'key_2', '"탈출에 성공할 수 있을거야!!!"', 'ceil', 1, 'Y');
+select * from game_object;
 commit;

@@ -8,6 +8,7 @@ $(function(){
 		type: "post",
 		dataType: "xml",
 		success: function(data){
+			console.log(data);
 			var root = $(data).find(":root");
 			var objArr = root.find("level1").find("obj");
 			var msg = "";

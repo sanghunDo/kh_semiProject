@@ -6,6 +6,7 @@ import java.sql.Connection;
 import java.util.List;
 
 import semi.game.model.dao.GameDao;
+import semi.game.model.vo.MainObj;
 import semi.game.model.vo.PrologueObj;
 import semi.member.model.vo.Member;
 public class GameService {
@@ -38,6 +39,13 @@ public class GameService {
 		String result = new GameDao().getHint(conn, num);
 		close(conn);
 		return result;
+	}
+
+	public List<MainObj> getObjList() {
+		Connection conn = getConnection();
+		List<MainObj> list = new GameDao().getObjList(conn);
+		close(conn);
+		return list;
 	}
 
 	

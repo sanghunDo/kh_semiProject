@@ -13,36 +13,6 @@
 <link href="https://fonts.googleapis.com/css?family=Noto+Serif+KR" rel="stylesheet">
 <link rel="stylesheet" href="<%=request.getContextPath() %>/css/game/gameMain.css" />
 <link rel="stylesheet" href="<%=request.getContextPath() %>/css/game/gameObject.css" />
-<style>
-#coment{
-	position: relative;
-	width: 80%;
-	height: 15%;
-	margin: 0 auto;
-	top: 53%;
-	border: 2px solid white;
-	background: black;
-	color: white;
-	display: none;
-}
-#coment h2{
-	position: relative;
-	display: inline-block;
-	overflow: hidden;
-	white-space: nowrap;
-	margin: 15px 0 0 20px;
-	font-family: 'Song Myung', serif;
-	font-size: 180%;
-}
-@-webkit-keyframes typing {
-    from {
-        width: 0;
-    }
-    to {
-        width: 100%;
-    }
-}
-</style>
 </head>
 <body>
 <img src="<%=request.getContextPath() %>/images/game/gameMain/game_start_again.jpeg" alt="" id="back-ground"/>
