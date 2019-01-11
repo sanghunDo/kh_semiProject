@@ -440,7 +440,7 @@
     	   
     	   // 팝업창 이름
         var title = "Report";
-    	var status = "left=500px, top=200px, width=400px, height=600px";
+    	var status = "left=500px, top=200px, width=600px, height=600px";
     	   
     	open(url, title, status);
     }

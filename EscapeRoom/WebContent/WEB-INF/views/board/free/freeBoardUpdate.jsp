@@ -22,15 +22,16 @@ function validate(){
 	return true;
 }
 
-$("[name=up_file]").on("click",function(){
-    console.log("바뀌는거마즘..");
-   
-       /* 값이 없으면 숨기기 */
-       $("#fname").css("display","hidden");
+function check(){
+	console.log("바뀌는거마즘..");
+	 $("input[name=up_file]").change(function(){
+    $("#fname").css("display","none");
+		 
+	 });
+    /* 값이 없으면 숨기기 */
 
-      
-  
-});
+}
+
 </script>
 <div class="container">
     <h3>수정하기</h3>
@@ -71,15 +72,18 @@ $("[name=up_file]").on("click",function(){
             <tr>
                 <th scope="col">첨부파일</th>
                 <td>			
-                        <input type="file" name="up_file">
+                        <input type="file" name="up_file" onclick="check();">
                         <div id="fname"><%=fb.getPostOriginalFile()!=null?fb.getPostOriginalFile():""%></div>
                         
 						<input type="hidden" name="old_renamed_file" value="<%=fb.getPostRenamedFile()%>" />
 						<input type="hidden" name="old_original_file" value="<%=fb.getPostOriginalFile()%>" />
 						<%if(fb.getPostOriginalFile() != null){ %>			
-						<input type="checkbox" name="del_file" id="del_file" />
-						<label for="del_file">첨부파일 삭제</label>
-						<%} %>
+<input type="checkbox" name="del_file" id="del_file" style="
+    position: relative;
+    top: -38px;
+    left: 260px;
+">						<label for="del_file" style="position: relative; top: -40px;  left: 263px;">첨부파일 삭제</label>
+						<%}%>
                  </td>
             </tr>
            <!--  <tr>

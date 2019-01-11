@@ -69,36 +69,27 @@ public class FreeBoardInsertEnd extends HttpServlet {
 		fb.setPostRenamedFile(renamedFileName);
 		System.out.printf("[%s]\n", fb);
 		
-		int postNo = new FreeBoardDao().insertPost(fb);
-	    System.out.println("(InsertEnd)postNo="+postNo);
-	    if(postNo>0) {
-	    	 int getlastNo = new FreeBoardDao().getLastSeq();
-	 	     System.out.println("(InsertEnd)getlastNo="+getlastNo);
-	    }
+		int result = new FreeBoardDao().insertPost(fb);
+	   
 	
-	/*	String view = "/WEB-INF/views/common/msg.jsp";
+		String view = "/WEB-INF/views/common/msg.jsp";
 		String msg = "";
 		String loc = "/";
 		
 		
-		if(postNo>0) {
+		if(result>0) {
 			int getlastNo = new FreeBoardDao().getLastSeq();
 			System.out.println("getlastNo="+getlastNo);
-			msg = "성공적으로 게시글을 등록했습니다.";
-		
 			loc="/board/free/freeBoardView?postNo="+getlastNo;
-		
 		}
 		else {
 			msg = "게시글 등록에 실패했습니다.";	
-			
 			loc="/board/free/freeBoardList";
 		}
-		
-		request.setAttribute("msg", msg);
+
 		request.setAttribute("loc", loc);
 		
-		request.getRequestDispatcher(view).forward(request, response);*/
+		request.getRequestDispatcher(view).forward(request, response);
 
 	}
 
