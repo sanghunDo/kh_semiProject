@@ -1,6 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ page import="semi.board.rank.model.vo.*, semi.notice.model.vo.*" %>
+<%@ page import="semi.board.rank.model.vo.*,
+					semi.notice.model.vo.*,
+					semi.board.free.model.vo.*,
+					semi.board.solve.model.vo.*,
+					java.util.*" %>
 <%@ include file="/WEB-INF/views/common/header.jsp" %>
 
 <%
@@ -18,6 +22,9 @@
 	else{
 		category = "<긴급공지>";
 	}
+	
+	List<FreeBoard> list_free = (List<FreeBoard>) request.getAttribute("list_free");
+	List<SolveBoard> list_solve = (List<SolveBoard>) request.getAttribute("list_solve");
 
 %>
 
@@ -173,10 +180,46 @@ img#rankOne-Profile{
 	display:block;
 	margin:0 auto;
 }
+
+.freeBoardLinkAddress, .solveBoardLinkAddress{
+	cursor:pointer;
+}
+
 </style>
+
+
+<script>
+$(function(){
+	$(".freeBoardLinkAddress").on("click", function(){
+		<%if(session != null || loggedInMember != null) {%>
+			var temp = confirm("로그인 후 이용 가능한 서비스입니다.");
+			if(!temp) return;
+			else location.href = "<%=request.getContextPath()%>/member/login";
+			return;
+		<%}%>
+	});
+
+	$(".solveBoardLinkAddress").on("click", function(){
+		<%if(session != null || loggedInMember != null) {%>
+			var temp = confirm("로그인 후 이용 가능한 서비스입니다.");
+			if(!temp) return;
+			else location.href = "<%=request.getContextPath()%>/member/login";
+			return;
+		<%}%>
+	});
+});
+
+function changeNoticeLink(){
+	location.href = "<%=request.getContextPath()%>/admin/changeNoticeLink?=<%=linkedNotice.getNoticeNo()%>";
+}
+
+</script>
+
 <div id="main-Container">
 	<div id="admin-Container">
+		<%if(loggedInMember != null && "admin".equals(loggedInMember.getUserId())) {%>
 		<button id="admin-Btn" onclick="changeNoticeLink();">상단 바 공지사항 링크 변경</button>
+		<%} %>
 	</div>
 	<div id="notice-Link">
 		
@@ -217,7 +260,9 @@ img#rankOne-Profile{
 	</div>
 	
 	<div id="posts">
-		<h2>인기 게시물</h2>
+		<h1>인기게시물</h1>
+		<br />
+		<h2>- 자유게시판 -</h2>
 		<table class="board" id="board-Free">
 			<tr>
 				<th>글번호</th>
@@ -227,31 +272,24 @@ img#rankOne-Profile{
 				<th>추천수</th>
 				<th>조회수</th>
 			</tr>
-			<tr>
-				<td>테스트</td>
-				<td>테스트</td>
-				<td>테스트</td>
-				<td>테스트</td>
-				<td>테스트</td>
-				<td>테스트</td>
-			</tr>
-			<tr>
-				<td>테스트</td>
-				<td>테스트</td>
-				<td>테스트</td>
-				<td>테스트</td>
-				<td>테스트</td>
-				<td>테스트</td>
-			</tr>
-			<tr>
-				<td>테스트</td>
-				<td>테스트</td>
-				<td>테스트</td>
-				<td>테스트</td>
-				<td>테스트</td>
-				<td>테스트</td>
-			</tr>
+			<%if(list_free == null || list_free.isEmpty()) { %>
+			<tr><td colspan="6"></td></tr>
+			<tr><td colspan="6">게시글이 없습니다.</td></tr>
+			<%} else{
+				for(FreeBoard fb : list_free){%>
+				<tr>
+					<td><%=fb.getPostNo() %></td>
+					<td class="freeBoardLinkAddress"><%=fb.getPostTitle() %></td>
+					<td><%=fb.getPostWriter() %></td>
+					<td><%=fb.getPostDate() %></td>
+					<td><%=fb.getPostLike() %></td>
+					<td><%=fb.getPostReadCount() %></td>
+				</tr>
+			<%}} %>
 		</table>
+		
+		<br />
+		<h2>- 공략게시판 -</h2>
 		<table class="board" id="board-Solve">
 			<tr>
 				<th>글번호</th>
@@ -261,37 +299,22 @@ img#rankOne-Profile{
 				<th>추천수</th>
 				<th>조회수</th>
 			</tr>
-			<tr>
-				<td>테스트</td>
-				<td>테스트</td>
-				<td>테스트</td>
-				<td>테스트</td>
-				<td>테스트</td>
-				<td>테스트</td>
-			</tr>
-			<tr>
-				<td>테스트</td>
-				<td>테스트</td>
-				<td>테스트</td>
-				<td>테스트</td>
-				<td>테스트</td>
-				<td>테스트</td>
-			</tr>
-			<tr>
-				<td>테스트</td>
-				<td>테스트</td>
-				<td>테스트</td>
-				<td>테스트</td>
-				<td>테스트</td>
-				<td>테스트</td>
-			</tr>
+			<%if(list_solve == null || list_solve.isEmpty()) { %>
+			<tr><td colspan="6"></td></tr>
+			<tr><td colspan="6">게시글이 없습니다.</td></tr>
+			<%} else{
+				for(SolveBoard fs : list_solve){%>
+				<tr>
+					<td><%=fs.getPostNo() %></td>
+					<td class="solveBoardLinkAddress"><%=fs.getPostTitle() %></td>
+					<td><%=fs.getPostWriter() %></td>
+					<td><%=fs.getPostDate() %></td>
+					<td><%=fs.getPostLike() %></td>
+					<td><%=fs.getPostReadCount() %></td>
+				</tr>
+			<%}} %>
 		</table>
 	</div>
 </div>
 
-<script>
-function changeNoticeLink(){
-	location.href = "<%=request.getContextPath()%>/admin/changeNoticeLink?=<%=linkedNotice.getNoticeNo()%>";
-}
-</script>
 <%@ include file="/WEB-INF/views/common/footer.jsp" %>
