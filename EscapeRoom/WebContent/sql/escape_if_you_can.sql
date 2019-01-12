@@ -337,7 +337,8 @@ create table game_object_coment(
     constraint pk_object_comentno primary key(comentno),
     constraint fk_object_refobj foreign key(refobj) references game_object(objno)
 );
-select * from game_object_coment;
+select v.* from(select coment, rownum as rnum from game_object_coment c join game_object o on c.refobj = o.objno where objName = 'door_lock2') v where rnum = 1;
+
 insert into game_object_coment values(1, '"여기에 맞는 열쇠를 찾아야겠군."', 1);
 insert into game_object_coment values(2, '"흔히 볼 수 있는 도어락이다."', 2);
 insert into game_object_coment values(3, '"역시 비밀번호를 알아내야돼."', 2);
@@ -348,19 +349,29 @@ insert into game_object_coment values(7, '"열쇠 개꿀딱!"', 6);
 insert into game_object_coment values(8, '"이 안엔 뭐가 들어있는거징?"', 7);
 insert into game_object_coment values(9, '"... 금고안에 있었으니 쓸모가 있겠지.."', 8);
 insert into game_object_coment values(10, '"탈출하면 이 드라이버로 찔러죽이고 싶다!!!"', 9);
-drop table game_object;
+insert into game_object_coment values(11, '"침대 밑에 뭐가 떨어져 있어"', 10);
+insert into game_object_coment values(12, '"다이어리인가?? 누구꺼지"', 10);
+insert into game_object_coment values(13, '"...."', 10);
+insert into game_object_coment values(14, '"3-7,,, ㅋㅋ3에서 7을 어떻게 빼(문과)"', 11);
+update game_object_coment set coment='"뭔가 씌여져있다"' where comentno = 13;
+
+--drop table game_object;
+commit;
 insert into game_object values(1, 'door_lock1', default, default, 'front', 1, default, default);
 insert into game_object values(2, 'door_lock2', 'door_lock2_opened', default, 'front', 1, default, default);
-insert into game_object values(3, 'calendar', default, default, 'front', 1, default, default);
+insert into game_object values(3, 'calendar', default, default, 'left', 1, default, default);
 insert into game_object values(4, 'flowerpot', default, default, 'front', 1, default, default);
 insert into game_object values(5, 'broken_flowerpot', default, default, 'front', 2, default, default);
 insert into game_object values(6, 'key_1', default, default, 'front', 3, 15, 'Y');
 insert into game_object values(7, 'safe', default, default, 'front', 1, default, default);
 insert into game_object values(8, 'wire', default, default, 'front', 3, 2, 'Y');
 insert into game_object values(9, 'driver', default, default, 'front', 3, 27, 'Y');
-insert into game_object values(10, 'bed', '"누워서 잠이나 잘까."', 'left', default, default);
-insert into game_object values(11, 'diary', '"날 가둔 녀석의 일기장인가?"', 'left', default, default);
-insert into game_object values(12, 'hintnote1', '"3-7,,, 무슨 뜻이지?"', 'left', default, 'Y');
+
+
+insert into game_object values(10, 'under_bed_diary','diary', 'diary_opened', 'left', 1, default, default);
+insert into game_object values(11, 'hintnote1', default, default, 'left', 3, default, 'Y');
+commit;
+
 insert into game_object values(13, 'bs_top_doll', '"불쌍한 녀석.."', 'back', default, default);
 insert into game_object values(14, 'bs_hintnote3', '"점이 3개가 있어 무슨 의미일까"', 'back', 23, 'Y');
 insert into game_object values(15, 'bs_4f_books', '"정리가 하나도 안돼있다.."', 'back', default, default);

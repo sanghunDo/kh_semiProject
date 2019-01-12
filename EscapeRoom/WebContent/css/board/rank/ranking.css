@@ -86,7 +86,7 @@ div#reply-container h2 {
    font-size : 75px;
 }
 
-div#reply-container p {
+div#reply-container p.warningMessage {
    color : red;
    font-family: 'Noto Serif KR', serif;
    font-size : 15px;
@@ -98,6 +98,38 @@ div#reply-container div#reply {
    height : 500px;
    background : rgba(239, 239, 239, 0.5);
    margin : auto;
+   text-align : center;
+}
+
+div#reply p {
+	font-family: 'Song Myung', serif;
+	font-weight : bold;
+}
+
+div#reply p span {
+	color : red;
+	font-size : 29px;
+}
+
+div#reply textarea {
+	margin : auto;
+	margin-top : 10px;
+}
+
+div#reply form {
+	margin-top : -10px;
+}
+
+button#btn-insert {
+	width : 107px;
+	height : 51px;
+	position : relative;
+	background-color : #999;
+	font-family: 'Noto Serif KR', serif;
+	color : white;
+	margin : auto;
+	cursor : pointer;
+	top : -19px;
 }
 
 div#first{
@@ -147,8 +179,79 @@ p.playerInfo{
 }
 
 img {
-   width : 120px;
-   height : 120px;
-   margin-top : -115px;
-   margin-left : 140px;
+	width : 120px;
+	height : 120px;
+	margin-top : -115px;
+	margin-left : 140px;
+}
+
+table#tbl-rankComment {
+	width : 580px;
+	margin : 0 auto;
+	margin-top : -350px;
+	border-collapse : collapse;
+}
+
+table#tbl-rankComment tr td {
+	border-bottom : 1px solid;
+	border-top : 1px solid;
+	padding : 5px;
+	line-height : 150%;
+}
+
+table#tbl-rankComment tr td:first-of-type {
+	
+}
+
+table#tbl-rankComment button#btn-reply {
+	border : 1px solid #666;
+	text-align : center;
+	background : white;
+	color : black;
+	font-size : 12px;
+	padding : 7px 10px 6px;
+	border-radius : 3px;
+	margin : 5px;
+	cursor : pointer;
+}
+
+table#tbl-rankComment button#btn-delete {
+	border : 1px solid #666;
+	text-align : center;
+	background : #FB4829;
+	color : black;
+	font-size : 12px;
+	padding : 7px 10px 6px;
+	border-radius : 3px;
+	margin : 5px;
+	cursor : pointer;
+}
+
+table#tbl-rankComment tr td:last-of-type {
+	width : 100px;
+}
+
+table#tbl-rankComment button.btn-reply {
+	display : none;
+}
+
+table#tbl-rankComment sub.rComment-Writer {
+	color : white;
+	font-size : 14px;
+}
+
+table#tbl-rankComment sub.rComment-Date {
+	color : tomato;
+	font-size : 10px;
+}
+
+table#tbl-rankComment tr.rankLevel2 {
+	color : black;
+	font-size : 14px;
+	text-align : center;
+}
+
+table#tbl-rankComment tr.rankLevel2 td:first-of-type {
+	width : 800px;
+	padding-right : 300px;
 }

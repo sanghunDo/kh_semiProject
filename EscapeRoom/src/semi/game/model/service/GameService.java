@@ -48,5 +48,12 @@ public class GameService {
 		return list;
 	}
 
+	public String getComent(String objName, int rnum) {
+		Connection conn = getConnection();
+		String coment = new GameDao().getComent(conn, objName, rnum);
+		close(conn);
+		return coment;
+	}
+
 	
 }

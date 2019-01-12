@@ -133,5 +133,22 @@ public class GameDao {
 		}
 		return list;
 	}
+	public String getComent(Connection conn, String objName, int rnum) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String query = prop.getProperty("getComent");
+		String coment = "";
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, objName);
+			pstmt.setInt(2, rnum);
+			rset = pstmt.executeQuery();
+			if(rset.next()) coment = rset.getString("coment"); 
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return coment;
+	}
 
 }

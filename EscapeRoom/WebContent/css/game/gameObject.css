@@ -1,9 +1,57 @@
 @charset "UTF-8";
-#background .obj{
+.obj{
 	position: absolute;
     cursor: pointer;
     opacity: 1;
+    display: none;
 }
+
+/* front */
+#door_lock1{
+    width: 41px;
+	top: 402px;
+    left: 569px;	
+}
+#door_lock2{
+	top: 444px;
+    left: 563px;
+    width: 62px;
+	
+}
+#flowerpot{
+	width: 129px;
+    top: 460px;
+    left: 50px;
+}
+
+#safe{
+	top: 468px;
+    width: 123px;
+    left: 800px;
+}
+
+/* left */
+#calendar{
+	top: 169px;
+    left: 700px;
+    width: 195px;
+}
+#under_bed_diary{
+	width: 100px;
+    height: 50px;
+    top: 585px;
+    left: 388px;
+}
+#hintnote1{
+    top: 210px;
+    left: 382px;
+    width: 60px;
+    height: 80px;
+    display: block;
+    opacity: 0;
+}
+
+
 
 #bs_4_books{
 	top: 265px;
@@ -21,8 +69,11 @@
 	top:570px;
 	left: 415px;
 }
-#clicked{
+img[id*="clicked"]{
+	position: absolute;
+	max-width: 440px;
+    max-height: 400px;
 	width: 700px;
-	left: 150px;
+	left: 300px;
 	top: 85px;
 }

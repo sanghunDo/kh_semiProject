@@ -26,7 +26,6 @@ div#wrap{
 	position: relative;
 	width: 100%;
 	height: 100%;
-	display: none;
 }
 
 div#inventory{
@@ -102,6 +101,7 @@ div#pause{
 	position: absolute;
 	left: 960px;
 	top: 10px;
+	display:none;
 }
 div#pause img{width: 35px;}
 .paused{

@@ -13,59 +13,67 @@
 <link href="https://fonts.googleapis.com/css?family=Noto+Serif+KR" rel="stylesheet">
 <link rel="stylesheet" href="<%=request.getContextPath() %>/css/game/gameMain.css" />
 <link rel="stylesheet" href="<%=request.getContextPath() %>/css/game/gameObject.css" />
+<style>
+div#obj-list-container img{
+	position: relative;
+	width: 100%;
+	height: 100%;
+}
+</style>
 </head>
 <body>
-<div id="background-container">
-	<div id="background">
-		<img src="<%=request.getContextPath() %>/images/game/gameMain/game_start_again.jpeg" id="front"/>
-	</div>
-	<div id="sub-background">
-		<img src="<%=request.getContextPath() %>/images/game/gameMain/background.png"/>
-	</div>
-</div>
 <div id="wrap">
-	<input type="hidden" value=0 />
-		<div id="pause-menu-container">
-			<div id="pause-menu"></div>
-			<div id="store"></div>
-			<div id="help"></div>
+	<div id="background-container">
+		<div id="background">
+			<img src="<%=request.getContextPath() %>/images/game/gameMain/game_start_again.jpeg" id="left"/>
 		</div>
-		<div id="message"></div>
-		<div id="pause"><img src="<%=request.getContextPath()%>/images/game/gameMain/pause.png" alt="" /></div>
-		<div id="inventory">
-			<div id="prev"><span>◀</span></div>
-			<div id="next"><span>▶</span></div>
-			<div id="obj-list-container">
-				<div id="obj-list">
-					<div id="obj1"></div>
-					<div id="obj2"></div>
-					<div id="obj3"></div>
-					<div id="obj4"></div>
-					<div id="obj5"></div>
-					<div id="obj6"></div>
-					<div id="obj7"></div>
-					<div id="obj8"></div>
-					<div id="obj9"></div>
-					<div id="obj10"></div>
-				</div>
+		<div id="sub-background">
+			<img src="<%=request.getContextPath() %>/images/game/gameMain/background.png"/>
+		</div>
+	</div>
+	<input type="hidden" value=0 />
+	<div id="pause-menu-container">
+		<div id="pause-menu"></div>
+		<div id="store"></div>
+		<div id="help"></div>
+	</div>
+	<div id="message"></div>
+	<div id="pause"><img src="<%=request.getContextPath()%>/images/game/gameMain/pause.png" alt="" /></div>
+	<div id="inventory">
+		<div id="prev"><span>◀</span></div>
+		<div id="next"><span>▶</span></div>
+		<div id="obj-list-container">
+			<div id="obj-list">
+				<div id="obj1"></div>
+				<div id="obj2"></div>
+				<div id="obj3"></div>
+				<div id="obj4"></div>
+				<div id="obj5"></div>
+				<div id="obj6"></div>
+				<div id="obj7"></div>
+				<div id="obj8"></div>
+				<div id="obj9"></div>
+				<div id="obj10"></div>
 			</div>
 		</div>
-		<div id="hint">
-			<img src="<%=request.getContextPath() %>/images/hint_paper.png" id="hint-paper" />
-			<div id="close-hint">X</div>
-			<div></div>
-		</div>
-		<div id="coment">
-			<div><h2></h2></div>
-		</div>
+	</div>
+	<div id="hint">
+		<img src="<%=request.getContextPath() %>/images/hint_paper.png" id="hint-paper" />
+		<div id="close-hint">X</div>
+		<div></div>
+	</div>
+	<div id="coment">
+		<div><h2></h2></div>
+	</div>
 </div>
 <%@ include file="/WEB-INF/views/game/gameController.jsp" %>
 <script>
 $("#background").fadeOut(3000);
 setTimeout(function(){
-	$("#background img:first").attr("src", "<%=request.getContextPath()%>/images/game/gameMain/front/background.png")
+	$("#background img:first").attr("src", "<%=request.getContextPath()%>/images/game/gameMain/left/background.png")
 	$("#background").show();
-	$("#wrap").show();
+	$("#pause").show();
+	$(".obj").show();
 }, 3100);
 var record = setInterval(timer, 1000);
 function timer(){
@@ -247,7 +255,7 @@ $("#obj-list div").each(function(){
 $("#pause").on("click", {flag:1}, function(e){
 	var $target = $(this);
 	var cnt = e.data.flag++;
-	$("img").not("#pause img, #hint img").toggleClass("paused");
+	$("#wrap div").not("#pause, #pause-menu-container, #pause-menu-container div, #message").toggleClass("paused");
 	if(cnt%2!=0){
 		$target.children().attr("src", "<%=request.getContextPath()%>/images/game/gameMain/play.png");
 		$("#pause-menu-container").show();
