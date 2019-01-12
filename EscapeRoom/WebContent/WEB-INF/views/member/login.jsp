@@ -59,6 +59,8 @@ function loginValidate(){
 				id="submit-Btn" onclick="return loginValidate();" /></td></tr>
 			<tr><td><input type="button" value="JOIN US"
 				id="register-Btn" onclick="location.href='<%=request.getContextPath() %>/member/memberRegister'" /></td></tr>
+			<tr><td><input type="button" value="FIND ID" 
+				id="findId-Btn" onclick="location.href='<%=request.getContextPath() %>/member/findId'"/></td></tr>
 		</table>
 	</form>
 </div>

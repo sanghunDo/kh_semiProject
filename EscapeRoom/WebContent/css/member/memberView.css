@@ -6,17 +6,17 @@ body{
 
 h2{
 	padding-top:10px;
-	margin-left:62px;
+	/* margin-left:62px; */
 	font-size:18px;
-	margin-left:210px;
+	margin-left:190px;
 }
 
 #memberView-Container{
-	width:550px;
+	width:500px;
 	height:600px;
 	border:1px solid #5D5D5D;
 	border-radius:20px;
-	margin: 0 auto;
+	margin: 50 auto;
 }
 
 #memberView-Container img{
@@ -37,6 +37,7 @@ h2{
 table{
 	border-collapse: collapse;
 	margin-left:56px;
+	margin: 30 auto;
 }
 
 th{
@@ -63,6 +64,7 @@ td{
 	height:100px;
 	border:1px solid white;
 	margin:0 auto;
+	margin-right: 123px; 
 }
 
 #profilePre{

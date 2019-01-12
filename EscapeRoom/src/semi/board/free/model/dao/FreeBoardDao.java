@@ -44,8 +44,8 @@ public class FreeBoardDao {
 		try {
 			Class.forName("oracle.jdbc.driver.OracleDriver");
 			conn = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe", 
-					"semi", //아이디 
-					"semi");//비번
+					"escape_if_you_can", //아이디 
+					"escape_if_you_can");//비번
 			
 			pstmt = conn.prepareStatement(query);
 	        int startRnum = (cPage-1)*numPerPage +1;
@@ -106,8 +106,8 @@ public class FreeBoardDao {
 		try {
 			Class.forName("oracle.jdbc.driver.OracleDriver");
 			conn = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe", 
-					"semi", //아이디 
-					"semi");//비번
+					"escape_if_you_can", //아이디 
+					"escape_if_you_can");//비번
 			
 			pstmt = conn.prepareStatement(query);
 			rset = pstmt.executeQuery();
@@ -145,8 +145,8 @@ public class FreeBoardDao {
 		try {
 			Class.forName("oracle.jdbc.driver.OracleDriver");
 			conn = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe", 
-					"semi", //아이디 
-					"semi");//비번
+					"escape_if_you_can", //아이디 
+					"escape_if_you_can");//비번
 			
 			pstmt = conn.prepareStatement(query);
 	       
@@ -202,8 +202,8 @@ public class FreeBoardDao {
 		try {
 			Class.forName("oracle.jdbc.driver.OracleDriver");
 			conn = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe", 
-					"semi", //아이디 
-					"semi");//비번
+					"escape_if_you_can", //아이디 
+					"escape_if_you_can");//비번
 			
 			pstmt = conn.prepareStatement(query);
 			pstmt.setInt(1, postNo);
@@ -253,8 +253,8 @@ public class FreeBoardDao {
 		try {
 			Class.forName("oracle.jdbc.driver.OracleDriver");
 			conn = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe", 
-					"semi", //아이디 
-					"semi");//비번
+					"escape_if_you_can", //아이디 
+					"escape_if_you_can");//비번
 			
 			
 			pstmt = conn.prepareStatement(query);
@@ -299,8 +299,8 @@ public class FreeBoardDao {
 		try {
 			Class.forName("oracle.jdbc.driver.OracleDriver");
 			conn = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe", 
-					"semi", //아이디 
-					"semi");//비번
+					"escape_if_you_can", //아이디 
+					"escape_if_you_can");//비번
 			
 			
 			pstmt = conn.prepareStatement(query);
@@ -349,8 +349,8 @@ public class FreeBoardDao {
 		try {
 			Class.forName("oracle.jdbc.driver.OracleDriver");
 			conn = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe", 
-					"semi", //아이디 
-					"semi");//비번
+					"escape_if_you_can", //아이디 
+					"escape_if_you_can");//비번
 			
 			
 			pstmt = conn.prepareStatement(query);
@@ -389,8 +389,8 @@ public class FreeBoardDao {
 		try {
 			Class.forName("oracle.jdbc.driver.OracleDriver");
 			conn = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe", 
-					"semi", //아이디 
-					"semi");//비번
+					"escape_if_you_can", //아이디 
+					"escape_if_you_can");//비번
 			
 			
 			pstmt = conn.prepareStatement(query);
@@ -440,8 +440,8 @@ public class FreeBoardDao {
 		try {
 			Class.forName("oracle.jdbc.driver.OracleDriver");
 			conn = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe", 
-					"semi", //아이디 
-					"semi");//비번
+					"escape_if_you_can", //아이디 
+					"escape_if_you_can");//비번
 			
 			
 			pstmt = conn.prepareStatement(query);
@@ -490,8 +490,8 @@ public class FreeBoardDao {
 		try {
 			Class.forName("oracle.jdbc.driver.OracleDriver");
 			conn = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe", 
-					"semi", //아이디 
-					"semi");//비번
+					"escape_if_you_can", //아이디 
+					"escape_if_you_can");//비번
 			
 			
 			pstmt = conn.prepareStatement(query);
@@ -535,8 +535,8 @@ public class FreeBoardDao {
 		try {
 			Class.forName("oracle.jdbc.driver.OracleDriver");
 			conn = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe", 
-					"semi", //아이디 
-					"semi");//비번
+					"escape_if_you_can", //아이디 
+					"escape_if_you_can");//비번
 			
 			
 			pstmt = conn.prepareStatement(query);
@@ -578,8 +578,8 @@ public class FreeBoardDao {
 		try {
 			Class.forName("oracle.jdbc.driver.OracleDriver");
 			conn = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe", 
-					"semi", //아이디 
-					"semi");//비번
+					"escape_if_you_can", //아이디 
+					"escape_if_you_can");//비번
 			
 			
 			pstmt = conn.prepareStatement(query);
@@ -618,8 +618,8 @@ public class FreeBoardDao {
 		try {
 			Class.forName("oracle.jdbc.driver.OracleDriver");
 			conn = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe", 
-					"semi", //아이디 
-					"semi");//비번
+					"escape_if_you_can", //아이디 
+					"escape_if_you_can");//비번
 			pstmt = conn.prepareStatement(query);
 			pstmt.setInt(1, likey);
 			pstmt.setInt(2, commentNo);
@@ -661,8 +661,8 @@ public class FreeBoardDao {
 		try {
 			Class.forName("oracle.jdbc.driver.OracleDriver");
 			conn = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe", 
-					"semi", //아이디 
-					"semi");//비번
+					"escape_if_you_can", //아이디 
+					"escape_if_you_can");//비번
 			
 			pstmt = conn.prepareStatement(query);
 			pstmt.setInt(1, commentNo);
@@ -700,8 +700,8 @@ public class FreeBoardDao {
 		try {
 			Class.forName("oracle.jdbc.driver.OracleDriver");
 			conn = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe", 
-					"semi", //아이디 
-					"semi");//비번
+					"escape_if_you_can", //아이디 
+					"escape_if_you_can");//비번
 			pstmt = conn.prepareStatement(query);
 			pstmt.setInt(1, boardLikey);
 			pstmt.setInt(2, postNo);
@@ -742,8 +742,8 @@ public class FreeBoardDao {
 		try {
 			Class.forName("oracle.jdbc.driver.OracleDriver");
 			conn = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe", 
-					"semi", //아이디 
-					"semi");//비번
+					"escape_if_you_can", //아이디 
+					"escape_if_you_can");//비번
 			
 			pstmt = conn.prepareStatement(query);
 			pstmt.setInt(1, postNo);
@@ -781,8 +781,8 @@ public class FreeBoardDao {
 		try {
 			Class.forName("oracle.jdbc.driver.OracleDriver");
 			conn = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe", 
-					"semi", //아이디 
-					"semi");//비번
+					"escape_if_you_can", //아이디 
+					"escape_if_you_can");//비번
 			pstmt = conn.prepareStatement(query);
 			pstmt.setInt(1, boardDislikey);
 			pstmt.setInt(2, postNo);
@@ -823,8 +823,8 @@ public class FreeBoardDao {
 		try {
 			Class.forName("oracle.jdbc.driver.OracleDriver");
 			conn = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe", 
-					"semi", //아이디 
-					"semi");//비번
+					"escape_if_you_can", //아이디 
+					"escape_if_you_can");//비번
 			
 			pstmt = conn.prepareStatement(query);
 			pstmt.setInt(1, postNo);
@@ -861,12 +861,11 @@ public class FreeBoardDao {
 		ResultSet rset = null;
 		String query = "select commentdate from board_comment_free where commentno=?";
 		
-		//1. 클래스등록확인
 		try {
 			Class.forName("oracle.jdbc.driver.OracleDriver");
 			conn = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe", 
-					"semi", //아이디 
-					"semi");//비번
+					"escape_if_you_can", //아이디 
+					"escape_if_you_can");//비번
 			
 			pstmt = conn.prepareStatement(query);
 			pstmt.setInt(1, commentRef);
@@ -904,8 +903,8 @@ public class FreeBoardDao {
 		try {
 			Class.forName("oracle.jdbc.driver.OracleDriver");
 			conn = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe", 
-					"semi", //아이디 
-					"semi");//비번
+					"escape_if_you_can", //아이디 
+					"escape_if_you_can");//비번
 			
 			
 			pstmt = conn.prepareStatement(query);
@@ -956,8 +955,8 @@ public class FreeBoardDao {
 		try {
 			Class.forName("oracle.jdbc.driver.OracleDriver");
 			conn = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe", 
-					"semi", //아이디 
-					"semi");//비번
+					"escape_if_you_can", //아이디 
+					"escape_if_you_can");//비번
 			pstmt = conn.prepareStatement(query);
 			pstmt.setInt(1, commentDislikeAmount);
 			pstmt.setInt(2, commentNo);
@@ -1000,8 +999,8 @@ public class FreeBoardDao {
 		try {
 			Class.forName("oracle.jdbc.driver.OracleDriver");
 			conn = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe", 
-					"semi", //아이디 
-					"semi");//비번
+					"escape_if_you_can", //아이디 
+					"escape_if_you_can");//비번
 			
 			pstmt = conn.prepareStatement(query);
 			pstmt.setInt(1, commentNo);
@@ -1040,8 +1039,8 @@ public class FreeBoardDao {
 		try {
 			Class.forName("oracle.jdbc.driver.OracleDriver");
 			conn = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe", 
-					"semi", //아이디 
-					"semi");//비번
+					"escape_if_you_can", //아이디 
+					"escape_if_you_can");//비번
 			
 			pstmt = conn.prepareStatement(query);
 			pstmt.setInt(1, commentNo);
@@ -1079,8 +1078,8 @@ public class FreeBoardDao {
 		try {
 			Class.forName("oracle.jdbc.driver.OracleDriver");
 			conn = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe", 
-					"semi", //아이디 
-					"semi");//비번
+					"escape_if_you_can", //아이디 
+					"escape_if_you_can");//비번
 			
 			
 			pstmt = conn.prepareStatement(query);
@@ -1124,8 +1123,8 @@ public class FreeBoardDao {
 		try {
 			Class.forName("oracle.jdbc.driver.OracleDriver");
 			conn = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe", 
-					"semi", //아이디 
-					"semi");//비번
+					"escape_if_you_can", //아이디 
+					"escape_if_you_can");//비번
 			
 			pstmt = conn.prepareStatement(query); 
 			rset = pstmt.executeQuery();
@@ -1163,12 +1162,11 @@ public class FreeBoardDao {
 		ResultSet rset = null;
 		String query = "select * from ( select rownum as rnum, v.* from( select v.*, (select count(*) from board_comment_free where ref = v.postNo) as board_comment_cnt from board_free v  where posttitle like ? order by postlike desc) v ) v where rnum between ? and ?";
 		
-		//1. 클래스등록확인
 		try {
 			Class.forName("oracle.jdbc.driver.OracleDriver");
 			conn = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe", 
-					"semi", //아이디 
-					"semi");//비번
+					"escape_if_you_can", //아이디 
+					"escape_if_you_can");//비번
 			
 			pstmt = conn.prepareStatement(query);
 	        int startRnum = (cPage-1)*numPerPage +1;
@@ -1225,12 +1223,11 @@ public class FreeBoardDao {
 		ResultSet rset = null;
 		String query = "select * from ( select rownum as rnum, v.* from( select v.*, (select count(*) from board_comment_free where ref = v.postNo) as board_comment_cnt from board_free v  where postcontent like ? order by postlike desc) v ) v where rnum between ? and ?";
 		
-		//1. 클래스등록확인
 		try {
 			Class.forName("oracle.jdbc.driver.OracleDriver");
 			conn = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe", 
-					"semi", //아이디 
-					"semi");//비번
+					"escape_if_you_can", //아이디 
+					"escape_if_you_can");//비번
 			
 			pstmt = conn.prepareStatement(query);
 	        int startRnum = (cPage-1)*numPerPage +1;
@@ -1288,12 +1285,11 @@ public class FreeBoardDao {
 		String query =
 "select * from ( select rownum as rnum, v.* from( select v.*, (select count(*) from board_comment_free where ref = v.postNo) as board_comment_cnt from board_free v  where postwriter like ? order by postlike desc) v ) v where rnum between ? and ?";
 		
-		//1. 클래스등록확인
 		try {
 			Class.forName("oracle.jdbc.driver.OracleDriver");
 			conn = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe", 
-					"semi", //아이디 
-					"semi");//비번
+					"escape_if_you_can", //아이디 
+					"escape_if_you_can");//비번
 			
 			pstmt = conn.prepareStatement(query);
 	        int startRnum = (cPage-1)*numPerPage +1;
@@ -1350,12 +1346,11 @@ public class FreeBoardDao {
 		ResultSet rset = null;
 		String query = "select count(*) as cnt from board_free where posttitle like ?";
 		
-		//1. 클래스등록확인
 		try {
 			Class.forName("oracle.jdbc.driver.OracleDriver");
 			conn = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe", 
-					"semi", //아이디 
-					"semi");//비번
+					"escape_if_you_can", //아이디 
+					"escape_if_you_can");//비번
 			
 			pstmt = conn.prepareStatement(query);
 			pstmt.setString(1, "%"+searchVal+"%");
@@ -1390,12 +1385,11 @@ public class FreeBoardDao {
 		ResultSet rset = null;
 		String query = "select count(*) as cnt from board_free where postcontent like ?";
 		
-		//1. 클래스등록확인
 		try {
 			Class.forName("oracle.jdbc.driver.OracleDriver");
 			conn = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe", 
-					"semi", //아이디 
-					"semi");//비번
+					"escape_if_you_can", //아이디 
+					"escape_if_you_can");//비번
 			
 			pstmt = conn.prepareStatement(query);
 			pstmt.setString(1, "%"+searchVal+"%");
@@ -1430,12 +1424,11 @@ public class FreeBoardDao {
 		ResultSet rset = null;
 		String query = "select count(*) as cnt from board_free where postwriter like ?";
 		
-		//1. 클래스등록확인
 		try {
 			Class.forName("oracle.jdbc.driver.OracleDriver");
 			conn = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe", 
-					"semi", //아이디 
-					"semi");//비번
+					"escape_if_you_can", //아이디 
+					"escape_if_you_can");//비번
 			
 			pstmt = conn.prepareStatement(query);
 			pstmt.setString(1, "%"+searchVal+"%");
@@ -1461,6 +1454,46 @@ public class FreeBoardDao {
 		
 		
 		return totalContent;
+	}
+
+	public int increaseReadCount(int postNo) {
+		Connection conn = null;
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String query = "update board_free set postreadcount=postreadcount + 1 where postno = ?";
+			
+		try {
+			Class.forName("oracle.jdbc.driver.OracleDriver");
+			conn = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe", 
+					"escape_if_you_can", //아이디 
+					"escape_if_you_can");//비번
+			
+			pstmt = conn.prepareStatement(query);
+			//쿼리문미완성
+			pstmt.setInt(1, postNo);
+			//쿼리 실행
+			result = pstmt.executeUpdate();
+			
+			if(result >0) commit(conn);
+		    else rollback(conn);
+			
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}finally {
+			try {
+				pstmt.close();
+				conn.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+		}
+		
+				
+		return result;
 	}
 	
 }

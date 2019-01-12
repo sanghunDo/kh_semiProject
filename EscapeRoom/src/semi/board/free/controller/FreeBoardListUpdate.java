@@ -34,7 +34,6 @@ public class FreeBoardListUpdate extends HttpServlet {
 	    int postNo = Integer.parseInt(request.getParameter("postNo"));
 	    
 	    FreeBoard fb = new FreeBoardDao().selectByNo(postNo);
-	    System.out.println("여기는 오냐");
 	    request.setAttribute("freeBoard", fb);
 	    String view = "/WEB-INF/views/board/free/freeBoardUpdate.jsp";
 	    request.getRequestDispatcher(view).forward(request, response);

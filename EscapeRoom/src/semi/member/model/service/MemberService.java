@@ -15,6 +15,9 @@ public class MemberService {
 	public static final int LOGIN_OK = 1;
 	public static final int WRONG_PASSWORD = 0;
 	public static final int ID_NOT_EXIST = -1;
+	
+	public static final int EMAIL_OK = 1;
+	public static final int EMAIL_NOT_EXIST = -1;
 
 	// 로그인 여부 확인
 	public int loginCheck(Member m) {
@@ -30,7 +33,38 @@ public class MemberService {
 
 		return result;
 	}
+	
+	// 이메일 여부 확인
+	public int emailCheck(Member m) {
+		int result = EMAIL_NOT_EXIST;
+		
+		// DB와 연결
+		Connection conn = getConnection();
+		
+		result = new MemberDao().emailCheck(conn, m);
+		
+		// 자원반납
+		close(conn);
+		
+		return result;
+	}
+	
+	// 해당 이메일 회원 정보 보기
+	public Member findIdByEmail(String userEmail) {
+		Member m = null;
+		
+		Connection conn = getConnection();
+		
+		m = new MemberDao().findIdByEmail(conn, userEmail);
+		
+		// DQL(SELECT)이므로 트랜잭션 처리 하지 않는다.
 
+		// 자원반납
+		close(conn);
+
+		return m;
+	}
+	
 	// 회원정보보기
 	public Member selectOne(String userId) {
 		Member loggedInMember = null;
@@ -47,6 +81,7 @@ public class MemberService {
 
 		return loggedInMember;
 	}
+	
 
 	// 로그인 기록
 	public int insertMemberLogger(String userId, String status, String ip) {
@@ -148,5 +183,7 @@ public class MemberService {
 
 		return result;
 	}
+	
+
 
 }

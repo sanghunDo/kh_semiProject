@@ -8,10 +8,19 @@ body, html{
    background: black;
    font-family:'Noto Serif KR', serif;
 }
-img#back-ground{
-	position: fixed;
+div#background-container{
+	position: absolute;
 	width: 1008px;
 	height: 704px;
+	overflow: hidden;
+}
+div#background, div#sub-background{
+	position: absolute;
+	width: 1008px;
+	height: 704px;
+}
+div#sub-background{
+	left: 1008px;
 }
 div#wrap{
 	position: relative;
@@ -71,7 +80,6 @@ div#inventory div#obj-list div{
 }
 div#inventory div#obj-list div:hover{
 	border: 1px solid white;
-	/* box-shadow: 2px 2px 15px white; */
 }
 div#inventory div#obj-list div#obj5{
 	margin-right: 21px;
@@ -86,7 +94,6 @@ div#inventory:before{
 	height: 15%; 
 	top: -50px;
 	font-size: 30px;
-	color: gray;
 	text-align: center;
 	cursor: pointer;
 }
@@ -411,4 +418,32 @@ h2{
     transform: rotate(-8deg);
     font-size: 19px;
     cursor: pointer;
+}
+#coment{
+	position: relative;
+	width: 80%;
+	height: 15%;
+	margin: 0 auto;
+	top: 53%;
+	border: 2px solid white;
+	background: black;
+	color: white;
+	display: none;
+}
+#coment h2{
+	position: relative;
+	display: inline-block;
+	overflow: hidden;
+	white-space: nowrap;
+	margin: 15px 0 0 20px;
+	font-family: 'Song Myung', serif;
+	font-size: 180%;
+}
+@-webkit-keyframes typing {
+    from {
+        width: 0;
+    }
+    to {
+        width: 100%;
+    }
 }

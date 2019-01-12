@@ -2,29 +2,36 @@
     pageEncoding="UTF-8"%>
 <script>
 $(function(){
-	console.log("zzzz");
+	setObject();
+})
+function setObject(){
+	var position = $("#background img").prop("id");
 	$.ajax({
 		url:"<%=request.getContextPath()%>/game/setObject",
-		type: "post",
-		dataType: "xml",
+		type: "get",
+		dataType: "json",
 		success: function(data){
-			var root = $(data).find(":root");
-			var objArr = root.find("level1").find("obj");
-			var msg = "";
-			objArr.each(function(){
-				if($(this).find("refNo").text()=="0"){
-					var html = "<img src='<%=request.getContextPath()%>/images/game/gameMain/back/"+$(this).find("objName").text()+".png' id='"+$(this).find("objName").text()+"' class='obj'/>";
-					$("#wrap").prepend(html);
+			for(var i in data){
+				var obj = data[i];
+				if(obj.position==position){
+					var html = "<img src='<%=request.getContextPath()%>/images/game/gameMain/"+position+"/"+obj.objName+".png' class='obj'/>";
+					$("#background").append(html);
 				}
-			});
-			obj_click();
-		}
+			}
+		},
+        error: function(jqxhr, textStatus, errorThrown){
+            console.log("ajax처리 실패!");
+            console.log(jqxhr);
+            console.log(textStatus);
+            console.log(errorThrown);
+         }
 	});
-})
+};
+
 function obj_click(){
 	$("#wrap>img").each(function(){
 		$(this).on('click', function(){
-			$("#wrap").append("<img src='<%=request.getContextPath()%>/images/game/gameMain/back/"+$(this).prop("id")+"_clicked.png' id='clicked' onclick='obj_reClick();'/>");
+			$("#wrap").append("<img src='<%=request.getContextPath()%>/images/game/gameMain/clicked/"+$(this).prop("id")+"_clicked.png' id='clicked' onclick='obj_reClick();'/>");
 			$("#wrap *, #back-ground").not("#clicked, #coment, #coment *").addClass("paused");
 			show_coment($(this).prop("id"));
 		});
