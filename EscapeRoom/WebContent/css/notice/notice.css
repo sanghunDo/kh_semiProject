@@ -69,11 +69,6 @@ img#notice-Image{
 	padding:8px;
 }
 
-#paging-Area{
-	width:100%;
-	height:50px;
-}
-
 div#noticeForm-Container{
 	font-family:'Noto Serif KR', serif;
 }
@@ -170,6 +165,3 @@ div#modify-Notice{
 	cursor:pointer;
 }
 
-span.cPage{
-	color:red;
-}
