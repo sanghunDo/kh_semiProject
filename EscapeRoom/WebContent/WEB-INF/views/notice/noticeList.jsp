@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/views/common/header.jsp" %>
-<%@ page import="java.util.*, semi.notice.model.vo.*" %>
+<%@ page import="java.util.*, semi.notice.model.vo.*, semi.member.model.vo.*" %>
 <%
 	List<Notice> list = (List<Notice>)request.getAttribute("list");
 	int listSize = list.size();
@@ -25,7 +25,9 @@ function goToNoticeForm(){
 <body>
 <div id="notice-Container">
 <div id="adminBtn-Container">
+	<%if(loggedInMember != null && "admin".equals(loggedInMember.getUserId())) {%>
 	<button id="admin-Btn" onclick="goToNoticeForm();">공지사항 등록</button>
+	<%} %>
 </div>
 <table id="notice-Table">
 <%if(list.size() == 0){ %>

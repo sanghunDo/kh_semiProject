@@ -1,6 +1,7 @@
 package semi.home.controller;
 
 import java.io.IOException;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -8,7 +9,11 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import semi.board.free.model.dao.FreeBoardDao;
+import semi.board.free.model.vo.FreeBoard;
 import semi.board.rank.model.vo.Rank;
+import semi.board.solve.model.dao.SolveBoardDao;
+import semi.board.solve.model.vo.SolveBoard;
 import semi.home.model.service.HomeService;
 import semi.notice.model.vo.Notice;
 
@@ -66,13 +71,19 @@ public class HomeGetDataServlet extends HttpServlet {
         Rank modifiedR = new Rank(r.getGameId(), r.getGameruntime(), r.getUserprofilerenamedfile(), r.getGameescapedate(), endRuntime);
 		
 		//자유게시판 인기게시물 top3
+		List<FreeBoard> list_free = new FreeBoardDao().boardSelectBest3();
+		System.out.println("자유 : " + list_free);
 		
 		//공략게시판 인기게시물 top3
+		List<SolveBoard> list_solve = new SolveBoardDao().boardSelectBest3();
+		System.out.println("공략 : " + list_solve);
 		
 		String view = "/WEB-INF/views/home.jsp";
 		
 		request.setAttribute("linkedNotice", n);
 		request.setAttribute("rankTop", modifiedR);
+		request.setAttribute("list_free", list_free);
+		request.setAttribute("list_solve", list_solve);
 		request.getRequestDispatcher(view).forward(request, response);
 	}
 

@@ -53,6 +53,7 @@ img#notice-Image{
 	border:1px solid white;
 	border-radius:5px;
 	float:right;
+	cursor:pointer;
 }
 
 #adminBtn-Container{
@@ -165,3 +166,14 @@ div#modify-Notice{
 	cursor:pointer;
 }
 
+#paging-Area{
+	width:100%;
+	height:50px;
+	color:white;
+	font-size:20px;
+	text-align:center;
+}
+
+span.cPage{
+	color:red;
+}
