@@ -124,13 +124,6 @@ function goToNoticeForm(){
 	<%=pageBar %>
 </div>
 
-<style>
-#paging-Area{
-	font-family:'Noto Serif KR', serif;
-	color:white;
-	font-size:20px;
-}
-</style>
 </div>
 </body>
 
