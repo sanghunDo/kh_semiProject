@@ -200,5 +200,43 @@ public class noticeDao {
 
 		return result;
 	}
+	
+	public int updateLinkX(Connection conn) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String query = prop.getProperty("updateLinkN");
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+
+	public int updateLinkY(Connection conn, int noticeNo) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String query = prop.getProperty("updateLinkY");
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1, noticeNo);
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
 
 }
