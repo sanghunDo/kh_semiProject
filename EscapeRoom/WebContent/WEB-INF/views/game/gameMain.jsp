@@ -3,6 +3,7 @@
 <%@ page import="semi.member.model.vo.*" %>
 <%
 	Member loggedInMember = (Member)session.getAttribute("loggedInMember");
+	String userId = (String)request.getAttribute("userId");
 %>
 <!DOCTYPE html>
 <html>
@@ -15,6 +16,11 @@
 <link rel="stylesheet" href="<%=request.getContextPath() %>/css/game/gameObject.css" />
 <style>
 </style>
+<script>
+$(function(){
+	opener.parent.sessionStorage.setItem("game", this);
+});
+</script>
 </head>
 <body>
 <div id="wrap">
@@ -95,7 +101,7 @@ function show_record(){
 };
 function show_store(){
 	$("#btn-store").on('click', function(){
-		if(<%=loggedInMember!=null%>){
+		if(<%=!userId.contains("guest")%>){
 			show_pause_menu("store");
 			$("#store").slideDown();
 		}
@@ -115,19 +121,21 @@ function active_close(){
 };
 function coin_hint_refresh(){
 	$.ajax({
-		url: "<%=request.getContextPath()%>/game/coinHintRefresh",
+		url: "<%=request.getContextPath()%>/game/coinHintRefresh?userId=<%=userId%>",
 		type: "get",
 		dataType: "json",
 		success: function(data){
-			$("#userCoin").text(data.coin);
-			$("#hintPaper").text(data.hintPaper);
+			if(data!="guest"){
+				$("#userCoin").text(data.coin);
+				$("#hintPaper").text(data.hintPaper);
+			}
 		}
 	});
 };
 function buy_hint_paper(){
 	$("#btn-buyHint").on('click', function(){
 		$.ajax({
-			url:"<%=request.getContextPath()%>/game/buyHint",
+			url:"<%=request.getContextPath()%>/game/buyHint?userId=<%=userId%>",
 			type:"post",
 			success: function(result){
 				if(result === "true"){
@@ -146,7 +154,7 @@ function buy_hint_paper(){
 function use_hint_paper(){
 	$("#btn-useHint").on('click', function(){
 		$.ajax({
-			url:"<%=request.getContextPath()%>/game/useHint",
+			url:"<%=request.getContextPath()%>/game/useHint?userId=<%=userId%>",
 			type:"post",
 			success: function(data){
 				if(data === "true"){
@@ -186,7 +194,7 @@ function get_hint(){
 };
 function show_pause_menu(menuName){
 	$.ajax({
-		url:"<%=request.getContextPath()%>/game/pauseMenu",
+		url:"<%=request.getContextPath()%>/game/pauseMenu?userId=<%=userId%>",
 		data: "menuName="+menuName,
 		type: "post",
 		dataType: "html",
@@ -250,7 +258,7 @@ $("#obj-list div").each(function(){
 $("#pause").on("click", {flag:1}, function(e){
 	var $target = $(this);
 	var cnt = e.data.flag++;
-	$("#wrap div").not("#pause, #pause-menu-container, #pause-menu-container div, #message").toggleClass("paused");
+	$("#wrap div").not("#pause, #pause-menu-container, #pause-menu-container div, #message, #hint, #hint *").toggleClass("paused");
 	if(cnt%2!=0){
 		$target.children().attr("src", "<%=request.getContextPath()%>/images/game/gameMain/play.png");
 		$("#pause-menu-container").show();
@@ -273,7 +281,6 @@ $(window).on('keyup', function(e){
 		opener.parent.sessionStorage.removeItem("game");
 	}
 }).on('beforeunload', function(){
-	confirm("");
 	opener.parent.sessionStorage.removeItem("game");
 });
 </script>

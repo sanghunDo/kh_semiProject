@@ -12,7 +12,6 @@ function setObject(){
 		type: "get",
 		dataType: "json",
 		success: function(data){
-			console.log(data);
 			for(var i in data){
 				var obj = data[i];
 				if(obj.position==position&&obj.objLevel==1){
@@ -98,6 +97,10 @@ function obj_isLast(objName){
 			}
 		}
 	});
+};
+
+function checkState(){
+	
 };
 function get_item(){
 	$("[id*=clicked]").next().on('click', function(){

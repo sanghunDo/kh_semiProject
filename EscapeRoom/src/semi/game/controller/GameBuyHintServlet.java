@@ -26,18 +26,17 @@ public class GameBuyHintServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		HttpSession session = request.getSession(false);
-		boolean result;
-		if(session!=null) {
-			Member m = (Member)session.getAttribute("loggedInMember");
-			m = new MemberService().selectOne(m.getUserId());
-			if(m.getCoin()<50) {result = false;}
-			else {
-				new GameService().buyHint(m); 
+		String userId= request.getParameter("userId");
+		boolean result = false;
+		
+		if(!userId.contains("guest")) {
+			Member m = new MemberService().selectOne(userId);
+			if(m.getCoin()>=50) {
 				result = true;
+				new GameService().buyHint(m);
 			}
 		}
-		else {result = false;}
+		
 		new Gson().toJson(result, response.getWriter());
 	}
 

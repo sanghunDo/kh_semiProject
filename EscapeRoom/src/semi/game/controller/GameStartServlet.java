@@ -20,11 +20,12 @@ public class GameStartServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String userId = request.getParameter("userId");
 		if("guest".equals(userId)) {
-			userId += "_"+(Math.random()*1000)+1;
+			userId += "_"+(int)(Math.random()*1000)+1;
 		}
 		//game_state테이블에 아이디가 있는지 확인하기.
 		new GameService().checkLog(userId);
 		
+		request.setAttribute("userId", userId);
 		request.getRequestDispatcher("/WEB-INF/views/game/gamePrologue.jsp").forward(request, response);
 	}
 

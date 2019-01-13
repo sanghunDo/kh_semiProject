@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<% 
+	String userId = (String)request.getAttribute("userId");
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -32,7 +35,9 @@ window.onload=function(){
 </div>
 <script>
 	$(window).on('keyup', function(e){
-		opener.parent.sessionStorage.removeItem("game");
+		if(e.keyCode==87&&isCtrl==true){
+			opener.parent.sessionStorage.removeItem("game");
+		}
 	}).on('beforeunload', function(){
 		opener.parent.sessionStorage.removeItem("game");
 	});
@@ -52,7 +57,7 @@ window.onload=function(){
 			$("body, #background").css({"animation": "bang .1s", "animation-iteration-count": "3"});
 			$(this).parent().fadeOut(3000); //마지막 대사 이후 클릭시 메인게임으로 이동.
 			setTimeout(function(){
-				location.href="<%=request.getContextPath()%>/game/gameMain";
+				location.href="<%=request.getContextPath()%>/game/gameMain?userId=<%=userId%>";
 			}, 3000);
 		}
 		//대사 테이블에서 한 문장씩 가져옴.
@@ -80,7 +85,7 @@ window.onload=function(){
 			$("#prologue").trigger('click');
 		if(e.keyCode==27){
 			if(confirm("프롤로그를 스킵하시겠습니까?")){
-				location.href="<%=request.getContextPath()%>/game/gameMain";
+				location.href="<%=request.getContextPath()%>/game/gameMain?userId=<%=userId%>";
 			}
 		}
 	});

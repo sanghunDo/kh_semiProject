@@ -138,6 +138,21 @@ create table board_solve(
     constraint ck_board_solve_postreport check(postreport in('Y', 'N'))
 );
 
+insert into board_solve values (seq_board_solve_postno.nextVal, '왜천장은 침대를 밟아야 올라가짐', 'tomato', '난키커서 안밟아도댐 낄낄', null, null, default, 15, 50, 33, default);
+insert into board_solve values (seq_board_solve_postno.nextVal, '와 엔딩크레딧 이스터에그 개소름임', 'chunjae', '와 나혼자알아야지 아무도 안알랴줌', null, null, default, 210, 198, 15, default);
+insert into board_solve values (seq_board_solve_postno.nextVal, '주인공근데 맞아야함', 'wewe', '근데 망치 화분깨는데밖에못씀', null, null, default, 11, 3, 1, default);
+insert into board_solve values (seq_board_solve_postno.nextVal, '※다↑■출◎♧최♣대3♥천♡', 'heyhey', '☎전화 바로상담 01＠012◁345678', null, null, default, 3, 0, 1, default);
+insert into board_solve values (seq_board_solve_postno.nextVal, '※다↑■출◎♧최♣대3♥천♡', 'heyhey', '☎전화 바로상담 01＠012◁345678', null, null, default, 2, 0, 2, default);
+insert into board_solve values (seq_board_solve_postno.nextVal, '※다↑■출◎♧최♣대3♥천♡', 'heyhey', '☎전화 바로상담 01＠012◁345678', null, null, default, 1, 0, 1, default);
+insert into board_solve values (seq_board_solve_postno.nextVal, '※다↑■출◎♧최♣대3♥천♡', 'heyhey', '☎전화 바로상담 01＠012◁345678', null, null, default, 4, 0, 1, default);
+insert into board_solve values (seq_board_solve_postno.nextVal, '※다↑■출◎♧최♣대3♥천♡', 'heyhey', '☎전화 바로상담 01＠012◁345678', null, null, default, 11, 0, 10, default);
+insert into board_solve values (seq_board_solve_postno.nextVal, '힌트쪽지짱비쌈', 'mungmung', '뭔 50코인씩이나해', null, null, default, 72, 50, 1, default);
+insert into board_solve values (seq_board_solve_postno.nextVal, '침대뒤에공간있어요', 'sun123', '침대뒤에 공간있어서 일기장 있다구요!!!!', null, null, default, 4, 3, 0, default);
+insert into board_solve values (seq_board_solve_postno.nextVal, '이리와봐 유후후', 'babo', '나랑뽀뽀할사람 유후후', null, null, default, 10, 0, 4, default);
+insert into board_solve values (seq_board_solve_postno.nextVal, '문푸는 방법 참고하세여', 'abcde', '여러븐 형광등까면 열쇠나와여', null, null, default, 652, 210, 30, default);
+insert into board_solve values (seq_board_solve_postno.nextVal, '아 솔직히 1등할만했다', 'qwerty', '진짜 빡집중해서깼다', null, null, default, 780, 300, 10, default);
+commit;
+
 --게임정보 저장
 --비회원은 게임을 플레이하여도 저장X 게임기록X
 --랭킹게시판은 member테이블과 game_rank테이블을 join하여 사용
@@ -442,6 +457,6 @@ create table game_state(
 --update game_state set door_lock1=1, door_lock2=1, flowerpot=1, key1Get=1, key1Use=1, safe=1, wireGet=1, wireUse=1, driverGet=1, driverUse=1, hintNote1=1, bs_doll=1, bs_hintNote3Get=1, bs_hintNote3Use=1, bs_smallbox=1, bs_hintNote2=1, bs_clock=1, bs_batteryGet=1, bs_batteryUse=1, bs_toolbox=1, bs_hammerGet=1, bs_hammerUse=1, bs_cutterknifeGet=1, bs_cutterknifeUse=1, light=1, key2Get=1, key2use=1 where userid=?;
 
 select * from game_state;
-
-drop table game_state;
+--delete from game_state where userid='guest_71.008169510174181';
+--drop table game_state;
 commit;
