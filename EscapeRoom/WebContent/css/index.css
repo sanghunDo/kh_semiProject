@@ -26,7 +26,10 @@ header{
 	top: 3%;
 	text-align: center;
 }
-div{color: white; font-family: 'Do Hyeon', sans-serif;}
+div{
+	color: white;
+	font-family: 'Roboto Slab', serif;
+}
 
 div#title{
 	font-size : 135px;
@@ -73,6 +76,8 @@ section{
     position: absolute;
     left: 412px; 
     top: 250px;
+    font-family:'Roboto Slab', serif;
+    font-weight:bold;
     cursor: pointer;
     display: none;
 }
@@ -90,7 +95,7 @@ section{
 
 .enterRoom div:nth-child(1) {
     color: #000000;
-       background-color: gray;
+    background-color: gray;
     -webkit-transition: all 0.1s ease;
     padding: 10px;
    /*  border: #000000 solid 1px; */

@@ -32,7 +32,7 @@
 			<%} %>
 			</div>
 		</div>
-		<div id="logo">Escape, if you can.</div>
+		<a href="<%=request.getContextPath()%>/index.jsp"><div id="logo">Escape, if you can.</div></a>
 		<div id="menu">
 			<ul>
 				<li><a href="<%=request.getContextPath()%>/home">HOME</a></li>
