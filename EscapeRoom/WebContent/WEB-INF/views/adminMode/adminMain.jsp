@@ -30,7 +30,7 @@ table#memberTab{
 	color:white;
 }
 
-table#memberTab th, table#memberTab td{
+th, td{
 	text-align:center;
 	font-weight:bold;
 	font-size:18px;
@@ -38,7 +38,7 @@ table#memberTab th, table#memberTab td{
 	padding-bottom:5px;
 }
 
-table#memberTab th{
+th{
 	border-bottom: 1px solid white;
 }
 
@@ -63,6 +63,15 @@ img.userProfile{
 
 .hideThis{
 	display:none;
+}
+
+#report_Post, #report_Comment{
+	font-family: 'Noto Serif KR', serif;
+	border-collapse:collapse;
+	width:80%;
+	margin:0 auto;
+	color:white;
+	margin-bottom:50px;
 }
 </style>
 
@@ -92,7 +101,35 @@ $(function(){
 </script>
 
 <h1>&lt; 신고게시글 목록 &gt;</h1>
+<table id="report_Post">
+	<tr>
+		<th>카테고리</th>
+		<th>글번호</th>
+		<th>제목</th>
+		<th>작성자</th>
+		<th>사유 대분류</th>
+		<th>신고사유 세부사항</th>
+	</tr>
+	<tr>
+		<td colspan="6">데이터가 없습니다.</td>
+	</tr>
+</table>
+
 <h1>&lt; 신고댓글 목록 &gt;</h1>
+<table id="report_Comment">
+	<tr>
+		<th>카테고리</th>
+		<th>글번호</th>
+		<th>댓글번호</th>
+		<th>댓글내용</th>
+		<th>작성자</th>
+		<th>사유 대분류</th>
+		<th>신고사유 세부사항</th>
+	</tr>
+	<tr>
+		<td colspan="7">데이터가 없습니다.</td>
+	</tr>
+</table>
 <h1>&lt; 전체회원 목록 &gt;</h1>
 <h3>부적절하다고 판단되는 사진을 클릭하면 강제로 삭제할 수 있습니다.</h3>
 <table id="memberTab">
