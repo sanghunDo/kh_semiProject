@@ -32,7 +32,7 @@
 			<%} %>
 			</div>
 		</div>
-		<div id="logo">Escape, if you can.</div>
+		<div id="logo" onclick="location.href='<%=request.getContextPath()%>/home'">Escape, if you can.</div>
 		<div id="menu">
 			<ul>
 				<li><a href="<%=request.getContextPath()%>/home">HOME</a></li>
