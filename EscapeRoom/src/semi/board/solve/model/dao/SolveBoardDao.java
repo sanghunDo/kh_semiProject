@@ -483,7 +483,7 @@ public class SolveBoardDao {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		String query = 
-	    "INSERT INTO board_comment_solve (commentno,  commentlevel,  commentwriter,  commentcontent,  ref,  commentref) VALUES (seq_comment_free_commentno.nextVal, ? ,  ? ,  ? , ? , ?)";
+	    "INSERT INTO board_comment_solve (commentno,  commentlevel,  commentwriter,  commentcontent,  ref,  commentref) VALUES (seq_comment_solve_commentno.nextVal, ? ,  ? ,  ? , ? , ?)";
 		
 		try {
 			Class.forName("oracle.jdbc.driver.OracleDriver");
@@ -514,12 +514,9 @@ public class SolveBoardDao {
 					pstmt.close();
 					conn.close();
 				} catch (SQLException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
-				
 			}
-		
 		
 		return result;
 	}
@@ -535,7 +532,6 @@ public class SolveBoardDao {
 			conn = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe", 
 					"escape_if_you_can", //아이디 
 					"escape_if_you_can");//비번
-			
 			
 			pstmt = conn.prepareStatement(query);
 			
@@ -804,9 +800,7 @@ public class SolveBoardDao {
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
-			
 		}
-	
 		return result;
 	}
 	
@@ -840,17 +834,12 @@ public class SolveBoardDao {
 				pstmt.close();
 				conn.close();
 			} catch (SQLException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			
 		}
-		
 		
 		return dislikey;
 	}
-
-	
 
 	public String getDate(int commentRef) {
 		Connection conn = null;
@@ -881,13 +870,10 @@ public class SolveBoardDao {
 				pstmt.close();
 				conn.close();
 			} catch (SQLException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 			
-		}
-		
-		
+		}	
 		return date;
 	}
 	
@@ -937,10 +923,8 @@ public class SolveBoardDao {
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
-			
 		}
 		return commentList;
-		
 	}
 
 	public int updateDislike(int commentNo, int commentDislikeAmount) {
@@ -979,11 +963,9 @@ public class SolveBoardDao {
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
-			
 		}
 	
 		return result;
-	
 	}
 
 	public int getDislike(int commentNo) {
@@ -1016,13 +998,10 @@ public class SolveBoardDao {
 				pstmt.close();
 				conn.close();
 			} catch (SQLException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			
 		}
-		
-		
+				
 		return dislike;
 	}
 
@@ -1056,13 +1035,9 @@ public class SolveBoardDao {
 				pstmt.close();
 				conn.close();
 			} catch (SQLException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			
-		}
-		
-		
+		}	
 		return getUpdateComment;
 	}
 
@@ -1132,7 +1107,6 @@ public class SolveBoardDao {
 				
 			}
 			
-		
 			System.out.println("Dao안에 lastSeq="+lastSeq);
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
@@ -1146,10 +1120,7 @@ public class SolveBoardDao {
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
-			
-		}
-		
-		
+		}		
 		return lastSeq;
 	}
 
@@ -1204,13 +1175,9 @@ public class SolveBoardDao {
 				pstmt.close();
 				conn.close();
 			} catch (SQLException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			
-		}
-	
-		
+		}	
 		return list;
 	}
 
@@ -1265,13 +1232,10 @@ public class SolveBoardDao {
 				pstmt.close();
 				conn.close();
 			} catch (SQLException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
-			}
-			
+			}	
 		}
-	
-		
+
 		return list;
 	}
 
@@ -1280,8 +1244,7 @@ public class SolveBoardDao {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
-		String query =
-"select * from ( select rownum as rnum, v.* from( select v.*, (select count(*) from board_comment_solve where ref = v.postNo) as board_comment_cnt from board_solve v  where postwriter like ? order by postlike desc) v ) v where rnum between ? and ?";
+		String query = "select * from ( select rownum as rnum, v.* from( select v.*, (select count(*) from board_comment_solve where ref = v.postNo) as board_comment_cnt from board_solve v  where postwriter like ? order by postlike desc) v ) v where rnum between ? and ?";
 		
 		try {
 			Class.forName("oracle.jdbc.driver.OracleDriver");
@@ -1327,13 +1290,10 @@ public class SolveBoardDao {
 				pstmt.close();
 				conn.close();
 			} catch (SQLException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 			
-		}
-	
-		
+		}	
 		return list;
 	}
 
@@ -1366,13 +1326,9 @@ public class SolveBoardDao {
 				pstmt.close();
 				conn.close();
 			} catch (SQLException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			
-		}
-		
-		
+		}	
 		return totalContent;
 	}
 	
@@ -1405,13 +1361,10 @@ public class SolveBoardDao {
 				pstmt.close();
 				conn.close();
 			} catch (SQLException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 			
 		}
-		
-		
 		return totalContent;
 	}
 
@@ -1444,13 +1397,9 @@ public class SolveBoardDao {
 				pstmt.close();
 				conn.close();
 			} catch (SQLException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			
-		}
-		
-		
+		}	
 		return totalContent;
 	}
 
@@ -1484,13 +1433,9 @@ public class SolveBoardDao {
 				pstmt.close();
 				conn.close();
 			} catch (SQLException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			
-		}
-		
-				
+		}	
 		return result;
 	}
 
@@ -1524,13 +1469,9 @@ public class SolveBoardDao {
 				pstmt.close();
 				conn.close();
 			} catch (SQLException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			
-		}
-		
-				
+		}			
 		return result;
 	}
 	
@@ -1564,19 +1505,11 @@ public class SolveBoardDao {
 				pstmt.close();
 				conn.close();
 			} catch (SQLException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 			
-		}
-		
-				
+		}			
 		return result;
 	}
 	
 }
-	
-
-	
-
-
