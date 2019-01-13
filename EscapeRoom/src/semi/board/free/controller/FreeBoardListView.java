@@ -34,7 +34,6 @@ public class FreeBoardListView extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		int postNo = Integer.parseInt(request.getParameter("postNo"));
-		String memberId = request.getParameter("loggedInMember");
 		FreeBoard fb = new FreeBoardDao().selectByPostNo(postNo);
 	
 		//댓글
@@ -66,8 +65,6 @@ public class FreeBoardListView extends HttpServlet {
 			Cookie postCookie = new Cookie("postCookie", postCookieVal + "|" + postNo + "|");
 			response.addCookie(postCookie); 
 		}
-		
-		
 		
 		String view = "/WEB-INF/views/common/msg.jsp";
 		if(fb == null) {

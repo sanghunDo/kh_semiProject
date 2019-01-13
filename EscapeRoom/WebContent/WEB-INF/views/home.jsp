@@ -27,40 +27,12 @@
 	
 	List<FreeBoard> list_free = (List<FreeBoard>) request.getAttribute("list_free");
 	List<SolveBoard> list_solve = (List<SolveBoard>) request.getAttribute("list_solve");
-	
-	System.out.println("링크된 공지사항 번호 : " + linkedNotice.getNoticeNo());
 
 %>
 
 <link rel="stylesheet" href="<%=request.getContextPath() %>/css/home/home.css" />
 <link href="https://fonts.googleapis.com/css?family=Noto+Serif+KR" rel="stylesheet">
 
-<script>
-$(function(){
-	$(".freeBoardLinkAddress").on("click", function(){
-		<%if(session != null || loggedInMember != null) {%>
-			var temp = confirm("로그인 후 이용 가능한 서비스입니다.");
-			if(!temp) return;
-			else location.href = "<%=request.getContextPath()%>/member/login";
-			return;
-		<%}%>
-	});
-
-	$(".solveBoardLinkAddress").on("click", function(){
-		<%if(session != null || loggedInMember != null) {%>
-			var temp = confirm("로그인 후 이용 가능한 서비스입니다.");
-			if(!temp) return;
-			else location.href = "<%=request.getContextPath()%>/member/login";
-			return;
-		<%}%>
-	});
-});
-
-function changeNoticeLink(){
-	location.href = "<%=request.getContextPath()%>/admin/changeNoticeLink?noticeNo=<%=linkedNotice.getNoticeNo()%>";
-}
-
-</script>
 
 <div id="main-Container">
 	<div id="admin-Container">
@@ -133,7 +105,13 @@ function changeNoticeLink(){
 				for(FreeBoard fb : list_free){%>
 				<tr>
 					<td><%=fb.getPostNo() %></td>
-					<td class="freeBoardLinkAddress"><%=fb.getPostTitle() %></td>
+					<td class="freeBoardLinkAddress">
+						<%if(loggedInMember != null){ %>
+						<a href="<%=request.getContextPath()%>/board/free/freeBoardView?postNo=<%=fb.getPostNo()%>"><%=fb.getPostTitle() %></a>
+						<%} else{ %>
+						<%=fb.getPostTitle() %>
+						<%} %>
+					</td>
 					<td><%=fb.getPostWriter() %></td>
 					<td><%=fb.getPostDate() %></td>
 					<td><%=fb.getPostLike() %></td>
@@ -157,14 +135,20 @@ function changeNoticeLink(){
 			<tr><td colspan="6"></td></tr>
 			<tr><td colspan="6">게시글이 없습니다.</td></tr>
 			<%} else{
-				for(SolveBoard fs : list_solve){%>
+				for(SolveBoard sb : list_solve){%>
 				<tr>
-					<td><%=fs.getPostNo() %></td>
-					<td class="solveBoardLinkAddress"><%=fs.getPostTitle() %></td>
-					<td><%=fs.getPostWriter() %></td>
-					<td><%=fs.getPostDate() %></td>
-					<td><%=fs.getPostLike() %></td>
-					<td><%=fs.getPostReadCount() %></td>
+					<td><%=sb.getPostNo() %></td>
+					<td class="solveBoardLinkAddress">
+						<%if(loggedInMember != null){ %>
+						<a href="<%=request.getContextPath()%>/board/solve/solveBoardView?postNo=<%=sb.getPostNo()%>"><%=sb.getPostTitle() %></a>
+						<%} else{ %>
+						<%=sb.getPostTitle() %>
+						<%} %>
+					</td>
+					<td><%=sb.getPostWriter() %></td>
+					<td><%=sb.getPostDate() %></td>
+					<td><%=sb.getPostLike() %></td>
+					<td><%=sb.getPostReadCount() %></td>
 				</tr>
 			<%}} %>
 		</table>
@@ -172,5 +156,33 @@ function changeNoticeLink(){
 		</div>
 	</div>
 </div>
+
+
+<script>
+$(function(){
+	$(".freeBoardLinkAddress").on("click", function(){
+		<%if(loggedInMember == null) {%>
+			var temp = confirm("로그인 후 이용 가능한 서비스입니다.");
+			if(!temp) return;
+			else location.href = "<%=request.getContextPath()%>/member/login";
+			return;
+		<%}%>
+	});
+
+	$(".solveBoardLinkAddress").on("click", function(){
+		<%if(loggedInMember == null) {%>
+			var temp = confirm("로그인 후 이용 가능한 서비스입니다.");
+			if(!temp) return;
+			else location.href = "<%=request.getContextPath()%>/member/login";
+			return;
+		<%}%>
+	});
+});
+
+function changeNoticeLink(){
+	location.href = "<%=request.getContextPath()%>/admin/changeNoticeLink?noticeNo=<%=linkedNotice.getNoticeNo()%>";
+}
+
+</script>
 
 <%@ include file="/WEB-INF/views/common/footer.jsp" %>
