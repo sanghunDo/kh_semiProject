@@ -10,8 +10,8 @@
 <meta charset="UTF-8">
 <title>You Can't Escape..</title>
 <link href="https://fonts.googleapis.com/css?family=Roboto+Slab" rel="stylesheet">
-<link href="https://fonts.googleapis.com/css?family=Amatic+SC" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css?family=Noto+Serif+KR" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Amatic+SC" rel="stylesheet">
 <link rel="stylesheet" href="<%=request.getContextPath() %>/css/common/header.css" />
 <script src="<%=request.getContextPath()%>/js/jquery-3.3.1.js"></script>
 </head>
@@ -23,7 +23,8 @@
                 <a href="<%=request.getContextPath()%>/member/login">LOGIN</a>
 			<%}else{ %>
 				<%if("admin".equals(loggedInMember.getUserId())){ %>
-					<a href="<%=request.getContextPath()%>/admin/adminBoard">ADMIN</a>
+					<%-- <a href="<%=request.getContextPath()%>/admin/adminBoard">ADMIN</a> --%>
+					<a href="<%=request.getContextPath()%>/adminMode/adminMain">ADMIN</a>
 					&nbsp;&nbsp;
 				<%} %>
                 <a href="<%=request.getContextPath()%>/member/memberView?userId=<%=loggedInMember.getUserId()%>">MY PAGE</a>

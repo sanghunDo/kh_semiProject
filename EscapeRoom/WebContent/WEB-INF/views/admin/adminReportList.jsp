@@ -11,7 +11,6 @@
 	String userProfileRenamedFile = m.getUserProfileRenamedFile()!=null?m.getUserProfileRenamedFile():"";
 %>
 <%@ include file="/WEB-INF/views/common/header.jsp" %>
-<link rel="stylesheet" href="<%=request.getContextPath() %>>/css/borderCommunityTable.css"/>
 <script>
 $(function(){
 	// 게시글 삭제하기

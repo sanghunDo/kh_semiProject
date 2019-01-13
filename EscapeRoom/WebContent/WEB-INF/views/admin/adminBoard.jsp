@@ -160,7 +160,6 @@ div#pageBar a{
 		</tbody>
 	</table>
 </section>
-<div id="pageBar"><%=pageBar %></div>
 <h2>신고된 댓글 목록</h2>
 <section id="reportCmtList-container">
 	<table id="tbl-report-cmt">
@@ -206,5 +205,4 @@ div#pageBar a{
 		</tbody>
 	</table>
 </section>
-<div id="pageBar"><%=pageBar %></div>
 <%@ include file="/WEB-INF/views/common/footer.jsp"%>

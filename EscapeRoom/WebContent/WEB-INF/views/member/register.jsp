@@ -7,6 +7,7 @@
 <meta charset="UTF-8">
 <title>You Can't Escape..</title>
 <link href="https://fonts.googleapis.com/css?family=Amatic+SC" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Roboto+Slab" rel="stylesheet">
 <link rel="stylesheet" href="<%=request.getContextPath() %>/css/member/register.css" />
 <script src="<%=request.getContextPath()%>/js/jquery-3.3.1.js"></script>
 <script>
@@ -117,9 +118,6 @@ function registerValidate(){
 	}
 
 	return true;
-
-	
-	
 }
 
 function checkIdDuplicate(){
@@ -140,7 +138,7 @@ function checkIdDuplicate(){
 	var target = "checkIdDuplicate";
 	
 	// 첫 번째 인자인 url은 생략, form의 action값이 이를 대신한다.
-	var popup = open("", target, "left=300px, top=100px, height=200px, width=300px");
+	var popup = open("", target, "left=300px, top=100px, width=450px, height=150px");
 	
 	checkIdDuplicateFrm.userId.value = $userId;
 	console.log("userId@checkIdDuplicate()@register.jsp = ", $userId);
@@ -178,7 +176,7 @@ function checkIdDuplicate(){
 </form>
 <div id="logo">Escape, if you can.</div>
 <section id="register-Container">
-	<h2>- HELLO, STRANGER -</h2>
+	<h1>HELLO, STRANGER.</h1>
 	<form action="<%=request.getContextPath()%>/member/memberRegisterEnd" method="POST" 
 		  name="memberRegisterFrm" onsubmit="return registerValidate();" enctype="multipart/form-data">
 		<table id="tbl-Register">
