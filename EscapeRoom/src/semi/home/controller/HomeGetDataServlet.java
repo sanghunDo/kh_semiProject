@@ -44,7 +44,7 @@ public class HomeGetDataServlet extends HttpServlet {
 			n = new HomeService().selectLinkedNotice();
 			
 		} catch(NullPointerException e) {
-			n = new Notice();
+			n = new Notice("플레이 해주시는 모든 여러분 감사합니다.", null, null, null, "N");
 		}
 		
 		//랭킹 1위 정보

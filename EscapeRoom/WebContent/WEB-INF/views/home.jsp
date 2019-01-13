@@ -14,6 +14,7 @@
 	if(linkedNotice == null){
 		linkedNotice = new Notice();
 	}
+	
 	String category = "";
 	
 	if(linkedNotice != null && "N".equals(linkedNotice.getNoticeUrgent())) {
@@ -28,165 +29,8 @@
 
 %>
 
+<link rel="stylesheet" href="<%=request.getContextPath() %>/css/home/home.css" />
 <link href="https://fonts.googleapis.com/css?family=Noto+Serif+KR" rel="stylesheet">
-<style>
-#main-Container{
-	width:100%;
-	min-height:100px;
-	margin-top:20px;
-	font-family:'Noto Serif KR', serif;
-}
-
-h1{
-	text-align:center;
-}
-
-h2{
-	text-align:center;
-	margin:0;
-	margin-bottom:15px;
-}
-
-#notice-Link{
-	width:100%;
-	height:30px;
-	overflow:hidden;
-}
-
-#ani-Text{
-	position:relative;
-	color:red;
-	margin:0;
-	left:1030px;
-	cursor:pointer;
-	animation-name:notice-Link_Ani;
-	animation-iteration-count:infinite;
-	animation-timing-function:linear;
-	animation-duration:17s;
-}
-
-@keyframes notice-Link_Ani{
-	0%{
-		left:1030px;
-	}
-	100%{
-		left:-1000px;
-	}
-}
-
-#rank-One{
-	width:600px;
-	height:350px;
-	margin:0 auto;
-	color:white;
-	margin-bottom:50px;
-	text-align:center;
-}
-
-#medal-Img{
-	width:150px;
-	height:250px;
-	display:inline-block;
-}
-
-#rank-One_Info{
-	position:relative;
-	width:270px;
-	height:260px;
-	top:3px;
-	display:inline-block;
-}
-
-#posts{
-	width:950px;
-	min-height:100px;
-	margin:0 auto;
-	color:white;
-}
-
-#temp-Container{
-	border:3px solid gold;
-	border-radius:10px;
-	width:500px;
-	margin:0 auto;
-}
-
-table.board{
-	width:100%;
-	color:white;
-	border-collapse:collapse;
-	margin-bottom:30px;
-}
-
-table.board th{
-	color:white;
-	padding:5px;
-	text-align:center;
-	border-bottom:1px solid white;
-}
-
-table.board td{
-	color:white;
-	padding:5px;
-	text-align:center;
-}
-
-#admin-Container{
-	text-align:right;
-	margin-bottom:5px;
-}
-
-#admin-Btn{
-	border:1px solid white;
-	border-radius:5px;
-	background:black;
-	color:white;
-}
-
-#rankTable{
-	width:470px;
-	height:300px;
-	margin:0 auto;
-	color:white;
-}
-
-table#player-Details{
-	text-align:center;
-	width:250px;
-	color:white;
-	border:1px double gray;
-	border-radius:10px;
-	background:#5D5D5D;
-	margin:0 auto;
-	margin-top:10px;
-}
-
-table#player-Details td{
-	margin-left:10px;
-}
-
-#congratulations{
-	color:white;
-	font-family: 'Roboto Slab', serif;
-	font-size:27px;
-	text-align:center;
-	margin-top:10px;
-	margin-bottom:10px;
-}
-
-img#rankOne-Profile{
-	width:100px;
-	height:100px;
-	display:block;
-	margin:0 auto;
-}
-
-.freeBoardLinkAddress, .solveBoardLinkAddress{
-	cursor:pointer;
-}
-
-</style>
-
 
 <script>
 $(function(){
@@ -229,7 +73,7 @@ function changeNoticeLink(){
 	</div>
 	
 	<div id="rank-One">
-		<h1>☆★ 금주 랭킹 1위 ★☆</h1>
+		<h1>☆★ 현재 랭킹 1위 ★☆</h1>
 		<div id="temp-Container">
 		<table id="rankTable">
 			<tr>
@@ -237,7 +81,11 @@ function changeNoticeLink(){
 				<td>
 					<div id="rank-One_Info">
 						<p id="congratulations">CONGRATULATIONS</p>
+						<%if(r.getUserprofilerenamedfile() != null) { %>
 						<img id="rankOne-Profile" src="<%=request.getContextPath() %>/upload/member<%=r.getUserprofilerenamedfile() %>" alt="" />
+						<%} else { %>
+						<img id="rankOne-Profile" src="<%=request.getContextPath() %>/images/nonProfile.png" alt="" />
+						<%} %>
 						<table id="player-Details">
 							<tr>
 								<th>아이디 </th>
