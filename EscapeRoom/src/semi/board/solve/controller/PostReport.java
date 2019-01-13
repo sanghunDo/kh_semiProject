@@ -27,10 +27,16 @@ public class PostReport extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		int postNo = Integer.parseInt(request.getParameter("postNo"));
-		System.out.println("postReport서블릿안="+postNo);
+		String postTitle = request.getParameter("postTitle");
+		String postWriter = request.getParameter("postWriter");
+
 		String view = "/WEB-INF/views/common/msg.jsp";
 		view = "/WEB-INF/views/common/PostReport.jsp";
+		
 		request.setAttribute("postNo", postNo);
+		request.setAttribute("postTitle", postTitle);
+		request.setAttribute("postWriter", postWriter);
+
 		
 		request.getRequestDispatcher(view).forward(request, response);
 	}

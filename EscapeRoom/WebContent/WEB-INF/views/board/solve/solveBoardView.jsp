@@ -63,7 +63,7 @@
 
     <div id="declaration">
         
-    <i onclick="Postreport('<%=sb.getPostNo()%>');">신고하기</i>
+    <i onclick="Postreport('<%=sb.getPostNo()%>','<%=sb.getPostTitle()%>','<%=sb.getPostWriter()%>');">신고하기</i>
     </div>
 
     <div class="opinion">
@@ -292,8 +292,10 @@
                   html+="<div class='info'>"+ user.commentWriter + "</div>";
                   html+="<div class='level2Comment'>"+ user.commentContent + "</div>";
                   html+="<div class='level2Date'>"+ user.commentDate + "</div>";
-                  html+="<div class='level2Report' onclick='report("+user.commentNo+")'>신고하기</div>";                               
-				  html+="<div class='level2Like' onmouseover='level2Like("+user.commentNo+","+user.commentLike+");' no='"+i+"' clickNum=0>추천 "+user.commentLike+"</div>";
+                  html+="<div class='level2Report' onclick='report("+user.commentNo+")'>신고하기</div>";    
+				  html+="<div class='level2Like' onmouseover='level2Like("+user.commentNo+","+user.commentLike+");' no='"+i+"' clickNum=0>추천 "+user.commentLike+"</div>"; 
+
+				  /* html+="<div class='level2Like' no='"+i+"' clickNum=0>추천 "+user.commentLike+"</div>"; */
  				  /* html+="<div class='level2Like' no="+i+">추천"+user.commentLike+"</div>"; */
                   html+="<div class='level2Dislike' onmouseover='level2Dislike("+user.commentNo+","+user.commentDislike+");' no="+i+">비추천 "+user.commentDislike+"</div>";
                
@@ -355,13 +357,14 @@
             	div.append(html);
                
             
-            $(".level2[level2No="+no+"]").append(div); 
-            
+            $(".level2[level2No="+no+"]").append(div);
+           
+        
             }
 
          
       });  
-       
+   
     });
     
     /* 수정완료버튼을 눌렀을 시 */
@@ -451,17 +454,23 @@
     }
 
 	  /* 게시글 신고 */
-	  function Postreport(item){
+	  function Postreport(item, item2, item3){
 		  var postNo = item;
+		  var postTitle = item2;
+		  var postWriter = item3;
+		  
 		  console.log("postNo="+postNo);
-		  var url = "<%=request.getContextPath() %>/board/solve/solveBoardPostReport?postNo="+postNo;
+		  console.log("postTitle="+postTitle);
+		  console.log("postWriter="+postWriter);
+
+		  var url = "<%=request.getContextPath() %>/board/solve/solveBoardPostReport?postNo="+postNo+"&postTitle="+postTitle+"&postWriter="+postWriter;
 	      var title = "Report";
 	      var status = "left=500px, top=200px, width=600px, height=600px";
 	    	   
 	      open(url, title, status);
 	  }
  	/* 대댓글 추천 */
-    function level2Like(item, item2){
+  function level2Like(item, item2){
  	
  		var commentNo = item;
  		var commentLikeAmount = item2;

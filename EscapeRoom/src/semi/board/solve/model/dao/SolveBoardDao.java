@@ -1573,6 +1573,52 @@ public class SolveBoardDao {
 				
 		return result;
 	}
+
+	public int insertReportPost(int postNo, String postTitle, String postWriter, String reasonVal, String userComment) {
+		Connection conn = null;
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String query = "INSERT INTO admin_report_board values ('S' , ?, ?, ?, ?, ?)";
+			
+		try {
+			Class.forName("oracle.jdbc.driver.OracleDriver");
+			conn = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe", 
+					"escape_if_you_can", //아이디 
+					"escape_if_you_can");//비번
+			
+			pstmt = conn.prepareStatement(query);
+			//쿼리문미완성
+			pstmt.setInt(1, postNo);
+			pstmt.setString(2, postTitle);
+			pstmt.setString(3, postWriter);
+			pstmt.setString(4, reasonVal);
+			pstmt.setString(5, userComment);
+
+
+			//쿼리 실행
+			result = pstmt.executeUpdate();
+			
+			if(result >0) commit(conn);
+		    else rollback(conn);
+			
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}finally {
+			try {
+				pstmt.close();
+				conn.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+		}
+		
+				
+		return result;
+	}
 	
 }
 	
