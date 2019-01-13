@@ -59,10 +59,7 @@ function updateValidate(){
 		alert("아이디 중복검사해주세요.");
 		return false;
 	}
-	
 
-	
-	
 	// 이메일 공백 확인
 	if($userEmail.val() == ""){
 		alert("이메일을 입력해주세요.");
@@ -86,9 +83,7 @@ function updateValidate(){
 	}
 
 	return true;
-	
 }
-
 
 function deleteMember(){
 	var bool = confirm("정말로 탈퇴하시겠습니까?");
@@ -107,7 +102,7 @@ function updatePassword(){
 	
 	// 팝업창 이름
 	var title = "updatePassword";
-	var status = "left=500px, top=200px, width=400px, height=400px";
+	var status = "left=500px, top=200px, width=500px, height=250px";
 	
 	open(url, title, status);
  }
