@@ -7,9 +7,9 @@ body{
 .login-Container{
 	width:350px;
 	height:270px;
-	border:1px solid #5D5D5D;
 	border-radius:20px;
 	margin: 0 auto;
+	box-shadow: 0px 0px 100px #353535;
 }
 
 #userId, #userPassword{

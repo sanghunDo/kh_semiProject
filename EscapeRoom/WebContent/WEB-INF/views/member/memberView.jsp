@@ -4,6 +4,8 @@
 <%@ page import="java.util.*" %>
 <%@ include file="/WEB-INF/views/common/header.jsp"%>
 <link href="https://fonts.googleapis.com/css?family=Amatic+SC" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Noto+Serif+KR" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Roboto+Slab" rel="stylesheet">
 <link rel="stylesheet" href="<%=request.getContextPath() %>/css/member/memberView.css" />
 <%
 	/* return타입이 Object이기때문에 형변환 필수 */
@@ -129,9 +131,15 @@ function readURL(input){
    }
 }
 
+$(function(){
+	$("#userId_").on("click", function(){
+		alert("아이디는 수정이 불가능합니다.");
+	});
+});
+
 </script>
 <section id="memberView-Container">
-	<h2>- Edit Profile -</h2>
+	<h2>&lt; 프로필 수정 &gt;</h2>
 	<input type="hidden" name="userIdTest" name="userIdTest" 
 		  				   id="userIdTest"
 		  				   value="<%=userId_%>"/>
