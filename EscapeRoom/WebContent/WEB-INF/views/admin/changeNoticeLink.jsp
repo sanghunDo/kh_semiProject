@@ -7,39 +7,7 @@
 	List<Notice> list = (List<Notice>) request.getAttribute("list");
 %>
 <link href="https://fonts.googleapis.com/css?family=Noto+Serif+KR" rel="stylesheet">
-<style>
-#changeNoticeLink-Container{
-	color:white;
-	font-family:'Noto Serif KR', serif;
-}
-
-#title{
-	color:white;
-	text-align:center;
-}
-
-table#noticeList{
-	color:white;
-	width:60%;
-	min-height:100px;
-	margin:0 auto;
-	border-collapse:collapse;
-}
-
-table#noticeList th, table#noticeList td{
-	text-align:center;
-	padding:7px;
-}
-
-table#noticeList th{
-	border-bottom:1px solid white;
-}
-
-.checkedLink{
-	color:red;
-}
-
-</style>
+<link rel="stylesheet" href="<%=request.getContextPath() %>/css/home/home.css" />
 <div id="changeNoticeLink-Container">
 	<h1 id="title">상단 바 공지사항 링크 변경</h1>
 	<form action="<%=request.getContextPath()%>/admin/changeNoticeLinkEnd" method="post">
@@ -74,6 +42,10 @@ table#noticeList th{
 </div>
 
 <script>
+$(function(){
+	$(".linkedNotice:checked").parent().siblings().toggleClass("checkedLink");
+});
+
 $(".linkedNotice").on("click", function(){
 	$(this).parent().siblings().toggleClass("checkedLink");
 	$(this).parent().parent().siblings().find("td").removeClass("checkedLink");

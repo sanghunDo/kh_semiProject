@@ -13,6 +13,7 @@
 	
 	if(linkedNotice == null){
 		linkedNotice = new Notice();
+		linkedNotice.setNoticeNo(0);
 	}
 	
 	String category = "";
@@ -26,6 +27,8 @@
 	
 	List<FreeBoard> list_free = (List<FreeBoard>) request.getAttribute("list_free");
 	List<SolveBoard> list_solve = (List<SolveBoard>) request.getAttribute("list_solve");
+	
+	System.out.println("링크된 공지사항 번호 : " + linkedNotice.getNoticeNo());
 
 %>
 
@@ -54,7 +57,7 @@ $(function(){
 });
 
 function changeNoticeLink(){
-	location.href = "<%=request.getContextPath()%>/admin/changeNoticeLink?=<%=linkedNotice.getNoticeNo()%>";
+	location.href = "<%=request.getContextPath()%>/admin/changeNoticeLink?noticeNo=<%=linkedNotice.getNoticeNo()%>";
 }
 
 </script>
@@ -106,9 +109,12 @@ function changeNoticeLink(){
 		</table>	
 		</div>
 	</div>
+	<h3 id="thankYou">플레이 해주셔서 감사합니다.</h3>
+	<hr />
 	
 	<div id="posts">
 		<h1>인기게시물</h1>
+		<div id="boardBackground">
 		<br />
 		<h2>- 자유게시판 -</h2>
 		<table class="board" id="board-Free">
@@ -162,6 +168,8 @@ function changeNoticeLink(){
 				</tr>
 			<%}} %>
 		</table>
+		<br />
+		</div>
 	</div>
 </div>
 

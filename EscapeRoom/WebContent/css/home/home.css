@@ -81,9 +81,10 @@ h2{
 }
 
 table.board{
-	width:100%;
+	width:90%;
 	color:white;
 	border-collapse:collapse;
+	margin:0 auto;
 	margin-bottom:30px;
 }
 
@@ -152,4 +153,70 @@ img#rankOne-Profile{
 
 .freeBoardLinkAddress, .solveBoardLinkAddress{
 	cursor:pointer;
+}
+
+#changeNoticeLink-Container{
+	color:white;
+	font-family:'Noto Serif KR', serif;
+}
+
+#title{
+	color:white;
+	text-align:center;
+	margin-top:50px;
+}
+
+table#noticeList{
+	color:white;
+	width:60%;
+	min-height:100px;
+	margin:0 auto;
+	margin-top:20px;
+	border-collapse:collapse;
+}
+
+table#noticeList th, table#noticeList td{
+	text-align:center;
+	padding:7px;
+}
+
+table#noticeList th{
+	border-bottom:1px solid white;
+}
+
+.checkedLink{
+	color:red;
+}
+
+#changeLink{
+	width:200px;
+	height:50px;
+	outline:none;
+	border:1px solid white;
+	border-radius: 20px;
+	background:white;
+	font-size:20px;
+	font-family: 'Noto Serif KR', serif;
+	font-weight:bold;
+	margin-top:50px;
+	cursor:pointer;
+}
+
+#thankYou{
+	color:white;
+	text-align:center;
+	margin-bottom:30px;
+}
+
+hr{
+	width:100%;
+	background:white;
+}
+
+div#boardBackground{
+	background:#353535;
+	width:100%;
+	min-height:100px;
+	border-radius:20px;
+	border: 1px solid #353535;
 }
