@@ -14,11 +14,6 @@
 <link rel="stylesheet" href="<%=request.getContextPath() %>/css/game/gameMain.css" />
 <link rel="stylesheet" href="<%=request.getContextPath() %>/css/game/gameObject.css" />
 <style>
-div#obj-list-container img{
-	position: relative;
-	width: 100%;
-	height: 100%;
-}
 </style>
 </head>
 <body>

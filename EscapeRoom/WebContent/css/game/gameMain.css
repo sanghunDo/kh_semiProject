@@ -77,6 +77,10 @@ div#inventory div#obj-list div{
 	border: 1px solid gray;
 	cursor: pointer;
 }
+div#inventory div#obj-list div img{
+	margin: 0 auto;
+	opacity: 1;
+}
 div#inventory div#obj-list div:hover{
 	border: 1px solid white;
 }

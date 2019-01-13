@@ -34,6 +34,11 @@ function obj_click(){
 		});
 	});
 };
+function play(){
+	$("#coment").hide();
+	$("[id*=clicked]").remove();
+	$("#wrap").removeClass("paused");
+};
 function obj_reClick(obj){
 	var objName = $(obj).prop("id");
 	$.ajax({
@@ -49,11 +54,7 @@ function obj_reClick(obj){
 						$("#clicked").attr("id", data[i].secondName+"_clicked");
 						show_coment(objName, 2);
 					}
-					else{
-						$("#coment").hide();
-						$("#clicked").remove();
-						$("#wrap").removeClass("paused");
-					}
+					else{play()}
 				}
 			}
 		}
@@ -66,54 +67,53 @@ function obj_re_reClick(obj){
 		type: "post",
 		dataType: "json",
 		success: function(data){
+			var $target = $("[id*=clicked]");
 			for(var i in data){
 				if(data[i].objName.indexOf(objName)!=-1){
 					if(data[i].thirdName!=""){
 						show_coment(objName, 3);
-						$("[id*=clicked]").attr("src", "<%=request.getContextPath()%>/images/game/gameMain/"+position+"/"+data[i].thirdName+".png");
-						$("[id*=clicked]").attr("onclick", "obj_isLast('"+data[i].thirdName+"')");
-						$("[id*=clicked]").attr("id", data[i].thirdName+"_clicked");
+						$target.attr("src", "<%=request.getContextPath()%>/images/game/gameMain/"+position+"/"+data[i].thirdName+".png");
+						$target.attr("onclick", "obj_isLast('"+data[i].thirdName+"')");
+						$target.attr("id", data[i].thirdName+"_clicked");
+						var html = "<img src='<%=request.getContextPath()%>/images/game/gameMain/left/hintnote1.png'id='hintnote1' class='obj'/>";
+						$target.after(html);
+						get_item();
 					}
-					else{
-						$("[id*=clicked]").remove();
-						$("#wrap").removeClass("paused");
-						$("#coment").hide();
-					}
+					else{play()}
 				}
 			}
 		}
 	});
 };
-function obj_isLast(objName){
-	if(objName.indexOf("diary_opened")!=-1){
-		var html = "<img src='<%=request.getContextPath()%>/images/game/gameMain/left/hintnote1.png'id='hintnote1' class='obj'/>";
-		$("[id*=clicked]").after(html);
-		get_item("hintnote1");
-	}
-	
+function obj_isLast(objName){	
 	$.ajax({
 		url:"<%=request.getContextPath()%>/game/setObject",
 		type: "post",
 		dataType:"json",
 		success: function(data){
 			for(var i in data){
+				if(objName.indexOf(data[i].thirdName)!=-1){
+					play();
+				}				
 			}
 		}
 	});
 };
-function get_item(objName){
+function get_item(){
 	$("[id*=clicked]").next().on('click', function(){
+		var $target = $(this);
+		console.log(typeof $target);
 		$.ajax({
 			url:"<%=request.getContextPath()%>/game/getObject",
 			type: "post",
 			dataType: "json",
 			success: function(data){
+				console.log(data);
 				for(var i in data){
-					if(objName==data[i].objName){
-						if(data[i].isItem=="Y"){
-							var html = $("[id*=clicked]").next().html();
-							$("#obj1").html(html);
-							$("[id*=clicked]").next().remove();
+					if($target.prop("id")==data[i].objName){
+						if(data[i].isItem=="Y "){
+							$("#obj1").html($target.clone().removeClass("obj"));
+							$target.remove();
 						}
 					}
 				}

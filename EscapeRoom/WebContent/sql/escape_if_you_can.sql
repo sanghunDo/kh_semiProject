@@ -390,3 +390,58 @@ insert into game_object values(27, 'ceilinglight', '"열수 있을것 같아 보
 insert into game_object values(28, 'key_2', '"탈출에 성공할 수 있을거야!!!"', 'ceil', 1, 'Y');
 select * from game_object;
 commit;
+
+create table game_state(
+    userid varchar2(50) unique,
+    
+    --front면
+    door_lock1 number default 1,--2면 열림상태
+    door_lock2 number default 1,--2면 열림상태
+    flowerpot number default 1,--2면 깨진상태
+    key1Get number default 1, --화분속 열쇠1 2면 획득한상태 (깨진화분만 있는 상태)
+    key1Use number default 1, --2면 사용하여 인벤토리에서 없어진 상태
+    
+    
+    safe number default 1,--금고 2면 열려있고 비어있는 상태
+    
+    ----금고 내의 아이템 전선, 드라이버
+    wireGet number default 1, --전선 2면 없어진상태
+    wireUse number default 1, --전선 2면 사용한 상태
+    
+    driverGet number default 1,--드라이버 2면 없어진상태
+    driverUse number default 1,--드라이버 2면 사용한 상태
+    
+    
+    --left면
+    hintNote1 number default 1, -- 침대 뒤 일기장 달력힌트쪽지 2면 획득한 상태
+    
+    --back면 
+    bs_doll number default 1, --2면 찢어진상태
+    bs_hintNote3Get number default 1, --2면 인형이 비어있는 상태 (없어진상태)
+    bs_hintNote3Use number default 1, --2면 right에 고여있는 물에 적셔져서 온전한내용이 나온 상태(인벤토리안에 있음, 없어지지않음)
+    
+    bs_smallBox number default 1, --2면 열려있고 비어있는 상태
+    bs_hintNote2 number default 1, -- 달력힌트쪽지2 2면 획득한 상태, 없어진 상태(인벤토리 안에 있음)
+    bs_clock number default 1, --2면 건전지가 빠져있는 상태
+    bs_batteryGet number default 1, --베터리 2면 시계에서 건전지가 빠진상태
+    bs_batteryUse number default 1, --2면 사용한 상태 
+    
+    bs_toolbox number default 1, --2면 열려있고 비어있는 상태
+    bs_hammerGet number default 1, --2면 획득한 상태
+    bs_hammerUse number default 1, --2면 사용한 상태
+    bs_cutterknifeGet number default 1, --2면 획득한 상태
+    bs_cutterknifeUse number default 1, --2면 사용한 상태
+    
+    --right
+    --ceiling
+    light number default 1, -- 2면 드라이버를 사용해서 덮개가 열려있는 상태 
+    key2Get number default 1, --2면 얻은 상태 전등에 키가 없어져있는 상태 
+    key2Use number default 1
+    --2면 사용하여 인벤토리에서 없어진상태 
+);
+--update game_state set door_lock1=1, door_lock2=1, flowerpot=1, key1Get=1, key1Use=1, safe=1, wireGet=1, wireUse=1, driverGet=1, driverUse=1, hintNote1=1, bs_doll=1, bs_hintNote3Get=1, bs_hintNote3Use=1, bs_smallbox=1, bs_hintNote2=1, bs_clock=1, bs_batteryGet=1, bs_batteryUse=1, bs_toolbox=1, bs_hammerGet=1, bs_hammerUse=1, bs_cutterknifeGet=1, bs_cutterknifeUse=1, light=1, key2Get=1, key2use=1 where userid=?;
+
+select * from game_state;
+
+drop table game_state;
+commit;
