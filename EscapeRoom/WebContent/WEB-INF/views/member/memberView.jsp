@@ -105,7 +105,13 @@ function updatePassword(){
 	
 	// 팝업창 이름
 	var title = "updatePassword";
-	var status = "left=500px, top=200px, width=400px, height=400px";
+	/* var status = "left=200px, top=200px, width=550px, height=450px"; */
+	
+	var popupX = (window.screen.width / 2) - (550 / 2);
+	var popupY= (window.screen.height /2) - (450 / 2);
+	
+	var status = "left=" + popupX +", top=" + popupY +", screenX =" + popupX +", screenY=" + popupY + ",width=550px, height=450px";
+	
 	
 	open(url, title, status);
  }
