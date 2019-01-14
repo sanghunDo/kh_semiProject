@@ -44,7 +44,7 @@ public class AdminMemberUpdateServlet extends HttpServlet {
 		Member loggedInMember = (Member)request.getSession().getAttribute("loggedInMember");
 		if(loggedInMember != null && !"admin".equals(loggedInMember.getUserId())) {
 			request.setAttribute("msg", "잘못된 경로로 접근하셨습니다.");
-			request.setAttribute("loc", "/");
+			request.setAttribute("loc", "/home");
 			request.getRequestDispatcher("/WEB-INF/views/common/msg.jsp").forward(request, response);
 			return;
 		}
@@ -149,10 +149,11 @@ public class AdminMemberUpdateServlet extends HttpServlet {
 			String root2 = request.getContextPath();
 			response.sendRedirect(root2 + "/admin/adminMemberView?userId=" + userId);
 		}
-		
-		request.setAttribute("msg", msg);
-		request.setAttribute("loc", loc);
-		request.getRequestDispatcher(view).forward(request, response);
+
+      request.setAttribute("view", view);
+      request.setAttribute("msg", msg); // 실패했을 시 사용
+      request.setAttribute("loc", loc); // 실패했을 시 사용
+
 	}
 
 	/**

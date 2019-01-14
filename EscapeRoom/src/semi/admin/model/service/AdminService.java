@@ -18,15 +18,14 @@ public class AdminService {
 	public static final String LOGIN = "1";
 	public static final String LOGOUT = "0";
 	
+	// 로그인 여부 확인
 	public int loginCheck(Member m) {
+		// -1: 없는 아이디
 		int result = -1;
 		// DB와 연결
-		Connection conn = getConnection();
-		
+		Connection conn = getConnection();		
 		result = new AdminDao().loginCheck(conn, m);
-		
-		close(conn);
-		
+		close(conn);		
 		return result;
 	}
 	
@@ -101,8 +100,110 @@ public class AdminService {
 		return totalContent;
 	}
 	
-	// 관리자용 신고된 게시글 보기
+	// 아이디로 회원 검색
+	public List<Member> searchByUserId(String keyWord, int cPage, int numPerPage) {
+		Connection conn = getConnection();
+		List<Member> list = new AdminDao().searchByUserId(conn, keyWord, cPage, numPerPage);
+		close(conn);
+		return list;
+		
+	}
 	
-	// 관리자용 신고된 댓글 보기
+	// 이메일로 회원 검색
+	public List<Member> searchByUserEmail(String keyWord, int cPage, int numPerPage) {
+		Connection conn = getConnection();
+		List<Member> list = new AdminDao().searchByUserEmail(conn, keyWord, cPage, numPerPage);
+		close(conn);
+		return list;
+	}
+	
+	// 아이디로 회원검색 페이지바
+	public int selectMemberCountByUserId(String searchKeyword) {
+		Connection conn = getConnection();
+		int totalContent = new AdminDao().selectMemberCountByUserId(conn, searchKeyword);
+		close(conn);
+		return totalContent;
+	}
+	
+	// 이메일로 회원검색 페이지바
+	public int selectMemberCountByUserEmail(String searchKeyword) {
+		Connection conn = getConnection();
+		int totalContent = new AdminDao().selectMemberCountByUserEmail(conn, searchKeyword);
+		close(conn);
+		return totalContent;
+	}
+	
+	// 제목으로 게시글 검색시 목록 보여주기
+	public List selectBoardByTitle(String searchKeyword, int cPage, int numPerPage) {
+		Connection conn = getConnection();
+		List list = new AdminDao().selectBoardByTitle(conn);
+		close(conn);
+		return list;
+	}
+	
+	// 제목 검색 페이징
+	
+	// 내용으로 게시긜 검색시 목록 보여주기
+	public List selectBoardByContent(String searchKeyword, int cPage, int numPerPage) {
+		Connection conn = getConnection();
+		List list = new AdminDao().selectBoardByContent(conn);
+		close(conn);
+		return list;
+		
+	}
+	
+	// 내용  검색 페이징
+	
+	// 게시글 제목 & 내용으로 검색시 게시글 목록 보여주기
+	public List selectBoardByTitleAndContent(String searchKeyword, int cPage, int numPerPage) {
+	    Connection conn = getConnection();
+	    List list = new AdminDao().selectBoardByTitleAndContent(conn);
+	    close(conn);
+	    return list;
+	   }
+	
+	  // 게시글 제목 & 내용 페이징
+	   
+	 // 작성자로 검색시 게시글 목록 보여주기
+	  public List selectBoardByUser(String searchKeyword, int cPage, int numPerPage) {
+		 Connection conn = getConnection();
+	     List list = new AdminDao().selectBoardByUser(conn);
+	     close(conn);
+	     return list;
+	  }
+	  
+	  // 작성자 검색 페이징
+	      
+	  // 관리자용 신고 게시글 목록 보여주기
+	  public List selectReportBoard() {
+		  Connection conn = getConnection();
+		  List list = new AdminDao().selectReportBoard(conn);
+		  close(conn);
+		  return list;
+	  }
+	  
+	  // 관리자용 신고 게시글 페이징
+	  public int selectReportBoardCount() {
+	   Connection conn = getConnection();
+	   int totalContent = 0;
+	   close(conn);
+	   return totalContent;
+	   }
+	  
+	  // 관리자용 신고 댓글 목록 보여주기
+	  public List selectReportBoardCmt() {
+		  Connection conn = getConnection();
+		  List list = new AdminDao().selectReportBoardCmt(conn);
+		  close(conn);
+		  return list;
+	  }
+	  
+	// 관리자용 신고 댓글 페이징
+	  public int selectReportBoardCmtCount() {
+		  Connection conn = getConnection();
+		   int totalComment = 0;
+		   close(conn);
+		   return totalComment;
+	  }
 	
 }

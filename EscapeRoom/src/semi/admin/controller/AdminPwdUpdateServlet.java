@@ -38,7 +38,7 @@ public class AdminPwdUpdateServlet extends HttpServlet {
 		Member loggedInMember = (Member)request.getSession().getAttribute("loggedInMember");
 	    if(loggedInMember == null || !"admin".equals(loggedInMember.getUserId())) {
 	        request.setAttribute("msg", "잘못된 경로로 접근하셨습니다.");
-	        request.setAttribute("loc", "/");
+	        request.setAttribute("loc", "/home");
 	        request.getRequestDispatcher("/WEB-INF/views/common/msg.jsp").forward(request, response);
 	        return;
 	     }
