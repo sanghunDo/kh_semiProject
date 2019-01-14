@@ -6,6 +6,7 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -13,6 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 
+import semi.board.free.model.vo.FreeBoard;
 import semi.member.model.vo.Member;
 
 public class AdminDao {
@@ -32,31 +34,37 @@ public class AdminDao {
       }
    }
    
+   // 로그인 여부 확인
    public int loginCheck(Connection conn, Member m) {
+	   	// -1: 없는 아이디
 		int result = -1;
+		// DB로 SQL 요청하는 객체문 생성
 		PreparedStatement pstmt = null;
+		// SELECT문을 통해서 가져온 데이터를 ResultSet 객체에 저장
 		ResultSet rset = null;
+		// PROPERTIES 파일에서 해당 SQL문을 읽어오기
 		String query = prop.getProperty("loginCheck");
 		System.out.println("AdminDao 로그인 체크 : "+m.getUserPassword());
 		
 		try {
-			//1.statement객체 생성 및 미완성쿼리문 완성
+			//1. statement 객체 생성 및 미완성 쿼리문 완성
 			pstmt = conn.prepareStatement(query);
 			pstmt.setString(1, m.getUserId());
 			pstmt.setString(2, m.getUserPassword());
 			pstmt.setString(3, m.getUserId());
 			
-			//2.쿼리실행
+			//2. 쿼리문 실행: SELECT문은 executeQuery()
 			rset = pstmt.executeQuery();
 			
-			//3.결과 변수  result에 담기
-			if(rset.next()) {
+			//3.결과 변수를 result에 담기
+			if(rset.next()) { // 하나의 결과이므로 while 대신 if 사용
 				result = rset.getInt("login_check");
 			}
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
+			// 자원 반납
 			close(rset);
 			close(pstmt);
 			
@@ -75,18 +83,15 @@ public class AdminDao {
       try {
          pstmt = conn.prepareStatement(query);
          pstmt.setString(1, userId);
-         
-         // 쿼리 실행
          rset = pstmt.executeQuery();
          
          // 실행 후 결과를 m에 담기
-         while(rset.next()) {
+         while(rset.next()) { // 결과가 여러 개라면 while문 사용
         	m = new Member();
             m.setUserId(rset.getString("userid"));
             m.setUserPassword(rset.getString("userpassword"));
             m.setUserEmail(rset.getString("useremail"));
             m.setUserProfileOriginalFile(rset.getString("userprofileoriginalfile"));
-            m.setUserProfileOriginalFile(rset.getString("userProfileOriginalFile"));
             m.setUserProfileRenamedFile(rset.getString("userProfileRenamedFile"));
             m.setCoin(rset.getInt("coin"));
             m.setHintPaper(rset.getInt("hintpaper"));
@@ -97,7 +102,6 @@ public class AdminDao {
       } catch (Exception e) {
          e.printStackTrace();
       } finally  {
-         // 자원 반납
          close(rset);
          close(pstmt);
       }
@@ -119,6 +123,7 @@ public class AdminDao {
 		   pstmt.setString(3, m.getUserProfileOriginalFile());
 		   pstmt.setString(4, m.getUserProfileRenamedFile());
 		   
+		   // UPDATE문이므로 executeUpdate() 사용
 		   result = pstmt.executeUpdate();
 		   
 	   } catch (SQLException e) {
@@ -155,23 +160,24 @@ public class AdminDao {
    
    // 관리자용 회원 삭제
    public int deleteMember(Connection conn, String userId) {
-	int result = 0;
-	PreparedStatement pstmt = null;
+	   int result = 0;
+	   PreparedStatement pstmt = null;
 	
-	String query = prop.getProperty("deleteMember");
+	   String query = prop.getProperty("deleteMember");
 	
-	try {
-		pstmt = conn.prepareStatement(query);
+	   try {
+		   pstmt = conn.prepareStatement(query);
 		
-		pstmt.setString(1, userId);
+		   pstmt.setString(1, userId);
 		
-		result = pstmt.executeUpdate();
-	} catch (SQLException e) {
-		e.printStackTrace();
-	} 
+		   result = pstmt.executeUpdate();
+		   
+	   } catch (SQLException e) {
+		   e.printStackTrace();
+	   } 
 	
-	return result;
-   }
+	   return result;
+   	}
    
    
    // 관리자용 전체 회원 목록 보기
@@ -183,8 +189,8 @@ public class AdminDao {
       try {
          // 쿼리문 완성하기
          pstmt = conn.prepareStatement(query);
-         int startRnum = (cPage-1)*numPerPage+1;
-         int endRnum = cPage*numPerPage;
+         int startRnum = (cPage - 1) * numPerPage + 1;
+         int endRnum = cPage * numPerPage;
          System.out.println(startRnum);
          System.out.println(endRnum);
          pstmt.setInt(1, startRnum);
@@ -203,6 +209,8 @@ public class AdminDao {
             m.setUserEmail(rset.getString("useremail"));
             m.setUserProfileOriginalFile("userProfileOriginalFile");
             m.setUserProfileRenamedFile("userProfileRenamedFile");
+            m.setCoin(rset.getInt("coin"));
+            m.setHintPaper(rset.getInt("hintpaper"));
             m.setEnrollDate(rset.getDate("enrolldate"));
              
             list.add(m);
@@ -211,7 +219,6 @@ public class AdminDao {
       } catch (SQLException e) {
          e.printStackTrace();
       } finally {
-         // 자원 반납
          close(rset);
          close(pstmt);
       }
@@ -219,7 +226,7 @@ public class AdminDao {
       return list;
    }
    
-   //관리창 유저정보 토탈 회원수
+   // 관리자용 전체 회원수 보기
    public int selectMemberCount(Connection conn) {
       PreparedStatement pstmt = null;
       int totalContent = 0;
@@ -227,14 +234,13 @@ public class AdminDao {
       String query = prop.getProperty("selectMemberCount");
       
       try {
-         pstmt=conn.prepareStatement(query);
+         pstmt = conn.prepareStatement(query);
          rset = pstmt.executeQuery();
          if(rset.next()) {
             totalContent = rset.getInt("cnt");
          }
          
       } catch (SQLException e) {
-         // TODO Auto-generated catch block
          e.printStackTrace();
       } finally {
          close(rset);
@@ -244,57 +250,334 @@ public class AdminDao {
       
       return totalContent;
    }
-      
-   // 관리자용 신고 게시글 목록 보여주기
    
+   // 아이디로 회원 검색
+   public List<Member> searchByUserId(Connection conn, String searchKeyword, int cPage, int numPerPage) {
+	   List<Member> list = new ArrayList<Member>();
+	   PreparedStatement pstmt = null;
+	   ResultSet rset = null;
+	   String query = prop.getProperty("selectMemberByUserIdPaging");
+	   
+	   try {
+		   pstmt = conn.prepareStatement(query);
+		   pstmt.setString(1, "%" + searchKeyword + "%");
+		   pstmt.setInt(2, (cPage - 1) * numPerPage + 1);
+		   pstmt.setInt(3, cPage * numPerPage);
+		   
+		   rset = pstmt.executeQuery();
+		   
+	         while(rset.next()) {
+	        	 Member m = new Member();
+	             m.setUserId(rset.getString("userid"));
+	             m.setUserPassword(rset.getString("userpassword"));
+	             m.setUserEmail(rset.getString("useremail"));
+	             m.setUserProfileOriginalFile(rset.getString("userprofileoriginalfile"));
+	             m.setUserProfileRenamedFile(rset.getString("userProfileRenamedFile"));
+	             m.setCoin(rset.getInt("coin"));
+	             m.setHintPaper(rset.getInt("hintpaper"));
+	             m.setEnrollDate(rset.getDate("enrolldate"));
+	             list.add(m);
+	          }
+		   
+	   } catch (SQLException e) {
+		   e.printStackTrace();
+	   } finally {
+		   close(rset);
+		   close(pstmt);
+	   }
+	   
+	   return list;
+   }
    
-   // 관리자용 신고 댓글 목록 보여주기
+   // 이메일로 회원 검색
+   public List<Member> searchByUserEmail(Connection conn, String searchKeyword, int cPage, int numPerPage) {
+	   List<Member> list = new ArrayList<Member>();
+	   PreparedStatement pstmt = null;
+	   ResultSet rset = null;
+	   String query = prop.getProperty("selectMemberByUserEmailPaging");
+	   
+	   try {
+		   pstmt = conn.prepareStatement(query);
+		   pstmt.setString(1, "%" + searchKeyword + "%");
+		   pstmt.setInt(2, (cPage - 1) * numPerPage + 1);
+		   pstmt.setInt(3, cPage * numPerPage);
+		   
+		   rset = pstmt.executeQuery();
+		   
+	         while(rset.next()) {
+	        	 Member m = new Member();
+	             m.setUserId(rset.getString("userid"));
+	             m.setUserPassword(rset.getString("userpassword"));
+	             m.setUserEmail(rset.getString("useremail"));
+	             m.setUserProfileOriginalFile(rset.getString("userprofileoriginalfile"));
+	             m.setUserProfileRenamedFile(rset.getString("userProfileRenamedFile"));
+	             m.setCoin(rset.getInt("coin"));
+	             m.setHintPaper(rset.getInt("hintpaper"));
+	             m.setEnrollDate(rset.getDate("enrolldate"));
+	             list.add(m);
+	          }
+		   
+	   } catch (SQLException e) {
+		   e.printStackTrace();
+	   } finally {
+		   close(rset);
+		   close(pstmt);
+	   }
+	   
+	   return list;
+   }
    
+   // 아이디로 회원검색 페이지바
+   public int selectMemberCountByUserId(Connection conn, String searchKeyword) {
+		PreparedStatement pstmt = null;
+		int totalContent = 0;
+		ResultSet rset = null;
+		String query = prop.getProperty("selectMemberCountByUserId");
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, "%"+searchKeyword+"%");
+			
+			rset = pstmt.executeQuery();
+			if(rset.next()) {
+				totalContent = rset.getInt("cnt");
+			}
+		} catch(SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return totalContent;
+	}
    
-   // 회원 이메일로 검색시 목록 보여주기
-   public List<Member> selectMemberListByEmail(Connection conn) {
-      List<Member> memberListByEmail = new ArrayList<Member>();
+   // 이메일로 회원검색 페이지바
+   public int selectMemberCountByUserEmail(Connection conn, String searchKeyword) {
+		PreparedStatement pstmt = null;
+		int totalContent = 0;
+		ResultSet rset = null;
+		String query = prop.getProperty("selectMemberCountByUserEmail");
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, "%"+searchKeyword+"%");
+			
+			rset = pstmt.executeQuery();
+			if(rset.next()) {
+				totalContent = rset.getInt("cnt");
+			}
+		} catch(SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return totalContent;
+	}
+	   
+   // 제목으로 게시글 검색시 목록 보여주기
+   public List selectBoardByTitle(Connection conn) {
+	   List list = new ArrayList();
+	   PreparedStatement pstmt = null;
+	   ResultSet rset = null;
+	   String query = prop.getProperty("select * from board where posttitle = ?");
+	   
+	   try {
+		   pstmt = conn.prepareStatement(query);
+		   
+		   while(rset.next()) {
+	        	 FreeBoard fb = new FreeBoard();
+	             fb.getPostNo();
+	         	 fb.getPostTitle();
+	         	 fb.getPostWriter();
+	         	 fb.getPostContent();
+	         	 fb.getPostOriginalFile();
+	         	 fb.getPostRenamedFile();
+	         	 fb.getPostDate();
+	         	 fb.getPostLike();
+	         	 fb.getPostDislike();
+	         	 fb.getPostReadCount();
+	             list.add(fb);
+	          }
+
+	   } catch (SQLException e) {
+		   e.printStackTrace();
+	   } finally {
+		   close(rset);
+		   close(pstmt);
+	   }
+	   
+	   return list;
+   }
+   
+   // 제목으로 검색시 페이지바
+   
+   /// 내용으로 게시글 검색시 목록 보여주기
+   public List selectBoardByContent(Connection conn) {
+      List list = new ArrayList();
       PreparedStatement pstmt = null;
       ResultSet rset = null;
-      String query = prop.getProperty("select * from member where useremail = ?");
+      String query = prop.getProperty("select * from board where postcontent = ?");
       
       try {
-         // 쿼리문 완성하기
-         pstmt = conn.prepareStatement(query);
-         Member m = new Member();
-      
-         // 쿼리문 실행하기
-         rset = pstmt.executeQuery();
-      
-         // 실행 후 결과를 list에 담기
-         while(rset.next()) {
-            m.setUserId(rset.getString("memberId"));
-            m.setUserPassword(rset.getString("password"));
-            m.setUserEmail(rset.getString("email"));
-            m.setEnrollDate(rset.getDate("enrolldate"));
-            memberListByEmail.add(m);
-         }
+		   pstmt = conn.prepareStatement(query);
+		   
+		   while(rset.next()) {
+	        	 FreeBoard fb = new FreeBoard();
+	             fb.getPostNo();
+	         	 fb.getPostTitle();
+	         	 fb.getPostWriter();
+	         	 fb.getPostContent();
+	         	 fb.getPostOriginalFile();
+	         	 fb.getPostRenamedFile();
+	         	 fb.getPostDate();
+	         	 fb.getPostLike();
+	         	 fb.getPostDislike();
+	         	 fb.getPostReadCount();
+	             list.add(fb);
+	          }
          } catch (SQLException e) {
             e.printStackTrace();
          } finally {
-            // 자원 반납
             close(rset);
             close(pstmt);
          }
       
-      return memberListByEmail;
+      return list;
    }
    
-   // 게시글 제목 & 내용으로 검색시 목록 보여주기
-   public List selectArticle() {
-      List articleList = new ArrayList();
-      return articleList;
+   // 내용으로 검색시 페이지바
+      
+   // 게시글 제목 & 내용으로 검색시 게시글 목록 보여주기
+   public List selectBoardByTitleAndContent(Connection conn) {
+	   List list = new ArrayList();
+	   PreparedStatement pstmt = null;
+	   ResultSet rset = null;
+	   String query = prop.getProperty("select * from board where posttitle and postcontent = ?");
+	   
+	      try {
+			   pstmt = conn.prepareStatement(query);
+			   
+			   while(rset.next()) {
+		        	 FreeBoard fb = new FreeBoard();
+		             fb.getPostNo();
+		         	 fb.getPostTitle();
+		         	 fb.getPostWriter();
+		         	 fb.getPostContent();
+		         	 fb.getPostOriginalFile();
+		         	 fb.getPostRenamedFile();
+		         	 fb.getPostDate();
+		         	 fb.getPostLike();
+		         	 fb.getPostDislike();
+		         	 fb.getPostReadCount();
+		             list.add(fb);
+		          }
+	         } catch (SQLException e) {
+	            e.printStackTrace();
+	         } finally {
+	            close(rset);
+	            close(pstmt);
+	         }
+	      
+      return list;
    }
    
-   // 댓글 검색시 목록 보여주기
-   public List selectComment() {
-      List commentList = new ArrayList();
-      return commentList;
+   // 게시글 제목 & 내용으로 검색시 페이지바
+   
+   // 댓글로 검색시 게시글 목록 보여주기
+   public List selectBoardByComment(Connection conn) {
+	   List list = new ArrayList();
+	   PreparedStatement pstmt = null;
+	   ResultSet rset = null;
+	   String query = prop.getProperty("select * from board_comment where commentcontent = ?");
+	   
+	      try {
+			   pstmt = conn.prepareStatement(query);
+			   
+			   while(rset.next()) {
+		        	 FreeBoard fb = new FreeBoard();
+		             fb.getPostNo();
+		         	 fb.getPostTitle();
+		         	 fb.getPostWriter();
+		         	 fb.getPostContent();
+		         	 fb.getPostOriginalFile();
+		         	 fb.getPostRenamedFile();
+		         	 fb.getPostDate();
+		         	 fb.getPostLike();
+		         	 fb.getPostDislike();
+		         	 fb.getPostReadCount();
+		             list.add(fb);
+		          }
+	         } catch (SQLException e) {
+	            e.printStackTrace();
+	         } finally {
+	            close(rset);
+	            close(pstmt);
+	         }
+	      
+      return list;
+   }
+   
+   // 댓글로 검색시 페이지바
+   
+   // 작성자로 검색시 게시글 목록 보여주기
+   public List selectBoardByUser(Connection conn) {
+	   List list = new ArrayList();
+	   PreparedStatement pstmt = null;
+	   ResultSet rset = null;
+	   String query = prop.getProperty("select * from board where postwriter = ?");
+	   
+	      try {
+			   pstmt = conn.prepareStatement(query);
+			   
+			   while(rset.next()) {
+		        	 FreeBoard fb = new FreeBoard();
+		             fb.getPostNo();
+		         	 fb.getPostTitle();
+		         	 fb.getPostWriter();
+		         	 fb.getPostContent();
+		         	 fb.getPostOriginalFile();
+		         	 fb.getPostRenamedFile();
+		         	 fb.getPostDate();
+		         	 fb.getPostLike();
+		         	 fb.getPostDislike();
+		         	 fb.getPostReadCount();
+		             list.add(fb);
+		          }
+	         } catch (SQLException e) {
+	            e.printStackTrace();
+	         } finally {
+	            close(rset);
+	            close(pstmt);
+	         }
+	      
+      return list;
+   }
+   
+   // 작성자로 검색시 페이지바
+      
+   // 관리자용 신고 게시글 목록 보여주기
+   public List selectReportBoard(Connection conn) {
+	   List list = new ArrayList();
+	   return list;
+   }
+   
+   // 관리자용 신고 게시글 페이징
+   public int selectReportBoardCount(Connection conn) {
+	   int totalContent = 0;
+	   return totalContent;
+   }
+   
+   // 관리자용 신고 댓글 목록 보여주기
+   public List selectReportBoardCmt(Connection conn) {
+	   List list = new ArrayList();
+	   return list;
+   }
+   
+   // 관리자용 신고 댓글 페이징
+   public int selectReportBoardCmtCount(Connection conn) {
+	   int totalComment = 0;
+	   return totalComment;
    }
 
 }
