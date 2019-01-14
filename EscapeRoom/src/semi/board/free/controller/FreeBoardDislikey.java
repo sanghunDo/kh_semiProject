@@ -1,8 +1,11 @@
 package semi.board.free.controller;
 
 import java.io.IOException;
+import java.io.PrintWriter;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -32,16 +35,48 @@ public class FreeBoardDislikey extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("utf-8");
 		int postNo =Integer.parseInt(request.getParameter("postNo"));
-		int boardDislikey =Integer.parseInt(request.getParameter("dislikey"));
+		String userId = request.getParameter("userId");
 
-//		System.out.println("서블릿"+postNo);
-//		System.out.println("좋아요수"+boardLikey);
+		Cookie[] cookies = request.getCookies();
+		String postCookieVal = "";
+		boolean hasPostLike = false;
+		
+		if(cookies != null) {
+			for(Cookie c:cookies) {
+				String name = c.getName();
+				String value = c.getValue();
+
+				if("PostlikeCookie".equals(name)) {
+					postCookieVal = value;
+					if(value.contains("|"+ postNo+userId+"|")) {
+						hasPostLike = true;
+						break;
+					}
+				}
+			}
+		}
+		
+		int dislikey = 0;
+		if(!hasPostLike) {
+			int result = new FreeBoardDao().updateBoardDislikey(postNo);
+			dislikey = new FreeBoardDao().getPostDislikey(postNo);
+	
+			Cookie postCookie = new Cookie("PostlikeCookie", postCookieVal + "|"+postNo + userId + "|");
+			response.addCookie(postCookie); 
+			
+			
+		}else {
+			response.setContentType("text/html; charset=utf-8");
+            PrintWriter out = response.getWriter();
+            out.println("<script>alert('이미 참여하셨습니다');</script>");    		
+            out.flush();
+            dislikey = new FreeBoardDao().getPostDislikey(postNo);
+
+            // jsp에 전달하기 위해 속성으로 전	
+		}
 		
 		
-		int result = new FreeBoardDao().updateBoardDislikey(postNo,boardDislikey);
-		int dislikey = new FreeBoardDao().getPostDislikey(postNo);
-//		System.out.println("result_"+result);
-//		System.out.println("commentLikey"+commentLikey);
+
 		response.setContentType("application/json; charset=utf-8");
 		new Gson().toJson(dislikey,response.getWriter());
 	}
