@@ -6,16 +6,18 @@
 <script>
 var position = $("#background img").prop("id");
 $(function(){
-	setObject();
+	setTimeout(function(){
+		setObject(position);
+	}, 3000);
 	refresh_inventory();
 })
-function setObject(){
-	var position = $("#background img").prop("id");
+function setObject(position){
 	$.ajax({
 		url:"<%=request.getContextPath()%>/game/setObject",
 		type: "get",
 		dataType: "json",
 		success: function(data){
+			$("#background *").not(":first").remove();
 			for(var i in data){
 				var obj = data[i];
 				if(obj.position==position&&obj.objLevel==1){
@@ -28,6 +30,7 @@ function setObject(){
 	});
 };
 function obj_click(){
+	var position = $("#background img").prop("id")
 	$("#background>img").not(":first").each(function(){
 		$(this).on('click', function(){
 			var objName = $(this).prop("id");
@@ -151,6 +154,7 @@ function play(){
 	$("#wrap, #wrap *").removeClass("paused");
 };
 function obj_reClick(objName){
+	var position = $("#background img").prop("id");
 	$.ajax({
 		url:"<%=request.getContextPath()%>/game/setObject",
 		type: "post",
@@ -180,6 +184,7 @@ function obj_reClick(objName){
 	});
 };
 function obj_re_reClick(objName){
+	var position = $("#background img").prop("id");
 	$.ajax({
 		url:"<%=request.getContextPath()%>/game/setObject",
 		type: "post",
@@ -199,8 +204,8 @@ function obj_re_reClick(objName){
 							for(var a in child){
 								var html = "<img src='<%=request.getContextPath()%>/images/game/gameMain/"+position+"/"+child[a]+".png' id='"+child[a]+"' class='obj'/>";
 								$target.after(html);
+								get_item(child[i]);
 							}
-							get_item(data[i].thirdName);
 						}
 					}
 					else{play()}
@@ -309,6 +314,7 @@ function get_item(parentName){
 	});
 };
 function refresh_inventory(){
+	var position = $("#background img").prop("id")
 	var cnt = 1;
 	$.ajax({
 		url:"<%=request.getContextPath()%>/game/getObject",
