@@ -152,6 +152,48 @@ public class MemberDao {
 		
 	}
 	
+	// 아이디와 이메일로 비밀번호 찾기
+	// 회원 유무 여부 확인
+	public int iDEmailCheck(Connection conn, Member m) {
+		// -1은 없는 아이디
+		int result = -1;
+
+		// DB로 SQL문 요청하기 위해 객체 생성
+		PreparedStatement pstmt = null;
+
+		// SELECT문을 통해서 데이터를 가져온다면 ResultSet 객체에 그 데이터를 저장해야 한다.
+		ResultSet rset = null;
+		String query = prop.getProperty("iDEmailCheck");
+		System.out.println("멤버다오 아이디이메일 아이디체크 : "+m.getUserId());
+		System.out.println("멤버다오 아이디이메일 이메일체크 : "+m.getUserEmail());
+
+		try {
+			// 1. Statement객체 생성 및 미완성쿼리문 완성
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, m.getUserId());
+			pstmt.setString(2, m.getUserEmail());
+			pstmt.setString(3, m.getUserId());
+
+			// 2. 쿼리문 실행 : DQL(SELECT) 이므로 excuteQuery()
+			rset = pstmt.executeQuery();
+
+			// 3. 결과 변수 result에 담기
+			if (rset.next()) { // 하나의 결과값만 돌려주면 되기 때문에 while문 대신 if문 작성
+				result = rset.getInt("iDEmailcheck"); // 컬럼명
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			// 4. 자원반납
+			close(rset);
+			close(pstmt);
+		}
+
+		return result;
+
+	}
+	
 
 	// 회원정보보기
 	public Member selectOne(Connection conn, String userId) {
