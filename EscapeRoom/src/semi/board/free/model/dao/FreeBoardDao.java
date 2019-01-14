@@ -608,21 +608,21 @@ public class FreeBoardDao {
 		return result;
 	}
 
-	public int updateLikey(int commentNo, int likey) {
+	public int updateLikey(int commentNo) {
 		PreparedStatement pstmt = null;
 		Connection conn = null;
 		int commentLikey = 0;
 		int result = 0;
 		ResultSet rset = null;
-		String query = "UPDATE board_comment_free SET commentlike = ?+1 where commentNo = ?";
+		String query = "UPDATE board_comment_free SET commentlike = commentlike+1 where commentNo = ?";
 		try {
 			Class.forName("oracle.jdbc.driver.OracleDriver");
 			conn = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe", 
 					"escape_if_you_can", //아이디 
 					"escape_if_you_can");//비번
 			pstmt = conn.prepareStatement(query);
-			pstmt.setInt(1, likey);
-			pstmt.setInt(2, commentNo);
+			
+			pstmt.setInt(1, commentNo);
 
 			result = pstmt.executeUpdate();
 			
@@ -690,21 +690,21 @@ public class FreeBoardDao {
 		return likey;
 	}
 
-	public int updateBoardLikey(int postNo, int boardLikey) {
+	public int updateBoardLikey(int postNo) {
 		PreparedStatement pstmt = null;
 		Connection conn = null;
 		int commentLikey = 0;
 		int result = 0;
 		ResultSet rset = null;
-		String query = "UPDATE board_free SET postlike = ?+1 where postno = ?";
+		String query = "UPDATE board_free SET postlike = postlike+1 where postno = ?";
 		try {
 			Class.forName("oracle.jdbc.driver.OracleDriver");
 			conn = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe", 
 					"escape_if_you_can", //아이디 
 					"escape_if_you_can");//비번
 			pstmt = conn.prepareStatement(query);
-			pstmt.setInt(1, boardLikey);
-			pstmt.setInt(2, postNo);
+
+			pstmt.setInt(1, postNo);
 
 			result = pstmt.executeUpdate();
 			
@@ -771,21 +771,21 @@ public class FreeBoardDao {
 		return likey;
 	}
 
-	public int updateBoardDislikey(int postNo, int boardDislikey) {
+	public int updateBoardDislikey(int postNo) {
 		PreparedStatement pstmt = null;
 		Connection conn = null;
 		int commentLikey = 0;
 		int result = 0;
 		ResultSet rset = null;
-		String query = "UPDATE board_free SET postdislike = ?+1 where postno = ?";
+		String query = "UPDATE board_free SET postdislike = postdislike+1 where postno = ?";
 		try {
 			Class.forName("oracle.jdbc.driver.OracleDriver");
 			conn = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe", 
 					"escape_if_you_can", //아이디 
 					"escape_if_you_can");//비번
 			pstmt = conn.prepareStatement(query);
-			pstmt.setInt(1, boardDislikey);
-			pstmt.setInt(2, postNo);
+			
+			pstmt.setInt(1, postNo);
 
 			result = pstmt.executeUpdate();
 			
@@ -945,21 +945,21 @@ public class FreeBoardDao {
 		
 	}
 
-	public int updateDislike(int commentNo, int commentDislikeAmount) {
+	public int updateDislike(int commentNo) {
 		PreparedStatement pstmt = null;
 		Connection conn = null;
 		int commentLikey = 0;
 		int result = 0;
 		ResultSet rset = null;
-		String query = "UPDATE board_comment_free SET commentdislike = ?+1 where commentNo = ?";
+		String query = "UPDATE board_comment_free SET commentdislike = commentdislike+1 where commentNo = ?";
 		try {
 			Class.forName("oracle.jdbc.driver.OracleDriver");
 			conn = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe", 
 					"escape_if_you_can", //아이디 
 					"escape_if_you_can");//비번
 			pstmt = conn.prepareStatement(query);
-			pstmt.setInt(1, commentDislikeAmount);
-			pstmt.setInt(2, commentNo);
+
+			pstmt.setInt(1, commentNo);
 
 			result = pstmt.executeUpdate();
 			

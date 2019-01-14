@@ -6,10 +6,10 @@ body{
 
 .login-Container{
 	width:350px;
-	height:270px;
+	height:350px;
+	border:1px solid #5D5D5D;
 	border-radius:20px;
 	margin: 0 auto;
-	box-shadow: 0px 0px 100px #353535;
 }
 
 #userId, #userPassword{
@@ -44,17 +44,29 @@ table td{
 	cursor:pointer;
 }
 
-#register-Btn, #findId-Btn{
+#register-Btn, #findId-Btn, #findPw-Btn{
 	outline:none;
 	background: gray;
 	border:1px solid gray;
 	border-radius:10px;
 	color:white;
-	width:123px;
+	width:250px;
 	height:35px;
 	font-size:15px;
 	cursor:pointer;
 }
+
+/* #findId-Btn{
+	outline:none;
+	background: grey;
+	border:1px solid grey;
+	border-radius:10px;
+	color:white;
+	width:250px;
+	height:35px;
+	font-size:15px;
+	cursor:pointer;	
+} */
 
 #saveId{
 	position:relative;

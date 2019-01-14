@@ -6,14 +6,14 @@
  *       the last modified time of the source file after
  *       generation to assist with modification tracking.
  */
-package org.apache.jsp.WEB_002dINF.views.notice;
+package org.apache.jsp.WEB_002dINF.views.member;
 
 import javax.servlet.*;
 import javax.servlet.http.*;
 import javax.servlet.jsp.*;
 import semi.member.model.vo.*;
 
-public final class noticeForm_jsp extends org.apache.jasper.runtime.HttpJspBase
+public final class findPw_jsp extends org.apache.jasper.runtime.HttpJspBase
     implements org.apache.jasper.runtime.JspSourceDependent,
                  org.apache.jasper.runtime.JspSourceImports {
 
@@ -23,9 +23,8 @@ public final class noticeForm_jsp extends org.apache.jasper.runtime.HttpJspBase
   private static java.util.Map<java.lang.String,java.lang.Long> _jspx_dependants;
 
   static {
-    _jspx_dependants = new java.util.HashMap<java.lang.String,java.lang.Long>(2);
+    _jspx_dependants = new java.util.HashMap<java.lang.String,java.lang.Long>(1);
     _jspx_dependants.put("/WEB-INF/views/common/header.jsp", Long.valueOf(1547467719390L));
-    _jspx_dependants.put("/WEB-INF/views/common/footer.jsp", Long.valueOf(1547065948004L));
   }
 
   private static final java.util.Set<java.lang.String> _jspx_imports_packages;
@@ -226,69 +225,39 @@ if("admin".equals(loggedInMember.getUserId())){
       out.write("\t});\r\n");
       out.write("\t</script>");
       out.write("\r\n");
+      out.write("<!DOCTYPE html>\r\n");
+      out.write("<html>\r\n");
+      out.write("<head>\r\n");
+      out.write("<meta charset=\"UTF-8\">\r\n");
+      out.write("<title>FIND PW</title>\r\n");
+      out.write("<link href=\"https://fonts.googleapis.com/css?family=Amatic+SC\" rel=\"stylesheet\">\r\n");
       out.write("<link rel=\"stylesheet\" href=\"");
       out.print(request.getContextPath() );
-      out.write("/css/notice/notice.css\" />\r\n");
-      out.write("<style>\r\n");
-      out.write("\r\n");
-      out.write("</style>\r\n");
-      out.write("<div id=\"noticeForm-Container\">\r\n");
-      out.write("<form action=\"");
+      out.write("/css/member/findPw.css\" />\r\n");
+      out.write("<script src=\"");
       out.print(request.getContextPath());
-      out.write("/notice/insertNotice\" method=\"post\"\r\n");
-      out.write("\tenctype=\"multipart/form-data\">\r\n");
-      out.write("<h1 id=\"title\">공지사항 등록</h1>\r\n");
-      out.write("<table id=\"noticeForm\">\r\n");
-      out.write("\t<tr>\r\n");
-      out.write("\t\t<th>구분</th>\r\n");
-      out.write("\t\t<td>\r\n");
-      out.write("\t\t\t<input type=\"radio\" name=\"noticeUrgent\" id=\"plain\" value=\"N\" checked/>\r\n");
-      out.write("\t\t\t<label for=\"plain\">일반공지</label>\r\n");
-      out.write("\t\t\t&nbsp;&nbsp;&nbsp;&nbsp;\r\n");
-      out.write("\t\t\t<input type=\"radio\" name=\"noticeUrgent\" id=\"urgent\" value=\"Y\"/>\r\n");
-      out.write("\t\t\t<label for=\"urgent\">긴급공지</label>\r\n");
-      out.write("\t\t</td>\r\n");
-      out.write("\t</tr>\r\n");
-      out.write("\t<tr>\r\n");
-      out.write("\t\t<th>제목</th>\r\n");
-      out.write("\t\t<td>\r\n");
-      out.write("\t\t\t<input type=\"text\" name=\"noticeTitle\" id=\"noticeTitle\" required/>\r\n");
-      out.write("\t\t</td>\r\n");
-      out.write("\t</tr>\r\n");
-      out.write("\t<tr>\r\n");
-      out.write("\t\t<th>링크이미지</th>\r\n");
-      out.write("\t\t<td>\r\n");
-      out.write("\t\t\t<input type=\"file\" name=\"up-file\" required/>\r\n");
-      out.write("\t\t\t<p>링크이미지가 없으면 업로드가 불가능합니다. 반드시 선택하여 주십시오.</p>\r\n");
-      out.write("\t\t</td>\r\n");
-      out.write("\t</tr>\r\n");
-      out.write("\t<tr>\r\n");
-      out.write("\t\t<th>내용</th>\r\n");
-      out.write("\t\t<td>\r\n");
-      out.write("\t\t\t<textarea name=\"noticeContent\" id=\"noticeContent\" cols=\"90\" rows=\"10\" required></textarea>\r\n");
-      out.write("\t\t</td>\r\n");
-      out.write("\t</tr>\r\n");
-      out.write("\t<tr>\r\n");
-      out.write("\t\t<th colspan=\"2\">\r\n");
-      out.write("\t\t\t<p>모든 유저가보는 게시물입니다. 업로드 전 검토하여 주십시오.</p>\r\n");
-      out.write("\t\t\t<button type=\"submit\" id=\"noticeSubmit-Btn\">UPLOAD</button>\r\n");
-      out.write("\t\t</th>\r\n");
-      out.write("\t</tr>\r\n");
-      out.write("\r\n");
-      out.write("</table>\r\n");
-      out.write("</form>\r\n");
-      out.write("</div>\r\n");
-      out.write("\r\n");
-      out.write("\r\n");
-      out.write("<link rel=\"stylesheet\" href=\"");
-      out.print(request.getContextPath() );
-      out.write("/css/common/footer.css\" />\r\n");
-      out.write("<link href=\"https://fonts.googleapis.com/css?family=Noto+Serif+KR\" rel=\"stylesheet\">\r\n");
-      out.write(" </section>\r\n");
-      out.write("      <footer>\r\n");
-      out.write("         <p>&lt;Copyright 2019. <strong>ESCAPE, IF YOU CAN.</strong> All rights reserved.&gt;</p>\r\n");
-      out.write("      </footer>\r\n");
-      out.write("   </div>\r\n");
+      out.write("/js/jquery-3.3.1.js\"></script>\r\n");
+      out.write("<script>\r\n");
+      out.write("</script>\r\n");
+      out.write("</head>\r\n");
+      out.write("<body>\r\n");
+      out.write("<section id=\"findPw-Container\">\r\n");
+      out.write("\t<h2>- FIND PW -</h2>\r\n");
+      out.write("\t<form action=\"");
+      out.print(request.getContextPath());
+      out.write("/member/memberFindPwEnd\" method=\"POST\" \r\n");
+      out.write("\t\t  name=\"findPwFrm\">\r\n");
+      out.write("\t\t<table>\r\n");
+      out.write("\t\t\t<tr>\r\n");
+      out.write("\t\t\t\t<td><input type=\"text\" name=\"userId\" id=\"userId\" placeholder=\"아이디를 입력하세요.\" required/></td>\r\n");
+      out.write("\t\t\t</tr>\r\n");
+      out.write("\t\t\t<tr>\r\n");
+      out.write("\t\t\t\t<td><input type=\"email\" name=\"userEmail\" id=\"userEmail\" placeholder=\"이메일을 입력하세요.\" required></td>\r\n");
+      out.write("\t\t\t</tr>\r\n");
+      out.write("\t\t</table>\r\n");
+      out.write("\t\t<input type=\"submit\" id=\"findPw-Btn\" value=\"FIND\"> \r\n");
+      out.write("\t</form>\r\n");
+      out.write("</section>\r\n");
       out.write("</body>\r\n");
       out.write("</html>\r\n");
     } catch (java.lang.Throwable t) {

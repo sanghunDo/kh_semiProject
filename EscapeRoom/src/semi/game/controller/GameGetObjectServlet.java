@@ -1,7 +1,6 @@
 package semi.game.controller;
 
 import java.io.IOException;
-import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -15,19 +14,21 @@ import semi.game.model.service.GameService;
 import semi.game.model.vo.MainObj;
 
 /**
- * Servlet implementation class GameSetObjectServlet
+ * Servlet implementation class GameGetObjectServlet
  */
-@WebServlet("/game/setObject")
-public class GameSetObjectServlet extends HttpServlet {
+@WebServlet("/game/getObject")
+public class GameGetObjectServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+       
 
+	/**
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		List<MainObj> objList = new GameService().getObjList();
-		
-/*		request.setAttribute("objList", objList);
-		request.getRequestDispatcher("/WEB-INF/views/game/gameObject_xml.jsp").forward(request, response);*/
+		String objName = request.getParameter("objName");
+		MainObj obj = new GameService().getObject(objName);
 		response.setContentType("application/json; charset=utf-8");
-		new Gson().toJson(objList, response.getWriter());
+		new Gson().toJson(obj, response.getWriter());
 	}
 
 	/**

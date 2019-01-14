@@ -69,13 +69,13 @@
     <div class="opinion">
         <div id="good">
             <b><span id="like"><%=fb.getPostLike()%></span></b>
-            <img src='<%=request.getContextPath()%>/images/freeBoard/like.png' onclick="likey('<%=fb.getPostLike()%>')">
+            <img src='<%=request.getContextPath()%>/images/freeBoard/like.png' onclick="likey('<%=loggedInMember.getUserId()%>')">
             <span id="likeComment">추천</span>
         </div>
 
         <div id="bad">
            <b><span id="dislike"><%=fb.getPostDislike()%></span></b>
-            <img src='<%=request.getContextPath()%>/images/freeBoard/dislike.png' onclick="disLikey('<%=fb.getPostDislike()%>')">
+            <img src='<%=request.getContextPath()%>/images/freeBoard/dislike.png' onclick="disLikey('<%=loggedInMember.getUserId()%>')">
             <span id="dislikeComment">비추천</span>
         </div>
     </div>
@@ -83,9 +83,12 @@
 
     <div class="bestComment-container">
     <hr>
-    <%for(BoardComment bc:bestCommentList)
+   <%for(int i=0; i<bestCommentList.size(); i++){
+                   BoardComment bc = bestCommentList.get(i);
+                   
                     if(bc.getCommentLevel()==1) {
-                   %>
+                   %> 
+
         <dl style="margin-left: 24px; height: 172px;" >
             <d style="color:red;">BEST</d>
             <dt>
@@ -100,8 +103,11 @@
             <%} %>
 
             <dl class="bestCommentOpinion" style="position:relative; top:-44px; left:-33px;">
-                <span style="padding:10px" class="bestCommentLike">추천<%=bc.getCommentLike() %></span>
-                <span style="padding:10px" class="bestCommentDisike">비추천<%=bc.getCommentDislike() %></span>
+            	<input type="hidden" class="BestCommentNo" value ="<%=bc.getCommentNo() %>"  commentNum="<%=i%>" />
+            	추천
+                <span style="padding:10px" class="bestCommentLike" onclick="BestCommentLike(this,'<%=loggedInMember.getUserId()%>','<%=bc.getCommentWriter() %>')" commentNum="<%=i%>"><%=bc.getCommentLike() %></span>
+                                비추천
+                <span style="padding:10px" class="bestCommentDisike" onclick="BestCommentDislike(this,'<%=loggedInMember.getUserId()%>','<%=bc.getCommentWriter()%>')" commentNum="<%=i%>"><%=bc.getCommentDislike() %></span>
                 <span style="padding:10px" onclick="report('<%=bc.getCommentNo()%>', '<%=bc.getCommentWriter()%>', '<%=bc.getCommentContent()%>');">신고하기</span>
             </dl>
 
@@ -110,7 +116,9 @@
             </dd>
         </dl>
        <hr>
-        <%} %>
+             <%}%> 
+          <% } %>   
+               
     </div>
 
     <div id="comment-container" style="color:white;">
@@ -169,10 +177,10 @@
                             <dl class="CommentOpinion">
                                 	추천    
                                 	<input type="hidden" class="commentLikeAmount" value="<%=bc.getCommentLike()%>" commentNum="<%=i%>"/>
-                                    <span style="padding:10px" class="comment1Like" commentNum="<%=i%>"><%=bc.getCommentLike()%></span>
+                                    <span style="padding:10px" class="comment1Like" onclick="commentLike(this,'<%=loggedInMember.getUserId()%>','<%=bc.getCommentWriter()%>');"commentNum="<%=i%>"><%=bc.getCommentLike()%></span>
                        				비추천
                        				<input type="hidden" class="commentDisAmount" value="<%=bc.getCommentDislike()%>" commentNum="<%=i%>"/>
-                                    <span style="padding:10px" class="comment1Dislike" commentNum="<%=i%>"><%=bc.getCommentDislike()%></span>
+                                    <span style="padding:10px" class="comment1Dislike" onclick="commentDislike(this,'<%=loggedInMember.getUserId()%>' ,'<%=bc.getCommentWriter()%>');" commentNum="<%=i%>"><%=bc.getCommentDislike()%></span>
                                     <span style="padding:10px" onclick="report('<%=bc.getCommentNo()%>', '<%=bc.getCommentWriter()%>', '<%=bc.getCommentContent()%>');">신고하기</span>        
                             </dl>
                     </dl>
@@ -298,10 +306,12 @@
                   html+="<div class='info'>"+ user.commentWriter + "</div>";
                   html+="<div class='level2Comment'>"+ user.commentContent + "</div>";
                   html+="<div class='level2Date'>"+ user.commentDate + "</div>";
-                  html+="<div class='level2Report' onclick='report("+user.commentNo+")'>신고하기</div>";                               
-				  html+="<div class='level2Like' onmouseover='level2Like("+user.commentNo+","+user.commentLike+");' no='"+i+"' clickNum=0>추천 "+user.commentLike+"</div>";
+                  html+="<div class='level2Report' onclick=report("+user.commentNo+",'"+user.commentWriter+"','"+user.commentContent+"');>신고하기</div>";                               
+				  html+="<div class='level2Like' no='"+i+"' ";
+				  html+="onclick=level2Like(this,"+user.commentNo +","+"'"+user.commentWriter+"');>추천 "+user.commentLike+"</div>";
  				  /* html+="<div class='level2Like' no="+i+">추천"+user.commentLike+"</div>"; */
-                  html+="<div class='level2Dislike' onmouseover='level2Dislike("+user.commentNo+","+user.commentDislike+");' no="+i+">비추천 "+user.commentDislike+"</div>";
+                  html+="<div class='level2Dislike'";
+                  html+="onclick=level2Dislike(this,"+user.commentNo+",'"+user.commentWriter+"'); no="+i+">비추천 "+user.commentDislike+"</div>";
                
                   div.append(html);
                
@@ -397,59 +407,92 @@
         $("[name=commentDeleteFrm]").submit();
         
     }
+    
+ /* 베스트 댓글 추천 */
+ function BestCommentLike(obj,item, writer){
+	 var no = $(obj).attr("commentNum");
+	 var userId = item;
+	 var commentNo = $(".BestCommentNo[commentNum="+no+"]").val();
+	 var commentWriter = writer;
+	
+	 if(userId == commentWriter){
+		 alert("자신의 댓글에 추천하실 수 없습니다.");
+		 return;
+	 }
+	 
+	   $.ajax({
+           url:"<%=request.getContextPath()%>/board/free/freeBoardComment1Like.do",
+           data:{commentNo:commentNo , userId:userId},
+           success:function(data){
+              $(".bestCommentLike[commentNum="+no+"]").html(data);
+        
+           }
+        }); 
+ }
+    
  /* 댓글추천  */
- 	$(".comment1Like").on("click", function(){
- 		 var no = $(this).attr("commentNum");
- 	     var commentLikeAmount = $(".commentLikeAmount[commentNum="+no+"]").val();
- 	     var commentNo = $(".commentNo[commentNum="+no+"]").val();
- 	     var userId = $("[name=userId]").val();
- 
- 			
- 	    if(!confirm("해당 댓글을 추천하시겠습니까?")){
- 	          return;
- 	       } 
- 	    
-	   if(userId=="<%=loggedInMember.getUserId()%>"){
- 		   alert("자신의 댓글에는 추천하실 수 없습니다.");
- 		   return;
- 	   }
- 	       
- 	        $.ajax({
- 	           url:"<%=request.getContextPath()%>/board/free/freeBoardComment1Like.do",
- 	           data:{commentNo:commentNo, commentLikeAmount:commentLikeAmount},
- 	           success:function(data){
- 	              $(".comment1Like[commentNum="+no+"]").html(data);
- 	           }
- 	           
- 	        });
- 	});
- 	/* 댓글비추천  */
-	$(".comment1Dislike").on("click", function(){
-		 var no = $(this).attr("commentNum");
-	     var commentDislikeAmount = $(".commentDisAmount[commentNum="+no+"]").val();
-	     var commentNo = $(".commentNo[commentNum="+no+"]").val();
-	     var userId = $("[name=userId]").val();
-	     
-	    if(!confirm("해당 댓글을 비추천하시겠습니까?")){
-	          return;
-	    }
+ function commentLike(obj,item, writer){
+	 var no = $(obj).attr("commentNum");
+	 var userId = item;
+	 var commentNo = $(".commentNo[commentNum="+no+"]").val();
+	 var commentWriter = writer;
+		
+	 if(userId == commentWriter){
+		 alert("자신의 댓글에 추천하실 수 없습니다.");
+		 return;
+	 }
+
 	    
-	    if(userId=="<%=loggedInMember.getUserId()%>"){
-	 		   alert("자신의 댓글에는 추천하실 수 없습니다.");
-	 		   return;
-	 	}
-	        
-	    $.ajax({
-	           url:"<%=request.getContextPath()%>/board/free/freeBoardComment1Dislike.do",
-	           data:{commentNo:commentNo, commentDislikeAmount:commentDislikeAmount},
+	   $.ajax({
+	           url:"<%=request.getContextPath()%>/board/free/freeBoardComment1Like.do",
+	           data:{commentNo:commentNo , userId:userId},
 	           success:function(data){
-	             	console.log(data);
-	        	   $(".comment1Dislike[commentNum="+no+"]").html(data);
+	              $(".comment1Like[commentNum="+no+"]").html(data);
 	           }
-	           
-	    });
-	});
- 	
+	        }); 
+ }
+ /* 베스트 댓글 비추천 */
+ function BestCommentDislike(obj,item, writer){
+	 var no = $(obj).attr("commentNum");
+	 var userId = item;
+	 var commentNo = $(".BestCommentNo[commentNum="+no+"]").val();
+	 var commentWriter = writer;
+		
+	 if(userId == commentWriter){
+		 alert("자신의 댓글에 비추천하실 수 없습니다.");
+		 return;
+	 }
+		   $.ajax({
+		           url:"<%=request.getContextPath()%>/board/free/freeBoardComment1Dislike.do",
+		           data:{commentNo:commentNo , userId:userId},
+		           success:function(data){
+		        	  $(".bestCommentDisike[commentNum="+no+"]").html(data);
+		           }
+		   }); 
+		   
+ }
+ 	/* 댓글비추천  */
+ 	 function commentDislike(obj,item, writer){
+ 		 var no = $(obj).attr("commentNum");
+ 		 var userId = item;
+ 		 var commentNo = $(".commentNo[commentNum="+no+"]").val();
+ 		 var commentWriter = writer;
+ 		
+ 		 if(userId == commentWriter){
+ 			 alert("자신의 댓글에 비추천하실 수 없습니다.");
+ 			 return;
+ 		 }
+
+ 		 
+ 		   $.ajax({
+ 		           url:"<%=request.getContextPath()%>/board/free/freeBoardComment1Dislike.do",
+ 		           data:{commentNo:commentNo , userId:userId},
+ 		           success:function(data){
+ 		        	  $(".comment1Dislike[commentNum="+no+"]").html(data);
+ 		           }
+ 		        }); 
+ 	 }
+ 	 
 	  /*게시글신고하기*/
     function Postreport(item, item2, item3){
     	var postNo = item;
@@ -474,6 +517,8 @@
     	var commentWrtier = item2;
     	var commentContent = item3;
     	
+    	console.log("commentWrtier="+commentWrtier+" commentContent="+commentContent);
+    	
         if(commentWrtier=="<%=loggedInMember.getUserId()%>"){
  		   alert("자신의 댓글은 신고하실 수 없습니다.");
  		   return;
@@ -490,82 +535,57 @@
 
 
  	/* 대댓글 추천 */
-    function level2Like(item, item2){
- 	
+    function level2Like(obj, item, writer){
  		var commentNo = item;
- 		var commentLikeAmount = item2;
- 		
- 
- 		var ajax_last_num = 0;
- 		var current_ajax_num = ajax_last_num;
- 		var check = true;
- 		$(".level2Like").on({
-    	
- 			click:function(){
- 				var no = $(this).attr("no");
-				var clickCnt = $(this).attr("clickNum");
-				console.log("clickCnt= "+clickCnt);
-				
- 				if(clickCnt==1 && check==true){
- 					alert("추천은 한번만 클릭할 수 있습니다.");
- 					check = false;
- 					console.log("check= "+check);
- 					return;
- 				}
- 				
+ 		var userId = "<%=loggedInMember.getUserId()%>";
+ 		var commentWriter = writer;
+ 		var no = $(obj).attr("no");
+ 	
+ 		if(userId == commentWriter){
+ 			alert("자신의 댓글에는 추천하실 수 없습니다.");
+ 			return;
+ 		}
+
  	 		   $.ajax({
  	  	           url:"<%=request.getContextPath()%>/board/free/freeBoardComment1Like.do",
- 	  	           data:{commentNo : commentNo, commentLikeAmount : commentLikeAmount},
- 	  	           beforeSend:function(){
- 	  	        	 ajax_last_num = ajax_last_num  + 1;
- 	  	        	 
- 	  	           },
+ 	  	           data:{commentNo : commentNo, userId : userId},
+ 	  	  
  	  	           success:function(data){
- 	  	        	   if(current_ajax_num == ajax_last_num-1) {
+ 	  	        	
  	  	        			console.log(data);
  	 	  	        	    $(".level2Like[no="+no+"]").html("추천 "+data);  
- 	  	        	   }
- 	  	        		$(".level2Like[no="+no+"]").attr("clickNum", 1);
+ 	  	        	 
  	  	           }
  	  	           
- 	  	    	}); //에이젝스
- 			}
- 		
-    	 });
+ 	  	    	}); //에이젝스  
+ 			
+    	 
  	}
  	/* 대댓글 비추천 */
- 	function level2Dislike(item, item2){
- 		var commentNo = item;
- 		var commentDislikeAmount = item2;
- 		var ajax_last_num = 0;
- 		var current_ajax_num = ajax_last_num;
-		
- 		$(".level2Dislike").on({
- 			    
-    	    
- 			click:function(){
- 				var no = $(this).attr("no");
- 	 			//console.log("no=모야"+no);
- 	 		   $.ajax({
+ 	function level2Dislike(obj, commentNo, writer){
+ 		var no = $(obj).attr("no");
+ 		var commentNo = commentNo;
+ 		var userId = "<%=loggedInMember.getUserId()%>";
+ 		var commentWriter = writer;
+ 		
+ 	 	
+ 		if(userId == commentWriter){
+ 			alert("자신의 댓글에는 비추천하실 수 없습니다.");
+ 			return;
+ 		}
+ 		
+	 		   $.ajax({
  	  	           url:"<%=request.getContextPath()%>/board/free/freeBoardComment1Dislike.do",
- 	  	           data:{commentNo : commentNo, commentDislikeAmount : commentDislikeAmount},
- 	  	           beforeSend:function(){
-	  	        	 ajax_last_num = ajax_last_num  + 1;
-	  	        	 
-	  	           },
+ 	  	           data:{commentNo : commentNo, userId : userId},
  	  	           success:function(data){
- 	  	        		if(current_ajax_num == ajax_last_num-1) {
+ 	  	        	
 	  	        			console.log(data);
 	  	        			 $(".level2Dislike[no="+no+"]").html("비추천 "+data); 
-	  	        	   }
+	  	        	   
  	  	        	   
  	  	           }
  	  	           
- 	  	    	});
- 			}
- 		
-  	    
-    	 });
+ 	  	    	});    	
  	}
  /* 글 추천 */
     function likey(item){
@@ -582,7 +602,7 @@
          
         $.ajax({
            url:"<%=request.getContextPath()%>/board/free/freeBoardLike.do",
-           data:{postNo:postNo, likey:item},
+           data:{postNo:postNo, userId:item},
            success:function(data){
               $("#like").html(data);
            }
@@ -606,7 +626,7 @@
        
           $.ajax({
               url:"<%=request.getContextPath()%>/board/free/freeBoardDisike.do",
-              data:{postNo:postNo, dislikey:item},
+              data:{postNo:postNo, userId:item},
               success:function(data){
                  $("#dislike").html(data);
                  
@@ -614,7 +634,7 @@
               
            });
        
-          console.log(flag);
+        
     }
        
   
