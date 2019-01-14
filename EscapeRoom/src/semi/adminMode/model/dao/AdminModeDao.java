@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 
+import semi.board.solve.model.vo.SolveBoard;
 import semi.member.model.vo.Member;
 
 public class AdminModeDao {
@@ -74,6 +75,33 @@ public class AdminModeDao {
 			pstmt = conn.prepareStatement(query);
 			pstmt.setString(1, null);
 			pstmt.setString(2, userId);
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+
+	public int insertSolvePostReport(Connection conn, SolveBoard sb, String reason, String userComment) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String category = "S";
+		String query = prop.getProperty("insertSolvePostReport");
+		
+		try {
+			pstmt = conn.prepareStatement("insertSolvePostReport");
+			
+			pstmt.setString(1, category);
+			pstmt.setInt(2, sb.getPostNo());
+			pstmt.setString(3, sb.getPostTitle());
+			pstmt.setString(4, sb.getPostWriter());
+			pstmt.setString(5, reason);
+			pstmt.setString(6, userComment);
 			
 			result = pstmt.executeUpdate();
 			
