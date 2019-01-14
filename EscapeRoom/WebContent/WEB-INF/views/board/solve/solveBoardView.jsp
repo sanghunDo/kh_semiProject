@@ -176,11 +176,11 @@
                             <dl class="CommentOpinion">
                                 	추천    
                                 	<input type="hidden" class="commentLikeAmount" value="<%=bc.getCommentLike()%>" commentNum="<%=i%>"/>
-                                    <span style="padding:10px" class="comment1Like" commentNum="<%=i%>"><%=bc.getCommentLike()%></span>
+                                    <span style="padding:10px" class="comment1Like" onclick="commentLike(this,'<%=loggedInMember.getUserId()%>','<%=bc.getCommentWriter()%>');"commentNum="<%=i%>"><%=bc.getCommentLike()%></span>
                        				비추천
                        				<input type="hidden" class="commentDisAmount" value="<%=bc.getCommentDislike()%>" commentNum="<%=i%>"/>
-                                    <span style="padding:10px" class="comment1Dislike" commentNum="<%=i%>"><%=bc.getCommentDislike()%></span>
-                                    <span style="padding:10px" onclick="report('<%=bc.getCommentNo()%>','<%=bc.getCommentWriter()%>', '<%=bc.getCommentContent()%>');">신고하기</span>        
+                                    <span style="padding:10px" class="comment1Dislike" onclick="commentDislike(this,'<%=loggedInMember.getUserId()%>' ,'<%=bc.getCommentWriter()%>');" commentNum="<%=i%>"><%=bc.getCommentDislike()%></span>
+                                    <span style="padding:10px" onclick="report('<%=bc.getCommentNo()%>', '<%=bc.getCommentWriter()%>', '<%=bc.getCommentContent()%>');">신고하기</span>        
                             </dl>
                     </dl>
         
@@ -418,10 +418,10 @@
    	 var commentNo = $(".BestCommentNo[commentNum="+no+"]").val();
    	 var commentWriter = writer;
    	
-   	 if(userId == commentWriter){
+    	 if(userId == commentWriter){
    		 alert("자신의 댓글에 추천하실 수 없습니다.");
    		 return;
-   	 }
+   	 } 
    	 
    	   $.ajax({
               url:"<%=request.getContextPath()%>/board/solve/solveBoardComment1Like.do",
@@ -459,11 +459,11 @@
  	 var userId = item;
  	 var commentNo = $(".BestCommentNo[commentNum="+no+"]").val();
  	 var commentWriter = writer;
- 		
+  		
  	 if(userId == commentWriter){
  		 alert("자신의 댓글에 비추천하실 수 없습니다.");
  		 return;
- 	 }
+ 	 } 
  		   $.ajax({
  		           url:"<%=request.getContextPath()%>/board/solve/solveBoardComment1Dislike.do",
  		           data:{commentNo:commentNo , userId:userId},
@@ -480,7 +480,7 @@
 		 var userId = item;
 		 var commentNo = $(".commentNo[commentNum="+no+"]").val();
 		 var commentWriter = writer;
-		
+ 		
 		 if(userId == commentWriter){
 			 alert("자신의 댓글에 비추천하실 수 없습니다.");
 			 return;
@@ -501,7 +501,13 @@
     	var commentNo = item;
     	var commentWrtier = item2;
     	var commentContent = item3;
-    	console.log("신고하기 버튼"+item+"/"+item2+"/"+item3);
+    	
+    	if(commentWrtier == '<%=loggedInMember.getUserId()%>'){
+    		alert("자신의 댓글은 신고하실 수 없습니다.");
+    		return;
+    	}
+    	
+    	
         var url = "<%=request.getContextPath() %>/board/solve/solveBoardCommentReport?commentNo="+commentNo+"&commentWriter="+commentWrtier+"&commentContent="+commentContent;
     	   
     	   // 팝업창 이름
@@ -517,9 +523,10 @@
 		  var postTitle = item2;
 		  var postWriter = item3;
 		  
-		  console.log("postNo="+postNo);
-		  console.log("postTitle="+postTitle);
-		  console.log("postWriter="+postWriter);
+	    	if(postWriter == '<%=loggedInMember.getUserId()%>'){
+	    		alert("자신의 글은 신고하실 수 없습니다.");
+	    		return;
+	    	}
 
 		  var url = "<%=request.getContextPath() %>/board/solve/solveBoardPostReport?postNo="+postNo+"&postTitle="+postTitle+"&postWriter="+postWriter;
 	      var title = "Report";
@@ -527,50 +534,7 @@
 	    	   
 	      open(url, title, status);
 	  }
- 	/* 대댓글 추천 */
-  function level2Like(item, item2){
- 	
- 		var commentNo = item;
- 		var commentLikeAmount = item2;
- 		
- 
- 		var ajax_last_num = 0;
- 		var current_ajax_num = ajax_last_num;
- 		var check = true;
- 		$(".level2Like").on({
-    	
- 			click:function(){
- 				var no = $(this).attr("no");
-				var clickCnt = $(this).attr("clickNum");
-				console.log("clickCnt= "+clickCnt);
-				
- 				if(clickCnt==1 && check==true){
- 					alert("추천은 한번만 클릭할 수 있습니다.");
- 					check = false;
- 					console.log("check= "+check);
- 					return;
- 				}
- 				
- 	 		   $.ajax({
- 	  	           url:"<%=request.getContextPath()%>/board/solve/solveBoardComment1Like.do",
- 	  	           data:{commentNo : commentNo, commentLikeAmount : commentLikeAmount},
- 	  	           beforeSend:function(){
- 	  	        	 ajax_last_num = ajax_last_num  + 1;
- 	  	        	 
- 	  	           },
- 	  	           success:function(data){
- 	  	        	   if(current_ajax_num == ajax_last_num-1) {
- 	  	        			console.log(data);
- 	 	  	        	    $(".level2Like[no="+no+"]").html("추천 "+data);  
- 	  	        	   }
- 	  	        		$(".level2Like[no="+no+"]").attr("clickNum", 1);
- 	  	           }
- 	  	           
- 	  	    	}); //에이젝스
- 			}
- 		
-    	 });
- 	}
+
   /* 대댓글 추천 */
   function level2Like(obj, item, writer){
 		var commentNo = item;
@@ -609,7 +573,7 @@
 		if(userId == commentWriter){
 			alert("자신의 댓글에는 비추천하실 수 없습니다.");
 			return;
-		}
+		} 
 		
 	 		   $.ajax({
 	  	           url:"<%=request.getContextPath()%>/board/solve/solveBoardComment1Dislike.do",
@@ -662,7 +626,7 @@
 	   }
        
           $.ajax({
-              url:"<%=request.getContextPath()%>/board/solve/solveDisike.do",
+              url:"<%=request.getContextPath()%>/board/solve/solveBoardDisike.do",
               data:{postNo:postNo, userId:item},
               success:function(data){
                  $("#dislike").html(data);
