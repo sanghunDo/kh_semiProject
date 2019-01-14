@@ -1,6 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%
+ int postNo = (int)request.getAttribute("postNo");
+ String postTitle = (String)request.getAttribute("postTitle");
+ String postWriter = (String)request.getAttribute("postWriter");
 
+
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -17,7 +23,11 @@
 
 <div id="report-container">
 	<h3 id="subtitle">게시물 / 댓글 신고하기</h3>
-	<form action="" name="reportFrm">
+	<form action="<%=request.getContextPath()%>/board/solve/solveBoardPostReportEnd" name="reportFrm">
+		<input type="hidden" name="postNo" value="<%=postNo %>" />
+		<input type="hidden" name="postTitle" value="<%=postTitle %>" />
+		<input type="hidden" name="postWriter" value="<%=postWriter %>" />
+		
 		<h4>1. 게시글을 신고한 이유가 무엇인가요?</h4>
 		&nbsp;&nbsp;&nbsp;
 		<span class="explain">(여러개를 선택할  수 있습니다.)</span><br><br>

@@ -31,7 +31,7 @@ public class PostReport extends HttpServlet {
 		String postWriter = request.getParameter("postWriter");
 
 		String view = "/WEB-INF/views/common/msg.jsp";
-		view = "/WEB-INF/views/common/PostReport.jsp";
+		view = "/WEB-INF/views/board/solve/PostReport.jsp";
 		
 		request.setAttribute("postNo", postNo);
 		request.setAttribute("postTitle", postTitle);

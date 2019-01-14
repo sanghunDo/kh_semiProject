@@ -31,7 +31,7 @@ function obj_click(){
 		$(this).on('click', function(){
 			var objName = $(this).prop("id");
 			var secondName = "";
-/* 			var check_usable_item = check_usable_item(objName); */
+			var check_item = check_usable_item(objName);
 			$.ajax({
 				url:"<%=request.getContextPath()%>/game/getObject",
 				type: "post",
@@ -47,6 +47,7 @@ function obj_click(){
 			if(secondName!=""){
 				var childList = find_child(secondName);
 				if(childList.length<=1){
+					console.log(childList);
 					var state = checkState(objName, "use");
 					if(state==2){
 						objName = "used_"+objName;

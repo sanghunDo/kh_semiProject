@@ -1,4 +1,4 @@
-package semi.board.solve.controller;
+package semi.board.free.controller;
 
 import java.io.IOException;
 import javax.servlet.ServletException;
@@ -8,16 +8,16 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * Servlet implementation class Report
+ * Servlet implementation class CommentReport
  */
-@WebServlet("/board/solve/solveBoardCommentReport")
-public class Report extends HttpServlet {
+@WebServlet("/board/free/freeBoardCommentReport")
+public class CommentReport extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-    
+       
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public Report() {
+    public CommentReport() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -26,18 +26,27 @@ public class Report extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		int commentNo = Integer.parseInt(request.getParameter("commentNo"));
 		String commentWriter = request.getParameter("commentWriter");
 		String commentContent = request.getParameter("commentContent");
 		String view = "/WEB-INF/views/common/msg.jsp";
 		
-			view = "/WEB-INF/views/board/solve/report.jsp";
+			view = "/WEB-INF/views/board/free/report.jsp";
 			request.setAttribute("commentNo", commentNo);
 			request.setAttribute("commentWriter", commentWriter);
 			request.setAttribute("commentContent", commentContent);
+			
+			request.getRequestDispatcher(view).forward(request, response);
 
-		request.getRequestDispatcher(view).forward(request, response);
+
+	}
+
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 */
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// TODO Auto-generated method stub
+		doGet(request, response);
 	}
 
 }
