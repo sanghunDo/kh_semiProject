@@ -53,8 +53,8 @@ create table member(
 insert into member values('abc', '1ARVn2Auq2/WAqx2gNrL+q3RNjAzXpUfCXrzkA6d4Xa22yhRLy4AC50E+6UTPoscbo31nbOoq51gvkuXzJ6B2w==', 'abc@abc.com', null, null, default, default, default);
 insert into member values('qwerty', '1ARVn2Auq2/WAqx2gNrL+q3RNjAzXpUfCXrzkA6d4Xa22yhRLy4AC50E+6UTPoscbo31nbOoq51gvkuXzJ6B2w==', 'qwerty@qwerty.com', null, null, default, default, default);
 insert into member values('tomato', '1ARVn2Auq2/WAqx2gNrL+q3RNjAzXpUfCXrzkA6d4Xa22yhRLy4AC50E+6UTPoscbo31nbOoq51gvkuXzJ6B2w==', 'tomato@tomato.com', null, null, default, default, default);
-insert into member values('admin', '1ARVn2Auq2/WAqx2gNrL+q3RNjAzXpUfCXrzkA6d4Xa22yhRLy4AC50E+6UTPoscbo31nbOoq51gvkuXzJ6B2w==', 'abc@abc.com', null, null, default, default, default);
-insert into member values('abcde', '1ARVn2Auq2/WAqx2gNrL+q3RNjAzXpUfCXrzkA6d4Xa22yhRLy4AC50E+6UTPoscbo31nbOoq51gvkuXzJ6B2w==', 'abcde@abc.com', null, null, default, default, default);
+insert into member values('admin', '1ARVn2Auq2/WAqx2gNrL+q3RNjAzXpUfCXrzkA6d4Xa22yhRLy4AC50E+6UTPoscbo31nbOoq51gvkuXzJ6B2w==', 'admin@admin.com', null, null, default, default, default);
+insert into member values('abcde', '1ARVn2Auq2/WAqx2gNrL+q3RNjAzXpUfCXrzkA6d4Xa22yhRLy4AC50E+6UTPoscbo31nbOoq51gvkuXzJ6B2w==', 'abcde@abcde.com', null, null, default, default, default);
 insert into member values('wewe', '1ARVn2Auq2/WAqx2gNrL+q3RNjAzXpUfCXrzkA6d4Xa22yhRLy4AC50E+6UTPoscbo31nbOoq51gvkuXzJ6B2w==', 'wewe@abc.com', null, null, default, default, default);
 insert into member values('hoho', '1ARVn2Auq2/WAqx2gNrL+q3RNjAzXpUfCXrzkA6d4Xa22yhRLy4AC50E+6UTPoscbo31nbOoq51gvkuXzJ6B2w==', 'hoho@abc.com', null, null, default, default, default);
 insert into member values('sun123', '1ARVn2Auq2/WAqx2gNrL+q3RNjAzXpUfCXrzkA6d4Xa22yhRLy4AC50E+6UTPoscbo31nbOoq51gvkuXzJ6B2w==', 'sun123@abc.com', null, null, default, default, default);
@@ -68,10 +68,11 @@ insert into member values('mungmung', '1ARVn2Auq2/WAqx2gNrL+q3RNjAzXpUfCXrzkA6d4
 insert into member values('abc123', 'J7l+642+NvW8aJrJwQZrM0XbfudAaNrE1kIbKPFEib0uwzHfutpbD9pkDmHFrG0t3JYutt4eDfwVS/ZCXscboA==', 'abc123@abc.com', null, null, default, default, default);
 insert into member values('qwerty123', 'J7l+642+NvW8aJrJwQZrM0XbfudAaNrE1kIbKPFEib0uwzHfutpbD9pkDmHFrG0t3JYutt4eDfwVS/ZCXscboA==', 'qwerty123@qwerty.com', null, null, default, default, default);
 insert into member values('tomato123', 'J7l+642+NvW8aJrJwQZrM0XbfudAaNrE1kIbKPFEib0uwzHfutpbD9pkDmHFrG0t3JYutt4eDfwVS/ZCXscboA==', 'tomato123@tomato.com', null, null, default, default, default);
+
 update member set useremail = 'admin@admin.com' where userid = 'admin';
 update member set useremail = 'abcde@abcde.com' where userid = 'abcde';
 alter table member add constraint uq_useremail unique(useremail);
-commit;
+
 --로그인 유무 판단
 create table member_logger(
     logno number,
@@ -151,7 +152,6 @@ insert into board_solve values (seq_board_solve_postno.nextVal, '침대뒤에공
 insert into board_solve values (seq_board_solve_postno.nextVal, '이리와봐 유후후', 'babo', '나랑뽀뽀할사람 유후후', null, null, default, 10, 0, 4, default);
 insert into board_solve values (seq_board_solve_postno.nextVal, '문푸는 방법 참고하세여', 'abcde', '여러븐 형광등까면 열쇠나와여', null, null, default, 652, 210, 30, default);
 insert into board_solve values (seq_board_solve_postno.nextVal, '아 솔직히 1등할만했다', 'qwerty', '진짜 빡집중해서깼다', null, null, default, 780, 300, 10, default);
-commit;
 
 --게임정보 저장
 --비회원은 게임을 플레이하여도 저장X 게임기록X
@@ -293,9 +293,11 @@ create table notice(
     noticeurgent char(1),
     noticelinked char(1),
     constraint pk_board_solve_noticeno primary key(noticeno),
-    constraint ck_board_notice_noticeurgent check (noticeurgent in ('Y','N')),
+    constraint ck_board_notice_noticeurgent check (noticeurgent in ('Y', 'N')),
     constraint ck_board_notice_noticelinked check (noticelinked in ('Y', 'N'))
 );
+
+select * from notice;
 
 insert into notice values(seq_notice_noticeno.nextVal, '긴급공지테스트1입니다!!!', '긴급공지 테스트1 입니다.
 긴급공지 테스트1 입니다.
@@ -313,8 +315,9 @@ insert into notice values(seq_notice_noticeno.nextVal, '힌트 쪽지 가격이 
 50퍼센트 할인된 50코인으로 할인 중입니다!!
 많이 플레이해주세요 !', 'event2.png', '20190109_201429373_28.png', to_date('20190105', 'yyyymmdd'), 'N', 'N');
 insert into notice values(seq_notice_noticeno.nextVal, '런칭 기념 가입 시 300코인 증정 !!', '런칭 기념 가입시 힌트쪽지를 살 수 있는 코인을 
-300개나?!? 빨리오세요!', 'event1.png', '20190109_201519476_756.png', to_date('20190106', 'yyyymmdd'), 'N', 'Y');
+300개나?!? 빨리오세요!', 'event1.png', '20190109_201519476_756.png', to_date('20190106', 'yyyymmdd'), 'N', 'N');
 insert into notice values(seq_notice_noticeno.nextVal, '대답요구!!!!!!!!!!!!', '대답요구!!!!!!!!!!!!!!!!!!!!!', '대답요구.png', '20190110_053019290_882.png', to_date('20190110', 'yyyymmdd'), 'N', 'N');
+insert into notice values(seq_notice_noticeno.nextVal, '대규모 업데이트 예정!!', '더많은 엔딩루트!! 더많은 단서와 아이템!! 재미는 두배!!', 'update.png', '20190114_012957860_979.png', to_date('20190114', 'yyyymmdd'), 'N', 'Y');
 
 --상점 힌트 테이블
 create table game_hint(
@@ -334,6 +337,11 @@ insert into game_hint values(8, '침대 뒤에 공간있어요.');
 insert into game_hint values(9, '행렬');
 insert into game_hint values(10, '위를 올려다 보세요.');
 
+commit;
+
+--update notice set noticeLinked = 'N';
+--update notice set noticeLinked = 'Y' where noticeNo = ?
+
 create table game_object(
     objno number, --오브젝트의 고유 넘버
     objname varchar2(50) unique not null, --오브젝트의 고유 이름
@@ -346,7 +354,7 @@ create table game_object(
     isitem char(2) default 'N' check(isitem in('Y','N')), --아이템이냐 아니냐
     constraint pk_objno primary key(objno)
 );
-drop table game_object;
+--drop table game_object;
 create table game_object_coment(
     comentno number,
     coment varchar2(100) default '"...."',
@@ -354,7 +362,47 @@ create table game_object_coment(
     constraint pk_object_comentno primary key(comentno),
     constraint fk_object_refobj foreign key(refobj) references game_object(objno)
 );
-select v.* from(select coment, rownum as rnum from game_object_coment c join game_object o on c.refobj = o.objno where objName = 'door_lock2') v where rnum = 1;
+--select v.* from(select coment, rownum as rnum from game_object_coment c join game_object o on c.refobj = o.objno where objName = 'door_lock2') v where rnum = 1;
+
+--drop table game_object;
+insert into game_object values(1, 'door_lock1', default, default, default, 'front', 1, default, default);
+insert into game_object values(2, 'door_lock2', 'door_lock2_opened', default, default, 'front', 1, default, default);
+insert into game_object values(3, 'calendar', default, default, default, 'left', 1, default, default);
+insert into game_object values(4, 'flowerpot', default, default, default, 'front', 1, default, default);
+insert into game_object values(5, 'used_flowerpot', default, default, default, 'front', 2, default, default);
+insert into game_object values(6, 'key_1', default, default, 'used_flowerpot', 'front', 3, 15, 'Y');
+insert into game_object values(7, 'safe', default, default, default, 'front', 1, default, default);
+insert into game_object values(8, 'used_safe', default, default, default, 'front', 2, default, default);
+insert into game_object values(9, 'wire', default, default, 'used_safe', 'front', 3, 2, 'Y');
+insert into game_object values(10, 'driver', default, default, 'used_safe', 'front', 3, 27, 'Y');
+
+insert into game_object values(11, 'under_bed_diary','diary', 'diary_opened', default, 'left', 1, default, default);
+insert into game_object values(12, 'used_diary_opened', default, default, default, 'left', 2, default, default);
+insert into game_object values(13, 'hintnote1', default, default, 'diary_opened','left', 3, default, 'Y');
+
+insert into game_object values(14, 'bs_doll', default, default, default, 'back', 1, default, default);
+insert into game_object values(15, 'used_bs_doll', default, default, default, 'back', 2, default, default);
+insert into game_object values(16, 'bs_hintnote3', default, default, 'used_bs_doll', 'back', 3, 29, 'Y');
+insert into game_object values(17, 'bs_4_books', default, default, default, 'back', 1, default, default);
+insert into game_object values(18, 'bs_smallbox', default, default, default, 'back', 1, default, default);
+insert into game_object values(19, 'used_bs_smallbox', default, default, default, 'back', 2, default, default);
+insert into game_object values(20, 'bs_hintnote2', default, default, 'used_bs_smallbox', 'back', 3, default, 'Y');
+insert into game_object values(21, 'bs_clock', 'bs_clock_back', 'bs_clock_opened',default, 'back', 1, default, default);
+insert into game_object values(22, 'used_bs_clock', default, default, default, 'back', 2, default, default);
+insert into game_object values(23, 'bs_battery', default, default, 'bs_clock_opened', 'back', 3, 2, 'Y');
+insert into game_object values(24, 'bs_2_books', default, default, default, 'back', 1, default, default);
+insert into game_object values(25, 'bs_toolbox', 'bs_toolbox_opened', default, default, 'back', 1, default, default);
+insert into game_object values(26, 'used_bs_toolbox', default, default, default, 'back', 2, default, default);
+insert into game_object values(27, 'bs_hammer', default, default, 'bs_toolbox_opened', 'back', 3, 4, 'Y');
+insert into game_object values(28, 'bs_cutterknife', default, default, 'bs_toolbox_opened', 'back', 3, 13, 'Y');
+insert into game_object values(29, 'bs_cutterknife_bs_toolbox', default, default, default, 'back', 2, default, default);
+insert into game_object values(30, 'bs_hammer_bs_toolbox', default, default, default, 'back', 2, default, default);
+
+--insert into game_object values(29, 'water', '"이런데에 물이?!(핥짝핥짝)"', 'right', default, default);
+--insert into game_object values(30, 'window', '"아무것도 없어, 어떻게든 빠져나가야돼"', 'right', default, default);
+--insert into game_object values(31, 'letter', '"친절하게 편지도 남겨주셨군"', 'right', default, default);
+--insert into game_object values(32, 'ceilinglight', '"열수 있을것 같아 보인다."', 'ceil', default, default);
+--insert into game_object values(33, 'key_2', '"탈출에 성공할 수 있을거야!!!"', 'ceil', 1, 'Y');
 
 insert into game_object_coment values(1, '"여기에 맞는 열쇠를 찾아야겠군."', 1);
 insert into game_object_coment values(2, '"흔히 볼 수 있는 도어락이다."', 2);
@@ -392,51 +440,6 @@ insert into game_object_coment values(33, '"뚝배기 부수러 갑니다"', 27)
 insert into game_object_coment values(34, '"이 칼로 손목을 긋는게 나을지도.."', 28);
 insert into game_object_coment values(35, '"망치보단 칼이지!"', 29);
 insert into game_object_coment values(36, '"칼보단 망치지!!"', 30);
-commit;
-
---drop table game_object;
-commit;
-insert into game_object values(1, 'door_lock1', default, default, default, 'front', 1, default, default);
-insert into game_object values(2, 'door_lock2', 'door_lock2_opened', default, default, 'front', 1, default, default);
-insert into game_object values(3, 'calendar', default, default, default, 'left', 1, default, default);
-insert into game_object values(4, 'flowerpot', default, default, default, 'front', 1, default, default);
-insert into game_object values(5, 'used_flowerpot', default, default, default, 'front', 2, default, default);
-insert into game_object values(6, 'key_1', default, default, 'used_flowerpot', 'front', 3, 15, 'Y');
-insert into game_object values(7, 'safe', default, default, default, 'front', 1, default, default);
-insert into game_object values(8, 'used_safe', default, default, default, 'front', 2, default, default);
-insert into game_object values(9, 'wire', default, default, 'used_safe', 'front', 3, 2, 'Y');
-insert into game_object values(10, 'driver', default, default, 'used_safe', 'front', 3, 27, 'Y');
-
-insert into game_object values(11, 'under_bed_diary','diary', 'diary_opened', default, 'left', 1, default, default);
-insert into game_object values(12, 'used_diary_opened', default, default, default, 'left', 2, default, default);
-insert into game_object values(13, 'hintnote1', default, default, 'diary_opened','left', 3, default, 'Y');
-commit;
-
-insert into game_object values(14, 'bs_doll', default, default, default, 'back', 1, default, default);
-insert into game_object values(15, 'used_bs_doll', default, default, default, 'back', 2, default, default);
-insert into game_object values(16, 'bs_hintnote3', default, default, 'used_bs_doll', 'back', 3, 29, 'Y');
-insert into game_object values(17, 'bs_4_books', default, default, default, 'back', 1, default, default);
-insert into game_object values(18, 'bs_smallbox', default, default, default, 'back', 1, default, default);
-insert into game_object values(19, 'used_bs_smallbox', default, default, default, 'back', 2, default, default);
-insert into game_object values(20, 'bs_hintnote2', default, default, 'used_bs_smallbox', 'back', 3, default, 'Y');
-insert into game_object values(21, 'bs_clock', 'bs_clock_back', 'bs_clock_opened',default, 'back', 1, default, default);
-insert into game_object values(22, 'used_bs_clock', default, default, default, 'back', 2, default, default);
-insert into game_object values(23, 'bs_battery', default, default, 'bs_clock_opened', 'back', 3, 2, 'Y');
-insert into game_object values(24, 'bs_2_books', default, default, default, 'back', 1, default, default);
-insert into game_object values(25, 'bs_toolbox', 'bs_toolbox_opened', default, default, 'back', 1, default, default);
-insert into game_object values(26, 'used_bs_toolbox', default, default, default, 'back', 2, default, default);
-insert into game_object values(27, 'bs_hammer', default, default, 'bs_toolbox_opened', 'back', 3, 4, 'Y');
-insert into game_object values(28, 'bs_cutterknife', default, default, 'bs_toolbox_opened', 'back', 3, 13, 'Y');
-insert into game_object values(29, 'bs_cutterknife_bs_toolbox', default, default, default, 'back', 2, default, default);
-insert into game_object values(30, 'bs_hammer_bs_toolbox', default, default, default, 'back', 2, default, default);
-commit;
-
-insert into game_object values(29, 'water', '"이런데에 물이?!(핥짝핥짝)"', 'right', default, default);
-insert into game_object values(30, 'window', '"아무것도 없어, 어떻게든 빠져나가야돼"', 'right', default, default);
-insert into game_object values(31, 'letter', '"친절하게 편지도 남겨주셨군"', 'right', default, default);
-insert into game_object values(32, 'ceilinglight', '"열수 있을것 같아 보인다."', 'ceil', default, default);
-insert into game_object values(33, 'key_2', '"탈출에 성공할 수 있을거야!!!"', 'ceil', 1, 'Y');
-select * from game_object;
 commit;
 
 create table game_state(

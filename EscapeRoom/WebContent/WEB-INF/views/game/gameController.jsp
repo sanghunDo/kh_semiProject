@@ -213,9 +213,9 @@ function update_state(objName, flag){
 		data: {"objName":objName+flag, "userId":"<%=userId_%>"}
 	});
 };
+var cnt = 1;
 function get_item(parentName){
 	$("#show-obj img").not(":first").each(function(){
-		var cnt = 1;
 		var $target = $(this);
 		$(this).on('click', function(e){
 			var objName = $target.prop("id");
@@ -229,7 +229,7 @@ function get_item(parentName){
 					for(var i in data){
 						if(objName==data[i].objName){
 							if(data[i].isItem=="Y "){
-								$("#obj1").html($target.clone().removeClass("obj"));
+								$("#obj"+cnt++).html($target.clone().removeClass("obj"));
 								$target.remove();
 								update_state(objName, "get");
 								
