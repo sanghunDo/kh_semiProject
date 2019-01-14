@@ -1,25 +1,26 @@
-package semi.board.solve.controller;
+package semi.board.free.controller;
 
 import java.io.IOException;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import semi.board.solve.model.dao.SolveBoardDao;
+import semi.board.free.model.dao.FreeBoardDao;
 
 /**
- * Servlet implementation class ReportEnd
+ * Servlet implementation class PostReportEnd
  */
-@WebServlet("/board/solve/solveBoardCommentReportEnd")
-public class ReportEnd extends HttpServlet {
+@WebServlet(name = "postReportEnd", urlPatterns = { "/board/free/freeBoardPostReportEnd" })
+public class FreeBoardPostReportEnd extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public ReportEnd() {
+    public FreeBoardPostReportEnd() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -28,9 +29,9 @@ public class ReportEnd extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		int commentNo = Integer.parseInt(request.getParameter("commentNo"));
-		String commentWriter = request.getParameter("commentWrtier");
-		String commentContent = request.getParameter("commentContent");
+		int postNo = Integer.parseInt(request.getParameter("postNo"));
+		String postTitle = request.getParameter("postTitle");
+		String postWriter = request.getParameter("postWriter");
 		String[] reason = request.getParameterValues("reason");
 		String userComment = request.getParameter("userComment");
 
@@ -39,9 +40,10 @@ public class ReportEnd extends HttpServlet {
 		for(int i=0; i < reason.length; i++){
 			reasonVal += reason[i] +"/";
 		}
-		
-		int result = new SolveBoardDao().reportComment(commentNo);
-		int Insertreport = new SolveBoardDao().insertReportComment(commentNo,commentWriter,commentContent,reasonVal,userComment);		
+
+		System.out.println(reasonVal);
+		int result = new FreeBoardDao().reportPost(postNo);
+		int Insertreport = new FreeBoardDao().insertReportPost(postNo,postTitle,postWriter,reasonVal,userComment);		
 		
 		
 		String view = "/WEB-INF/views/common/msg.jsp";
@@ -63,7 +65,6 @@ public class ReportEnd extends HttpServlet {
 		request.setAttribute("msg", msg);
 		  request.setAttribute("loc", loc);
 		request.getRequestDispatcher(view).forward(request, response);
-
 	}
 
 	/**

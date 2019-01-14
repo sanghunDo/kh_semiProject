@@ -1,25 +1,26 @@
-package semi.board.solve.controller;
+package semi.board.free.controller;
 
 import java.io.IOException;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import semi.board.solve.model.dao.SolveBoardDao;
+import semi.board.free.model.dao.FreeBoardDao;
 
 /**
- * Servlet implementation class ReportEnd
+ * Servlet implementation class CommentReportEnd
  */
-@WebServlet("/board/solve/solveBoardCommentReportEnd")
-public class ReportEnd extends HttpServlet {
+@WebServlet("/board/free/freeBoardCommentReportEnd")
+public class CommentReportEnd extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public ReportEnd() {
+    public CommentReportEnd() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -29,7 +30,7 @@ public class ReportEnd extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		int commentNo = Integer.parseInt(request.getParameter("commentNo"));
-		String commentWriter = request.getParameter("commentWrtier");
+		String commentWriter = request.getParameter("commentWriter");
 		String commentContent = request.getParameter("commentContent");
 		String[] reason = request.getParameterValues("reason");
 		String userComment = request.getParameter("userComment");
@@ -40,8 +41,8 @@ public class ReportEnd extends HttpServlet {
 			reasonVal += reason[i] +"/";
 		}
 		
-		int result = new SolveBoardDao().reportComment(commentNo);
-		int Insertreport = new SolveBoardDao().insertReportComment(commentNo,commentWriter,commentContent,reasonVal,userComment);		
+		int result = new FreeBoardDao().reportComment(commentNo);
+		int Insertreport = new FreeBoardDao().insertReportComment(commentNo,commentWriter,commentContent,reasonVal,userComment);		
 		
 		
 		String view = "/WEB-INF/views/common/msg.jsp";

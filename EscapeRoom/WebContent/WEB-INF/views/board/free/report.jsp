@@ -1,5 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%
+	int commentNo = (int)request.getAttribute("commentNo");
+	String commentWriter = (String)request.getAttribute("commentWriter");
+	String commentContent = (String)request.getAttribute("commentContent");
+
+%>
 
 <!DOCTYPE html>
 <html>
@@ -7,9 +13,9 @@
 <meta charset=UTF-8">
 <title>신고하기</title>
 <link rel="stylesheet" href="<%=request.getContextPath() %>/css/common/report.css" />
+<link href="https://fonts.googleapis.com/css?family=Amatic+SC" rel="stylesheet">
 <script src="<%=request.getContextPath()%>/js/jquery-3.3.1.js"></script>
 
-<link href="https://fonts.googleapis.com/css?family=Amatic+SC" rel="stylesheet">
 </head>
 <body>
 <!-- 팝업크기 430 * 600 -->
@@ -17,8 +23,12 @@
 
 <div id="report-container">
 	<h3 id="subtitle">게시물 / 댓글 신고하기</h3>
-	<form action="" name="reportFrm">
+	<form action="<%=request.getContextPath()%>/board/free/freeBoardCommentReportEnd" name="reportFrm">
 		<h4>1. 게시글을 신고한 이유가 무엇인가요?</h4>
+		<input type="hidden" name="commentNo" value="<%=commentNo %>" />
+		<input type="hidden" name="commentWriter" value="<%=commentWriter %>" />
+		<input type="hidden" name="commentContent" value="<%=commentContent %>" />
+	
 		&nbsp;&nbsp;&nbsp;
 		<span class="explain">(여러개를 선택할  수 있습니다.)</span><br><br>
 		
@@ -58,8 +68,6 @@ function check(){
 	$("[name=reportFrm]").submit();
 	
 }
-
-
 
 </script>
 </body>
