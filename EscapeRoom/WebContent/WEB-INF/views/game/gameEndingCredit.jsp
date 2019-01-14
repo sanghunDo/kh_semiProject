@@ -61,6 +61,7 @@ div#title{
 </style>
 </head>
 <body>
+<audio autoplay src="<%=request.getContextPath()%>/audio/moonlight_sonata_blackroom3.mp3"></audio>
     <div id="endingCredit-Container">
         <h1>- Escape, if you can. -</h1>
         <br><br>
