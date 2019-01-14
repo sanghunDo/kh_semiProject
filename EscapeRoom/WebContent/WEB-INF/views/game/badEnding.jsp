@@ -52,7 +52,7 @@ $("#ending").on('click', {cnt:0} ,function(e){
 		success: function(data){
 			target.removeAttr("style");
 			//대사에 해당되는 이미지가 있던 없던 불러와서 이미지를 추가함. 이미지가 없으면 "", 있으면 해당 파일이름.
-			if(data.fileName!=""){
+			if(data.fileName){
 				$("#background").attr("src", "<%=request.getContextPath()%>/images/game/badEnding/"+data.fileName).fadeIn(1500);
 			}
 			
