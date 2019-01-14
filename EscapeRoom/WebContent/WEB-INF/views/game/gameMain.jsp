@@ -26,7 +26,7 @@ $(function(){
 <div id="wrap">
 	<div id="background-container">
 		<div id="background">
-			<img src="<%=request.getContextPath() %>/images/game/gameMain/game_start_again.jpeg" id="back"/>
+			<img src="<%=request.getContextPath() %>/images/game/gameMain/game_start_again.jpeg" id="front"/>
 		</div>
 		<div id="sub-background">
 			<img src="<%=request.getContextPath() %>/images/game/gameMain/background.png"/>

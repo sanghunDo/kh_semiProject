@@ -31,6 +31,7 @@ function obj_click(){
 		$(this).on('click', function(){
 			var objName = $(this).prop("id");
 			var secondName = "";
+/* 			var check_usable_item = check_usable_item(objName); */
 			$.ajax({
 				url:"<%=request.getContextPath()%>/game/getObject",
 				type: "post",
@@ -75,6 +76,28 @@ function obj_click(){
 		});
 	});
 };
+function check_usable_item(objName){
+	var result = 0;
+	
+	$.ajax({
+		url: "<%=request.getContextPath()%>/game/getObject",
+		type: "post",
+		dataType: "json",
+		async: false,
+		success: function(data){
+			for(var i in data){
+				if(data[i].objName==objName){
+					for(var j in data){
+						if(data[i].objNo==data[j].refNo) result = 1;
+					}
+				}
+			}
+		}
+	});
+	console.log(result);
+	return result;
+};
+
 function checkState(objName, flag){
 	var state;
 	$.ajax({

@@ -2,10 +2,10 @@
     pageEncoding="UTF-8"%>
 <%@ page import = "java.util.*" %>
 <%@ page import = "semi.admin.controller.*" %>
-<%@ page import = "semi.admin.model.vo.ReportBoard.*" %>
+<%-- <%@ page import = "semi.admin.model.vo.ReportBoard.*" %> --%>
 <%
 	List<Member> list = (List<Member>)request.getAttribute("list");
-	List<ReportBoard> reportList = (List<ReportBoard>)request.getAttribute("reportList");
+	/* List<ReportBoard> reportList = (List<ReportBoard>)request.getAttribute("reportList"); */
 	
 	// 신고된 게시글 목록도 불러오기
    	
