@@ -26,7 +26,7 @@ $(function(){
 <div id="wrap">
 	<div id="background-container">
 		<div id="background">
-			<img src="<%=request.getContextPath() %>/images/game/gameMain/game_start_again.jpeg" id="left"/>
+			<img src="<%=request.getContextPath() %>/images/game/gameMain/game_start_again.jpeg" id="back"/>
 		</div>
 		<div id="sub-background">
 			<img src="<%=request.getContextPath() %>/images/game/gameMain/background.png"/>
@@ -67,11 +67,12 @@ $(function(){
 		<div><h2></h2></div>
 	</div>
 </div>
+<div id="show-obj"></div>
 <%@ include file="/WEB-INF/views/game/gameController.jsp" %>
 <script>
 $("#background").fadeOut(3000);
 setTimeout(function(){
-	$("#background img:first").attr("src", "<%=request.getContextPath()%>/images/game/gameMain/left/background.png")
+	$("#background img:first").attr("src", "<%=request.getContextPath()%>/images/game/gameMain/"+position+"/background.png")
 	$("#background").show();
 	$("#pause").show();
 	$(".obj").show();

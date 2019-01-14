@@ -64,5 +64,24 @@ public class GameService {
 		
 		if(result>0) commit(conn);
 		else rollback(conn);
+		
+		close(conn);
+	}
+
+	public void updateState(String stateName, String userId) {
+		Connection conn = getConnection();
+		int result = new GameDao().updateState(conn, stateName, userId);
+		
+		if(result>0) commit(conn);
+		else rollback(conn);
+		close(conn);
+	}
+
+	public int checkState(String userId, String objName) {
+		Connection conn = getConnection();
+		int result = new GameDao().checkState(conn, objName, userId);
+		close(conn);
+		
+		return result;
 	}
 }
