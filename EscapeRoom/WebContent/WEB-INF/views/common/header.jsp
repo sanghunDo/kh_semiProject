@@ -50,7 +50,7 @@
 	<script>
 	$(".enter-game").click(function(){
 		var pop;
-		var url = "<%=request.getContextPath()%>/game/gameStart";
+		var url = "<%=request.getContextPath()%>/game/gameStart?userId=<%=loggedInMember!=null?loggedInMember.getUserId():"guest"%>";
 		var status = "width=1024px, height=678px";
 		pop = sessionStorage.getItem("game");
 		

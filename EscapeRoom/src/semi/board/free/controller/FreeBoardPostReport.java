@@ -8,16 +8,16 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * Servlet implementation class FreeBoardReport
+ * Servlet implementation class postReport
  */
-@WebServlet("/board/free/freeBoardCommentReport")
-public class FreeBoardReport extends HttpServlet {
+@WebServlet("/board/free/freeBoardPostReport")
+public class FreeBoardPostReport extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public FreeBoardReport() {
+    public FreeBoardPostReport() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -26,16 +26,25 @@ public class FreeBoardReport extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		int commentNo = Integer.parseInt(request.getParameter("commentNo"));
-		String view = "/WEB-INF/views/common/msg.jsp";
+		int postNo = Integer.parseInt(request.getParameter("postNo"));
+		String postTitle = request.getParameter("postTitle");
+		String postWriter = request.getParameter("postWriter");
 		
-			view = "/WEB-INF/views/common/report.jsp";
-			request.setAttribute("commentNo", commentNo);
+		System.out.println("postNo="+postNo);
+		System.out.println("postTitle="+postTitle);
+		System.out.println("postWriter="+postWriter);
+		
+
+		String view = "/WEB-INF/views/common/msg.jsp";
+		view = "/WEB-INF/views/board/free/PostReport.jsp";
+		
+		request.setAttribute("postNo", postNo);
+		request.setAttribute("postTitle", postTitle);
+		request.setAttribute("postWriter", postWriter);
 
 		
-		
 		request.getRequestDispatcher(view).forward(request, response);
+
 	}
 
 	/**

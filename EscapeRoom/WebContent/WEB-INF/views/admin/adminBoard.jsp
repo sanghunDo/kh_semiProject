@@ -2,8 +2,10 @@
     pageEncoding="UTF-8"%>
 <%@ page import = "java.util.*" %>
 <%@ page import = "semi.admin.controller.*" %>
+<%-- <%@ page import = "semi.admin.model.vo.ReportBoard.*" %> --%>
 <%
 	List<Member> list = (List<Member>)request.getAttribute("list");
+	/* List<ReportBoard> reportList = (List<ReportBoard>)request.getAttribute("reportList"); */
 	
 	// 신고된 게시글 목록도 불러오기
    	
@@ -14,8 +16,12 @@
 %>
 <%@ include file="/WEB-INF/views/common/header.jsp"%>
 <style>
-h2{
+h2, h3{
 	color: white;
+}
+
+h3: hover{
+	color: red;
 }
 
 table a:link {
@@ -123,6 +129,7 @@ div#pageBar a{
 </table>
 <div id="pageBar"><%=pageBar %></div>
 </section>
+<h3 onclick="location.href='<%=request.getContextPath()%>/admin/adminMemberSearch'">회원 검색하기</h3>
 <hr />
 <h2>신고된 게시글 목록</h2>
 <section id="reportArtcList-container">

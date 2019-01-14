@@ -1,33 +1,27 @@
-package semi.admin.controller;
+package semi.game.controller;
 
 import java.io.IOException;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-/**
- * Servlet implementation class AdminSearchListServlet
- */
-@WebServlet("/AdminSearchListServlet")
-public class AdminSearchListServlet extends HttpServlet {
-	private static final long serialVersionUID = 1L;
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public AdminSearchListServlet() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
+import semi.game.model.service.GameService;
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
+/**
+ * Servlet implementation class GameUpdateStateServlet
+ */
+@WebServlet("/game/updateState")
+public class GameUpdateStateServlet extends HttpServlet {
+	private static final long serialVersionUID = 1L;
+
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// 게시글 검색 서블릿
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+		String objName = request.getParameter("objName");
+		String userId = request.getParameter("userId");
+		new GameService().updateState(objName, userId);
+		
 	}
 
 	/**

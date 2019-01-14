@@ -41,7 +41,7 @@ public class solveBoardComment1Update extends HttpServlet {
 	    System.out.println("commentUpdate="+commentUpdate);
 	    System.out.println("ref="+ref);
 
-	    int result = new FreeBoardDao().commentUpdate(commentNo,commentUpdate);
+	    int result = new SolveBoardDao().commentUpdate(commentNo,commentUpdate);
 		String getUpdateComment = new SolveBoardDao().getUpdateComment(commentNo);
 
 		String view = "/WEB-INF/views/common/msg.jsp";

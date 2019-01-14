@@ -63,7 +63,7 @@
 
     <div id="declaration">
         
-    <i onclick="Postreport('<%=sb.getPostNo()%>');">신고하기</i>
+    <i onclick="Postreport('<%=sb.getPostNo()%>','<%=sb.getPostTitle()%>','<%=sb.getPostWriter()%>');">신고하기</i>
     </div>
 
     <div class="opinion">
@@ -102,7 +102,7 @@
             <dl class="bestCommentOpinion" style="position:relative; top:-44px; left:-33px;">
                 <span style="padding:10px" class="bestCommentLike">추천<%=bc.getCommentLike() %></span>
                 <span style="padding:10px" class="bestCommentDisike">비추천<%=bc.getCommentDislike() %></span>
-                <span style="padding:10px" onclick="report('<%=bc.getCommentNo()%>');">신고하기</span>
+                <span style="padding:10px" onclick="report('<%=bc.getCommentNo()%>','<%=bc.getCommentWriter()%>', '<%=bc.getCommentContent()%>');">신고하기</span>
             </dl>
 
             <dd class="bestContent">
@@ -173,7 +173,7 @@
                        				비추천
                        				<input type="hidden" class="commentDisAmount" value="<%=bc.getCommentDislike()%>" commentNum="<%=i%>"/>
                                     <span style="padding:10px" class="comment1Dislike" commentNum="<%=i%>"><%=bc.getCommentDislike()%></span>
-                                    <span style="padding:10px" onclick="report('<%=bc.getCommentNo()%>');">신고하기</span>        
+                                    <span style="padding:10px" onclick="report('<%=bc.getCommentNo()%>','<%=bc.getCommentWriter()%>', '<%=bc.getCommentContent()%>');">신고하기</span>        
                             </dl>
                     </dl>
         
@@ -241,6 +241,14 @@
       $("[name=boardDelFrm]").submit();
    }
    function insertComment(){
+	  var len = $("[name=boardCommentContent]").val().trim();
+	      if(len.length==0){
+	          alert("댓글은 1자 이상 입력해주셔야합니다.");
+	          return;
+	       }
+		  
+	   
+	  
       $("[name=commentSubmitFrm]").submit();
    }
    /* 수정하기 버튼을 눌렀을 시 */
@@ -292,8 +300,10 @@
                   html+="<div class='info'>"+ user.commentWriter + "</div>";
                   html+="<div class='level2Comment'>"+ user.commentContent + "</div>";
                   html+="<div class='level2Date'>"+ user.commentDate + "</div>";
-                  html+="<div class='level2Report' onclick='report("+user.commentNo+")'>신고하기</div>";                               
-				  html+="<div class='level2Like' onmouseover='level2Like("+user.commentNo+","+user.commentLike+");' no='"+i+"' clickNum=0>추천 "+user.commentLike+"</div>";
+                  html+="<div class='level2Report' onclick='report("+user.commentNo+","+user.commentWriter+","+user.commentContent+")'>신고하기</div>";    
+				  html+="<div class='level2Like' onmouseover='level2Like("+user.commentNo+","+user.commentLike+");' no='"+i+"' clickNum=0>추천 "+user.commentLike+"</div>"; 
+
+				  /* html+="<div class='level2Like' no='"+i+"' clickNum=0>추천 "+user.commentLike+"</div>"; */
  				  /* html+="<div class='level2Like' no="+i+">추천"+user.commentLike+"</div>"; */
                   html+="<div class='level2Dislike' onmouseover='level2Dislike("+user.commentNo+","+user.commentDislike+");' no="+i+">비추천 "+user.commentDislike+"</div>";
                
@@ -355,13 +365,14 @@
             	div.append(html);
                
             
-            $(".level2[level2No="+no+"]").append(div); 
-            
+            $(".level2[level2No="+no+"]").append(div);
+           
+        
             }
 
          
       });  
-       
+   
     });
     
     /* 수정완료버튼을 눌렀을 시 */
@@ -369,6 +380,15 @@
     	  var no = $(this).attr("no");
     	  var commentUpdate = $(".comment-Update[no="+no+"]").val();
     	  var commentNo = $(".commentNo[commentNum="+no+"]").val();
+    	  
+    	  var len = commentUpdate.trim();
+          if(len.length==0){
+              alert("댓글은 1자 이상 입력해주셔야합니다.");
+              return;
+           }
+    	  
+    	  
+    	  
     	  var ref = $("[name=ref]").val();
     	  
 		  location.href = "<%=request.getContextPath()%>/board/solve/solveBoardCommentUpdate?commentUpdate="+commentUpdate+
@@ -438,10 +458,12 @@
 	});
  	
 	  /*댓글 신고하기*/
-    function report(item){
+    function report(item, item2, item3){
     	var commentNo = item;
-    	console.log("신고하기 버튼"+item);
-        var url = "<%=request.getContextPath() %>/board/solve/solveBoardCommentReport?commentNo="+commentNo;
+    	var commentWrtier = item2;
+    	var commentContent = item3;
+    	console.log("신고하기 버튼"+item+"/"+item2+"/"+item3);
+        var url = "<%=request.getContextPath() %>/board/solve/solveBoardCommentReport?commentNo="+commentNo+"&commentWriter="+commentWrtier+"&commentContent="+commentContent;
     	   
     	   // 팝업창 이름
         var title = "Report";
@@ -451,17 +473,23 @@
     }
 
 	  /* 게시글 신고 */
-	  function Postreport(item){
+	  function Postreport(item, item2, item3){
 		  var postNo = item;
+		  var postTitle = item2;
+		  var postWriter = item3;
+		  
 		  console.log("postNo="+postNo);
-		  var url = "<%=request.getContextPath() %>/board/solve/solveBoardPostReport?postNo="+postNo;
+		  console.log("postTitle="+postTitle);
+		  console.log("postWriter="+postWriter);
+
+		  var url = "<%=request.getContextPath() %>/board/solve/solveBoardPostReport?postNo="+postNo+"&postTitle="+postTitle+"&postWriter="+postWriter;
 	      var title = "Report";
 	      var status = "left=500px, top=200px, width=600px, height=600px";
 	    	   
 	      open(url, title, status);
 	  }
  	/* 대댓글 추천 */
-    function level2Like(item, item2){
+  function level2Like(item, item2){
  	
  		var commentNo = item;
  		var commentLikeAmount = item2;

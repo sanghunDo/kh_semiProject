@@ -8,6 +8,7 @@ public class MainObj implements Serializable{
 	private String objName;
 	private String secondName;
 	private String thirdName;
+	private String parentName;
 	private String position;
 	private int objLevel;
 	private int refNo;
@@ -15,11 +16,12 @@ public class MainObj implements Serializable{
 	
 	public MainObj() {}
 	
-	public MainObj(int objNo, String objName, String secondName, String thirdName, String coment, String position, int objLevel, int refNo, String isItem) {
+	public MainObj(int objNo, String objName, String secondName, String thirdName, String coment, String parentName, String position, int objLevel, int refNo, String isItem) {
 		this.objNo = objNo;
 		this.objName = objName;
 		this.secondName = secondName;
 		this.thirdName = thirdName;
+		this.parentName = parentName;
 		this.position = position;
 		this.objLevel = objLevel;
 		this.refNo = refNo;
@@ -29,8 +31,8 @@ public class MainObj implements Serializable{
 	@Override
 	public String toString() {
 		return "MainObj [objNo=" + objNo + ", objName=" + objName + ", secondName=" + secondName + ", thirdName="
-				+ thirdName + ", position=" + position + ", objLevel=" + objLevel + ", refNo=" + refNo + ", isItem="
-				+ isItem + "]";
+				+ thirdName + ", parentName=" + parentName + ", position=" + position + ", objLevel=" + objLevel
+				+ ", refNo=" + refNo + ", isItem=" + isItem + "]";
 	}
 
 	public int getObjNo() {
@@ -97,4 +99,12 @@ public class MainObj implements Serializable{
 		this.isItem = isItem;
 	}
 
+	public String getParentName() {
+		return parentName;
+	}
+
+	public void setParentName(String parentName) {
+		this.parentName = parentName;
+	}
+	
 }

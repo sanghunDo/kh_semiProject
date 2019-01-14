@@ -23,16 +23,13 @@ public class GameUseHintServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		HttpSession session = (HttpSession)request.getSession(false);
 		boolean result = false;
-		if(session!=null) {
-			Member m = (Member)session.getAttribute("loggedInMember");
-			if(m!=null) {
-				m = new MemberService().selectOne(m.getUserId());
-				if(m.getHintPaper()>0) {
-					result = true;
-					new GameService().useHint(m);
-				}
+		String userId = request.getParameter("userId");
+		if(!userId.contains("guest")) {
+			Member m = new MemberService().selectOne(userId);
+			if(m.getHintPaper()>=1) {
+				new GameService().useHint(m);
+				result = true;
 			}
 		}
 		new Gson().toJson(result, response.getWriter());

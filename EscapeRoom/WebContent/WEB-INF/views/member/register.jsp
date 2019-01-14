@@ -174,7 +174,7 @@ function checkIdDuplicate(){
 	  name="checkIdDuplicateFrm">
 	  <input type="hidden" name="userId"/>
 </form>
-<div id="logo">Escape, if you can.</div>
+<div id="logo" onclick="location.href='<%=request.getContextPath()%>/home'">Escape, if you can.</div>
 <section id="register-Container">
 	<h1>HELLO, STRANGER.</h1>
 	<form action="<%=request.getContextPath()%>/member/memberRegisterEnd" method="POST" 

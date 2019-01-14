@@ -15,11 +15,11 @@ h2{
 				 0px 0px 60px red;
 	text-align: center;
 
-
 -webkit-animation:blink 1s ease-in-out infinite alternate;
 -moz-animation:blink 1s ease-in-out infinite alternate;
 animation:blink 1s ease-in-out infinite alternate;
 }
+
 @-webkit-keyframes blink{
     0% {opacity:0;}
     100% {opacity:1;}

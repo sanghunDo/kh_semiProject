@@ -45,7 +45,7 @@ function loginValidate(){
 </head>
 <body>
 <!-- 로그인 -->
-<div id="logo">Escape, if you can.</div>
+<div id="logo" onclick="location.href='<%=request.getContextPath()%>/home'">Escape, if you can.</div>
 <div class="login-Container">
 	<form action="<%=request.getContextPath()%>/member/loginEnd" method="post" id="loginFrm">
 		<table>
