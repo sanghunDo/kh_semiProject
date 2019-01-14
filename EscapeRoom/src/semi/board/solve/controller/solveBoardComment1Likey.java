@@ -62,7 +62,6 @@ public class solveBoardComment1Likey extends HttpServlet {
 		if(!hasLike) {
 			int result = new SolveBoardDao().updateLikey(commentNo);
 			likey = new SolveBoardDao().getLikey(commentNo);
-	
 			Cookie postCookie = new Cookie("SolvelikeCookie", postCookieVal + "|"+commentNo + userId + "|");
 			response.addCookie(postCookie); 
 			
@@ -72,7 +71,7 @@ public class solveBoardComment1Likey extends HttpServlet {
             PrintWriter out = response.getWriter();
             out.println("<script>alert('이미 참여하셨습니다');</script>");    		
             out.flush();
-    		likey = new FreeBoardDao().getLikey(commentNo);
+    		likey = new SolveBoardDao().getLikey(commentNo);
             // jsp에 전달하기 위해 속성으로 전	
 		}
 		

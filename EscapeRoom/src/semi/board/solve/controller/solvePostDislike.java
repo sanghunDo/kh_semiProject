@@ -1,8 +1,11 @@
 package semi.board.solve.controller;
 
 import java.io.IOException;
+import java.io.PrintWriter;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -31,20 +34,53 @@ public class solvePostDislike extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.setCharacterEncoding("utf-8");
+    	request.setCharacterEncoding("utf-8");
+		System.out.println("디스라이크 에이젝스실행됨");
 		int postNo =Integer.parseInt(request.getParameter("postNo"));
-		int boardDislikey =Integer.parseInt(request.getParameter("dislikey"));
+		String userId = request.getParameter("userId");
+		
+		Cookie[] cookies = request.getCookies();
+		String postCookieVal = "";
+		boolean hasPostLike = false;
+		
+		if(cookies != null) {
+			for(Cookie c:cookies) {
+				String name = c.getName();
+				String value = c.getValue();
 
-//		System.out.println("서블릿"+postNo);
-//		System.out.println("좋아요수"+boardLikey);
+				if("SolvePostlikeCookie".equals(name)) {
+					postCookieVal = value;
+					if(value.contains("|"+ postNo+userId+"|")) {
+						hasPostLike = true;
+						break;
+					}
+				}
+			}
+		}
 		
+		int dislike = 0;
+		if(!hasPostLike) {
+			int result = new SolveBoardDao().updateBoardDislikey(postNo);
+			dislike = new SolveBoardDao().getPostDislikey(postNo);
+    		System.out.println("dislike="+dislike);
+
+			Cookie postCookie = new Cookie("SolvePostlikeCookie", postCookieVal + "|"+postNo + userId + "|");
+			response.addCookie(postCookie); 
+			
+			
+		}else {
+			response.setContentType("text/html; charset=utf-8");
+            PrintWriter out = response.getWriter();
+            out.println("<script>alert('이미 참여하셨습니다');</script>");    		
+            out.flush();
+            dislike = new SolveBoardDao().getPostDislikey(postNo);
+    		System.out.println("dislike="+dislike);
+
+            // jsp에 전달하기 위해 속성으로 전	
+		}
 		
-		int result = new SolveBoardDao().updateBoardDislikey(postNo,boardDislikey);
-		int dislikey = new SolveBoardDao().getPostDislikey(postNo);
-//		System.out.println("result_"+result);
-//		System.out.println("commentLikey"+commentLikey);
 		response.setContentType("application/json; charset=utf-8");
-		new Gson().toJson(dislikey,response.getWriter());
+		new Gson().toJson(dislike,response.getWriter());
 	}
 
 

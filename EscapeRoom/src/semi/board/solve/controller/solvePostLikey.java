@@ -39,6 +39,8 @@ public class solvePostLikey extends HttpServlet {
 		System.out.println("에이젝스실행됨");
 		int postNo =Integer.parseInt(request.getParameter("postNo"));
 		String userId = request.getParameter("userId");
+		
+		System.out.println("postNo="+postNo);
 		Cookie[] cookies = request.getCookies();
 		String postCookieVal = "";
 		boolean hasPostLike = false;
@@ -62,7 +64,8 @@ public class solvePostLikey extends HttpServlet {
 		if(!hasPostLike) {
 			int result = new SolveBoardDao().updateBoardLikey(postNo);
     		likey = new SolveBoardDao().getPostLikey(postNo);
-	
+    		System.out.println("likey="+likey);
+
 			Cookie postCookie = new Cookie("SolvePostlikeCookie", postCookieVal + "|"+postNo + userId + "|");
 			response.addCookie(postCookie); 
 			
@@ -73,9 +76,13 @@ public class solvePostLikey extends HttpServlet {
             out.println("<script>alert('이미 참여하셨습니다');</script>");    		
             out.flush();
     		likey = new SolveBoardDao().getPostLikey(postNo);
+    		System.out.println("likey="+likey);
 
             // jsp에 전달하기 위해 속성으로 전	
 		}
+		
+		response.setContentType("application/json; charset=utf-8");
+		new Gson().toJson(likey,response.getWriter());
 	}
 
 	/**
