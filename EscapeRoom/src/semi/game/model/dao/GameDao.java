@@ -206,8 +206,6 @@ public class GameDao {
 		int result = 0;
 		PreparedStatement pstmt = null;
 		String query = prop.getProperty(stateName);
-		System.out.println(stateName);
-		System.out.println(query);
 		try {
 			pstmt = conn.prepareStatement(query);
 			pstmt.setString(1, userId);
@@ -220,12 +218,10 @@ public class GameDao {
 		return result;
 	}
 	public int checkState(Connection conn, String objName, String userId) {
-		System.out.println(objName);
 		int result = 0;
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		String query = prop.getProperty("checkState");
-		System.out.println(userId+"/"+objName);
 		try {
 			pstmt = conn.prepareStatement(query);
 			pstmt.setString(1, userId);
