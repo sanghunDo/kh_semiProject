@@ -241,6 +241,14 @@
       $("[name=boardDelFrm]").submit();
    }
    function insertComment(){
+	  var len = $("[name=boardCommentContent]").val().trim();
+	      if(len.length==0){
+	          alert("댓글은 1자 이상 입력해주셔야합니다.");
+	          return;
+	       }
+		  
+	   
+	  
       $("[name=commentSubmitFrm]").submit();
    }
    /* 수정하기 버튼을 눌렀을 시 */
@@ -372,6 +380,15 @@
     	  var no = $(this).attr("no");
     	  var commentUpdate = $(".comment-Update[no="+no+"]").val();
     	  var commentNo = $(".commentNo[commentNum="+no+"]").val();
+    	  
+    	  var len = commentUpdate.trim();
+          if(len.length==0){
+              alert("댓글은 1자 이상 입력해주셔야합니다.");
+              return;
+           }
+    	  
+    	  
+    	  
     	  var ref = $("[name=ref]").val();
     	  
 		  location.href = "<%=request.getContextPath()%>/board/solve/solveBoardCommentUpdate?commentUpdate="+commentUpdate+

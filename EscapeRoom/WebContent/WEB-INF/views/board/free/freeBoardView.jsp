@@ -241,6 +241,12 @@
       $("[name=boardDelFrm]").submit();
    }
    function insertComment(){
+	  var len = $("[name=boardCommentContent]").val().trim();
+      if(len.length==0){
+          alert("댓글은 1자 이상 입력해주셔야합니다.");
+          return;
+       }
+	  
       $("[name=commentSubmitFrm]").submit();
    }
    /* 수정하기 버튼을 눌렀을 시 */
@@ -369,6 +375,13 @@
     	  var no = $(this).attr("no");
     	  var commentUpdate = $(".comment-Update[no="+no+"]").val();
     	  var commentNo = $(".commentNo[commentNum="+no+"]").val();
+    	  
+    	  var len = commentUpdate.trim();
+          if(len.length==0){
+              alert("댓글은 1자 이상 입력해주셔야합니다.");
+              return;
+           }
+    	  
     	  var ref = $("[name=ref]").val();
     	  
 		  location.href = "<%=request.getContextPath()%>/board/free/freeBoardCommentUpdate?commentUpdate="+commentUpdate+
@@ -443,6 +456,10 @@
 		var postTitle = item2;
 		var postWriter = item3;
 
+	    if(postWriter=="<%=loggedInMember.getUserId()%>"){
+	 		   alert("자신의 글은 신고하실 수 없습니다.");
+	 		   return;
+	 	}
 		var url = "<%=request.getContextPath() %>/board/free/freeBoardPostReport?postNo="+postNo+"&postTitle="+postTitle+"&postWriter="+postWriter;
     	   
     	   // 팝업창 이름
@@ -456,7 +473,12 @@
     	var commentNo = item;
     	var commentWrtier = item2;
     	var commentContent = item3;
-    	console.log(commentNo+"/"+commentWrtier+"/"+commentContent);
+    	
+        if(commentWrtier=="<%=loggedInMember.getUserId()%>"){
+ 		   alert("자신의 댓글은 신고하실 수 없습니다.");
+ 		   return;
+ 	   }
+    	
         var url = "<%=request.getContextPath() %>/board/free/freeBoardCommentReport?commentNo="+commentNo+"&commentWriter="+commentWrtier+"&commentContent="+commentContent;
     	   
     	   // 팝업창 이름
