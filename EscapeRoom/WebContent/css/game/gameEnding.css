@@ -9,38 +9,7 @@ body, html{
    overflow: hidden;
 }
 
-div#warning{
-   text-align:center;
-   position: relative;
-   width:60%;
-   height:40%;
-   top: 25%;
-   border:2px solid red;
-   border-style:dashed;
-   color:red;
-   font-size:15px;
-   font-weight:bold;
-   padding-bottom:20px;
-   margin:0 auto;
-   animation-name:warningAni;
-   animation-duration:5s;
-   animation-iteration-count:1;
-   opacity:0;
-
-}
-
-@keyframes warningAni{
-   0%{
-      opacity:0;
-   }
-   50%{
-      opacity:1;
-   }
-   100%{
-      opacity:0;
-   }
-}
-div#prologue{
+div#ending{
 	position: relative;
 	width: 100%;
 	height: 100%;
@@ -54,7 +23,7 @@ img#background{
 	left: 200px;
 	display: none;
 }
-div#prologue div#msgBox{
+div#ending div#msgBox{
 	position: relative;
 	width: 80%;
 	height: 15%;

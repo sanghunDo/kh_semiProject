@@ -8,6 +8,7 @@ import java.util.List;
 import semi.game.model.dao.GameDao;
 import semi.game.model.vo.MainObj;
 import semi.game.model.vo.PrologueObj;
+import semi.game.model.vo.StoryObj;
 import semi.member.model.vo.Member;
 public class GameService {
 
@@ -83,5 +84,21 @@ public class GameService {
 		close(conn);
 		
 		return result;
+	}
+
+	public List<StoryObj> selectAllBadEnding() {
+		List<StoryObj> list = null;
+		Connection conn = getConnection();
+		list = new GameDao().selectAllBadEnding(conn);
+		close(conn);
+		return list;
+	}
+	
+	public List<StoryObj> selectAllTrueEnding() {
+		List<StoryObj> list = null;
+		Connection conn = getConnection();
+		list = new GameDao().selectAllTrueEnding(conn);
+		close(conn);
+		return list;
 	}
 }

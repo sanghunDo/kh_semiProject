@@ -9,20 +9,22 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.google.gson.Gson;
+
 import semi.game.model.service.GameService;
 import semi.game.model.vo.StoryObj;
 
 /**
- * Servlet implementation class GoToTrueEndingServlet
+ * Servlet implementation class GameTrueEndingServlet
  */
-@WebServlet("/game/goToTrueEnding")
-public class GoToTrueEndingServlet extends HttpServlet {
+@WebServlet("/game/trueEnding")
+public class GameTrueEndingServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public GoToTrueEndingServlet() {
+    public GameTrueEndingServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -31,7 +33,12 @@ public class GoToTrueEndingServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.getRequestDispatcher("/WEB-INF/views/game/trueEnding.jsp").forward(request, response);
+		List<StoryObj> scenario = new GameService().selectAllTrueEnding();
+		int index = Integer.parseInt(request.getParameter("index"));
+		if(index<scenario.size()) {
+			response.setContentType("application/json; charset=utf-8");
+			new Gson().toJson(scenario.get(index), response.getWriter());
+		}
 	}
 
 	/**
