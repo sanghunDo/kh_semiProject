@@ -57,14 +57,12 @@ function loginValidate(){
 				<label for="saveId" id="label-saveId">SAVE ID</label></td></tr>			
 			<tr><td><input type="submit" value="LOGIN" 
 				id="submit-Btn" onclick="return loginValidate();" /></td></tr>
-			<tr>
-				<td>
-					<input type="button" value="FIND ID" 
-						id="findId-Btn" onclick="location.href='<%=request.getContextPath() %>/member/findId'"/>
-					<input type="button" value="JOIN US"
-						id="register-Btn" onclick="location.href='<%=request.getContextPath() %>/member/memberRegister'" />
-				</td>
-			</tr>
+			<tr><td><input type="button" value="JOIN US"
+				id="register-Btn" onclick="location.href='<%=request.getContextPath() %>/member/memberRegister'" /></td></tr>
+			<tr><td><input type="button" value="FIND ID" 
+				id="findId-Btn" onclick="location.href='<%=request.getContextPath() %>/member/findId'"/></td></tr>
+			<tr><td><input type="button" value="FIND PW" 
+				id="findPw-Btn" onclick="location.href='<%=request.getContextPath() %>/member/findPw'"/></td></tr>
 		</table>
 	</form>
 </div>
