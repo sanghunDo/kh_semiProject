@@ -174,6 +174,8 @@ insert into game_rank values(seq_game_rank_playno.nextval, 'babo', 31352135, to_
 insert into game_rank values(seq_game_rank_playno.nextval, 'baboba', 96232323, to_date('20190101', 'yyyymmdd'));
 insert into game_rank values(seq_game_rank_playno.nextval, 'chunjae', 56565655, to_date('20190101', 'yyyymmdd'));
 insert into game_rank values(seq_game_rank_playno.nextval, 'mungmung', 54564463, to_date('20190101', 'yyyymmdd'));
+insert into game_rank values(seq_game_rank_playno.nextval, 'tkdgnstkdgns', 1000, default);
+commit;
 
 --댓글 : 자유
 create table board_comment_free(
