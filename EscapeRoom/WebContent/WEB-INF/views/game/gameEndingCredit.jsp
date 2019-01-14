@@ -101,7 +101,7 @@ div#title{
         <h4>정창학&nbsp;&nbsp;강선영&nbsp;&nbsp;도상훈</h4>
         <br><br>
         <h3>게임 구현</h3>
-        <h4>정창학&nbsp;&nbsp;도상훈</h4>
+        <h4>정창학&nbsp;&nbsp;강선영&nbsp;&nbsp;도상훈</h4>
         <br><br>
         <h3>그림</h3>
         <h4>정창학&nbsp;&nbsp;강선영</h4>

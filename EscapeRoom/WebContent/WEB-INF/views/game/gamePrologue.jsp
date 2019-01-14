@@ -9,7 +9,7 @@
 <meta charset=UTF-8">
 <title>ESCAPE, IF YOU CAN.</title>
 <script src="<%=request.getContextPath()%>/js/jquery-3.3.1.js"></script>
-<link href="https://fonts.googleapis.com/css?family=Song+Myung" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Noto+Serif+KR" rel="stylesheet">
 <link rel="stylesheet" href="<%=request.getContextPath() %>/css/game/gamePrologue.css" />
 <script>
 window.onload=function(){
