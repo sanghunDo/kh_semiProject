@@ -4,81 +4,117 @@
 <%@ page import="semi.admin.controller.*" %>
 <%@ page import="semi.member.model.vo.Member" %>
 <% 
-	List<Member> memberList = (List<Member>)request.getAttribute("memberList");
+	List<Member> list = (List<Member>)request.getAttribute("list");
+	System.out.println("list@adminMemberSearch.jsp="+list);
 	
-	Member m = (Member)request.getAttribute("member");
-	// header.jsp의 userId 변수명 충돌 방지용
-	String userId_1 = m.getUserId();
-	String userPassword = m.getUserPassword();
-	String userEmail = m.getUserEmail()!=null?m.getUserEmail():"";
-	String userProfileOriginalFile = m.getUserProfileOriginalFile()!=null?m.getUserProfileOriginalFile():"";	
-	String userProfileRenamedFile = m.getUserProfileRenamedFile()!=null?m.getUserProfileRenamedFile():"";
-	Date enrollDate = m.getEnrollDate();
-
-	int cPage = (int)request.getAttribute("cPage");
+	String searchType = request.getParameter("searchType");
+	String searchKeyword = request.getParameter("searchKeyword");
+	
 	int numPerPage = (int)request.getAttribute("numPerPage");
+	int cPage = (int)request.getAttribute("cPage");
+	
 	String pageBar = (String)request.getAttribute("pageBar");
 %>
 <%@ include file="/WEB-INF/views/common/header.jsp" %>
 <link rel="stylesheet" href="<%=request.getContextPath() %>/css/boardCommunityTable.css" />
 <script>
-$(function checkValue(){
-	// 검색창 값 미입력하고 검색시 경고창 띄우기
-	// searchStart = null || #searchStart.isEmpty()
-	// alert("검색할 항목을 반드시 입력해주세요.");
-	// return false;
+$function (){
+	var sid = $("#search-userId");
+	var semail = $("#search-userEmail");
+
+	$("select#searchType").change(function(){
+		sid.hide();
+		semail.hide();
+		
+		$("#search-"+$(this).val()).css("display","inline-block");
+	});
+		
 });
 </script>
+<!-- 회원 검색 기능 -->
+<section id="userList-container">
 <h2>관리자 전용 게시판</h2>
 <h3>전체 회원 검색</h3>
-<!-- 회원 검색 기능 -->
+<!-- 검색 시작 -->
 <div class="user-search-container">
-   	<div class="search-keyword">검색 키워드: 
-		<select id="search-keyword">
-			<option value="userId">아이디</option>
-			<option value="userPwd">비밀번호</option>
-			<option value="userEmail">이메일</option>
+   	<div class="searchType">검색타입: 
+		<select id="searchType">
+			<option value="userId" <%="userId".equals(searchType)?"selected":"" %>>아이디</option>
+			<option value="userEmail" <%="userEmail".equals(searchType)?"selected":"" %>>이메일</option>
 		</select>
    	</div>
+   	<!-- 아이디 검색폼 -->
     <div class="search-userid">
-  			<input type="search" name="" id="" placeholder="검색할 아이디를 입력하세요."/>
+  			<form action="<%=request.getContextPath()%>/admin/adminMemberSearch">
+				<input type="hidden" 
+					   name="numPerPage" 
+					   value="<%=numPerPage%>"/>
+				<input type="hidden" 
+					   name="searchType"
+					   value="userId" />
+				<input type="search" 
+					   name="searchKeyword"
+					   size="25"
+					   placeholder="검색할 아이디를 입력하세요."
+					   value="<%="userId".equals(searchType)?searchKeyword:""%>"/>
+				<button type="submit">검색</button>
+			</form>
  	</div>
- 	<div class="search-password">
-  			<input type="search" name="" id="" placeholder="검색할 비밀번호를 입력하세요."/>
- 	</div>
+ 	<!-- 이메일 검색폼 -->
     <div class="search-useremail">
-			<input type="search" name="" id="검색할 이메일을 입력하세요." />
+			<form action="<%=request.getContextPath()%>/admin/adminMemberSearch">
+				<input type="hidden" 
+					   name="numPerPage" 
+					   value="<%=numPerPage%>"/>
+				<input type="hidden" 
+					   name="searchType"
+					   value="memberName" />
+				<input type="search" 
+					   name="searchKeyword"
+					   size="25"
+					   placeholder="검색할 회원 이메일을 입력하세요."
+					   value="<%="userEmail".equals(searchType)?searchKeyword:""%>"/>
+				<button type="submit">검색</button>
+			</form>
     </div>
-    
-    <button id="searchStart" type="submit">검색하기</button>
-    <!-- 검색 결과 목록으로 표시하기 -->
+    <!-- 검색 끝 -->
     <br />
     <hr />
     <br />
+    <!-- 검색 결과 목록으로 표시하기 -->
+    <section id="searchResult-container">
     <div class="search-result">
-	<%if(memberList == null || memberList.isEmpty()) {%>
-		<p>검색 결과가 없습니다.</p>
-	<%} else {%>
-		<table>
-			<tr>
-				<th>아이디</th>
-				<th>프로필 사진</th>
-				<th>비밀번호</th>
-				<th>이메일</th>
-				<th>가입한 날짜</th>
-			</tr>
+		<table id="tbl-member">
+			<thead>
+				<tr>
+					<th>아이디</th>
+					<th>프로필 사진</th>
+					<th>비밀번호</th>
+					<th>이메일</th>
+					<th>가입한 날짜</th>
+				</tr>
+			</thead>
+			<tbody>
+			<%if(list == null || list.isEmpty()) {%>
+				<tr>
+					<td>
+					불러올 회원 목록이 없습니다. 개발자에게 문의하세요.
+					</td>
+				</tr>
+		<%} else {
+			for(Member m : list){
+		%>
 			<tr>
 				<td><%=m.getUserId() %> </td>
 				<td><%=m.getUserProfileOriginalFile() %></td>
 				<td><%=m.getUserPassword() %></td>
 				<td><%=m.getUserEmail() %></td>
 				<td><%=m.getEnrollDate() %></td>
-			</tr>
-		</table>
-	<%} %>
-		<div id="pageBar">
-		<%=pageBar %>
-		</div>
-	</div>
+			<% }
+		} %>
+   </tbody>
+</table>
 </div>
+<div id="pageBar"><%=pageBar %></div>
+</section>
 <%@ include file="/WEB-INF/views/common/footer.jsp" %>

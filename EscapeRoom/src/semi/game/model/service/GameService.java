@@ -55,5 +55,33 @@ public class GameService {
 		return coment;
 	}
 
-	
+	public void checkLog(String userId) {
+		Connection conn = getConnection();
+		int result = new GameDao().checkLog(conn, userId);
+		
+		if(result==0) result = new GameDao().insertLog(conn, userId);
+		else result = new GameDao().resetLog(conn, userId);
+		
+		if(result>0) commit(conn);
+		else rollback(conn);
+		
+		close(conn);
+	}
+
+	public void updateState(String stateName, String userId) {
+		Connection conn = getConnection();
+		int result = new GameDao().updateState(conn, stateName, userId);
+		
+		if(result>0) commit(conn);
+		else rollback(conn);
+		close(conn);
+	}
+
+	public int checkState(String userId, String objName) {
+		Connection conn = getConnection();
+		int result = new GameDao().checkState(conn, objName, userId);
+		close(conn);
+		
+		return result;
+	}
 }

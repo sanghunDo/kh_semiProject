@@ -42,7 +42,7 @@ public class AdminMemberDeleteServlet extends HttpServlet {
 		Member loggedInMember = (Member)request.getSession().getAttribute("loggedInMember");
 		if(loggedInMember != null && !"admin".equals(loggedInMember.getUserId())) {
 			request.setAttribute("msg", "잘못된 경로로 접근하셨습니다.");
-			request.setAttribute("loc", "/");
+			request.setAttribute("loc", "/home");
 			request.getRequestDispatcher("/WEB-INF/views/common/msg.jsp").forward(request, response);
 			return;
 		}
@@ -87,13 +87,14 @@ public class AdminMemberDeleteServlet extends HttpServlet {
 		
 		if (result > 0) {
 			msg = "해당 회원이 삭제되었습니다.";
+			loc = "home";
 		} else {
 			msg = "해당 회원 삭제를 실패했습니다.";
 		}
 		
-		request.setAttribute("msg", msg);
-		request.setAttribute("loc", loc);
-		request.getRequestDispatcher(view).forward(request, response);
+		request.setAttribute("msg", msg); // 실패했을 시 사용
+		request.setAttribute("loc", loc); // 실패했을 시 사용
+		request.getRequestDispatcher(view).forward(request, response); // 실패했을 시 사용
 	
 	}
 

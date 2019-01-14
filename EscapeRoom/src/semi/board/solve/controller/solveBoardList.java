@@ -62,7 +62,7 @@ public class solveBoardList extends HttpServlet {
 		   if(pageNo == 1) {
 		    	  
 		      }else {
-		    	  pageBar += "<a href='"+request.getContextPath()+"/board/free/freeBoardList?cPage="
+		    	  pageBar += "<a href='"+request.getContextPath()+"/board/solve/solveBoardList?cPage="
 		    			  	+(pageNo-1)+"&numPerPage="
 		    			  	+numPerPage+"'>[이전]</a>";
 		    	  
@@ -75,7 +75,7 @@ public class solveBoardList extends HttpServlet {
 		    		  pageBar += "<span class='cPage'>"+pageNo+"</span>";
 		    		  
 		    	  }else {
-		    		  pageBar += "<a href='"+request.getContextPath()+"/board/free/freeBoardList?cPage="
+		    		  pageBar += "<a href='"+request.getContextPath()+"/board/solve/solveBoardList?cPage="
 		      			  			+pageNo+"&numPerPage="
 		      			  			+numPerPage+"'>"+pageNo+"</a>";
 		    	  }
@@ -88,7 +88,7 @@ public class solveBoardList extends HttpServlet {
 		    	  //113이 끝 빠져나올때 (pageNo <= endPage && pageNo <= totalPage여기서) 114때 나오게 된다.여기가 바로 114다
 		    	  
 		      }else {
-		    	  pageBar += "<a href='"+request.getContextPath()+"/board/free/freeBoardList?cPage="
+		    	  pageBar += "<a href='"+request.getContextPath()+"/board/solve/solveBoardList?cPage="
 				  			+pageNo+"&numPerPage="
 				  			+numPerPage+"'>[다음]</a>";
 		      }

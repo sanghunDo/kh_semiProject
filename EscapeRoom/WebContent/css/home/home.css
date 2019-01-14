@@ -1,1 +1,223 @@
 @charset "UTF-8";
+#main-Container{
+	width:100%;
+	min-height:100px;
+	margin-top:20px;
+	font-family:'Noto Serif KR', serif;
+}
+
+h1{
+	text-align:center;
+}
+
+h2{
+	text-align:center;
+	margin:0;
+	margin-bottom:15px;
+}
+
+#notice-Link{
+	width:100%;
+	height:30px;
+	overflow:hidden;
+}
+
+#ani-Text{
+	position:relative;
+	color:red;
+	margin:0;
+	left:1030px;
+	cursor:pointer;
+	animation-name:notice-Link_Ani;
+	animation-iteration-count:infinite;
+	animation-timing-function:linear;
+	animation-duration:17s;
+}
+
+@keyframes notice-Link_Ani{
+	0%{
+		left:1030px;
+	}
+	100%{
+		left:-1000px;
+	}
+}
+
+#rank-One{
+	width:600px;
+	height:350px;
+	margin:0 auto;
+	color:white;
+	margin-bottom:50px;
+	text-align:center;
+}
+
+#medal-Img{
+	width:150px;
+	height:250px;
+	display:inline-block;
+}
+
+#rank-One_Info{
+	position:relative;
+	width:270px;
+	height:260px;
+	top:3px;
+	display:inline-block;
+}
+
+#posts{
+	width:950px;
+	min-height:100px;
+	margin:0 auto;
+	color:white;
+}
+
+#temp-Container{
+	border:3px solid gold;
+	border-radius:10px;
+	width:500px;
+	margin:0 auto;
+}
+
+table.board{
+	width:90%;
+	color:white;
+	border-collapse:collapse;
+	margin:0 auto;
+	margin-bottom:30px;
+}
+
+table.board th{
+	color:white;
+	padding:5px;
+	text-align:center;
+	border-bottom:1px solid white;
+}
+
+table.board td{
+	color:white;
+	padding:5px;
+	text-align:center;
+}
+
+#admin-Container{
+	text-align:right;
+	margin-bottom:5px;
+}
+
+#admin-Btn{
+	border:1px solid white;
+	border-radius:5px;
+	background:black;
+	color:white;
+	cursor:pointer;
+}
+
+#rankTable{
+	width:470px;
+	height:300px;
+	margin:0 auto;
+	color:white;
+}
+
+table#player-Details{
+	text-align:center;
+	width:250px;
+	color:white;
+	border:1px double gray;
+	border-radius:10px;
+	background:#5D5D5D;
+	margin:0 auto;
+	margin-top:10px;
+}
+
+table#player-Details td{
+	margin-left:10px;
+}
+
+#congratulations{
+	color:white;
+	font-family: 'Roboto Slab', serif;
+	font-size:27px;
+	text-align:center;
+	margin-top:10px;
+	margin-bottom:10px;
+}
+
+img#rankOne-Profile{
+	width:100px;
+	height:100px;
+	display:block;
+	margin:0 auto;
+}
+
+.freeBoardLinkAddress, .solveBoardLinkAddress{
+	cursor:pointer;
+}
+
+#changeNoticeLink-Container{
+	color:white;
+	font-family:'Noto Serif KR', serif;
+}
+
+#title{
+	color:white;
+	text-align:center;
+	margin-top:50px;
+}
+
+table#noticeList{
+	color:white;
+	width:60%;
+	min-height:100px;
+	margin:0 auto;
+	margin-top:20px;
+	border-collapse:collapse;
+}
+
+table#noticeList th, table#noticeList td{
+	text-align:center;
+	padding:7px;
+}
+
+table#noticeList th{
+	border-bottom:1px solid white;
+}
+
+.checkedLink{
+	color:red;
+}
+
+#changeLink{
+	width:200px;
+	height:50px;
+	outline:none;
+	border:1px solid white;
+	border-radius: 20px;
+	background:white;
+	font-size:20px;
+	font-family: 'Noto Serif KR', serif;
+	font-weight:bold;
+	margin-top:50px;
+	cursor:pointer;
+}
+
+#thankYou{
+	color:white;
+	text-align:center;
+	margin-bottom:30px;
+}
+
+hr{
+	width:100%;
+	background:white;
+}
+
+div#boardBackground{
+	background:#353535;
+	width:100%;
+	min-height:100px;
+	border-radius:20px;
+	border: 1px solid #353535;
+}

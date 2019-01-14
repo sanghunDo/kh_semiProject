@@ -26,7 +26,10 @@ header{
 	top: 3%;
 	text-align: center;
 }
-div{color: white; font-family: 'Do Hyeon', sans-serif;}
+div{
+	color: white;
+	font-family: 'Roboto Slab', serif;
+}
 
 div#title{
 	font-size : 135px;
@@ -40,6 +43,8 @@ div#title{
 	animation-name: titleAni;
 	animation-duration: 1s;
 	animation-iteration-count: infinite;
+	cursor: default;
+	user-select: none;
 }
 div#login{position: absolute; left:950px; top: -20px; font-size: 22px; opacity: .7; cursor: pointer;}
 div#login:hover{opacity:1; border-bottom: 2px solid white;}
@@ -73,6 +78,8 @@ section{
     position: absolute;
     left: 412px; 
     top: 250px;
+    font-family:'Roboto Slab', serif;
+    font-weight:bold;
     cursor: pointer;
     display: none;
 }
@@ -90,7 +97,7 @@ section{
 
 .enterRoom div:nth-child(1) {
     color: #000000;
-       background-color: gray;
+    background-color: gray;
     -webkit-transition: all 0.1s ease;
     padding: 10px;
    /*  border: #000000 solid 1px; */

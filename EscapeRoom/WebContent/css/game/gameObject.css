@@ -43,8 +43,8 @@
     left: 388px;
 }
 #hintnote1{
-    top: 210px;
-    left: 382px;
+    top: 148px;
+    left: 347px;
     width: 60px;
     height: 80px;
     display: block;
@@ -52,28 +52,62 @@
 }
 
 
+/* back */
+#bs_doll{
+	top: 50px;
+    left: 363px;
+}
 
 #bs_4_books{
-	top: 265px;
-	left: 323px;
+	top: 170px;
+    left: 334px;
+    opacity: 0;	
 }
-#bs_3_box{
-	top: 367px;
-    left: 378px;
+
+#bs_smallbox{
+	top: 311px;
+    left: 397px;
 }
+
+#bs_clock{
+	top: 322px;
+    left: 551px;
+}
+
 #bs_2_books{
-	top: 470px;
-	left: 331px;
+	top: 400px;
+    left: 348px;	
 }
-#bs_1_toolbox{
-	top:570px;
-	left: 415px;
+#bs_battery{
+	display: block;
+    width: 131px;
+    top: 188px;
+    height: 43px;
+    left: 409px;
+    opacity: 0;
 }
+#bs_toolbox{
+	top: 565px;
+    left: 471px;
+}
+#bs_cutterknife{
+	display: block;
+    width: 70px;
+    top: 198px;
+    left: 368px;
+    transform: rotateZ(16deg);
+    opacity: 0;
+}
+#bs_hammer{
+	display: block;
+    width: 122px;
+    top: 160px;
+    left: 551px;
+    transform: rotateZ(19deg);
+    opacity: 0;
+}
+
 img[id*="clicked"]{
-	position: absolute;
-	max-width: 440px;
-    max-height: 400px;
-	width: 700px;
-	left: 300px;
-	top: 85px;
+	position: relative;
+	height: 100%;
 }

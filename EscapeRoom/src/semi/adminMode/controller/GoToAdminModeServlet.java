@@ -1,23 +1,28 @@
-package semi.board.free.controller;
+package semi.adminMode.controller;
 
 import java.io.IOException;
+import java.util.List;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import semi.adminMode.model.service.AdminModeService;
+import semi.member.model.vo.Member;
+
 /**
- * Servlet implementation class FreeBoardReport
+ * Servlet implementation class GoToAdminModeServlet
  */
-@WebServlet("/board/free/freeBoardCommentReport")
-public class FreeBoardReport extends HttpServlet {
+@WebServlet("/adminMode/adminMain")
+public class GoToAdminModeServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public FreeBoardReport() {
+    public GoToAdminModeServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -26,16 +31,11 @@ public class FreeBoardReport extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		int commentNo = Integer.parseInt(request.getParameter("commentNo"));
-		String view = "/WEB-INF/views/common/msg.jsp";
 		
-			view = "/WEB-INF/views/common/report.jsp";
-			request.setAttribute("commentNo", commentNo);
-
+		List<Member> memberList = new AdminModeService().selectAllMember();
 		
-		
-		request.getRequestDispatcher(view).forward(request, response);
+		request.setAttribute("memberList", memberList);
+		request.getRequestDispatcher("/WEB-INF/views/adminMode/adminMain.jsp").forward(request, response);
 	}
 
 	/**

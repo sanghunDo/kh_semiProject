@@ -22,15 +22,15 @@ public class GameCoinHintRefreshServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		HttpSession session = (HttpSession)request.getSession(false);
-		Member m = null;
-		if(session!=null) {
-			m = (Member)session.getAttribute("loggedInMember");
-			if(m!=null) {
-				m = new MemberService().selectOne(m.getUserId());
-			}
+		String userId = request.getParameter("userId");
+		response.setContentType("application/json; charset=utf-8");
+		if(!userId.contains("guest")) {
+			Member m = new MemberService().selectOne(userId);
+			new Gson().toJson(m,response.getWriter());
+		}else {
+			new Gson().toJson("guest", response.getWriter());
 		}
-		new Gson().toJson(m,response.getWriter());
+		
 	}
 
 	/**

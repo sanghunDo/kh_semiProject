@@ -70,4 +70,25 @@ public class noticeService {
 		return result;
 	}
 
+	public int updateLinkY(int noticeNo) {
+		int result = 0;
+		Connection conn = getConnection();
+		result = new noticeDao().updateLinkX(conn);
+		
+		if(result > 0) {
+			commit(conn);
+			result = new noticeDao().updateLinkY(conn, noticeNo);
+			if(result > 0) {
+				commit(conn);
+			}
+			else {
+				rollback(conn);
+			}
+		}
+		else rollback(conn);
+
+		close(conn);
+		return result;
+	}
+
 }

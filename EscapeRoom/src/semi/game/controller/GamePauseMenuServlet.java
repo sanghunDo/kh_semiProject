@@ -23,16 +23,13 @@ public class GamePauseMenuServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		HttpSession session = (HttpSession)request.getSession(false);
-		Member m = null;
-		if(session!=null) {
-			m = (Member)session.getAttribute("loggedInMember");
-			if(m!=null) {
-				m = new MemberService().selectOne(m.getUserId());
-			}
-		}
-		request.setAttribute("loggedInMember", m);
+		String userId = request.getParameter("userId");
 		String menuName = request.getParameter("menuName");
+		Member m = null;
+		if(!userId.contains("guest"))
+			m = new MemberService().selectOne(userId);
+		
+		request.setAttribute("loggedInMember", m);
 		request.getRequestDispatcher("/WEB-INF/game-html/"+menuName+".jsp").forward(request, response);
 	}
 

@@ -17,19 +17,19 @@ div#logo{
 	padding-bottom: 50px;
 }
 
-h2{
-	font-size: 15px;
+h1{
 	padding-top:10px;
-	font-size:18px;
-	margin-left:114px;
+	margin-left:102px;
+	font-family: 'Roboto Slab', serif;
 }
 
 #register-Container{
 	width:420px;
-	height:520px;
-	border:1px solid #5D5D5D;
+	height:550px;
 	border-radius:20px;
 	margin: 0 auto;
+	box-shadow:0px 0px 120px #353535;
+	padding-top:10px;
 }
 
 #userId_, #userPassword_, #userPassword__, #userEmail{
@@ -85,9 +85,9 @@ td{
 
 #register-Btn{
 	outline:none;
-	border:1px solid gray;
+	border:1px solid #353535;
 	color:white;
-	background: gray;
+	background: #353535;
 	border-radius: 10px;
 	width:275px;
 	height:35px;
