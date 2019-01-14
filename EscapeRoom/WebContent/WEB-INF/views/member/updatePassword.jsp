@@ -11,21 +11,7 @@
 <title>회원 비밀번호 변경</title>
 <script src="<%=request.getContextPath()%>/js/jquery-3.3.1.js"></script>
 <link href="https://fonts.googleapis.com/css?family=Amatic+SC" rel="stylesheet">
-<style>
-div#updatePassword-Container{
-	background: black;
-	color: white;
-}
-
-div#updatePassword-Container table{
-	margin: 0 auto;
-	border-spacing: 20px;
-}
-
-div#updatePassword-Container table tr:last-of-type td{
-	text-align: center;
-}
-</style>
+<link rel="stylesheet" href="<%=request.getContextPath() %>/css/member/updatePassword.css" />
 <script>
 
 	function passwordValidate() {
@@ -56,6 +42,17 @@ div#updatePassword-Container table tr:last-of-type td{
 			$userPassword_New.focus();
 			
 			return false;
+		}
+		
+		// 현재 비밀번호와 일치여부 확인
+		if ($userPassword.val() == $userPassword_New.val()){
+			alert("현재 비밀번호와 같습니다.");
+			$userPassword_New.val("");
+			$userPassword_Check.val("");
+			$userPassword_New.focus();
+
+			return false;
+			
 		}
 
 		// 비밀번호 유효성 검사
@@ -88,16 +85,6 @@ div#updatePassword-Container table tr:last-of-type td{
 
 		}
 		
-		// 현재 비밀번호와 일치여부 확인
-		if ($userPassword.val() == $userPassword_New.val()){
-			alert("현재 비밀번호와 같습니다.");
-			$userPassword_New.val("");
-			$userPassword_Check.val("");
-			$userPassword_New.focus();
-
-			return false;
-			
-		}
 		return true;
 	}
 
@@ -106,6 +93,7 @@ div#updatePassword-Container table tr:last-of-type td{
 <body>
 
 	<div id="updatePassword-Container">
+		<h2>CHANGE PASSWORD</h2>
 		<form action="<%=request.getContextPath() %>/member/updatePasswordEnd"
 			  name="updatePasswordFrm"
 			  method="post">
@@ -141,10 +129,10 @@ div#updatePassword-Container table tr:last-of-type td{
 			  	</tr>
 			  	<tr>
 			  		<td colspan="2">
-			  			<input type="submit"
+			  			<input type="submit" class="btn"
 			  				   onclick="return passwordValidate();"
 			  				   value="변경"	/>
-			  			<input type="button"
+			  			<input type="button" class="btn"
 			  				   onclick="self.close();"
 			  				   value="취소"	/>
 			  		</td>			  		
