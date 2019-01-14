@@ -179,7 +179,7 @@ public class MemberDao {
 
 			// 3. 결과 변수 result에 담기
 			if (rset.next()) { // 하나의 결과값만 돌려주면 되기 때문에 while문 대신 if문 작성
-				result = rset.getInt("iDEmailcheck"); // 컬럼명
+				result = rset.getInt("idEmailcheck"); // 컬럼명
 			}
 
 		} catch (SQLException e) {
@@ -213,6 +213,51 @@ public class MemberDao {
 
 			// 쿼리문 미완성
 			pstmt.setString(1, userId);
+
+			// 2. 쿼리문 실행 : DQL(SELECT) 이므로 excuteQuery()
+			rset = pstmt.executeQuery();
+			
+			// 3. 결과 loggedInMember에 담기
+			while (rset.next()) { // 다음 행이 있다면 실행
+				loggedInMember = new Member();
+				loggedInMember.setUserId(rset.getString("userid"));
+				loggedInMember.setUserPassword(rset.getString("userpassword"));
+				loggedInMember.setUserEmail(rset.getString("useremail"));
+				loggedInMember.setUserProfileOriginalFile(rset.getString("userprofileoriginalfile"));
+				loggedInMember.setUserProfileRenamedFile(rset.getString("userprofilerenamedfile"));
+				loggedInMember.setCoin(rset.getInt("coin"));
+				loggedInMember.setHintPaper(rset.getInt("hintpaper"));
+				loggedInMember.setEnrollDate(rset.getDate("enrolldate"));
+
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			// 자원반납
+			close(rset);
+			close(pstmt);
+		}
+
+		return loggedInMember;
+	}
+	
+	public Member selectEmail(Connection conn, String userEmail) {
+		Member loggedInMember = null;
+
+		// DB로 SQL문 요청하기 위해 객체 생성
+		PreparedStatement pstmt = null;
+
+		// SELECT문을 통해서 데이터를 가져온다면 ResultSet 객체에 그 데이터를 저장해야 한다.
+		ResultSet rset = null;
+
+		String query = prop.getProperty("selectEmail");
+
+		try {
+			// 1. Statement객체 생성 및 미완성쿼리문 완성
+			pstmt = conn.prepareStatement(query);
+
+			// 쿼리문 미완성
+			pstmt.setString(1, userEmail);
 
 			// 2. 쿼리문 실행 : DQL(SELECT) 이므로 excuteQuery()
 			rset = pstmt.executeQuery();
@@ -422,6 +467,8 @@ public class MemberDao {
 		
 		return encUserPassword;
 	}
+
+
 
 
 

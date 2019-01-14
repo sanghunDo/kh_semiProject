@@ -199,14 +199,21 @@ public class MemberService {
 		return result;
 	}
 
-//	public int temporaryPw(String userEmail, String temporary_Pw) {
-//		Connection conn = getConnection();
-//		System.out.println("임시비밀번호@서비스 = " + temporary_Pw);
-//		System.out.println("유저이메일@서비스 = " + userEmail);
-//		
-//		int result = new MemberDao().updatePassword(conn, m);
-//		return 0;
-//	}
+	public Member selectEmail(String userEmail) {
+		Member loggedInMember = null;
+
+		// DB와 연결
+		Connection conn = getConnection();
+
+		loggedInMember = new MemberDao().selectEmail(conn, userEmail);
+
+		// DQL(SELECT)이므로 트랜잭션 처리 하지 않는다.
+
+		// 자원반납
+		close(conn);
+
+		return loggedInMember;
+	}
 
 
 

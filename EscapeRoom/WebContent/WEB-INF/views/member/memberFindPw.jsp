@@ -2,7 +2,6 @@
 	pageEncoding="UTF-8"%>
 <%@ page import="java.util.*" %>
 <%@ include file="/WEB-INF/views/common/header.jsp"%>
-<link href="https://fonts.googleapis.com/css?family=Amatic+SC" rel="stylesheet">
 <%
  	Member m = (Member) request.getAttribute("member");
 	String userId = m.getUserId();
@@ -14,6 +13,8 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<link href="https://fonts.googleapis.com/css?family=Roboto+Slab" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Noto+Serif+KR" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css?family=Amatic+SC" rel="stylesheet">
 <link rel="stylesheet" href="<%=request.getContextPath() %>/css/member/findPw.css" />
 <script src="<%=request.getContextPath()%>/js/jquery-3.3.1.js"></script>

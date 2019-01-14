@@ -20,7 +20,7 @@ div#logo{
 h1{
 	padding-top:10px;
 	margin-left:102px;
-	font-family: 'Roboto Slab', serif;
+	font-family: 'Roboto Slab', sans-serif;
 }
 
 #register-Container{
@@ -50,6 +50,7 @@ table{
 td{
 	padding-bottom:15px;
 	text-align:center;
+	font-family: 'Roboto Slab', sans-serif;
 }
 
 #userProfile{
@@ -74,13 +75,14 @@ td{
 	height:100%;
 }
 
-#id-check{
+#id-check, #email-check{
 	outline:none;
 	border:1px solid white;
 	color:white;
 	background:black;
 	border-radius: 5px;
 	cursor:pointer;
+	font-family:'Noto Serif KR', serif;
 }
 
 #register-Btn{
@@ -96,4 +98,5 @@ td{
 	display:block;
 	margin:0 auto;
 	margin-top:20px;
+	font-family: 'Roboto Slab', sans-serif;
 }
