@@ -67,11 +67,11 @@ function obj_click(){
 					$("#show-obj").html(html);
 				}
 			}
-					get_item(secondName);
 			show_coment(objName, 1);
 			$("#wrap").addClass("paused");
 			$("#show-obj").prepend("<img src='<%=request.getContextPath()%>/images/game/gameMain/clicked/"+objName+"_clicked.png' id='clicked' />").show();
 			$("#clicked").attr("onclick", "obj_reClick('"+objName+"')");
+			get_item(secondName);
 		});
 	});
 };
@@ -217,7 +217,6 @@ function get_item(parentName){
 	$("#show-obj img").not(":first").each(function(){
 		var cnt = 1;
 		var $target = $(this);
-		console.log($target);
 		$(this).on('click', function(e){
 			var objName = $target.prop("id");
 			$("[id*=clicked]").attr("src", "<%=request.getContextPath()%>/images/game/gameMain/clicked/"+objName+"_clicked.png");
@@ -227,7 +226,6 @@ function get_item(parentName){
 				type: "post",
 				dataType: "json",
 				success: function(data){
-					console.log(data);
 					for(var i in data){
 						if(objName==data[i].objName){
 							if(data[i].isItem=="Y "){
