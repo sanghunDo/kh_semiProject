@@ -106,7 +106,22 @@
     opacity: 0;
 }
 
-img[id*="clicked"]{
+/* right */
+#window{
+	top: 40px;
+    width: 250px;
+    left: 600px;
+}
+#letter{
+	top: 633px;
+    width: 80px;
+}
+#water{
+	left: 669px;
+    top: 639px;
+}
+
+#show-obj img:first-of-type{
 	position: relative;
 	height: 100%;
 }

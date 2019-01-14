@@ -66,9 +66,9 @@ $(function(){
 		<div id="close-hint">X</div>
 		<div></div>
 	</div>
-	<div id="coment">
-		<div><h2></h2></div>
-	</div>
+</div>
+<div id="coment">
+	<div><h2></h2></div>
 </div>
 <div id="show-obj"></div>
 <%@ include file="/WEB-INF/views/game/gameController.jsp" %>

@@ -300,5 +300,35 @@ public class GameDao {
 		}
 		return list;
 	}
+	public MainObj getObject(Connection conn, String objName) {
+		MainObj obj = null;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String query = prop.getProperty("getObject");
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, objName);
+			rset = pstmt.executeQuery();
+			if(rset.next()) {
+				obj = new MainObj();
+				obj.setObjNo(rset.getInt("objno"));
+				obj.setObjName(rset.getString("objname"));
+				obj.setSecondName(rset.getString("secondname"));
+				obj.setThirdName(rset.getString("thirdname"));
+				obj.setParentName(rset.getString("parentname"));
+				obj.setPosition(rset.getString("position"));
+				obj.setObjLevel(rset.getInt("objlevel"));
+				obj.setRefNo(rset.getInt("refno"));
+				obj.setIsItem(rset.getString("isitem"));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return obj;
+	}
 
 }
