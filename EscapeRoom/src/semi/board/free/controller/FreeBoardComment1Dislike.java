@@ -1,8 +1,11 @@
 package semi.board.free.controller;
 
 import java.io.IOException;
+import java.io.PrintWriter;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -32,12 +35,46 @@ public class FreeBoardComment1Dislike extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("utf-8");
 		int commentNo =Integer.parseInt(request.getParameter("commentNo"));
-		int commentDislikeAmount =Integer.parseInt(request.getParameter("commentDislikeAmount"));
-		//String flag = request.getParameter("flag");
-		System.out.println("commentNo="+commentNo);
-		System.out.println("commentDislike="+commentDislikeAmount);
-		int result = new FreeBoardDao().updateDislike(commentNo,commentDislikeAmount);
-		int dislike = new FreeBoardDao().getDislike(commentNo);
+		String userId = request.getParameter("userId");
+	
+		Cookie[] cookies = request.getCookies();
+		String postCookieVal = "";
+		boolean hasLike = false;
+		
+		if(cookies != null) {
+			for(Cookie c:cookies) {
+				String name = c.getName();
+				String value = c.getValue();
+
+				if("likeCookie".equals(name)) { //댓글의견
+					postCookieVal = value;
+					if(value.contains("|"+ commentNo+userId+"|")) {
+						hasLike = true;
+						break;
+					}
+				}
+			}
+		}
+		
+		int dislike = 0;
+		if(!hasLike) {
+			int result = new FreeBoardDao().updateDislike(commentNo);
+			dislike = new FreeBoardDao().getDislike(commentNo);
+	
+			Cookie postCookie = new Cookie("likeCookie", postCookieVal + "|"+commentNo + userId + "|");
+			response.addCookie(postCookie); 
+			
+			
+		}else {
+			response.setContentType("text/html; charset=utf-8");
+            PrintWriter out = response.getWriter();
+            out.println("<script>alert('이미 참여하셨습니다');</script>");    		
+            out.flush();
+            dislike = new FreeBoardDao().getDislike(commentNo);
+
+            // jsp에 전달하기 위해 속성으로 전	
+		}
+		
 		//System.out.println("result"+result);
 		
 		response.setContentType("application/json; charset=utf-8");
