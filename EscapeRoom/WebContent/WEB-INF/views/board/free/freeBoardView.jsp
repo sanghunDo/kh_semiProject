@@ -143,11 +143,10 @@
                 <input type="hidden" name="userId" value="<%=loggedInMember.getUserId()%>"/>
                 <input type="hidden" name="commentLevel" value="1" />
                 <input type="hidden" name="commentRef" value="0" />
-                <!-- <input type="checkBox" name="secret"/><label for="secret">비밀글</label> -->
                 <textarea name="boardCommentContent" cols="60" rows="3" style="margin: 11px;margin-bottom: -78px;width: 800px;height: 113px;resize:none;"></textarea>
+        <!--         <div id="forSecret"><input type="checkBox" name="secret" id=secretComment/>비밀댓글</div> -->
                 </form>
                 <div class="commentSubmit" onclick="insertComment();" style="cursor: pointer;">등록</div>
-               
             </div><!-- end of . comment-editor -->
             
             <!-- 댓글 목록 테이블 -->
@@ -691,6 +690,16 @@
 	function returnOpinion(){
 		alert("자신의 댓글에는 참여하실 수 없습니다.");
 	}
-   
+
+
+	  
+	      
+				
+			
+	
+	
+	
+
+	
 </script>
 </html>
