@@ -14,6 +14,7 @@
 	System.out.println("멤버뷰jsp 유저아이디 : " + userId_);
 	String userPassword = m.getUserPassword();
 	String userEmail = m.getUserEmail()!=null?m.getUserEmail():"";
+	int coin = m.getCoin();
 	String userProfileOriginalFile = m.getUserProfileOriginalFile()!=null?m.getUserProfileOriginalFile():"";	
 	String userProfileRenamedFile = m.getUserProfileRenamedFile()!=null?m.getUserProfileRenamedFile():"";
 %>
@@ -137,6 +138,12 @@ $(function(){
 	});
 });
 
+$(function(){
+	$("#coin").on("click", function(){
+		alert("코인은 수정이 불가능합니다.");
+	});
+});
+
 </script>
 <section id="memberView-Container">
 	<h2>&lt; 프로필 수정 &gt;</h2>
@@ -167,6 +174,16 @@ $(function(){
 		  				   name="userEmail" 
 		  				   id="userEmail"
 		  				   value="<%=userEmail %>" />
+		  		</td>
+		  	</tr>
+		  	<tr>
+		  		<th>보유코인</th>
+		  		<td>
+		  			<input type="text"
+		  				   name="coin"
+		  				   id="coin"
+		  				   value="<%=coin %>"
+		  				   readonly />
 		  		</td>
 		  	</tr>
 			<tr>
