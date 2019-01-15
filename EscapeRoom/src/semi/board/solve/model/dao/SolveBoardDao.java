@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import semi.board.solve.model.vo.BoardComment;
+import semi.board.solve.model.vo.GameRank;
 import semi.board.solve.model.vo.SolveBoard;
 
 public class SolveBoardDao {
@@ -1665,9 +1666,54 @@ public class SolveBoardDao {
             
       return result;
    }
+
+   public List<GameRank> selectRankList() {
+	  List<GameRank> list = null;
+      Connection conn = null;
+      PreparedStatement pstmt = null;
+      ResultSet rset = null;
+      String query = "select * from game_rank";
+      
+      //1. 클래스등록확인
+      try {
+         Class.forName("oracle.jdbc.driver.OracleDriver");
+         conn = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe", 
+               "escape_if_you_can", //아이디 
+               "escape_if_you_can");//비번
+         
+         pstmt = conn.prepareStatement(query);
+ 
+         rset = pstmt.executeQuery();
+         
+         list = new ArrayList<>();
+         while(rset.next()) {
+            GameRank gr = new GameRank();
+            
+            gr.setPlayno(rset.getInt("playno"));
+            gr.setGameid(rset.getString("gameid"));
+            gr.setGameruntime(rset.getInt("gameruntime"));
+            gr.setGameEscapeDate(rset.getDate("gameescapedate"));
+           
+            list.add(gr);
+            
+         }
+      } catch (ClassNotFoundException e) {
+         e.printStackTrace();
+      } catch (SQLException e) {
+         e.printStackTrace();
+      } finally {
+         try {
+            rset.close();
+            pstmt.close();
+            conn.close();
+         } catch (SQLException e) {
+            e.printStackTrace();
+         }
+         
+      }
+      
+      return list;
+	}
    
 }
-   
-
-   
 

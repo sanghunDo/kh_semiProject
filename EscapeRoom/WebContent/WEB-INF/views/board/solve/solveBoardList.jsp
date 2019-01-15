@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ page import = "java.util.*,semi.board.solve.model.vo.*"  %>
+<%@ page import = "java.util.*, semi.board.solve.model.vo.*"  %>
 <%@ include file="/WEB-INF/views/common/header.jsp"%>
 <html>
 <head>
@@ -10,10 +10,12 @@
 <%
 	List<SolveBoard> list = (List<SolveBoard>)request.getAttribute("list");
 	List<SolveBoard> bestList = (List<SolveBoard>)request.getAttribute("bestList");
+	List<GameRank> rankList = (List<GameRank>)request.getAttribute("rankList");
+
 	int cPage = (int)request.getAttribute("cPage");
 	int numPerPage = (int)request.getAttribute("numPerPage");
 	String pageBar = (String)request.getAttribute("pageBar");
-
+	
 
 %>
 <title>공략게시판</title>
@@ -28,9 +30,15 @@ function noEnter(){
     <h3>공략게시판</h3>
     <!--new pic-->
     <hr>
-    <%if(loggedInMember != null){ %>
+    <%for(GameRank gr : rankList){
+    	if(loggedInMember != null && gr.getGameid().equals(loggedInMember.getUserId())){
+    %>
     <div id="write" style="color:white"><a href="<%=request.getContextPath()%>/board/solve/solveBoardInsert?userId=<%=loggedInMember.getUserId()%>">글쓰기</a></div>
-    <%} %>
+    <%} 
+    } 
+    %>
+    
+   
     <div class="sort">
         <span>추천순</span>
         <span>최신순</span>
@@ -180,6 +188,10 @@ function noEnter(){
 			var searchVal = $("#searchVal").val();
 			location.href = "<%=request.getContextPath()%>/board/solve/solveBoardSearch?searchType="+option+"&searchVal="+searchVal;
      });
+	 
+	 function fakeWrite(){
+		 alert("게임을 클리어 한 사용자만 글쓰기가 가능합니다! 게임을 먼저 클리어해주세요.");
+	 }
 
 </script>
 </body>

@@ -67,7 +67,7 @@ $(function(){
 		<div></div>
 	</div>
 </div>
-<div id="coment">
+<div id="coment" onclick="$(this).hide();">
 	<div><h2></h2></div>
 </div>
 <div id="show-obj"></div>
@@ -80,34 +80,50 @@ setTimeout(function(){
 	$("#pause").show();
 }, 3100);
 function move(where,direction){
-	   $("#sub-background img:first").attr("src","<%=request.getContextPath()%>/images/game/gameMain/"+where+"/background.png");
-	   var here = $("#background img").prop("id"); 
-	   $("#background").css("left","0px");
-	   
-	   if(direction=="-"){
-	      $("#sub-background").css("left","1008px");}
-	   else if(direction=="+"){
-	      $("#sub-background").css("left","-1008px");}
-	   else if(direction=="up"){
-	      $("#sub-background").css({"top":"-704px", "left":"0px"});}
-	   else if(direction=="down"){
-	      $("#sub-background").css({"top":"704px", "left":"0px"});}
-	   
-	   $("#sub-background img:first").attr("id", where);
-	   setObject(where);
-	   if(direction=="-"||direction=="+"){
-	      $("#sub-background").delay(100).animate({left: direction+'=1008px'},1000);
-	      $("#background").delay(100).animate({left: direction+'=1008px'},1000);
-	   }else if (direction=="up"){
-	      $("#sub-background").delay(100).animate({top: '+=704px'},1000);
-	      $("#background").delay(100).animate({top: '+=704px'},1000);
-	   }else if(direction=="down"){
-	      $("#sub-background").delay(100).animate({top: '-=704px'},1000);
-	      $("#background").delay(100).animate({top: '-=704px'},1000);
-	   }
-	   
-	   $("#"+where).parent().attr("id", "background").siblings().attr("id", "sub-background");
-}
+    $("#sub-background img:first").attr("src","<%=request.getContextPath()%>/images/game/gameMain/"+where+"/background.png");
+    var here = $("#background img").prop("id"); 
+    $("#background").css("left","0px");
+    
+    if(direction=="-"){
+          $("#sub-background").css("left","1008px");
+          //2000px으로 치워서 재클릭 방지 
+       $("#moveRight").css("left","2000px");}
+    else if(direction=="+"){
+       $("#sub-background").css("left","-1008px");
+       $("#moveLeft").css("left","-2000px");}
+    else if(direction=="up"){
+       $("#sub-background").css({"top":"-704px", "left":"0px"});
+       $("#moveCeiling").css("top","-2000px");}
+    else if(direction=="down"){
+          $("#sub-background").css({"top":"704px", "left":"0px"});
+          $("#background").css("top","704px");
+         $("#moveCeiling").css("top","-2000px");}
+          
+    
+    $("#sub-background img:first").attr("id", where);
+    setObject(where);
+    if(direction=="-"||direction=="+"){
+       $("#sub-background").delay(100).animate({left: direction+'=1008px'},1000);
+       $("#background").delay(100).animate({left: direction+'=1008px'},1000);
+    }else if (direction=="up"){
+       $("#sub-background").delay(100).animate({top: '+=704px'},1000);
+       $("#background").delay(100).animate({top: '+=704px'},1000);
+    }else if(direction=="down"){
+       $("#sub-background").delay(100).animate({top: '-=704px'},1000);
+       $("#background").delay(100).animate({top: '-=704px'},1000);
+    }
+    
+    //재클릭 방지 위치 되돌리기
+    if(direction=="-"){
+        $("#moveRight").delay(1000).animate({"left":"977px"});
+    }else if(direction=="+"){
+        $("#moveLeft").delay(1000).animate({"left":"-30px"});
+    }else if(direction=="up"||direction=="down"){
+        $("#moveCeiling").delay(1000).animate({"top":"-30px"});
+    }
+    
+    $("#"+where).parent().attr("id", "background").siblings().attr("id", "sub-background");
+};
 $("#moveRight").on('click',function(){
       var here = $("#background img").prop("id"); 
       if(here == 'front'){
@@ -337,7 +353,7 @@ $("#obj-list div").each(function(){
 $("#pause").on("click", {flag:1}, function(e){
 	var $target = $(this);
 	var cnt = e.data.flag++;
-	$("#wrap div").not("#pause, #pause-menu-container, #pause-menu-container div, #message, #hint, #hint *").toggleClass("paused");
+	$("#wrap div").not("#pause, #pause-menu-container, #pause-menu-container div, #message, #hint, #hint *, #background").toggleClass("paused");
 	if(cnt%2!=0){
 		$target.children().attr("src", "<%=request.getContextPath()%>/images/game/gameMain/play.png");
 		$("#pause-menu-container").show();

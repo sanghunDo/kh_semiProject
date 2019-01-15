@@ -28,7 +28,7 @@ function check(){
     $("#fname").css("display","none");
 		 
 	 });
-    /* 값이 없으면 숨기기 */
+  
 
 }
 

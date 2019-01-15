@@ -79,6 +79,10 @@ public class MemberDeleteServlet extends HttpServlet {
 		else{
 			msg = "회원탈퇴 실패!";
 		}
+		
+		if(multiReq.getParameter("admin") != null) {
+			loc = "/adminMode/adminMain";
+		}
 		request.setAttribute("msg", msg);
 		request.setAttribute("loc", loc);
 		

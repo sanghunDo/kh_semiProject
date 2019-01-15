@@ -2,19 +2,19 @@
 body{
 	background:black;
 	color:white;
-	font-family: 'Noto Serif KR', serif;
 }
 
 h2{
 	padding-top:10px;
-	/* margin-left:62px; */
+	font-family: 'Noto Serif KR', serif;
 	font-size:18px;
 	margin-left:190px;
+	
 }
 
 #memberView-Container{
 	width:500px;
-	height:550px;
+	height:630px;
 	border-radius:20px;
 	margin:0 auto;
 	margin-top:50px;
@@ -27,7 +27,7 @@ h2{
 	hegiht: 100px;
 }
 
-#userId_, #userEmail{
+#userId_, #userEmail, #coin{
 	width:275px;
 	height:25px;
 	outline:none;
@@ -45,6 +45,7 @@ table{
 
 th{
 	padding-bottom: 15px;
+	font-family: 'Noto Serif KR', serif;
 	text-align: center;
 }
 

@@ -7,6 +7,8 @@
 <head>
 <meta charset="UTF-8">
 <title>FIND ID</title>
+<link href="https://fonts.googleapis.com/css?family=Roboto+Slab" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Noto+Serif+KR" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css?family=Amatic+SC" rel="stylesheet">
 <link rel="stylesheet" href="<%=request.getContextPath() %>/css/member/findId.css" />
 <script src="<%=request.getContextPath()%>/js/jquery-3.3.1.js"></script>

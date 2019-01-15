@@ -115,7 +115,7 @@ public class Member implements Serializable, HttpSessionBindingListener{
 	public String toString() {
 		return userId + "," + userPassword + "," + userEmail
 				+ "," + userProfileOriginalFile + ","
-				+ userProfileRenamedFile + "," + enrollDate;
+				+ userProfileRenamedFile + "," + coin + "," + hintPaper + "," +enrollDate;
 	}
 
 	@Override

@@ -14,6 +14,7 @@
 	System.out.println("멤버뷰jsp 유저아이디 : " + userId_);
 	String userPassword = m.getUserPassword();
 	String userEmail = m.getUserEmail()!=null?m.getUserEmail():"";
+	int coin = m.getCoin();
 	String userProfileOriginalFile = m.getUserProfileOriginalFile()!=null?m.getUserProfileOriginalFile():"";	
 	String userProfileRenamedFile = m.getUserProfileRenamedFile()!=null?m.getUserProfileRenamedFile():"";
 %>
@@ -75,7 +76,6 @@ function updateValidate(){
 		return false;
 	}
 	
-	
 	// 프로필사진 유효성 검사
 	if(!getUserProfileOriginalFile.test(fileExt) && $userProfileOriginalFile.val().length > 0){
 		alert("첨부파일은 jpg, jpeg, png, gif로 된 이미지만 가능합니다.");
@@ -95,6 +95,16 @@ function deleteMember(){
 	
 }
 
+function deleteMember_Admin(){
+	var bool = confirm("정말로 해당회원을 탈퇴처리 하시겠습니까?");
+	if(bool){
+		var frm = document.memberUpdateFrm;
+		frm.action = "<%=request.getContextPath()%>/member/memberDelete?admin=admin";
+		frm.submit();
+	}
+	
+}
+
 // 비밀번호 변경 팝업 요청
 function updatePassword(){
 	
@@ -102,7 +112,12 @@ function updatePassword(){
 	
 	// 팝업창 이름
 	var title = "updatePassword";
-	var status = "left=500px, top=200px, width=500px, height=250px";
+	/* var status = "left=500px, top=200px, width=500px, height=250px"; */
+	
+	var popupX = (window.screen.width / 2) - (480 / 2);
+	var popupY = (window.screen.height /2) - (380 / 2);
+	
+	var status = "left=" + popupX +", top=" + popupY +", screenX =" + popupX +", screenY=" + popupY + ",width=480px, height=380px";
 	
 	open(url, title, status);
  }
@@ -129,6 +144,12 @@ function readURL(input){
 $(function(){
 	$("#userId_").on("click", function(){
 		alert("아이디는 수정이 불가능합니다.");
+	});
+});
+
+$(function(){
+	$("#coin").on("click", function(){
+		alert("코인은 수정이 불가능합니다.");
 	});
 });
 
@@ -164,6 +185,16 @@ $(function(){
 		  				   value="<%=userEmail %>" />
 		  		</td>
 		  	</tr>
+		  	<tr>
+		  		<th>보유코인</th>
+		  		<td>
+		  			<input type="text"
+		  				   name="coin"
+		  				   id="coin"
+		  				   value="<%=coin %>"
+		  				   readonly />
+		  		</td>
+		  	</tr>
 			<tr>
 				<th>프로필<br />사진</th>
 					<td>
@@ -192,17 +223,16 @@ $(function(){
 						<%} // end of else : 프사 없는 경우 기본 프사 보여주기 %>
 						</div>
 					</td>
-					<!-- <td>
-						<div id="profile-Container">
-							<img id="profilePre" src="" alt="" />
-						</div>
-					</td> -->
 				</tr>
 		</table>
-		  <input type="submit" id="editInfo-Btn" value="회원정보 수정" />
+		  <input type="submit" id="editInfo-Btn" value="회원정보 수정"
+		  	<%="admin".equals(loggedInMember.getUserId()) ? "disabled style='color:gray; cursor:default;'" : ""%>/>
 		  <input type="button" id="password-Btn" value="비밀번호 수정"
-		  		 onclick="updatePassword();" />
-		  <input type="button" id="delete-Btn" value="탈퇴" onclick="deleteMember();" />
+		  		 onclick="updatePassword();"
+		  	<%="admin".equals(loggedInMember.getUserId()) ? "disabled style='color:gray; cursor:default;'" : ""%>/>
+		  <input type="button" id="delete-Btn" value="탈퇴"
+		  	<%="admin".equals(loggedInMember.getUserId()) ? "onclick='deleteMember_Admin();'" : "onclick='deleteMember();'"%> />
+
 	</form>
 </section>
 <%@ include file="/WEB-INF/views/common/footer.jsp"%>

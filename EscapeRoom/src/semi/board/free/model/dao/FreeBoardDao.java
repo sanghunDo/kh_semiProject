@@ -1612,13 +1612,10 @@ public class FreeBoardDao {
 				pstmt.close();
 				conn.close();
 			} catch (SQLException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 			
-		}
-		
-				
+		}	
 		return result;
 	}
 
@@ -1643,7 +1640,6 @@ public class FreeBoardDao {
 			pstmt.setString(4, reasonVal);
 			pstmt.setString(5, userComment);
 
-
 			//쿼리 실행
 			result = pstmt.executeUpdate();
 			
@@ -1659,18 +1655,10 @@ public class FreeBoardDao {
 				pstmt.close();
 				conn.close();
 			} catch (SQLException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 			
-		}
-		
-				
+		}			
 		return result;
 	}
 }
-	
-
-	
-
-

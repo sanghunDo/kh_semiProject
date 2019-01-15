@@ -1,0 +1,42 @@
+@charset "UTF-8";
+body{
+	background:black;
+}
+
+#checkEmail-Container{
+	text-align: center;
+	padding-top: 30px;
+	background:black;
+	color:white;
+	font-family: 'Roboto Slab', sans-serif;
+	font-weight:bold;
+	font-size:20px;
+}
+
+#checkEmailDuplicateFrm{
+	margin: 5px auto;
+}
+
+#userEmail{
+	height: 20px;
+	font-family: 'Roboto Slab', sans-serif;
+}
+
+span#duplicated{
+	color: red;
+	font-weight: bold;
+	font-family: 'Roboto Slab', sans-serif;
+}
+
+.myBtn{
+	width:100px;
+	height:40px;
+	background:#353535;
+	color:white;
+	font-family:'Noto Serif KR', serif;
+	font-size:18px;
+	font-weight:bold;
+	border:1px solid #353535;
+	border-radius:10px;
+	cursor:pointer;
+}
