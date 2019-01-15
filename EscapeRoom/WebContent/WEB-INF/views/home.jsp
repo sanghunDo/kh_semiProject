@@ -57,7 +57,7 @@
 					<div id="rank-One_Info">
 						<p id="congratulations">CONGRATULATIONS</p>
 						<%if(r.getUserprofilerenamedfile() != null) { %>
-						<img id="rankOne-Profile" src="<%=request.getContextPath() %>/upload/member<%=r.getUserprofilerenamedfile() %>" alt="" />
+						<img id="rankOne-Profile" src="<%=request.getContextPath() %>/upload/member/<%=r.getUserprofilerenamedfile() %>" alt="" />
 						<%} else { %>
 						<img id="rankOne-Profile" src="<%=request.getContextPath() %>/images/nonProfile.png" alt="" />
 						<%} %>

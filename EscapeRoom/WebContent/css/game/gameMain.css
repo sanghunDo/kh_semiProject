@@ -96,7 +96,7 @@ div#inventory div#obj-list div#obj5{
 div#inventory:before{
 	content:"open"; 
 	position: absolute;
-	width: 100%;
+	left: 45%;
 	height: 15%; 
 	top: -50px;
 	font-size: 30px;

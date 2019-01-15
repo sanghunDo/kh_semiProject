@@ -1,26 +1,23 @@
-package semi.board.free.controller;
+package semi.game.controller;
 
 import java.io.IOException;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import semi.board.free.model.dao.FreeBoardDao;
-
 /**
- * Servlet implementation class FreeBoardCommentDelete
+ * Servlet implementation class GoToEndingChoiceServlet
  */
-@WebServlet("/board/free/freeBoardCommentDelete")
-public class FreeBoardCommentDelete extends HttpServlet {
+@WebServlet("/game/goToEndingChoice")
+public class GoToEndingChoiceServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public FreeBoardCommentDelete() {
+    public GoToEndingChoiceServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -29,24 +26,7 @@ public class FreeBoardCommentDelete extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		int commentNo = Integer.parseInt(request.getParameter("commentNo"));
-		int postNo = Integer.parseInt(request.getParameter("postNo"));
-
-		int result = new FreeBoardDao().deleteComment(commentNo);
-		
-		String view = "/WEB-INF/views/common/msg.jsp";
-		String msg = "";
-		String loc = "/board/free/freeBoardView?postNo="+postNo ;
-		
-		if(result >0 ) {
-			msg ="댓글을 삭제하였습니다.";
-			
-		}else {
-			msg = "삭제실패";
-		}
-		request.setAttribute("msg", msg);
-		request.setAttribute("loc", loc);
-		request.getRequestDispatcher(view).forward(request, response);
+		request.getRequestDispatcher("/WEB-INF/views/game/gameEnding_choice.jsp").forward(request, response);
 	}
 
 	/**

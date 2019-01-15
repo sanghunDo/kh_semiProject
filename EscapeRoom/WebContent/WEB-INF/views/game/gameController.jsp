@@ -26,6 +26,19 @@ function setObject(position){
 					}
 				}
 			obj_click();
+			escape();
+		}
+	});
+};
+function escape(){
+	$("#door").on('click', function(){
+		var state1 = check_state("door_lock1", "use");
+		var state2 = check_state("door_lock2", "use");
+		
+		if(state1==2&&state2==2){
+			console.log("축하합니다....");
+		}else{
+			show_coment("door", 1);
 		}
 	});
 };
@@ -40,25 +53,45 @@ function off(){
 };
 function obj_click(){
 	var position = $("#background img").prop("id")
-	$("#background>img").not(":first").each(function(){
+	$("#background>img").not(":first, #door").each(function(){
 		$(this).on('click', function(){
 			var objName = $(this).prop("id");
 			var html = "";
 			
-			var children = find_children(objName);
+			var children = find_children(objName, 1);
 			if(children.length>0){
-				console.log(check_state(children[0], "get"));	
+				if(children.length==1){
+					var state = is_used(children);
+					if(state==2) {objName = "used_"+objName;}
+				}
+				if(children.length==2){
+					var state1 = is_used(children[0]);
+					var state2 = is_used(children[1]);
+					var childName = "";
+					
+					if(state1==2&&state2==2){objName = "used_"+objName;}
+					else{
+						if(state1==1&&state2==2){objName=children[0]+"_"+objName; childName=children[0];}
+						if(state1==2&&state2==1){objName=children[1]+"_"+objName; childName=children[1];}
+						console.log(childName);
+						html += "<img src='<%=request.getContextPath()%>/images/game/gameMain/"+position+"/"+childName+".png'";
+						html +=" id='"+childName+"' onclick=get_item('"+childName+"') class='obj'>";
+					}
+				}
 			}
-			else{
-				html = "<img src='<%=request.getContextPath()%>/images/game/gameMain/clicked/"+objName+"_clicked.png'";
-				html+= " onclick=obj_hasNext('"+objName+"') class='"+objName+"'>";
-			}
+			
+			html = "<img src='<%=request.getContextPath()%>/images/game/gameMain/clicked/"+objName+"_clicked.png'"
+				 + " onclick=obj_hasNext('"+objName+"') class='"+objName+"'>" + html;
 			
 			off();
 			$("#show-obj").html(html).show();
 			show_coment(objName, 1);
 		});
 	});
+};
+
+function is_used(children){
+	return check_state(children, "get");
 };
 function obj_hasNext(objName){
 	var position = $("#background img").prop("id");
@@ -74,22 +107,21 @@ function obj_hasNext(objName){
 				
 				var cName = "";
 				var html = "";
+				var cnt = 0;
 				
 				if(name==data.thirdName) {on(); return;}
 				else{
 					if(name==data.secondName){
 						if(!data.thirdName) {on(); return;}
-						show_coment(objName, 3);
-						html = "<%=request.getContextPath()%>/images/game/gameMain/"+position+"/"+data.thirdName+".png";
+						cnt = 3;
 						cName = data.thirdName;
 					}else{
 						if(!data.secondName) {on(); return;}
-						show_coment(objName, 2);
-						html = "<%=request.getContextPath()%>/images/game/gameMain/"+position+"/"+data.secondName+".png";
+						cnt = 2;
 						cName = data.secondName;
 					}
 					
-					var children = find_children(cName);
+					var children = find_children(cName, 2);
 					if(children.length>0){
 						for(var i in children){
 							var html_ = "<img src='<%=request.getContextPath()%>/images/game/gameMain/"+position+"/"+children[i]+".png'";
@@ -97,15 +129,17 @@ function obj_hasNext(objName){
 							$target.after(html_);
 						}					
 					}
+					
+					show_coment(objName, cnt);
+					html = "<%=request.getContextPath()%>/images/game/gameMain/"+position+"/"+cName+".png";
 					$target.removeClass().addClass(cName);
 					$target.attr("src", html);
 				}
-				
 			}
 		}
 	});
 };
-function find_children(objName){
+function find_children(objName, flag){
 	var children = [];
 	$.ajax({
 		url:"<%=request.getContextPath()%>/game/setObject",
@@ -113,14 +147,25 @@ function find_children(objName){
 		dataType: "json",
 		async: false,
 		success: function(data){
-			for(var i in data){
-				if(data[i].parentName==objName){
-					children.push(data[i].objName);
-				}
+			switch(flag){
+			case 1: for(var i in data){
+						if(data[i].objName==objName){
+							if(data[i].secondName!="") {
+								for(var j in data){
+									if(data[i].secondName==data[j].parentName) children.push(data[j].objName);
+									if(data[i].thirdName!=""){
+										if(data[i].thirdName==data[j].parentName) children.push(data[j].objName);
+									}
+								}
+							}
+						}				
+			}; break;
+			case 2: for(var i in data){
+						if(data[i].parentName==objName) children.push(data[i].objName);
+			}; break;
 			}
 		}
 	});
-	
 	return children;
 };
 
@@ -174,8 +219,11 @@ function refresh_inventory(){
 			for(var i in data){
 				if(data[i].isItem=="Y "){
 					var state1 = check_state(data[i].objName, "get");
-					var state2 = check_state(data[i].objName, "use");
-					if(state1==2&&state2<=1){
+					var state2 = 0;
+					if((data[i].objName).indexOf("hintnote")==-1){
+						state2 = check_state(data[i].objName, "use");
+					}
+					if(state1==2&&state2<2){
 						var html = "<img src='<%=request.getContextPath()%>/images/game/gameMain/"+data[i].position+"/"+data[i].objName+".png'>";
 						$("#obj"+cnt++).html(html);
 					}
