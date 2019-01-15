@@ -251,6 +251,15 @@ create table board_comment_rank(
     constraint fk_comment_rank_commentref foreign key(commentref) references board_comment_rank(commentno) on delete cascade,
     constraint ck_comment_rank_commentreport check(commentreport in('Y', 'N')) --제약조건 : 댓글 신고여부
 );
+INSERT INTO board_comment_free values (seq_comment_free_commentno.nextVal ,1,'sldsfe2','저는 이거 말고 청포도향도 있는데 좋더라구요!다음에 써봐야겠어요! ', 32 , null ,default,22,1,default);
+INSERT INTO board_comment_free values (seq_comment_free_commentno.nextVal ,1,'erg','저는 진짜 향수는 너무 독하고 섬유향수가 딱 좋더라구요! 좋은 정보 감사합니다:) ', 32 , null ,default,18,2,default);
+INSERT INTO board_comment_free values (seq_comment_free_commentno.nextVal ,1,'erihi','올리브영 섬유향수도 좋아요~ ', 32 , null ,default,13,0,default);
+
+INSERT INTO board_comment_solve values (seq_comment_solve_commentno.nextVal ,1,'gewt2','정보 공유부탁드려요! ', 19 , null ,default,25,1,default);
+INSERT INTO board_comment_solve values (seq_comment_solve_commentno.nextVal ,1,'tetgg','1등 축하드려요~', 19 , null ,default,18,2,default);
+INSERT INTO board_comment_solve values (seq_comment_solve_commentno.nextVal ,1,'wqed','저기요 공략게시판은 자랑하라고 있는 곳아니거든요? ㅋㅋ 재수없네요 ㅋㅋ', 19 , null ,default,13,4,default);
+commit; 
+
 
 --관리자용 : 신고글 관리
 create table admin_report_board(
@@ -518,6 +527,7 @@ insert into game_object_coment values(46, '"샤이니 만능열쇠 key~"', 40);
 
 
 commit;
+select * from game_state;
 
 create table game_state(
     userid varchar2(50) unique,
@@ -573,7 +583,7 @@ create table game_state(
 select * from game_state;
 --delete from game_state;
 --drop table game_state;
-update game_state set bs_batteryget=2 where userid='admin';
+update game_state set door_lock1use=2, door_lock2use=2 where userid='tkdgnstkdgns';
 commit;
 
 --신고게시글 테스트용 데이터
@@ -591,3 +601,84 @@ insert into admin_report_comment values('R', default, 8, 'cc', 'ccc', 'cccc', 'c
 insert into admin_report_comment values('F', seq_admin_support_comment.nextVal, 9, 'dd', 'ddd', 'dddd', 'ddddd');
 insert into admin_report_comment values('S', seq_admin_support_comment.nextVal, 10, 'ee', 'eee', 'eeee', 'eeeee');
 insert into admin_report_comment values('R', default, 11, 'ff', 'fff', 'ffff', 'fffff');
+
+--배드엔딩
+create table game_bad_ending(
+    no number,
+    content varchar2(1000) not null,
+    filename varchar2(50),
+    audioname varchar2(50)
+);
+
+insert into game_bad_ending(no, content) values(1,'..');
+insert into game_bad_ending(no, content) values(2,'....');
+insert into game_bad_ending(no, content) values(3,'.......?!');
+insert into game_bad_ending(no, content) values(4,'그래. 이렇게 다시봐도 꼴 보기 싫은 얼굴이구나.');
+insert into game_bad_ending(no, content) values(5,'너..누구야..');
+insert into game_bad_ending(no, content) values(6,'내얼굴이 많이변한건 그동안 피폐해진 내 삶때문이겠지.');
+insert into game_bad_ending(no, content) values(7,'날 기억하지 못한다는건,');
+insert into game_bad_ending(no, content, filename) values(8,'일말의 죄책감도 느끼지 않았다는 것으로 받아들여도 될까?', 'prologue.png');
+insert into game_bad_ending(no, content) values(9,'!?!??!?!?!??!?!!??!!!!??!');
+insert into game_bad_ending(no, content, audioname) values(10,'넌...갇혀있을 필요도 없었어...', 'reload.wav');
+insert into game_bad_ending(no, content, audioname) values(11,'!!!!!!!!!!!!!!!!', 'gun.mp3');
+
+--트루엔딩
+create table game_true_ending(
+    no number,
+    content varchar2(1000) not null,
+    filename varchar2(50),
+    audioname varchar2(50)
+);
+
+insert into game_true_ending(no, content) values(1,'..');
+insert into game_true_ending(no, content) values(2,'....');
+insert into game_true_ending(no, content) values(3,'.......?!');
+insert into game_true_ending(no, content) values(4,'그래. 이렇게 다시봐도 꼴 보기 싫은 얼굴이구나.');
+insert into game_true_ending(no, content) values(5, '너....?!');
+insert into game_true_ending(no, content, audioname) values(6, '난 들었던 총을 내려놓을 수 밖에 없었다.', 'trueEnd.mp3');
+insert into game_true_ending(no, content) values(7, '얼굴이 말이 아니네, 그런표정 짓고 있는 거 보니까.');
+insert into game_true_ending(no, content) values(8, '그래도 너 때문에 망가져사는 나에 비할건 못돼.');
+insert into game_true_ending(no, content) values(9, '넌 날 잊고 잘 살았겠지.');
+insert into game_true_ending(no, content) values(10, '생각지도 못한 사람이 내 앞에 서있다..');
+insert into game_true_ending(no, content) values(11, '맞아. 난 공부밖에 모르는 투명인간이었어.');
+insert into game_true_ending(no, content) values(12, '너가 장난으로 한 그말만 아니었어도,');
+insert into game_true_ending(no, content) values(13, '난 별 볼일 없는 내인생을 좋은 대학으로 조금이라도 바꿔볼 수 있었어.');
+insert into game_true_ending(no, content, audioname) values(14, '너 이새끼 내가 시험지 뒤에 종이 있는거 다봤다!', 'people.wav');
+insert into game_true_ending(no, content, audioname) values(15, '야.. 선생님도있는데 그렇게 크게 말하면 진짠줄알거아냐...!', 'people.wav');
+insert into game_true_ending(no, content, audioname) values(16, '내 알바아니다 ㅋㅋㅋ 장난인거 알겠지ㅋㅋㅋ', 'people.wav');
+insert into game_true_ending(no, content) values(17, '그 날 난 어김없이 선생님께 불려갔었지.');
+insert into game_true_ending(no, content, filename) values(18, '난 가정형편이 어려워서 급식비를 내지못하고 가끔 몰래 급식을 먹곤 했어.', 'past_lunch.jpg');
+insert into game_true_ending(no, content) values(19, '그 탓에 미운털이 잔뜩 박혀있었지.');
+insert into game_true_ending(no, content, filename) values(20, '내가 시험 전에 보려고 정리해놓고 여기저기 가방에 넣어둔 종이쪽지들...', 'papers.jpg');
+insert into game_true_ending(no, content) values(21, '담임은..그게 부정행위라고 우기더군.');
+insert into game_true_ending(no, content) values(22, '소문은 퍼질 수록 점점 커지는법...');
+insert into game_true_ending(no, content) values(23, '그렇게 소문을 견디지 못하고 자퇴를 선택할 수 밖에 없었지.');
+insert into game_true_ending(no, content) values(24, '나 같은 샌님 하나 없어졌다고 동요하는 아이들은 없었을 거야.');
+insert into game_true_ending(no, content) values(25, '그리고... 그 트라우마로 지금까지 이렇게 살고있지.');
+insert into game_true_ending(no, content) values(26, '세상 밖에 나갈 자신이 없어.');
+insert into game_true_ending(no, content) values(27, '난....! 정말 몰랐어...!');
+insert into game_true_ending(no, content) values(28, '늦은 사과..! 미안해..!');
+--노래꺼짐
+insert into game_true_ending(no, content) values(29, '이제서야 받게 되는구나...');
+insert into game_true_ending(no, content, audioname) values(30, '내가 내려놓은 총을 조용히 들었다..', 'footprint.wav');
+insert into game_true_ending(no, content) values(31, '총구를 겨누고 있는 눈이 공허해보인다.');
+insert into game_true_ending(no, content) values(32, '살려줘...! 부탁이야....');
+insert into game_true_ending(no, content) values(33, '.. 잘가...');
+insert into game_true_ending(no, content, audioname) values(34, '총구를 자기 머리에 갖다대고 있다...!', 'reload.wav');
+insert into game_true_ending(no, content) values(35, '???!!??!?!?!');
+insert into game_true_ending(no, content) values(36, '물론 널 갈기갈기 찢어놓고 싶은 마음이 굴뚝같지만..');
+insert into game_true_ending(no, content) values(37, '난 너를 죽일만큼 그렇게 간도 크지못해.');
+insert into game_true_ending(no, content, filename) values(38, '네가 이 버튼을 누르고 이 방을 나가면,', 'emergency.jpg');
+insert into game_true_ending(no, content) values(39, '조금 뒤엔 경찰차와 구급차가 올거야.');
+insert into game_true_ending(no, content) values(40, '그리고 그 사람들이 도착할 즈음엔 난 이 세상 사람이 아니겠지.');
+insert into game_true_ending(no, content) values(41, '달려가서 버튼을 눌렀다.. 마음을 바꿀 생각은 없는 것 같다..');
+insert into game_true_ending(no, content) values(42, '방에 갇혀있는 동안 뭐라도 느꼈길 바래.');
+insert into game_true_ending(no, content) values(43, '안돼.......!!');
+insert into game_true_ending(no, content) values(44, '너만탓하면서 내인생을 원망하던 나도참 나약해...');
+insert into game_true_ending(no, content) values(45, '내가 너한테');
+insert into game_true_ending(no, content) values(46, '마지막으로 남길...말은');
+insert into game_true_ending(no, content, filename) values(47, '죄책감으로 갚아. 난 남은 내 인생을 되돌릴 자신이 없어.', 'trueEnd.jpg');
+insert into game_true_ending(no, content, audioname) values(48, '안돼!!!!!!!!!!!!!!!!!!!!!', 'policesiren.wav');
+insert into game_true_ending(no, content, audioname) values(49, '!!!!!!!!', 'gun.mp3');
+
+commit;

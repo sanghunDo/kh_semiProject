@@ -29,6 +29,8 @@ function setObject(position){
 			escape();
 		}
 	});
+	
+	
 };
 function escape(){
 	$("#door").on('click', function(){
@@ -36,7 +38,22 @@ function escape(){
 		var state2 = check_state("door_lock2", "use");
 		
 		if(state1==2&&state2==2){
-			console.log("축하합니다....");
+            $("#door").css({
+                "animation-name": "opendoor1",
+                "animation-duration": "0.5s",
+                "animation-iteration-count": "1",
+                "animation-fill-mode": "forwards"
+            });
+            $("#doorright").css({
+                "animation-name": "opendoorright",
+                "animation-duration": ".5s",
+                "animation-iteration-count": "1",
+                "animation-fill-mode": "forwards"
+            });
+			$("body").fadeOut(2000);
+			setTimeout(function(){
+				location.href="<%=request.getContextPath()%>/game/goToEndingChoice";
+			}, 1500);
 		}else{
 			show_coment("door", 1);
 		}

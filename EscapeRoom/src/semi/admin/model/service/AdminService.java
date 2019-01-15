@@ -7,6 +7,8 @@ import java.util.List;
 import static semi.common.JDBCTemplate.*;
 
 import semi.admin.model.dao.AdminDao;
+import semi.admin.model.vo.ReportBoard;
+import semi.admin.model.vo.ReportBoardComment;
 import semi.member.model.vo.Member;
 
 public class AdminService {
@@ -21,7 +23,7 @@ public class AdminService {
 	// 로그인 여부 확인
 	public int loginCheck(Member m) {
 		// -1: 없는 아이디
-		int result = -1;
+		int result = ID_NOT_EXIST;
 		// DB와 연결
 		Connection conn = getConnection();		
 		result = new AdminDao().loginCheck(conn, m);
@@ -85,9 +87,9 @@ public class AdminService {
 	}
 
 	// 관리자용 전체 회원 목록 보기
-	public List<Member> selectMemberList(int cPage, int numPerPage) {
+	public List<Member> selectMemberList() {
 		Connection conn = getConnection();
-		List<Member> list = new AdminDao().selectMemberList(conn, cPage, numPerPage);
+		List<Member> list = new AdminDao().selectMemberList(conn);
 		close(conn);
 		return list;
 	}
@@ -140,8 +142,7 @@ public class AdminService {
 		close(conn);
 		return list;
 	}
-	
-	// 제목 검색 페이징
+
 	
 	// 내용으로 게시긜 검색시 목록 보여주기
 	public List selectBoardByContent(String searchKeyword, int cPage, int numPerPage) {
@@ -151,9 +152,7 @@ public class AdminService {
 		return list;
 		
 	}
-	
-	// 내용  검색 페이징
-	
+		
 	// 게시글 제목 & 내용으로 검색시 게시글 목록 보여주기
 	public List selectBoardByTitleAndContent(String searchKeyword, int cPage, int numPerPage) {
 	    Connection conn = getConnection();
@@ -161,9 +160,7 @@ public class AdminService {
 	    close(conn);
 	    return list;
 	   }
-	
-	  // 게시글 제목 & 내용 페이징
-	   
+		   
 	 // 작성자로 검색시 게시글 목록 보여주기
 	  public List selectBoardByUser(String searchKeyword, int cPage, int numPerPage) {
 		 Connection conn = getConnection();
@@ -171,39 +168,50 @@ public class AdminService {
 	     close(conn);
 	     return list;
 	  }
-	  
-	  // 작성자 검색 페이징
-	      
+	  	      
 	  // 관리자용 신고 게시글 목록 보여주기
-	  public List selectReportBoard() {
+	  public List<ReportBoard> selectReportBoard() {
 		  Connection conn = getConnection();
-		  List list = new AdminDao().selectReportBoard(conn);
+		  List<ReportBoard> list = new AdminDao().selectReportBoard(conn);
 		  close(conn);
 		  return list;
 	  }
 	  
-	  // 관리자용 신고 게시글 페이징
-	  public int selectReportBoardCount() {
-	   Connection conn = getConnection();
-	   int totalContent = 0;
-	   close(conn);
-	   return totalContent;
-	   }
-	  
+	  // 관리자용 신고 게시글 상세보기
+	  public ReportBoard selectReportOne(int postNo) {
+		  Connection conn = getConnection();
+		  ReportBoard rb = new AdminDao().selectReportOne(conn, postNo);
+		  close(conn);
+		  return rb;
+	  }
+	  	  
 	  // 관리자용 신고 댓글 목록 보여주기
-	  public List selectReportBoardCmt() {
+	  public List<ReportBoardComment> selectReportBoardCmt() {
 		  Connection conn = getConnection();
-		  List list = new AdminDao().selectReportBoardCmt(conn);
+		  List<ReportBoardComment> list = new AdminDao().selectReportBoardCmt(conn);
 		  close(conn);
 		  return list;
 	  }
 	  
-	// 관리자용 신고 댓글 페이징
-	  public int selectReportBoardCmtCount() {
+	  public ReportBoardComment selectReportBoardCmtOne(int postNo) {
 		  Connection conn = getConnection();
-		   int totalComment = 0;
-		   close(conn);
-		   return totalComment;
+		  ReportBoardComment rbc = new AdminDao().selectReportBoardCmtOne(conn, postNo);
+		  close(conn);
+		  return rbc;
 	  }
-	
+	  
+	  // 제목으로 신고된 게시글 검색하기
+	  public List<ReportBoard> selectReportByTitle() {
+		  Connection conn = getConnection();
+		  List<ReportBoard> list = null;
+		  close(conn);
+		  return list;
+	  }
+	  
+	  // 내용으로 신고된 게시글 검색하기
+	  
+	  // 제목과 내용으로 신고된 게시글 검색하기
+	  
+	  // 작성자로 신고된 게시글 검색하기
+
 }
