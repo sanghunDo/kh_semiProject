@@ -61,4 +61,16 @@ public class AdminModeService {
 		return list;
 	}
 
+	public int deleteReport(String category, int postNo) {
+		int result = 0;
+		Connection conn = getConnection();
+		result = new AdminModeDao().deleteReport(conn, category, postNo);
+		
+		if(result > 0) commit(conn);
+		else rollback(conn);
+		
+		close(conn);
+		return result;
+	}
+
 }

@@ -6,79 +6,12 @@
 <%@ include file="/WEB-INF/views/common/header.jsp" %>
 <%
 	List<Member> memberList = (List<Member>) request.getAttribute("memberList");
-	List<Report_Board> rbList = (List<Report_Board>) request.getAttribute("reportBoardList");
-	List<Report_Comment> rcList = (List<Report_Comment>) request.getAttribute("reportCommentList");
+	List<Report_Board> rbList = (List<Report_Board>) request.getAttribute("rbList");
+	List<Report_Comment> rcList = (List<Report_Comment>) request.getAttribute("rcList");
 %>
 <link href="https://fonts.googleapis.com/css?family=Roboto+Slab" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css?family=Noto+Serif+KR" rel="stylesheet">
-<style>
-h1{
-	color:white;
-	font-family:'Noto Serif KR', serif;
-	text-align:center;
-}
-
-h3{
-	color:white;
-	font-family:'Noto Serif KR', serif;
-	text-align:center;
-	margin-top:20px;
-	margin-bottom:40px;
-}
-
-table#memberTab{
-	font-family: 'Noto Serif KR', serif;
-	border-collapse:collapse;
-	width:80%;
-	margin:0 auto;
-	color:white;
-}
-
-th, td{
-	text-align:center;
-	font-weight:bold;
-	font-size:15px;
-	padding-top:5px;
-	padding-bottom:5px;
-}
-
-th{
-	border-bottom: 1px solid white;
-}
-
-img.userProfile{
-	width:100px;
-	height:100px;
-	cursor:pointer;
-}
-
-#showAll, #hide{
-	width:200px;
-	height:40px;
-	background:#353535;
-	color:white;
-	border:1px solid #353535;
-	border-radius:10px;
-	font-size:18px;
-	font-weight:bold;
-	font-family:'Noto Serif KR', serif;
-	cursor:pointer;
-}
-
-.hideThis{
-	display:none;
-}
-
-#report_Post, #report_Comment{
-	font-family: 'Noto Serif KR', serif;
-	border-collapse:collapse;
-	width:80%;
-	margin:0 auto;
-	color:white;
-	margin-bottom:50px;
-}
-</style>
-
+<link rel="stylesheet" href="<%=request.getContextPath() %>/css/adminMode/adminMain.css" />
 <script>
 $(function(){
 	$("#showAll").on("click", function(){
@@ -102,36 +35,48 @@ $(function(){
 		}
 	});
 });
+
+function deleteReport(postNo, category, userComment){
+	var temp = confirm("해당 글에 대한 신고를 취소하시겠습니까?");
+	if(!temp) return;
+	else location.href = "<%=request.getContextPath()%>/adminMode/deleteReport?postNo=" + postNo + "&category=" + category;
+}
 </script>
 
 <h1>&lt; 신고게시글 목록 &gt;</h1>
 <table id="report_Post">
 	<tr>
 		<th>분류</th>
-		<th>글번호</th>
+		<th>번호</th>
 		<th>제목</th>
 		<th>작성자</th>
 		<th>사유</th>
 		<th>의견</th>
+		<th>처리</th>
 	</tr>
 	<%if(rbList != null && !rbList.isEmpty()) {  
 		for(Report_Board rb : rbList) { %>
 		<tr>
 			<td>
-				<%if("F".equals(rb.getCategory())) {%>[자유]
-				<%}else %>[공략]
+				<%if("F".equals(rb.getCategory())) {%>[ 자유 ]
+				<%}else %>[ 공략 ]
 			</td>
 			<td><%=rb.getPostNo()%></td>
 			<td>
-				<a href="#">
+				<a href="<%=request.getContextPath()%>/board/<%=("F".equals(rb.getCategory()))?"free/freeBoardView":"solve/solveBoardView"%>?postNo=<%=rb.getPostNo()%>">
 				<%=rb.getPostTitle()%></a>
 			</td>
 			<td><%=rb.getPostWriter()%></td>
-			<td><%=rb.getReason()%></td>
+			<td><%=rb.getReasonChecked()%></td>
 			<td><%=rb.getUserComment()%></td>
+			<td>
+				<button class="notOK">삭제</button>
+				&nbsp;
+				<button class="OK" onclick="deleteReport('<%=rb.getPostNo()%>', '<%=rb.getCategory()%>');">X</button>
+			</td>
 		</tr>
 		<%}%>
-	<%}else { %>
+	<%} else { %>
 		<tr>
 			<td colspan="6">데이터가 없습니다.</td>
 		</tr>
@@ -153,9 +98,9 @@ $(function(){
 		for(Report_Comment rc : rcList) {%>
 		<tr>
 			<td>
-				<%if("F".equals(rc.getCategory())) {%>[자유]
-				<%} else if("S".equals(rc.getCategory())) {%>[공략]
-				<%}else %>[랭킹]
+				<%if("F".equals(rc.getCategory())) {%>[ 자유 ]
+				<%} else if("S".equals(rc.getCategory())) {%>[ 공략 ]
+				<%}else %>[ 랭킹 ]
 			</td>
 			<td><%=rc.getPostNo()%></td>
 			<td><%=rc.getCommentNo()%></td>
@@ -164,8 +109,13 @@ $(function(){
 				<%=rc.getCommentContent()%></a>
 			</td>
 			<td><%=rc.getCommentWriter()%></td>
-			<td><%=rc.getReason()%></td>
+			<td><%=rc.getReasonChecked()%></td>
 			<td><%=rc.getUserComment()%></td>
+			<td>
+				<button class="notOK">삭제</button>
+				&nbsp;
+				<button class="OK">X</button>
+			</td>
 		</tr>
 		<%} %>
 	<%} else{ %>
