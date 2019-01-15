@@ -111,6 +111,22 @@ function updatePassword(){
 	
 	open(url, title, status);
  }
+ 
+// 코인 충전 팝업 요청
+function chargeCoin(){
+	
+	var url = "<%=request.getContextPath()%>/member/chargeCoin?userId=<%=userId_%>";
+	
+	// 팝업창 이름
+	var title = "chargeCoin";
+	
+	var popupX = (window.screen.width / 2) - (480 / 2);
+	var popupY = (window.screen.height /2) - (380 / 2);
+	
+	var status = "left=" + popupX +", top=" + popupY +", screenX =" + popupX +", screenY=" + popupY + ",width=480px, height=380px";
+	
+	open(url, title, status);
+}
 
 // 프로필 사진 변경
 $(function(){
@@ -183,6 +199,10 @@ $(function(){
 		  				   id="coin"
 		  				   value="<%=coin %>"
 		  				   readonly />
+		  			<input type="button" 
+		  				   id="chargeCoin-Btn"
+		  				   value="코인충전"
+		  				   onclick="chargeCoin();" />
 		  		</td>
 		  	</tr>
 			<tr>

@@ -45,6 +45,14 @@
     <servlet-name>MemberUpdatePasswordServlet</servlet-name>
     <url-pattern>/member/updatePassword</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <servlet-name>ChargeCoinServlet</servlet-name>
+    <jsp-file>/WEB-INF/views/member/chargeCoin.jsp</jsp-file>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ChargeCoinServlet</servlet-name>
+    <url-pattern>/member/chargeCoin</url-pattern>
+  </servlet-mapping>
   <description>-----jsp연결 : Home, Notice-----</description>
   <servlet>
     <servlet-name>gotoNoticeForm</servlet-name>

@@ -198,7 +198,25 @@ public class MemberService {
 
 		return result;
 	}
-
+	
+	// 코인 충전
+	public int chargeCoin(Member m) {
+		Connection conn = getConnection();
+		System.out.println("코인충전@서비스 = " + m.getCoin());
+		int result = new MemberDao().chargeCoin(conn, m);
+		
+		if (result > 0) {
+			commit(conn);
+		} else {
+			rollback(conn);
+		}
+		
+		close(conn);
+		
+		return result;
+	}
+	
+	// 이메일 있는지 확인
 	public Member selectEmail(String userEmail) {
 		Member loggedInMember = null;
 
@@ -214,6 +232,8 @@ public class MemberService {
 
 		return loggedInMember;
 	}
+	
+
 
 
 
