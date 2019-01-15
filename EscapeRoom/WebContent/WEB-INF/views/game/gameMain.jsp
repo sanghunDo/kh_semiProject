@@ -353,7 +353,7 @@ $("#obj-list div").each(function(){
 $("#pause").on("click", {flag:1}, function(e){
 	var $target = $(this);
 	var cnt = e.data.flag++;
-	$("#wrap div").not("#pause, #pause-menu-container, #pause-menu-container div, #message, #hint, #hint *").toggleClass("paused");
+	$("#wrap div").not("#pause, #pause-menu-container, #pause-menu-container div, #message, #hint, #hint *, #background").toggleClass("paused");
 	if(cnt%2!=0){
 		$target.children().attr("src", "<%=request.getContextPath()%>/images/game/gameMain/play.png");
 		$("#pause-menu-container").show();
