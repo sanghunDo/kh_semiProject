@@ -1,27 +1,47 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ page import = "java.util.*" %>
-<%@ page import = "semi.admin.controller.*" %>
-<%-- <%@ page import = "semi.admin.model.vo.ReportBoard.*" %> --%>
+<<<<<<< HEAD
+<%@ page import = "java.util.*, semi.member.model.vo.*, semi.admin.model.vo.*, semi.admin.controller.*" %>
 <%
-	List<Member> list = (List<Member>)request.getAttribute("list");
-	/* List<ReportBoard> reportList = (List<ReportBoard>)request.getAttribute("reportList"); */
-	
-	// 신고된 게시글 목록도 불러오기
-   	
-   int cPage = (int)request.getAttribute("cPage");
-   int numPerPage = (int)request.getAttribute("numPerPage");
-   String pageBar = (String)request.getAttribute("pageBar");
- 
+	List<Member> memberList = (List<Member>) request.getAttribute("memberList");
+	List<ReportBoard> reportList = (List<ReportBoard>) request.getAttribute("reportList");
+	List<ReportBoardComment> reportCmtList = (List<ReportBoardComment>) request.getAttribute("reportCmtList");
 %>
 <%@ include file="/WEB-INF/views/common/header.jsp"%>
+<link href="https://fonts.googleapis.com/css?family=Roboto+Slab" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Noto+Serif+KR" rel="stylesheet">
 <style>
-h2, h3{
-	color: white;
+h1{
+	color:white;
+	font-family:'Noto Serif KR', serif;
+	text-align:center;
 }
 
-h3: hover{
-	color: red;
+h3{
+	color:white;
+	font-family:'Noto Serif KR', serif;
+	text-align:center;
+	margin-top:20px;
+	margin-bottom:40px;
+}
+
+section{
+  	font-family: 'Noto Serif KR', serif;
+	border-collapse:collapse;
+	width:80%;
+	margin:0 auto;
+	color:white;
+	margin-bottom:50px;
+}
+
+table {
+   	font-family: 'Noto Serif KR', serif;
+   	width: 100%;
+   	border: 1px solid gray;
+   	border-collapse: collapse;
+   	padding: 1px;
+   	margin:0 auto;
+	background: white;
 }
 
 table a:link {
@@ -31,146 +51,180 @@ table a:visited {
 	color: purple;
 }
 table a:hover {
-	color: red;
+	color: black;
 }
 
-section#memberList-container, #reportArtcList-container, #reportCmtList-container {
-   text-align: center;
+table th, td{
+	text-align:center;
+	font-weight:bold;
+	font-size:15px;
+	padding-top:5px;
+	padding-bottom:5px;
+	border-bottom: 1px solid black;
 }
 
-section#memberList-container, #reportArtcList-container, #reportCmtList-container{
-   width: 100%;
-   border: 1px solid gray;
-   border-collapse: collapse;
+img.userProfile{
+	width:100px;
+	height:100px;
+	cursor:pointer;
 }
 
-table#tbl-member, #tbl-report-artc, #tbl-report-cmt {
-   width: 100%;
-   border: 1px solid gray;
-   border-collapse: collapse;
+#showAll, #hide{
+	width:200px;
+	height:40px;
+	background:#353535;
+	color:white;
+	border:1px solid #353535;
+	border-radius:10px;
+	font-size:18px;
+	font-weight:bold;
+	font-family:'Noto Serif KR', serif;
+	cursor:pointer;
 }
 
-table#tbl-member, #tbl-report-artc, #tbl-report-cmt th {
-   border: 1px solid gray;
-   padding: 1px;
-   background : white;
-}
-table#tbl-member, #tbl-report-artc, #tbl-report-cmt td{
-   border: 1px solid gray;
-   padding: 1px;
-   background : white;
-}
-
-/*검색*/
-div#search-container {
-   margin : 0 0 10px 0;
-   padding : 3px;
-   background-color: lightblue;
-}
-
-div#search-memberId {
-   display : inline-block;
-}
-
-div#search-memberName, div#search-gender{
-   display:none;
-}
-
-/*페이지바*/
-div#pageBar {
-   margin-top : 10px;
-   text-align: center;
-   background-color: rgba(0,188,212,0.3);
-}
-div#pageBar span.cPage{
-   color:#06f;
-   margin-right:10px;
-}
-div#pageBar a{
-   margin-right: 10px;
+.hideThis{
+	display:none;
 }
 </style>
 <script>
+$(function(){
+	$("#showAll").on("click", function(){
+		$(".toggleTr").toggleClass("hideThis");
+		$("#hide").toggleClass("hideThis");
+		$("#showAll").toggleClass("hideThis");
+	});
+	
+	$("#hide").on("click", function(){
+		$(".toggleTr").toggleClass("hideThis");
+		$("#hide").toggleClass("hideThis");
+		$("#showAll").toggleClass("hideThis");
+	});
+	
+	$(".userProfile").on("click", function(){
+		var temp = confirm("해당 프로필 사진은 부적절한 사진입니까?");
+		if(!temp) return;
+		else{
+			alert("해당 회원은 프로필 사진이 등록되어 있지 않습니다.")
+			location.href = "<%=request.getContextPath()%>/admin/adminBoard";
+		}
+	});
+});
 </script>
 <title>관리자용 게시판</title>
-<h2>회원 목록</h2>
-<section id="memberList-container">
+<h1>전체 회원 목록</h1>
+<h3>목록에서 프로필 사진 클릭 시 바로 삭제할 수 있습니다.</h3>
+<section id="member-list-container">
 <table id="tbl-member">
-   <thead>
 	   <tr>
     	  	<th>아이디</th>
       		<th>이메일</th>
+      		<th>프로필사진</th>
       		<th>가입날짜</th>
+      		<th>보유코인</th>
 	   </tr>
-   </thead>
-   <tbody>
-	<%if(list == null || list.isEmpty()) { %>
-	   		<tr>
-			<td>
-				불러올 회원 목록이 없습니다. 개발자에게 문의하세요.
-			</td>
-		</tr>
-	<%}
-		else {
-			for(Member m : list){
-	%>
+		<%if(memberList != null && !memberList.isEmpty()) { 
+			for (int i=0; i<5; i++){%>
 		<tr>
 			<td>
-				<a href="<%=request.getContextPath()%>/admin/adminMemberView?userId=<%=m.getUserId()%>">
-				<%=m.getUserId()%>
+				<!-- 아이디 클릭시 회원 상세보기 페이지로 이동 -->
+				<input type="hidden" class="hidden" value="<%=memberList.get(i).getUserId() %>"/>
+				<a href="<%=request.getContextPath()%>/admin/adminMemberView?userId=<%=memberList.get(i).getUserId()%>">
+				<%=memberList.get(i).getUserId()%>
 				</a>
 			</td>
-			<td><%=m.getUserEmail() %></td>
-			<td><%=m.getEnrollDate() %></td>
+			<td><%=memberList.get(i).getUserEmail() %></td>
+			<td>
+				<%if(memberList.get(i).getUserProfileRenamedFile() != null){ %>
+				<img class="userProfile" src="<%=request.getContextPath() %>/upload/member/<%=memberList.get(i).getUserProfileRenamedFile() %>" alt="" />
+				<%} else{ %>
+				<img class="userProfile" src="<%=request.getContextPath() %>/images/nonProfile.png" alt="" />
+				<%} %>
+			</td>
+			<td><%=memberList.get(i).getEnrollDate() %></td>
+			<td><%=memberList.get(i).getCoin() %></td>
 		</tr>
-	<% }
-		} %>
-   </tbody>
+		<%} %>
+		<tr>
+			<td colspan="5">
+				<button id="showAll">▼ 전체회원 보기</button>
+			</td>
+		</tr>
+		<%for (int i=5; i<memberList.size(); i++) { %>
+				<tr class="toggleTr hideThis">
+			<td>
+				<input type="hidden" class="hidden" value="<%=memberList.get(i).getUserId() %>"/>
+				<a href="<%=request.getContextPath()%>/admin/adminMemberView?userId=<%=memberList.get(i).getUserId()%>">
+				<%=memberList.get(i).getUserId()%>
+				</a>
+			</td>
+			<td><%=memberList.get(i).getUserEmail() %></td>
+			<td>
+				<%if(memberList.get(i).getUserProfileRenamedFile() == null){ %>
+				<img class="userProfile" src="<%=request.getContextPath() %>/images/nonProfile.png" alt="" />
+				<%} else{ %>
+				<img class="userProfile" src="<%=request.getContextPath() %>/upload/member/<%=memberList.get(i).getUserProfileRenamedFile() %>" alt="" />
+				<%} %>
+			</td>
+			<td><%=memberList.get(i).getEnrollDate() %></td>
+			<td><%=memberList.get(i).getCoin() %></td>
+		</tr>
+		<%} %>
+		<tr>
+			<td colspan="5">
+				<button class="hideThis" id="hide">▲ 접기</button>
+			</td>
+		</tr>
+		<%} else {  %>
+		<tr>
+			<td>
+				데이터가 없습니다.
+			</td>
+		</tr>
+		<% } %>
 </table>
-<div id="pageBar"><%=pageBar %></div>
 </section>
-<h3 onclick="location.href='<%=request.getContextPath()%>/admin/adminMemberSearch'">회원 검색하기</h3>
-<hr />
-<h2>신고된 게시글 목록</h2>
-<section id="reportArtcList-container">
-	<table id="tbl-report-artc">
-		<thead>
+<br />
+<h1>신고된 게시글 목록</h1>
+<section id="report-list-container">
+	<table id="tbl-report">
 			<tr>
 				<th>카테고리</th>
 				<th>글번호</th>
 				<th>게시글제목</th>
 				<th>게시글작성자</th>
-				<th>날짜</th>
 				<th>신고사유</th>
 				<th>신고내용</th>
 			</tr>
-		</thead>
-		<tbody>
+			<%if(reportList != null && !reportList.isEmpty()) { 
+				for (ReportBoard rb : reportList) {%>
 			<tr>
-				<td>F(자유)</td>
-				<td>1</td>
-				<td>멍멍</td>
-				<td>강아지</td>
-				<td>19/01/01</td>
-				<td>개털 알레르기</td>
-				<td>으악</td>
+				<td><%=rb.getCategory() %></td>
+				<td>
+					<!-- 게시글 번호 클릭시 상세보기 페이지로 이동하기 -->
+					<a href="<%=request.getContextPath()%>/admin/adminReportView?postNo=<%=rb.getPostNo()%>">
+					<%=rb.getPostNo()%>
+					</a>
+				</td>
+				<td>
+					<%=rb.getPostTitle()%>
+				</td>
+				<td><%=rb.getPostWriter()%></td>
+				<td><%=rb.getReason()%></td>
+				<td><%=rb.getUserComment()%></td>
 			</tr>
+			<%} } else {  %>
 			<tr>
-				<td>S(공략)</td>
-				<td>3</td>
-				<td>야옹</td>
-				<td>고양이</td>
-				<td>19/01/03</td>
-				<td>고양이털 알레르기</td>
-				<td>꺄악</td>
+				<td>
+					데이터가 없습니다.
+				</td>
 			</tr>
-		</tbody>
+		<% }  %>
 	</table>
 </section>
-<h2>신고된 댓글 목록</h2>
-<section id="reportCmtList-container">
+<br />
+<h1>신고된 댓글 목록</h1>
+<section id="report-cmt-container">
 	<table id="tbl-report-cmt">
-		<thead>
 			<tr>
 				<th>카테고리</th>
 				<th>게시글번호</th>
@@ -180,36 +234,28 @@ div#pageBar a{
 				<th>신고사유</th>
 				<th>신고내용</th>
 			</tr>
-		</thead>
-		<tbody>
+			<%if(reportCmtList != null && !reportCmtList.isEmpty()) { 
+				for (ReportBoardComment rbc : reportCmtList) {%>
 			<tr>
-				<td>F(자유)</td>
-				<td>2</td>
-				<td>3</td>
-				<td>멍멍멍멍</td>
-				<td>강아지</td>
-				<td>개털 알레르기</td>
-				<td>으악</td>
+				<td><%=rbc.getCategory() %></td>
+				<!-- 글번호 클릭시  상세보기 페이지로 이동하기-->
+				<td><a href="<%=request.getContextPath() %>/admin/adminReportCmtView?postNo=<%=rbc.getPostNo()%>">
+					<%=rbc.getPostNo()%>
+					</a>
+				</td>
+				<td><%=rbc.getCommentNo() %></td>
+				<td><%=rbc.getCommentContent()%></td>
+				<td><%=rbc.getCommentWriter()%></td>
+				<td><%=rbc.getReason()%></td>
+				<td><%=rbc.getUserComment()%></td>
 			</tr>
+			<%} } else {%>
 			<tr>
-				<td>S(공략)</td>
-				<td>3</td>
-				<td>6</td>
-				<td>야옹야옹</td>
-				<td>고양이</td>
-				<td>고양이털 알레르기</td>
-				<td>꺄악</td>
+				<td>
+					데이터가 없습니다.
+				</td>
 			</tr>
-			<tr>
-				<td>R(랭킹)</td>
-				<td>0</td>
-				<td>7</td>
-				<td>짹짹짹짹</td>
-				<td>참새</td>
-				<td>참새깃털 알레르기</td>
-				<td>끼엑</td>
-			</tr>
-		</tbody>
+			<% }  %>
 	</table>
 </section>
 <%@ include file="/WEB-INF/views/common/footer.jsp"%>

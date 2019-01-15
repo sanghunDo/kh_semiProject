@@ -36,7 +36,7 @@ public class AdminPwdUpdateServlet extends HttpServlet {
 		// 0. 관리자로 로그인되었는지 확인하기
 		// 관리자가 아니거나 로그인상태가 아니면 사이트 접근 금지0
 		Member loggedInMember = (Member)request.getSession().getAttribute("loggedInMember");
-	    if(loggedInMember == null || !"admin".equals(loggedInMember.getUserId())) {
+	    if(loggedInMember != null && !"admin".equals(loggedInMember.getUserId())) {
 	        request.setAttribute("msg", "잘못된 경로로 접근하셨습니다.");
 	        request.setAttribute("loc", "/home");
 	        request.getRequestDispatcher("/WEB-INF/views/common/msg.jsp").forward(request, response);
@@ -53,23 +53,25 @@ public class AdminPwdUpdateServlet extends HttpServlet {
 	    System.out.println("기존 비밀번호(userPassword)@AdminPwdUpdate = " + userPassword);
 	    
 	    String userPassword_New = (String)request.getParameter("userPassword_New");
-		System.out.println("새 비밀번호(userPassword_New)@MemberUpdatePasswordEndServlet = " + userPassword_New);
+		System.out.println("새 비밀번호(userPassword_New)@AdminPwdUpdate = " + userPassword_New);
 		
 		// 2. 비즈니스 로직
-		// 기존 비밀번호 확인 -> loginCheck 사용: userId, userPassword
-		// 1(로그인됨), 0(아이디 맞음, 비밀번호 틀림), -1(둘 다 틀리거나 없음)
+		// 기존 비밀번호 확인 -> loginCheck 사용: userId, userPassword로 불러와서 비교
+		// 1(로그인 성공), 0(아이디 있음, 비밀번호 틀림)
 		Member m = new Member();
 		m.setUserId(userId);
 		m.setUserPassword(userPassword);
 		System.out.println("회원 아이디 & 비밀번호: " + userId + userPassword);
 		
 		int result = new AdminService().loginCheck(m);
-		String msg = "";
-		String loc = "";
-		
 		System.out.println("result@AdminPwdUpdateServlet(기존 비밀번호 체크) = " + result);
 		
-		if(result == AdminService.LOGIN_OK) {
+		// 3. view단 처리
+		String view = "/WEB-INF/views/common/msg.jsp";
+		String msg = "";
+		String loc = "/";
+
+		if(loggedInMember != null || "admin".equals(loggedInMember.getUserId())) {
 			// 새 비밀번호로 변경
 			m.setUserPassword(userPassword_New); // Member 객체를 변경된 비밀번호로 갱신
 			result = new AdminService().updatePassword(m);
@@ -84,19 +86,17 @@ public class AdminPwdUpdateServlet extends HttpServlet {
 			} else {
 				// 변경 실패시
 				msg = "비밀번호 변경에 실패했습니다.";
-				loc = "/admin/adminPwdUpdate?userId=" + userId;
-			}
-		} else {
+				String script = "self.close();";
+				request.setAttribute("script", script); 
+				}
+			} else {
 				msg = "기존 비밀번호를 잘못 입력하셨습니다.";
-				loc = "/admin/adminPwdUpdate?userId=" + userId;
+				String script = "self.close();";
+				request.setAttribute("script", script);
 		}
-		
-		// 3. view단 처리
-		String view = "/WEB-INF/views/common/msg.jsp";
-		
+
 		request.setAttribute("msg", msg);
-		request.setAttribute("loc", loc);
-		
+		request.setAttribute("loc", loc);		
 		request.getRequestDispatcher(view).forward(request, response);
 	}
 
