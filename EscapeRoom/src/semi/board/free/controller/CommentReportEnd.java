@@ -29,6 +29,7 @@ public class CommentReportEnd extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		int postNo = Integer.parseInt(request.getParameter("postNo"));
 		int commentNo = Integer.parseInt(request.getParameter("commentNo"));
 		String commentWriter = request.getParameter("commentWriter");
 		String commentContent = request.getParameter("commentContent");
@@ -42,7 +43,7 @@ public class CommentReportEnd extends HttpServlet {
 		}
 		
 		int result = new FreeBoardDao().reportComment(commentNo);
-		int Insertreport = new FreeBoardDao().insertReportComment(commentNo,commentWriter,commentContent,reasonVal,userComment);		
+		int Insertreport = new FreeBoardDao().insertReportComment(postNo,commentNo,commentWriter,commentContent,reasonVal,userComment);		
 		
 		
 		String view = "/WEB-INF/views/common/msg.jsp";

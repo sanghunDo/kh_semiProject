@@ -12,6 +12,7 @@ import java.util.List;
 
 import semi.board.free.model.vo.BoardComment;
 import semi.board.free.model.vo.FreeBoard;
+import semi.board.free.model.vo.TemporaryData;
 
 public class FreeBoardDao {
 	public static void commit(Connection conn) {
@@ -1619,12 +1620,12 @@ public class FreeBoardDao {
 		return result;
 	}
 
-	public int insertReportComment(int commentNo, String commentWriter, String commentContent, String reasonVal,
+	public int insertReportComment(int postNo, int commentNo, String commentWriter, String commentContent, String reasonVal,
 			String userComment) {
 		Connection conn = null;
 		int result = 0;
 		PreparedStatement pstmt = null;
-		String query = "INSERT INTO admin_report_comment values ('F', default, ?, ?, ?, ?, ?)";
+		String query = "INSERT INTO admin_report_comment values ('F', ?, ?, ?, ?, ?, ?)";
 			
 		try {
 			Class.forName("oracle.jdbc.driver.OracleDriver");
@@ -1634,11 +1635,12 @@ public class FreeBoardDao {
 			
 			pstmt = conn.prepareStatement(query);
 			//쿼리문미완성
-			pstmt.setInt(1, commentNo);
-			pstmt.setString(2, commentContent);
-			pstmt.setString(3, commentWriter);
-			pstmt.setString(4, reasonVal);
-			pstmt.setString(5, userComment);
+			pstmt.setInt(1, postNo);
+			pstmt.setInt(2, commentNo);
+			pstmt.setString(3, commentContent);
+			pstmt.setString(4, commentWriter);
+			pstmt.setString(5, reasonVal);
+			pstmt.setString(6, userComment);
 
 			//쿼리 실행
 			result = pstmt.executeUpdate();
@@ -1660,5 +1662,102 @@ public class FreeBoardDao {
 			
 		}			
 		return result;
+	}
+
+	/*임시저장 데이터 삽입*/
+	public int insertTemporaryData(TemporaryData td) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		Connection conn = null;
+		String query = 
+	    "INSERT INTO temporary_data  values ( SEQ_TEMPORARY_DATA_POSTNO.nextVal , ?, ?, ? ,?,?, default)";
+		
+		try {
+			Class.forName("oracle.jdbc.driver.OracleDriver");
+			conn = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe", 
+					"escape_if_you_can", //아이디 
+					"escape_if_you_can");//비번
+			
+
+			pstmt = conn.prepareStatement(query);
+			
+			pstmt.setString(1, td.getDataTitle());
+			pstmt.setString(2, td.getDataWriter());
+			pstmt.setString(3, td.getDataContent());
+			pstmt.setString(4, td.getDataOriginalFile());
+			pstmt.setString(5, td.getDataRenamedFile());
+	
+			result = pstmt.executeUpdate();
+					
+			if(result >0) commit(conn);
+		    else rollback(conn);
+			
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				pstmt.close();
+				conn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+			
+		}
+		return result;
+	}
+
+	/*임시보관함 리스트*/
+	public List<TemporaryData> selectTemporaryData(String userId) {
+		List<TemporaryData> list = null;
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String query = "select * from temporary_data where datawriter = ?";
+		
+		try {
+			Class.forName("oracle.jdbc.driver.OracleDriver");
+			conn = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe", 
+					"escape_if_you_can", //아이디 
+					"escape_if_you_can");//비번
+			pstmt = conn.prepareStatement(query);
+	        pstmt.setString(1, userId);
+	        
+			rset = pstmt.executeQuery();
+
+			list = new ArrayList<>();
+			while(rset.next()) {
+				TemporaryData td = new TemporaryData();
+				
+				td.setDataNo(rset.getInt("datano"));
+				td.setDataTitle(rset.getString("datatitle"));
+				td.setDataWriter(rset.getString("datawriter"));
+				td.setDataContent(rset.getString("datacontent"));
+				td.setDataOriginalFile(rset.getString("dataoriginalfile"));
+				td.setDataRenamedFile(rset.getString("datarenamedfile"));
+				td.setDataDate(rset.getDate("datadate"));
+				
+				list.add(td);
+			
+			}
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				rset.close();
+				pstmt.close();
+				conn.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+		}
+	
+		
+		return list;
 	}
 }

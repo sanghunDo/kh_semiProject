@@ -1,6 +1,8 @@
 package semi.board.free.controller;
 
 import java.io.IOException;
+import java.util.List;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -8,18 +10,19 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import semi.board.free.model.dao.FreeBoardDao;
+import semi.board.free.model.vo.TemporaryData;
 
 /**
- * Servlet implementation class TemporaryData
+ * Servlet implementation class TemporaryBox
  */
-@WebServlet("/board/freeBoard/temporaryDataInsert")
-public class TemporaryData extends HttpServlet {
+@WebServlet("/board/free/freeBoardTemporaryBox")
+public class TemporaryBox extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public TemporaryData() {
+    public TemporaryBox() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -29,26 +32,13 @@ public class TemporaryData extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String userId = request.getParameter("userId");
-		String title = request.getParameter("title")==null?"":request.getParameter("title");
-		String content = request.getParameter("content")==null?"":request.getParameter("content");
-
-		System.out.println("서블릿안"+userId+"/"+title+"/"+content);
-//		int result = new FreeBoardDao().temporaryDataInsert(userId);
 		
-//		String view = "/WEB-INF/views/common/msg.jsp";
-//		String msg = "";
-//		String loc = "/board/free/freeBoardView?postNo="+postNo ;
-//		
-//		if(result >0 ) {
-//			msg ="댓글을 삭제하였습니다.";
-//			
-//		}else {
-//			msg = "삭제실패";
-//		}
-//		request.setAttribute("msg", msg);
-//		request.setAttribute("loc", loc);
-//		request.getRequestDispatcher(view).forward(request, response);
-    }
+		String view = "/WEB-INF/views/board/free/temporaryBox.jsp";
+		List<TemporaryData> boxList = new FreeBoardDao().selectTemporaryData(userId);
+	
+		request.setAttribute("boxList", boxList);
+		request.getRequestDispatcher(view).forward(request, response);
+	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)

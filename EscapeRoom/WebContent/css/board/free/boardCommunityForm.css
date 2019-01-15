@@ -85,8 +85,10 @@
         }
 
         #cancel,#submit{
-            margin-top: 10px;
-            float: right;
+           margin-top: 10px;
+    float: right;
+    position: relative;
+    top: -75px;
         }
         #goList{
             margin-top: 10px;
@@ -109,3 +111,33 @@ position: relative;
     left: 263px;
         }
         
+        #temporaryData{
+    border: 1px solid #999;
+    width: 86px;
+    text-align: center;
+    color: white;
+    font-size: 12px;
+    padding: 7px 10px 6px;
+    border-radius: 3px;
+    margin-bottom: 12px;
+    margin: 5px;
+    position: relative;
+    left: 129px;
+    top: -28px;
+    cursor:pointer;
+        }
+        #DataBox{
+    border: 1px solid #999;
+    width: 86px;
+    text-align: center;
+    color: white;
+    font-size: 12px;
+    padding: 7px 10px 6px;
+    border-radius: 3px;
+    margin-bottom: 12px;
+    margin: 5px;
+    position: relative;
+    top: 7px;
+        cursor:pointer;
+    
+        }
