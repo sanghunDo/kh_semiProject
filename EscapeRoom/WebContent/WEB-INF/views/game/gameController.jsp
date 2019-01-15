@@ -7,6 +7,7 @@
 var position = $("#background img").prop("id");
 $(function(){
 	setObject();
+	refresh_inventory();
 })
 function setObject(){
 	var position = $("#background img").prop("id");
@@ -44,41 +45,68 @@ function obj_click(){
 				}
 			});
 			
-			if(secondName!=""){
-				var childList = find_child(secondName);
-				if(childList.length<=1){
-					console.log(childList);
-					var state = checkState(objName, "use");
-					if(state==2){
-						objName = "used_"+objName;
-					}
+			if(check_item!=""){
+				var state = checkState(check_item, "get");
+				if(state==2){
+					$("#inventory").trigger('click');
+					$("#wrap *").not("#inventory, #inventory *").addClass("paused");
+					use_item();
 				}else{
-					var state1 = checkState(childList[0], "get");
-					var state2 = checkState(childList[1], "get");
-					console.log(state1, state2);
-					var html = "";
-					if(state1==2&&state2==1){
-						objName = childList[1]+"_"+objName
-						html = "<img src='<%=request.getContextPath()%>/images/game/gameMain/"+position+"/"+childList[1]+".png' id='"+childList[1]+"' class='obj'/>";
-					}else if(state1==1&&state2==2){
-						objName = childList[0]+"_"+objName
-						html = "<img src='<%=request.getContextPath()%>/images/game/gameMain/"+position+"/"+childList[0]+".png' id='"+childList[0]+"' class='obj'/>";
-					}else if(state1==2&&state2==2){
-						objName = "used_"+objName;
-					}
-					$("#show-obj").html(html);
+					show_coment(objName, 1);
+					$("#wrap").addClass("paused");
+					get_item(secondName);
 				}
+				$("#show-obj").prepend("<img src='<%=request.getContextPath()%>/images/game/gameMain/clicked/"+objName+"_clicked.png' id='clicked' />")
+							  .show().prop("class", objName);
+				$("#clicked").attr("onclick", "obj_reClick('"+objName+"')");
 			}
-			show_coment(objName, 1);
-			$("#wrap").addClass("paused");
-			$("#show-obj").prepend("<img src='<%=request.getContextPath()%>/images/game/gameMain/clicked/"+objName+"_clicked.png' id='clicked' />").show();
-			$("#clicked").attr("onclick", "obj_reClick('"+objName+"')");
-			get_item(secondName);
+			else{
+				if(secondName!=""){
+					var childList = find_child(secondName);
+					if(childList.length<=1){
+						var state = checkState(objName, "use");
+						if(state==2){
+							objName = "used_"+objName;
+						}
+					}else{
+						var state1 = checkState(childList[0], "get");
+						var state2 = checkState(childList[1], "get");
+						var html = "";
+						if(state1==2&&state2==1){
+							objName = childList[1]+"_"+objName
+							html = "<img src='<%=request.getContextPath()%>/images/game/gameMain/"+position+"/"+childList[1]+".png' id='"+childList[1]+"' class='obj'/>";
+						}else if(state1==1&&state2==2){
+							objName = childList[0]+"_"+objName
+							html = "<img src='<%=request.getContextPath()%>/images/game/gameMain/"+position+"/"+childList[0]+".png' id='"+childList[0]+"' class='obj'/>";
+						}else if(state1==2&&state2==2){
+							objName = "used_"+objName;
+						}
+						$("#show-obj").html(html);
+					}
+				}
+				show_coment(objName, 1);
+				$("#wrap").addClass("paused");
+				$("#show-obj").prepend("<img src='<%=request.getContextPath()%>/images/game/gameMain/clicked/"+objName+"_clicked.png' id='clicked' />").show();
+				$("#clicked").attr("onclick", "obj_reClick('"+objName+"')");
+				get_item(secondName);
+			}
 		});
 	});
 };
+function use_item(){
+	$("#obj-list div").click(function(){
+		if($(this).prop("class")=="selected"){
+			var itemNo = $(this).children().prop("id");
+			$("#clicked").css("cursor", "pointer").removeAttr("onclick").click(function(){
+				var objNo = find_parent($("#show-obj").prop("class"), "objNo");
+				if(itemNo==objNo) console.log("zzz");
+			});
+		}
+	});
+}
+
 function check_usable_item(objName){
-	var result = 0;
+	var result = "";
 	
 	$.ajax({
 		url: "<%=request.getContextPath()%>/game/getObject",
@@ -89,15 +117,15 @@ function check_usable_item(objName){
 			for(var i in data){
 				if(data[i].objName==objName){
 					for(var j in data){
-						if(data[i].objNo==data[j].refNo) result = 1;
+						if(data[i].objNo==data[j].refNo) result = data[j].objName;
 					}
 				}
 			}
 		}
 	});
-	console.log(result);
 	return result;
 };
+
 
 function checkState(objName, flag){
 	var state;
@@ -115,11 +143,12 @@ function checkState(objName, flag){
 	return state;
 };
 function play(){
+	if($("#inventory").offset().top<704){$("#inventory").trigger('click');}
 	$("#coment").hide();
 	$("[id*=clicked]").next().remove();
 	$("[id*=clicked]").remove();
 	$("#show-obj").hide();
-	$("#wrap").removeClass("paused");
+	$("#wrap, #wrap *").removeClass("paused");
 };
 function obj_reClick(objName){
 	$.ajax({
@@ -212,8 +241,8 @@ function find_child(objName){
 	
 	return childList;
 };
-function find_parent(objName){
-	var parentName;
+function find_parent(keyword, flag){
+	var parent;
 	$.ajax({
 		url:"<%=request.getContextPath()%>/game/getObject",
 		type:"post",
@@ -221,13 +250,15 @@ function find_parent(objName){
 		dataType:"json",
 		success: function(data){
 			for(var i in data){
-				if(data[i].thirdName==objName){
-					parentName = data[i].objName;
+				if(flag=="objName"){
+					if(data[i].thirdName==keyword){parent = data[i].objName;}
+				}else if(flag=="objNo"){
+					if(data[i].objName==keyword){parent = data[i].objNo;}
 				}
 			}
 		}
 	});
-	return parentName;
+	return parent;
 };
 
 function update_state(objName, flag){
@@ -253,19 +284,19 @@ function get_item(parentName){
 					for(var i in data){
 						if(objName==data[i].objName){
 							if(data[i].isItem=="Y "){
-								$("#obj"+cnt++).html($target.clone().removeClass("obj"));
 								$target.remove();
 								update_state(objName, "get");
+								refresh_inventory();
 								
 								var childList = find_child(parentName); 
 								if(childList.length==1){
-									var parent = find_parent(parentName);
+									var parent = find_parent(parentName, "objName");
 									update_state(parent, "use");
 								}else{
 									var state1 = checkState(childList[0], "get");
 									var state2 = checkState(childList[1], "get");
 									if(state1==2&&state2==2){
-										var parent = find_parent(parentName);
+										var parent = find_parent(parentName, "objName");
 										update_state(parent, "use");
 									}
 								}
@@ -277,6 +308,26 @@ function get_item(parentName){
 		});
 	});
 };
+function refresh_inventory(){
+	var cnt = 1;
+	$.ajax({
+		url:"<%=request.getContextPath()%>/game/getObject",
+		type:"post",
+		dataType:"json",
+		success:function(data){
+			for(var i in data){
+				if(data[i].isItem=="Y "){
+					var state1 = checkState(data[i].objName, "get");
+					var state2 = checkState(data[i].objName, "use");
+					if(state1==2&&state2==1){
+						var html = "<img src='<%=request.getContextPath()%>/images/game/gameMain/"+position+"/"+data[i].objName+".png' id='"+data[i].refNo+"'/>"
+						$("#obj"+cnt++).html(html);
+					}
+				}
+			}
+		}
+	});
+}
 function show_coment(objName, rnum){
 	var coment = "";
 	var target = $("#coment h2");

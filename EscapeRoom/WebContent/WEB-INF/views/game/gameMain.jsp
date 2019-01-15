@@ -24,9 +24,12 @@ $(function(){
 </head>
 <body>
 <div id="wrap">
+   <div id="moveRight"><br><br><br><br><br><br><br><br><br><br><br><br><br><pre>       ▶</pre></div>
+   <div id="moveLeft"><br><br><br><br><br><br><br><br><br><br><br><br><br>◀</div>
+    <div id="moveCeiling"><pre>                                                                           ▲</pre></div>
 	<div id="background-container">
 		<div id="background">
-			<img src="<%=request.getContextPath() %>/images/game/gameMain/game_start_again.jpeg" id="front"/>
+			<img src="<%=request.getContextPath() %>/images/game/gameMain/game_start_again.jpeg" id="back"/>
 		</div>
 		<div id="sub-background">
 			<img src="<%=request.getContextPath() %>/images/game/gameMain/background.png"/>
@@ -77,6 +80,83 @@ setTimeout(function(){
 	$("#pause").show();
 	$(".obj").show();
 }, 3100);
+function move(where,direction){
+	   $("#sub-background img:first").attr("src","<%=request.getContextPath()%>/images/game/gameMain/"+where+"/background.png");
+	   var here = $("#background img").prop("id"); 
+	   var here2 = $("#sub-background img").prop("id");
+	   $("#background").css("left","0px");
+	   
+	   if(direction=="-"){
+	      $("#sub-background").css("left","1008px");}
+	   else if(direction=="+"){
+	      $("#sub-background").css("left","-1008px");}
+	   else if(direction=="up"){
+	      $("#sub-background").css({"top":"-704px", "left":"0px"});}
+	   else if(direction=="down"){
+	      $("#sub-background").css({"top":"704px", "left":"0px"});}
+	   
+	   $("#sub-background img:first").attr("id", where);
+	   setObject();
+	   if(direction=="-"||direction=="+"){
+	      $("#sub-background").delay(100).animate({left: direction+'=1008px'},1000);
+	      $("#background").delay(100).animate({left: direction+'=1008px'},1000);
+	   }else if (direction=="up"){
+	      $("#sub-background").delay(100).animate({top: '+=704px'},1000);
+	      $("#background").delay(100).animate({top: '+=704px'},1000);
+	   }else if(direction=="down"){
+	      $("#sub-background").delay(100).animate({top: '-=704px'},1000);
+	      $("#background").delay(100).animate({top: '-=704px'},1000);
+	   }
+	   
+	   $("#"+where).parent().attr("id", "background").siblings().attr("id", "sub-background");
+
+	   
+	}
+	$("#moveRight").on('click',function(){
+	      var here = $("#background img").prop("id"); 
+	      if(here == 'front'){
+	      move("right","-");
+	   }else if(here =='right'){
+	      move("back","-");            
+	      }else if(here =='back'){
+	         $("#moveCeiling").css("display","block");
+	      move("left","-");
+	      }else if(here =='left'){
+	      $("#moveCeiling").css("display","none");
+	      move("front","-");
+	      }
+	});
+
+	$("#moveLeft").on('click',function(){
+	   var here = $("#background img").prop("id");
+	   if(here == 'front' ){
+	      $("#moveCeiling").css("display","block");
+	      move("left","+");
+	  }else if(here =='left'){
+	      $("#moveCeiling").css("display","none");
+	      move("back","+");
+	  }else if(here =='back'){
+	      move("right","+");
+	  }else if(here =='right'){
+	      move("front","+");
+	  }
+	});
+	$("#moveCeiling").on('click',function(){
+	   var here = $("#background img").prop("id");
+	   if(here == 'left'){
+	      move("ceiling","up")
+	      $(this).html("<pre>                                                                           ▼</pre>");
+	      $("#moveLeft").css("display","none");
+	      $("#moveRight").css("display","none");
+	   }else if(here == 'ceiling'){
+	      move("left","down")
+	      $(this).html("<pre>                                                                           ▲</pre>");
+	      $("#moveLeft").css("display","block");
+	      $("#moveRight").css("display","block");
+	   }
+	   
+});
+
 var record = setInterval(timer, 1000);
 function timer(){
 	var sec = $("[type=hidden]").val();
@@ -252,8 +332,10 @@ $("#inventory").on('click',{flag:0},function(e){
 });
 $("#obj-list div").each(function(){
 	$(this).on('click', function(){
-		$(this).toggleClass("selected");
-		$(this).siblings().removeClass("selected");
+		if($(this).children().length>0){
+			$(this).toggleClass("selected");
+			$(this).siblings().removeClass("selected");
+		}
 	});
 });
 $("#pause").on("click", {flag:1}, function(e){
