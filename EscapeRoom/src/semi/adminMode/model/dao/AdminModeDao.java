@@ -189,7 +189,7 @@ public class AdminModeDao {
 		return list;
 	}
 
-	public int deleteReport(Connection conn, String category, int postNo) {
+	public int deleteReportBoard(Connection conn, String category, int postNo) {
 		int result = 0;
 		PreparedStatement pstmt = null;
 		String query = prop.getProperty("deleteReportBoard");
@@ -197,6 +197,70 @@ public class AdminModeDao {
 		try {
 			pstmt = conn.prepareStatement(query);
 			pstmt.setString(1, category);
+			pstmt.setInt(2, postNo);
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+
+	public int deleteReportComment(Connection conn, String category, int postNo, int commentNo) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String query = prop.getProperty("deleteReportComment");
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, category);
+			pstmt.setInt(2, postNo);
+			pstmt.setInt(3, commentNo);
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+
+	public int changeFreeTitleReported(Connection conn, int postNo) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String query = prop.getProperty("changeFreeTitleReported");
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, "해당 게시물은 관리자에 의해 삭제되었습니다.");
+			pstmt.setInt(2, postNo);
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+
+	public int changeSolveTitleReported(Connection conn, int postNo) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String query = prop.getProperty("changeSolveTitleReported");
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, "해당 게시물은 관리자에 의해 삭제되었습니다.");
 			pstmt.setInt(2, postNo);
 			
 			result = pstmt.executeUpdate();

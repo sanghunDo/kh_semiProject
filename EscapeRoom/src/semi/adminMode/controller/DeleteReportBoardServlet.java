@@ -13,14 +13,14 @@ import semi.adminMode.model.service.AdminModeService;
 /**
  * Servlet implementation class DeleteReportServlet
  */
-@WebServlet("/adminMode/deleteReport")
-public class DeleteReportServlet extends HttpServlet {
+@WebServlet("/adminMode/deleteReportBoard")
+public class DeleteReportBoardServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public DeleteReportServlet() {
+    public DeleteReportBoardServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -32,7 +32,7 @@ public class DeleteReportServlet extends HttpServlet {
 		String category = request.getParameter("category");
 		int postNo = Integer.parseInt(request.getParameter("postNo"));
 		
-		int result = new AdminModeService().deleteReport(category, postNo);
+		int result = new AdminModeService().deleteReportBoard(category, postNo);
 		
 		String msg = "";
 		String loc = "/adminMode/adminMain";
