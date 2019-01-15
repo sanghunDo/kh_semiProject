@@ -1,27 +1,27 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ page import = "java.util.*" %>
-<%@ page import = "semi.admin.controller.*" %>
-<%@ page import = "semi.admin.model.vo.ReportBoard.*" %>
+<%@ page import = "java.util.*, semi.member.model.vo.*, semi.admin.model.vo.*, semi.admin.controller.*" %>
 <%
-	List<Member> list = (List<Member>)request.getAttribute("list");
-	List<ReportBoard> reportList = (List<ReportBoard>)request.getAttribute("reportList");
-	
-	// 신고된 게시글 목록도 불러오기
-   	
-   int cPage = (int)request.getAttribute("cPage");
-   int numPerPage = (int)request.getAttribute("numPerPage");
-   String pageBar = (String)request.getAttribute("pageBar");
- 
+	List<Member> memberList = (List<Member>) request.getAttribute("memberList");
+	List<ReportBoard> reportList = (List<ReportBoard>) request.getAttribute("reportList");
+	List<ReportBoardComment> reportCmtList = (List<ReportBoardComment>) request.getAttribute("reportCmtList");
 %>
 <%@ include file="/WEB-INF/views/common/header.jsp"%>
+<link href="https://fonts.googleapis.com/css?family=Roboto+Slab" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Noto+Serif+KR" rel="stylesheet">
 <style>
-h2, h3{
-	color: white;
+h1{
+	color:white;
+	font-family:'Noto Serif KR', serif;
+	text-align:center;
 }
 
-h3: hover{
-	color: red;
+h3{
+	color:white;
+	font-family:'Noto Serif KR', serif;
+	text-align:center;
+	margin-top:20px;
+	margin-bottom:40px;
 }
 
 table a:link {
@@ -31,145 +31,206 @@ table a:visited {
 	color: purple;
 }
 table a:hover {
-	color: red;
+	color: black;
 }
 
-section#memberList-container, #reportArtcList-container, #reportCmtList-container {
+section#member-list-container, #report-list-container, #report-cmt-container {
    text-align: center;
-}
-
-section#memberList-container, #reportArtcList-container, #reportCmtList-container{
    width: 100%;
    border: 1px solid gray;
    border-collapse: collapse;
 }
 
-table#tbl-member, #tbl-report-artc, #tbl-report-cmt {
+table#tbl-member, #tbl-report, #tbl-report-cmt {
    width: 100%;
    border: 1px solid gray;
    border-collapse: collapse;
-}
-
-table#tbl-member, #tbl-report-artc, #tbl-report-cmt th {
-   border: 1px solid gray;
    padding: 1px;
    background : white;
-}
-table#tbl-member, #tbl-report-artc, #tbl-report-cmt td{
-   border: 1px solid gray;
-   padding: 1px;
-   background : white;
-}
-
-/*검색*/
-div#search-container {
-   margin : 0 0 10px 0;
-   padding : 3px;
-   background-color: lightblue;
-}
-
-div#search-memberId {
-   display : inline-block;
-}
-
-div#search-memberName, div#search-gender{
-   display:none;
-}
-
-/*페이지바*/
-div#pageBar {
-   margin-top : 10px;
-   text-align: center;
-   background-color: rgba(0,188,212,0.3);
-}
-div#pageBar span.cPage{
-   color:#06f;
-   margin-right:10px;
-}
-div#pageBar a{
-   margin-right: 10px;
 }
 </style>
 <script>
 </script>
 <title>관리자용 게시판</title>
-<h2>회원 목록</h2>
-<section id="memberList-container">
+<h1>회원 목록</h1>
+<section id="member-list-container">
 <table id="tbl-member">
    <thead>
 	   <tr>
     	  	<th>아이디</th>
       		<th>이메일</th>
+      		<th>프로필사진</th>
       		<th>가입날짜</th>
+      		<th>보유코인</th>
 	   </tr>
    </thead>
    <tbody>
-	<%if(list == null || list.isEmpty()) { %>
-	   		<tr>
-			<td>
-				불러올 회원 목록이 없습니다. 개발자에게 문의하세요.
-			</td>
-		</tr>
-	<%}
-		else {
-			for(Member m : list){
-	%>
+		<%if(memberList != null && !memberList.isEmpty()) { for (Member m : memberList){ %>
 		<tr>
 			<td>
+				<!-- 아이디 클릭시 회원 상세보기 페이지로 이동 -->
 				<a href="<%=request.getContextPath()%>/admin/adminMemberView?userId=<%=m.getUserId()%>">
 				<%=m.getUserId()%>
 				</a>
 			</td>
 			<td><%=m.getUserEmail() %></td>
+			<td>
+				<%if(m.getUserProfileRenamedFile() != null){ %>
+				<img class="userProfile" src="<%=request.getContextPath() %>/upload/member/<%=m.getUserProfileRenamedFile() %>" alt="" />
+				<%} else{ %>
+				<img class="userProfile" src="<%=request.getContextPath() %>/images/nonProfile.png" alt="" />
+				<%} %>
+			</td>
 			<td><%=m.getEnrollDate() %></td>
+			<td><%=m.getCoin() %></td>
 		</tr>
-	<% }
-		} %>
+		<%} } else {  %>
+		<tr>
+			<td>
+				데이터가 없습니다.
+			</td>
+		</tr>
+		<% }  %>
    </tbody>
 </table>
-<div id="pageBar"><%=pageBar %></div>
 </section>
-<h3 onclick="location.href='<%=request.getContextPath()%>/admin/adminMemberSearch'">회원 검색하기</h3>
-<hr />
-<h2>신고된 게시글 목록</h2>
-<section id="reportArtcList-container">
-	<table id="tbl-report-artc">
+<h3>전체 회원 검색</h3>
+<section id="search-container">
+	<div class="searchType">검색타입: 
+		<select id="searchType">
+			<option value="userId" >아이디</option> <!-- < %="userId".equals()?"selected":"" %> -->
+			<option value="userEmail" >이메일</option> <!-- < %="userEmail".equals()?"selected":"" %> -->
+		</select>
+	</div>
+	<!-- 아이디 검색폼 -->
+	<div class="search-userid">
+	<form action="">
+				<input type="hidden" 
+					   name="searchType"
+					   value="userId" />
+				<input type="search" 
+					   name="searchKeyword"
+					   size="25"
+					   placeholder="검색할 아이디를 입력하세요."
+					   value=""/>
+				<button type="submit">검색</button>
+			</form>
+	</div>
+	 	<!-- 이메일 검색폼 -->
+    <div class="search-useremail">
+			<form action="">
+				<input type="hidden" 
+					   name="searchType"
+					   value="memberName" />
+				<input type="search" 
+					   name="searchKeyword"
+					   size="25"
+					   placeholder="검색할 회원 이메일을 입력하세요."
+					   value=""/>
+				<button type="submit">검색</button>
+			</form>
+    </div>
+    <!-- 검색 끝 -->
+</section>
+<section id="show-search-user-result">
+<table>
+	<thead>
+		<tr>
+			<th>1</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>2</td>
+		</tr>
+	</tbody>
+</table>
+</section>
+<!-- 검색된 회원 표시 -->
+<h1>신고된 게시글 목록</h1>
+<section id="report-list-container">
+	<table id="tbl-report">
 		<thead>
 			<tr>
 				<th>카테고리</th>
 				<th>글번호</th>
 				<th>게시글제목</th>
 				<th>게시글작성자</th>
-				<th>날짜</th>
 				<th>신고사유</th>
 				<th>신고내용</th>
 			</tr>
 		</thead>
 		<tbody>
+			<%if(reportList != null && !reportList.isEmpty()) { 
+				 for (ReportBoard rb : reportList){ %>
 			<tr>
-				<td>F(자유)</td>
-				<td>1</td>
-				<td>멍멍</td>
-				<td>강아지</td>
-				<td>19/01/01</td>
-				<td>개털 알레르기</td>
-				<td>으악</td>
+				<td><%=rb.getCategory() %></td>
+				<td>
+					<!-- 게시글 번호 클릭시 상세보기 페이지로 이동하기 -->
+					<a href="<%=request.getContextPath()%>/admin/adminReportView?postNo=<%=rb.getPostNo()%>">
+					<%=rb.getPostNo()%>
+					</a>
+				</td>
+				<td>
+					<%=rb.getPostTitle()%>
+				</td>
+				<td><%=rb.getPostWriter()%></td>
+				<td><%=rb.getReason()%></td>
+				<td><%=rb.getUserComment()%></td>
 			</tr>
+			<%} } else { %>
 			<tr>
-				<td>S(공략)</td>
-				<td>3</td>
-				<td>야옹</td>
-				<td>고양이</td>
-				<td>19/01/03</td>
-				<td>고양이털 알레르기</td>
-				<td>꺄악</td>
+				<td>
+					데이터가 없습니다.
+				</td>
 			</tr>
+			<% }  %>
 		</tbody>
 	</table>
 </section>
-<div id="pageBar"><%=pageBar %></div>
-<h2>신고된 댓글 목록</h2>
-<section id="reportCmtList-container">
+<h3>신고된 게시글 검색</h3>
+<section id="search-report-container">
+	<div class="searchType">검색타입: 
+		<select id="searchType">
+			<option value="postTitle" >제목</option> <!-- < %="userId".equals()?"selected":"" %> -->
+			<option value="postContent" >내용</option> <!-- < %="userEmail".equals()?"selected":"" %> -->
+			<option value="postTitleANDContent" >제목+내용</option>
+			<option value="postWriter" >작성자</option>
+		</select>
+	</div>
+	<!-- 제목 검색폼 -->
+	<div class="search-userid">
+	<form action="">
+				<input type="hidden" 
+					   name="searchType"
+					   value="userId" />
+				<input type="search" 
+					   name="searchKeyword"
+					   size="25"
+					   placeholder="검색할 아이디를 입력하세요."
+					   value=""/>
+				<button type="submit">검색</button>
+			</form>
+	</div>
+	 	<!-- 이메일 검색폼 -->
+    <div class="search-useremail">
+			<form action="">
+				<input type="hidden" 
+					   name="searchType"
+					   value="memberName" />
+				<input type="search" 
+					   name="searchKeyword"
+					   size="25"
+					   placeholder="검색할 회원 이메일을 입력하세요."
+					   value=""/>
+				<button type="submit">검색</button>
+			</form>
+    </div>
+</section>
+    <!-- 검색 끝 -->
+<!-- 검색된 게시글 표시 -->
+<h1>신고된 댓글 목록</h1>
+<section id="report-cmt-container">
 	<table id="tbl-report-cmt">
 		<thead>
 			<tr>
@@ -183,35 +244,69 @@ div#pageBar a{
 			</tr>
 		</thead>
 		<tbody>
+			<%if(reportCmtList != null && !reportCmtList.isEmpty()) { 
+				for (ReportBoardComment rbc : reportCmtList){%>
 			<tr>
-				<td>F(자유)</td>
-				<td>2</td>
-				<td>3</td>
-				<td>멍멍멍멍</td>
-				<td>강아지</td>
-				<td>개털 알레르기</td>
-				<td>으악</td>
+				<td><%=rbc.getCategory() %></td>
+				<!-- 글번호 클릭시  상세보기 페이지로 이동하기-->
+				<td><a href="<%=request.getContextPath() %>/admin/adminReportCmtView?postNo=<%=rbc.getPostNo()%>">
+					<%=rbc.getPostNo()%>
+					</a>
+				</td>
+				<td><%=rbc.getCommentNo() %></td>
+				<td><%=rbc.getCommentContent()%></td>
+				<td><%=rbc.getCommentWriter()%></td>
+				<td><%=rbc.getReason()%></td>
+				<td><%=rbc.getUserComment()%></td>
 			</tr>
+			<%} } else {%>
 			<tr>
-				<td>S(공략)</td>
-				<td>3</td>
-				<td>6</td>
-				<td>야옹야옹</td>
-				<td>고양이</td>
-				<td>고양이털 알레르기</td>
-				<td>꺄악</td>
+				<td>
+					데이터가 없습니다.
+				</td>
 			</tr>
-			<tr>
-				<td>R(랭킹)</td>
-				<td>0</td>
-				<td>7</td>
-				<td>짹짹짹짹</td>
-				<td>참새</td>
-				<td>참새깃털 알레르기</td>
-				<td>끼엑</td>
-			</tr>
+			<% }  %>
 		</tbody>
 	</table>
 </section>
-<div id="pageBar"><%=pageBar %></div>
+<h3>신고된 댓글 검색</h3>
+<section id="search-cmt-container">
+	<div class="searchType">검색타입: 
+		<select id="searchType">
+			<option value="postTitle" >제목</option> <!-- < %="userId".equals()?"selected":"" %> -->
+			<option value="postContent" >내용</option> <!-- < %="userEmail".equals()?"selected":"" %> -->
+			<option value="postTitleANDContent" >제목+내용</option>
+			<option value="postWriter" >작성자</option>
+		</select>
+	</div>
+	<!-- 제목 검색폼 -->
+	<div class="search-userid">
+	<form action="">
+				<input type="hidden" 
+					   name="searchType"
+					   value="userId" />
+				<input type="search" 
+					   name="searchKeyword"
+					   size="25"
+					   placeholder="검색할 아이디를 입력하세요."
+					   value=""/>
+				<button type="submit">검색</button>
+			</form>
+	</div>
+	 	<!-- 이메일 검색폼 -->
+    <div class="search-useremail">
+			<form action="">
+				<input type="hidden" 
+					   name="searchType"
+					   value="memberName" />
+				<input type="search" 
+					   name="searchKeyword"
+					   size="25"
+					   placeholder="검색할 회원 이메일을 입력하세요."
+					   value=""/>
+				<button type="submit">검색</button>
+			</form>
+    </div>
+</section>
+<!-- 검색된 댓글 표시 -->
 <%@ include file="/WEB-INF/views/common/footer.jsp"%>

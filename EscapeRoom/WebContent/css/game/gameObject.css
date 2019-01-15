@@ -1,10 +1,113 @@
 @charset "UTF-8";
-#wrap>img{
+.obj{
 	position: absolute;
     cursor: pointer;
+    opacity: 1;
+    display: none;
 }
-.backObj{
-    top: 150px;
-    left: 200px;
-    transform: rotateZ(1deg);
+
+/* front */
+#door_lock1{
+    width: 41px;
+	top: 402px;
+    left: 569px;	
+}
+#door_lock2{
+	top: 444px;
+    left: 563px;
+    width: 62px;
+	
+}
+#flowerpot{
+	width: 129px;
+    top: 460px;
+    left: 50px;
+}
+
+#safe{
+	top: 468px;
+    width: 123px;
+    left: 800px;
+}
+
+/* left */
+#calendar{
+	top: 169px;
+    left: 700px;
+    width: 195px;
+}
+#under_bed_diary{
+	width: 100px;
+    height: 50px;
+    top: 585px;
+    left: 388px;
+}
+#hintnote1{
+    top: 148px;
+    left: 347px;
+    width: 60px;
+    height: 80px;
+    display: block;
+    opacity: 0;
+}
+
+
+/* back */
+#bs_doll{
+	top: 50px;
+    left: 363px;
+}
+
+#bs_4_books{
+	top: 170px;
+    left: 334px;
+    opacity: 0;	
+}
+
+#bs_smallbox{
+	top: 311px;
+    left: 397px;
+}
+
+#bs_clock{
+	top: 322px;
+    left: 551px;
+}
+
+#bs_2_books{
+	top: 400px;
+    left: 348px;	
+}
+#bs_battery{
+	display: block;
+    width: 131px;
+    top: 188px;
+    height: 43px;
+    left: 409px;
+    opacity: 0;
+}
+#bs_toolbox{
+	top: 565px;
+    left: 471px;
+}
+#bs_cutterknife{
+	display: block;
+    width: 70px;
+    top: 198px;
+    left: 368px;
+    transform: rotateZ(16deg);
+    opacity: 0;
+}
+#bs_hammer{
+	display: block;
+    width: 122px;
+    top: 160px;
+    left: 551px;
+    transform: rotateZ(19deg);
+    opacity: 0;
+}
+
+img[id*="clicked"]{
+	position: relative;
+	height: 100%;
 }

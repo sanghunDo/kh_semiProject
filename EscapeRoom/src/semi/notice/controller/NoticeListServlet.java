@@ -8,6 +8,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import semi.notice.model.service.noticeService;
 import semi.notice.model.vo.Notice;
@@ -52,9 +53,8 @@ public class NoticeListServlet extends HttpServlet {
 		List<Notice> list = new noticeService().selectNoticeList(cPage, numPerPage);
 		
 		int totalCount = new noticeService().selectTotalCount();
-		System.out.println("총 게시물 수 : " + totalCount);
 		
-		int totalPage = (int) Math.ceil(totalCount / numPerPage) + 1;
+		int totalPage = (int) Math.ceil(totalCount / numPerPage);
 		
 		String pageBar = "";
 		int pageBarSize = 5;
@@ -74,11 +74,11 @@ public class NoticeListServlet extends HttpServlet {
 		//[페이지] section
 		while(pageNo <= endPage && pageNo <= totalPage) {
 			if(cPage == pageNo) {
-				pageBar += "<span class='cPage'>" + pageNo + "</span>";
+				pageBar += "<span class='cPage'>&nbsp;" + pageNo + "&nbsp;</span>";
 			}
 			else {
-				pageBar += "&nbsp;&nbsp;<a href = '" + request.getContextPath()+ "/notice/noticeList?cPage=" +
-						pageNo + "&numPerPage=" + numPerPage + "'>" + pageNo + "</a>&nbsp;&nbsp;";
+				pageBar += "&nbsp;<a href = '" + request.getContextPath()+ "/notice/noticeList?cPage=" +
+						pageNo + "&numPerPage=" + numPerPage + "'>" + pageNo + "</a>&nbsp;";
 			}
 			pageNo++;
 		}

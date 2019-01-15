@@ -18,6 +18,8 @@ public class GameMainServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		String userId = request.getParameter("userId");
+		request.setAttribute("userId", userId);
 		request.getRequestDispatcher("/WEB-INF/views/game/gameMain.jsp").forward(request, response);
 	}
 

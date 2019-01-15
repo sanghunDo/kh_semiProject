@@ -10,8 +10,8 @@
 <meta charset="UTF-8">
 <title>You Can't Escape..</title>
 <link href="https://fonts.googleapis.com/css?family=Roboto+Slab" rel="stylesheet">
-<link href="https://fonts.googleapis.com/css?family=Amatic+SC" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css?family=Noto+Serif+KR" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Amatic+SC" rel="stylesheet">
 <link rel="stylesheet" href="<%=request.getContextPath() %>/css/common/header.css" />
 <script src="<%=request.getContextPath()%>/js/jquery-3.3.1.js"></script>
 </head>
@@ -23,7 +23,8 @@
                 <a href="<%=request.getContextPath()%>/member/login">LOGIN</a>
 			<%}else{ %>
 				<%if("admin".equals(loggedInMember.getUserId())){ %>
-					<a href="<%=request.getContextPath()%>/admin/adminBoard">ADMIN</a>
+					<%-- <a href="<%=request.getContextPath()%>/admin/adminBoard">ADMIN</a> --%>
+					<a href="<%=request.getContextPath()%>/adminMode/adminMain">ADMIN</a>
 					&nbsp;&nbsp;
 				<%} %>
                 <a href="<%=request.getContextPath()%>/member/memberView?userId=<%=loggedInMember.getUserId()%>">MY PAGE</a>
@@ -32,13 +33,13 @@
 			<%} %>
 			</div>
 		</div>
-		<div id="logo">Escape, if you can.</div>
+		<a href="<%=request.getContextPath()%>/index.jsp"><div id="logo">Escape, if you can.</div></a>
 		<div id="menu">
 			<ul>
 				<li><a href="<%=request.getContextPath()%>/home">HOME</a></li>
 				<li><a href="<%=request.getContextPath()%>/notice/noticeList">NOTICE</a></li>
 				<li><a href="<%=request.getContextPath()%>/board/rank/rankingBoardList">RANKING</a></li>
-				<li><a href="">SOLVE</a></li>
+				<li><a href="<%=request.getContextPath()%>/board/solve/solveBoardList">SOLVE</a></li>
 				<li><a href="<%=request.getContextPath()%>/board/free/freeBoardList">FREE</a></li>
 			</ul>
 		</div>
@@ -49,7 +50,7 @@
 	<script>
 	$(".enter-game").click(function(){
 		var pop;
-		var url = "<%=request.getContextPath()%>/game/gameStart";
+		var url = "<%=request.getContextPath()%>/game/gameStart?userId=<%=loggedInMember!=null?loggedInMember.getUserId():"guest"%>";
 		var status = "width=1024px, height=678px";
 		pop = sessionStorage.getItem("game");
 		

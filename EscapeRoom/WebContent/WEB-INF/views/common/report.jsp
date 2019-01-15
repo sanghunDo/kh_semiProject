@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%
+	int commentNo = (int)request.getAttribute("commentNo");
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -14,8 +17,9 @@
 
 <div id="report-container">
 	<h3 id="subtitle">게시물 / 댓글 신고하기</h3>
-	<form action="#">
+	<form action="<%=request.getContextPath()%>/board/solve/solveBoardCommentReport">
 		<h4>1. 게시글을 신고한 이유가 무엇인가요?</h4>
+		<input type="hidden" name="commentNo" value="<%=commentNo%>"/>
 		&nbsp;&nbsp;&nbsp;
 		<span class="explain">(여러개를 선택할  수 있습니다.)</span><br><br>
 		
@@ -37,8 +41,12 @@
 		<span class="explain">(관리자가 확인 후 해당 글에 대한 처리를 도와드립니다.)</span><br><br>
 		<textarea name="userComment" id="userComment" cols="50" rows="5"></textarea>
 		<br>
-		<button type="submit" id="reportSubmit">신고 접수</button>
+		<button type="submit" id="reportSubmit" onclick="reportEnd();">신고 접수</button>
 	</form>
 </div>
+<script>
+function reportEnd(){
+}
+</script>
 </body>
 </html>

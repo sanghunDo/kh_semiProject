@@ -4,6 +4,8 @@
 <%@ page import="java.util.*" %>
 <%@ include file="/WEB-INF/views/common/header.jsp"%>
 <link href="https://fonts.googleapis.com/css?family=Amatic+SC" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Noto+Serif+KR" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Roboto+Slab" rel="stylesheet">
 <link rel="stylesheet" href="<%=request.getContextPath() %>/css/member/memberView.css" />
 <%
 	/* return타입이 Object이기때문에 형변환 필수 */
@@ -13,7 +15,7 @@
 	String userPassword = m.getUserPassword();
 	String userEmail = m.getUserEmail()!=null?m.getUserEmail():"";
 	String userProfileOriginalFile = m.getUserProfileOriginalFile()!=null?m.getUserProfileOriginalFile():"";	
-	String userProfileRenamedFile = m.getUserProfileRenamedFile()!=null?m.getUserProfileRenamedFile():"../images/nonProfile.png";
+	String userProfileRenamedFile = m.getUserProfileRenamedFile()!=null?m.getUserProfileRenamedFile():"";
 %>
 <script>
 /* 회원정보수정 유효성 검사 */
@@ -57,10 +59,7 @@ function updateValidate(){
 		alert("아이디 중복검사해주세요.");
 		return false;
 	}
-	
 
-	
-	
 	// 이메일 공백 확인
 	if($userEmail.val() == ""){
 		alert("이메일을 입력해주세요.");
@@ -84,9 +83,7 @@ function updateValidate(){
 	}
 
 	return true;
-	
 }
-
 
 function deleteMember(){
 	var bool = confirm("정말로 탈퇴하시겠습니까?");
@@ -105,7 +102,7 @@ function updatePassword(){
 	
 	// 팝업창 이름
 	var title = "updatePassword";
-	var status = "left=500px, top=200px, width=400px, height=400px";
+	var status = "left=500px, top=200px, width=500px, height=250px";
 	
 	open(url, title, status);
  }
@@ -129,9 +126,15 @@ function readURL(input){
    }
 }
 
+$(function(){
+	$("#userId_").on("click", function(){
+		alert("아이디는 수정이 불가능합니다.");
+	});
+});
+
 </script>
 <section id="memberView-Container">
-	<h2>- Edit Profile -</h2>
+	<h2>&lt; 프로필 수정 &gt;</h2>
 	<input type="hidden" name="userIdTest" name="userIdTest" 
 		  				   id="userIdTest"
 		  				   value="<%=userId_%>"/>
@@ -184,7 +187,7 @@ function readURL(input){
 						else {%>
 						<br /><br />
 						<div id="profile-Container">
-						   <img id="profilePre" src="<%=userProfileRenamedFile%>">
+						   <img id="profilePre" src="<%=request.getContextPath()%>/images/nonProfile.png">
 						</div>
 						<%} // end of else : 프사 없는 경우 기본 프사 보여주기 %>
 						</div>

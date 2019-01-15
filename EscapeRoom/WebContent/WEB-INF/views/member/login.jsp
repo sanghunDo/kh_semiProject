@@ -45,7 +45,7 @@ function loginValidate(){
 </head>
 <body>
 <!-- 로그인 -->
-<div id="logo">Escape, if you can.</div>
+<div id="logo" onclick="location.href='<%=request.getContextPath()%>/home'">Escape, if you can.</div>
 <div class="login-Container">
 	<form action="<%=request.getContextPath()%>/member/loginEnd" method="post" id="loginFrm">
 		<table>
@@ -57,8 +57,14 @@ function loginValidate(){
 				<label for="saveId" id="label-saveId">SAVE ID</label></td></tr>			
 			<tr><td><input type="submit" value="LOGIN" 
 				id="submit-Btn" onclick="return loginValidate();" /></td></tr>
-			<tr><td><input type="button" value="JOIN US"
-				id="register-Btn" onclick="location.href='<%=request.getContextPath() %>/member/memberRegister'" /></td></tr>
+			<tr>
+				<td>
+					<input type="button" value="FIND ID" 
+						id="findId-Btn" onclick="location.href='<%=request.getContextPath() %>/member/findId'"/>
+					<input type="button" value="JOIN US"
+						id="register-Btn" onclick="location.href='<%=request.getContextPath() %>/member/memberRegister'" />
+				</td>
+			</tr>
 		</table>
 	</form>
 </div>

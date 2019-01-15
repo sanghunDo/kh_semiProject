@@ -1,0 +1,94 @@
+@charset "UTF-8";
+body{
+	background:black;
+	color:white;
+}
+
+h2{
+	padding-top:10px;
+	font-size:30px;
+	text-shadow: 0px 0px 10px red,
+				 0px 0px 20px red,
+				 0px 0px 30px red,
+				 0px 0px 40px red,
+				 0px 0px 50px red,
+				 0px 0px 60px red;
+	text-align: center;
+
+-webkit-animation:blink 1s ease-in-out infinite alternate;
+-moz-animation:blink 1s ease-in-out infinite alternate;
+animation:blink 1s ease-in-out infinite alternate;
+}
+
+@-webkit-keyframes blink{
+    0% {opacity:0;}
+    100% {opacity:1;}
+}
+@-moz-keyframes blink{
+    0% {opacity:0;}
+    100% {opacity:1;}
+}
+@keyframes blink{
+    0% {opacity:0;}
+    100% {opacity:1;}
+}
+
+#findId-Container{
+	width:420px;
+	height:300px;
+	border:1px solid #5D5D5D;
+	border-radius:20px;
+	margin: 100 auto;
+}
+
+#userEmail{
+	width:275px;
+	height:25px;
+	outline:none;
+	background:black;
+	border-style:none;
+	border-bottom: 1px solid gray;
+	color:white;
+	font-size: 15px;
+	text-align: center;
+}
+
+table{
+	border-collapse: collapse;
+	margin-left:56px;
+	margin: 30 auto;
+}
+
+table td{
+	padding: 5px 10px 5px 10px;
+}
+
+table td#foundId{
+	padding: 40px 10px 5px 10px;
+	font-size: 20px;
+	text-align: center;
+}
+
+span{
+    color: white;
+    font: 20px existence;
+    text-shadow: 0px 0px 10px red,
+    			 0px 0px 30px red,
+    			 0px 0px 50px red,
+    			 0px 0px 70px red;
+}
+
+#findId-Btn{
+	outline:none;
+	border:1px solid gray;
+	color:white;
+	background: gray;
+	border-radius: 10px;
+	width:275px;
+	height:35px;
+	font-size:15px;
+	cursor:pointer;
+	display:block;
+	margin:0 auto;
+	margin-top:50px;
+}

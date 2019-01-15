@@ -1,36 +1,41 @@
 <%@page import="com.oreilly.servlet.MultipartRequest"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ page import="java.util.*" %>
-<%@ page import="semi.admin.controller.*" %>
+<%@ page import="java.util.*, semi.admin.controller.*, semi.member.model.vo.Member" %>
+<link href="https://fonts.googleapis.com/css?family=Amatic+SC" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Noto+Serif+KR" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Roboto+Slab" rel="stylesheet">
+<link rel="stylesheet" href="<%=request.getContextPath() %>/css/member/memberView.css" />
 <%
 	Member m = (Member) request.getAttribute("member");
-	//header.jsp에서 userId 변수명을 이미 사용중이므로 살짝 변경
-	String userId_ = m.getUserId(); 
-	System.out.println("adminMemberView.jsp_userId_: " + userId_);
+	String userId_ = m.getUserId();
+	System.out.println("adminMemberView userId_:" + userId_);
 	String userPassword = m.getUserPassword();
 	String userEmail = m.getUserEmail()!=null?m.getUserEmail():"";
 	String userProfileOriginalFile = m.getUserProfileOriginalFile()!=null?m.getUserProfileOriginalFile():"";	
 	String userProfileRenamedFile = m.getUserProfileRenamedFile()!=null?m.getUserProfileRenamedFile():request.getContextPath()+"images/nonProfile.png";
 %>
 <%@ include file="/WEB-INF/views/common/header.jsp"%>
-<link rel="stylesheet" href="<%=request.getContextPath() %>/css/member/memberView.css" />
-<style>
-h2, h3{
-	color: white;
-}
-
-img#Profile-Pre{
-	width: 150px;
-}
-</style>
 <script>
-// 회원정보 수정하기
-// adminMemberUpdate 서블릿
-// 회원정보 수정 유효성 검사
+// 회원정보 수정 유효성 검사하기
 function updateValidate(){
 	// 아이디 검사
 	var $userId_ = $("#userId_"); // 아이디
+	var getUserId = RegExp(/^[a-zA-Z]+[a-zA-Z0-9]{4,11}$/); // 아이디 유효성 검사용
+	
+	// 프로필 사진 검사
+	var $userProfileOriginalFile = $("#userProfile"); // 프로필 사진명
+	var fileExt = $userProfileOriginalFile.val().substring($userProfileOriginalFile.val().lastIndexOf(".") + 1); // 확장자명 구하기용
+	var getUserProfileOriginalFile = RegExp(/jpg|jpeg|png|gif/i); // 프로필 사진 유효성 검사용
+	
+	// 비밀번호 검사
+	var $userPassword_ = $("#userPassword_"); // 기존 비밀번호
+	var $userPassword__ = $("#userPassword__"); // 비교할 새 비밀번호
+	var getUserPassword = RegExp(/^(?=.*[A-Za-z])(?=.*[0-9])(?=.*[#?!@$%^&*-]).{5,19}$/); // 비밀번호 유효성 검사용
+	
+	// 이메일 검사 
+	var $userEmail = $("#userEmail"); // 이메일
+	var getUserEmail = RegExp(/^[a-z0-9_+.-]+@([a-z0-9-]+\.)+[a-z0-9]{2,4}$/); // 이메일 유효성 검사용
 	
 	// 아이디 공백 확인
 	if($userId_.val() ==""){
@@ -47,32 +52,18 @@ function updateValidate(){
 		return false;
 	}
 	
-	// 아이디 중복 검사 여부 체크
+	// 아이디 중복검사 여부 체크
 	var $idValid = $("#idValid").val();
 	if($idValid == 0){
-		alert("아이디 중복 검사를 해주세요.");
+		alert("아이디 중복검사를 해주세요.");
 		return false;
 	}
-	
-	// 프로필 사진 검사
-	var $userProfileOriginalFile = $("#userProfile"); // 프로필 사진명
-	var fileExt = $userProfileOriginalFile.val().substring($userProfileOriginalFile.val().lastIndexOf(".") + 1); // 확장자명 구하기용
-	var getUserProfileOriginalFile = RegExp(/jpg|jpeg|png|gif/i); // 프로필 사진 유효성 검사
 	
 	// 프로필 사진 유효성 검사
 	if(!getUserProfileOriginalFile.test(fileExt) && $userProfileOriginalFile.val().length > 0){
 		alert("첨부파일은 jpg, jpeg, png, gif로 된 이미지만 가능합니다.");
 		return false;
 	}
-	
-	// 비밀번호 검사
-	var $userPassword_ = $("#userPassword_"); // 기존 비밀번호
-	var $userPassword__ = $("#userPassword__"); // 비교할 새 비밀번호
-	var getUserPassword = RegExp(/^(?=.*[A-Za-z])(?=.*[0-9])(?=.*[#?!@$%^&*-]).{5,19}$/); // 비밀번호 유효성 검사
-	
-	// 이메일 검사 
-	var $userEmail = $("#userEmail"); // 이메일
-	var getUserEmail = RegExp(/^[a-z0-9_+.-]+@([a-z0-9-]+\.)+[a-z0-9]{2,4}$/); // 이메일 유효성 검사
 	
 	// 이메일 공백 확인
 	if($userEmail.val() == ""){
@@ -93,23 +84,37 @@ function updateValidate(){
 	
 }
 
-// 프로필 사진 변경하기 눌렀을 때
-$(function(){
-    $("#userProfile").on('change', function(){
-        readURL(this);
-    });
-});
-
-function readURL(input){
-   if(input.files && input.files[0]){
-       var reader = new FileReader();
-
-       reader.onload = function(e){
-           $('#profilePre').attr('src', e.target.result);
-       }
-
-       reader.readAsDataURL(input.files[0]);
-   }
+// 아이디 중복 검사하기
+// adminCheckIdDupilcate 서블릿
+// 클릭시 팝업 창 띄우기
+function adminCheckIdDuplicate(){
+	var getUserId = RegExp(/^[a-zA-Z]+[a-zA-Z0-9]{4,11}$/); // 아이디 유효성 검사
+	
+	// 아이디 중복검사 폼 전송
+	var $userId = $("#userId_").val();
+	if($userId == ""){
+		alert("아이디를 입력해주세요.");
+		return;
+	}
+	
+	// 아이디 유효성 검사
+	if(!getUserId.test($userId)){
+		alert("아이디는 영문자로 시작하고, 5~12자를 채워서 영문자 또는 숫자를 입력해주세요.");
+		return;
+	}
+	
+	// 조건 만족시 팝업 창을 target으로 폼 전송
+	var target = "adminCheckIdDuplicate";
+	
+	// 첫 번째 인자인 url은 생략, form의 action값이 이를 대신한다.
+	var popup = open("", target, "left=300px, top=100px, width=450px, height=150px");
+	
+	admincheckIdDuplicateFrm.userId.value = $userId;
+	console.log("userId@adminCheckIdDuplicate()@adminMemberView.jsp = ", $userId);
+	
+	// 폼의 대상을 작성한 popup 창의 이름(target)으로 지정
+	adminCheckIdDuplicateFrm.target = target;
+	adminCheckIdDuplicateFrm.submit();
 }
 
 // 비밀번호 수정하기
@@ -119,7 +124,7 @@ function updatePwd(){
 	var url = "<%=request.getContextPath() %>/admin/adminPwdUpdate?userId=<%=userId_%>";
 	
 	// 팝업창 이름
-	var title = "updatePassword";
+	var title = "관리자용 회원번호 수정하기";
 	var status = "left=500px, top=200px, width=400px, height=400px";
 	open(url, title, status);
 }
@@ -134,11 +139,20 @@ function deleteMember(){
 		form.submit();
 	}
 }
+
 </script>
-<h3>회원 정보 상세 보기</h3>
-<!-- 회원 한 명 정보 상세 보기 및 수정 -->
+<title>관리자용 게시판</title>
+<h1>관리자용 회원 정보 상세 보기</h1>
+<!-- 회원 한 명 정보 상세 보기 및 수정, 삭제 -->
+<form action="<%=request.getContextPath()%>/admin/adminCheckIdDuplicate" 
+	  method="post"
+	  name="adminCheckIdDuplicateFrm">
+	  <input type="hidden" name="userId"/>
+</form>
 <section id="admin-memberView-container">
-<form action="<%=request.getContextPath()%>/admin/adminMemberUpdate"
+<input type="hidden" name="userIdTest" name="userIdTest" 
+	   id="userIdTest" value="<%=userId_%>"/>
+<form action="<%=request.getContextPath()%>/admin/adminMemberUpdateEnd"
 	  method="post"
 	  name="adminMemberUpdateFrm"
 	  onsubmit="return updateValidate();"
@@ -147,12 +161,12 @@ function deleteMember(){
 			<tr>
 				<th>아이디</th>
 					<td>
-						<input type="text" 
-		  				   name="userId" 
-		  				   id="userId_"
-		  				   value="<%=userId_%>"
-		  				   required />
+						<input type="text" name="userId" id="userId_" value="<%=userId_%>" required />
 					</td>
+					<!-- 아이디 중복검사 버튼 -->
+					<td><input type="button" id="id-check" value="중복검사" onclick="adminCheckIdDuplicate();"></td>
+					<!-- 중복검사 여부 확인용 태그 -->
+					<td><input type="hidden" name="idRegister" id="idRegister" value="0"><td>
 				</tr>
 			<tr>
 				<th>프로필 사진</th>
@@ -184,18 +198,9 @@ function deleteMember(){
 					</td>
 			</tr>
 			<tr>
-				<th>비밀번호</th>
-					<td>
-						<%=m.getUserPassword() %>
-					</td>
-			</tr>
-			<tr>
 				<th>이메일</th>
 					<td>
-						<input type="email" 
-		  				   name="userEmail" 
-		  				   id="userEmail"
-		  				   value="<%=userEmail %>" />
+						<input type="email" name="userEmail" id="userEmail" value="<%=userEmail %>" />
 					</td>
 			</tr>
 			<tr>
@@ -204,10 +209,14 @@ function deleteMember(){
 						<%=m.getEnrollDate() %>
 					</td>
 			</tr>
+			<tr>
+				<th>코인</th>
+				<td><%=m.getCoin()%></td>
+			</tr>
 		</table>
-<input type="submit" id="userInfoEdit" value="회원정보 수정"/>
-<input type="button" id="userPwdEdit" onclick="updatePwd();" value="비밀번호 수정"/>
-<input type="button" id="deleteMember" onclick="deleteMember();" value="회원 삭제"/>
+	<input type="submit" id="userInfoEdit" value="회원정보 수정" />
+	<input type="button" id="userPwdEdit" onclick="updatePwd();" value="비밀번호 수정" />
+	<input type="button" id="deleteMember" onclick="deleteMember();" value="회원 삭제" />
 </form>
 </section>
 <%@ include file="/WEB-INF/views/common/footer.jsp" %>

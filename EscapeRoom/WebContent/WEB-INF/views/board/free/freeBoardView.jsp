@@ -92,7 +92,7 @@
                 <%=bc.getCommentWriter() %>
                 <i><%=bc.getCommentDate() %></i>
             </dt>
-             <%if(loggedInMember!= null && ("admin123".equals(loggedInMember.getUserId()) ||  bc.getCommentWriter().equals(loggedInMember.getUserId()))) {%>
+             <%if(loggedInMember!= null && ("admin".equals(loggedInMember.getUserId()) ||  bc.getCommentWriter().equals(loggedInMember.getUserId()))) {%>
             <dl class="bestEdit">
                 <div class="button" style="position:relative; top:10px;" >수정하기</div>
                 <div class="button"  style="position:relative; top:10px;" >삭제하기</div>
@@ -151,7 +151,7 @@
                    <dl style="display: inline-flex; position: relative; left: 177px; top: -46px;">
                         <input type="hidden" value=<%=bc.getCommentNo() %> class="commentNo" commentNum="<%=i%>" />
                         <input type="hidden" value=<%=bc.getCommentContent() %> id="commentContent"  no="<%=i %>"/>
-                        <%if(loggedInMember!= null && ("admin123".equals(loggedInMember.getUserId()) ||  bc.getCommentWriter().equals(loggedInMember.getUserId()))) {%>
+                        <%if(loggedInMember!= null && ("admin".equals(loggedInMember.getUserId()) ||  bc.getCommentWriter().equals(loggedInMember.getUserId()))) {%>
                         <div class="commentUpdate" no="<%=i%>">수정하기</div>
                         <div class="commentUpdateEnd" no="<%=i %>">수정완료</div>
                         <div class="commentDeleteBtn" no="<%=i %>" onclick="deleteComment();">삭제하기</div>
@@ -211,7 +211,7 @@
                </div><!-- level2CommentListDiv 끝 -->
              </dl>
         </div> <!-- end of . comment-container -->
-   <%if(loggedInMember!= null && ("admin123".equals(loggedInMember.getUserId()) ||  fb.getPostWriter().equals(loggedInMember.getUserId()))) {%>
+   <%if(loggedInMember!= null && ("admin".equals(loggedInMember.getUserId()) ||  fb.getPostWriter().equals(loggedInMember.getUserId()))) {%>
         <div class="button" id="update" onclick="updateBoard();">수정</div>
         <div class="button" id="delete" onclick="deleteBoard();">삭제</div>     
     <%} %>

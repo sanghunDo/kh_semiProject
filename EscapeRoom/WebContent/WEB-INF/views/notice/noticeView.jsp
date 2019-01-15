@@ -30,11 +30,13 @@
 	
 	</table>
 	
+	<%if(loggedInMember != null && "admin".equals(loggedInMember.getUserId())) {%>
 	<div id="modify-Notice">
 		<button id="noticeModify-Btn" onclick="noticeModify();">수정하기</button>
 		&nbsp;&nbsp;
 		<button id="noticeDelete-Btn" onclick="noticeDelete();">삭제하기</button>
 	</div>
+	<%} %>
 </div>
 
 <script>
