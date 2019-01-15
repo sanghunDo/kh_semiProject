@@ -7,6 +7,7 @@ public class Report_Board {
 	private String postWriter;
 	private String reason;
 	private String userComment;
+	private String reasonChecked;
 	
 	public Report_Board() {}
 	
@@ -25,9 +26,27 @@ public class Report_Board {
 		this.userComment = userComment;
 	}
 	
+	public Report_Board(String category,
+			int postNo,
+			String postTitle,
+			String postWriter,
+			String reason,
+			String userComment,
+			String reasonChecked) {
+		
+		this.category = category;
+		this.postNo = postNo;
+		this.postTitle = postTitle;
+		this.postWriter = postWriter;
+		this.reason = reason;
+		this.userComment = userComment;
+		this.reasonChecked = reasonChecked;
+	}
+	
 	@Override
 	public String toString() {
-		return category + " " + postNo + " " + postTitle + " " + postWriter + " " + reason + " " + userComment;
+		return category + " " + postNo + " " + postTitle + " " + postWriter +
+					" " + reason + " " + userComment + " " + reasonChecked;
 	}
 
 	public String getCategory() {
@@ -76,5 +95,13 @@ public class Report_Board {
 	
 	public void setUserComment(String userComment) {
 		this.userComment = userComment;
+	}
+
+	public String getReasonChecked() {
+		return reasonChecked;
+	}
+
+	public void setReasonChecked(String reasonChecked) {
+		this.reasonChecked = reasonChecked;
 	}
 }

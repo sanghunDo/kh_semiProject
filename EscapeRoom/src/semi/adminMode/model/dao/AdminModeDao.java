@@ -141,6 +141,7 @@ public class AdminModeDao {
 				
 				list.add(rb);
 			}
+			
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
@@ -186,6 +187,27 @@ public class AdminModeDao {
 		}
 		
 		return list;
+	}
+
+	public int deleteReport(Connection conn, String category, int postNo) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String query = prop.getProperty("deleteReportBoard");
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, category);
+			pstmt.setInt(2, postNo);
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
 	}
 
 }

@@ -8,6 +8,7 @@ public class Report_Comment {
 	private String commentWriter;
 	private String reason;
 	private String userComment;
+	private String reasonChecked;
 	
 	public Report_Comment() {}
 	
@@ -26,6 +27,31 @@ public class Report_Comment {
 		this.commentWriter = commentWriter;
 		this.reason = reason;
 		this.userComment = userComment;
+	}
+	
+	public Report_Comment(String category,
+			int postNo,
+			int commentNo,
+			String commentContent,
+			String commentWriter,
+			String reason,
+			String userComment,
+			String reasonChecked) {
+		
+		this.category = category;
+		this.postNo = postNo;
+		this.commentNo = commentNo;
+		this.commentContent = commentContent;
+		this.commentWriter = commentWriter;
+		this.reason = reason;
+		this.userComment = userComment;
+		this.reasonChecked = reasonChecked;
+	}
+	
+	@Override
+	public String toString() {
+		return category + " " + postNo + " " + commentNo + " " + commentContent + " " 
+					+ commentWriter + " " + reason + " " + userComment + " " + reasonChecked; 
 	}
 	
 	public String getCategory() {
@@ -82,5 +108,13 @@ public class Report_Comment {
 	
 	public void setUserComment(String userComment) {
 		this.userComment = userComment;
+	}
+
+	public String getReasonChecked() {
+		return reasonChecked;
+	}
+
+	public void setReasonChecked(String reasonChecked) {
+		this.reasonChecked = reasonChecked;
 	}
 }

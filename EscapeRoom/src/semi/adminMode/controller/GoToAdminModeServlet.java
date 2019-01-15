@@ -1,6 +1,7 @@
 package semi.adminMode.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -37,9 +38,35 @@ public class GoToAdminModeServlet extends HttpServlet {
 		List<Report_Board> rbList = new AdminModeService().selectAllReportBoard();
 		List<Report_Comment> rcList = new AdminModeService().selectAllReportComment();
 		List<Member> memberList = new AdminModeService().selectAllMember();
+
+		String temp = " ";
+		String[] tempArr = null;
 		
-		System.out.println(rbList);
-		System.out.println(rcList);
+		for(int i=0; i<rbList.size(); i++) {
+			tempArr = rbList.get(i).getReason().split("/");
+			for(int j=0; j<tempArr.length; j++) {
+				if("reason1".equals(tempArr[j])) temp += "욕설 ";
+				else if ("reason2".equals(tempArr[j])) temp += "음란 ";
+				else if ("reason3".equals(tempArr[j])) temp += "광고 ";
+				else if ("reason4".equals(tempArr[j])) temp += "기타 ";
+			}
+			rbList.get(i).setReasonChecked(temp);
+			temp = " ";
+			tempArr = null;
+		}
+		
+		for(int i=0; i<rcList.size(); i++) {
+			tempArr = rcList.get(i).getReason().split("/");
+			for(int j=0; j<tempArr.length; j++) {
+				if("reason1".equals(tempArr[j])) temp += "욕설 ";
+				else if ("reason2".equals(tempArr[j])) temp += "음란 ";
+				else if ("reason3".equals(tempArr[j])) temp += "광고 ";
+				else if ("reason4".equals(tempArr[j])) temp += "기타 ";
+			}
+			rcList.get(i).setReasonChecked(temp);
+			temp = " ";
+			tempArr = null;
+		}
 		
 		request.setAttribute("memberList", memberList);
 		request.setAttribute("rbList", rbList);
