@@ -103,12 +103,12 @@ $(function(){
 <h1>&lt; 신고게시글 목록 &gt;</h1>
 <table id="report_Post">
 	<tr>
-		<th>카테고리</th>
+		<th>분류</th>
 		<th>글번호</th>
 		<th>제목</th>
 		<th>작성자</th>
-		<th>사유분류</th>
-		<th>세부사항</th>
+		<th>사유</th>
+		<th>의견</th>
 	</tr>
 	<tr>
 		<td colspan="6">데이터가 없습니다.</td>
@@ -118,13 +118,13 @@ $(function(){
 <h1>&lt; 신고댓글 목록 &gt;</h1>
 <table id="report_Comment">
 	<tr>
-		<th>카테고리</th>
+		<th>분류</th>
 		<th>글번호</th>
 		<th>댓글번호</th>
 		<th>내용</th>
 		<th>작성자</th>
-		<th>사유분류</th>
-		<th>세부사항</th>
+		<th>사유</th>
+		<th>의견</th>
 	</tr>
 	<tr>
 		<td colspan="7">데이터가 없습니다.</td>
@@ -146,7 +146,8 @@ $(function(){
 		<tr>
 			<td>
 				<input type="hidden" class="hiddenVal" value="<%=memberList.get(i).getUserId() %>"/>
-				<%=memberList.get(i).getUserId() %>
+				<a href="<%=request.getContextPath()%>/member/memberView?userId=<%=memberList.get(i).getUserId()%>">
+					<%=memberList.get(i).getUserId() %></a>
 			</td>
 			<td><%=memberList.get(i).getUserEmail() %></td>
 			<td>

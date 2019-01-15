@@ -75,7 +75,6 @@ function updateValidate(){
 		return false;
 	}
 	
-	
 	// 프로필사진 유효성 검사
 	if(!getUserProfileOriginalFile.test(fileExt) && $userProfileOriginalFile.val().length > 0){
 		alert("첨부파일은 jpg, jpeg, png, gif로 된 이미지만 가능합니다.");
