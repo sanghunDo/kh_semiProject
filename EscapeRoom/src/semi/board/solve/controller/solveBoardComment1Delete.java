@@ -39,10 +39,10 @@ public class solveBoardComment1Delete extends HttpServlet {
 		String loc = "/board/solve/solveBoardView?postNo="+postNo ;
 		
 		if(result >0 ) {
-			msg ="게시물 수정성공";
+			msg ="댓글을 삭제하였습니다.";
 			
 		}else {
-			msg = "수정실패";
+			msg = "삭제실패";
 		}
 		request.setAttribute("msg", msg);
 		request.setAttribute("loc", loc);

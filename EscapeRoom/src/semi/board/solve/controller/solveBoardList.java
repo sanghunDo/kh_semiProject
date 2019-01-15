@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import semi.board.solve.model.dao.SolveBoardDao;
+import semi.board.solve.model.vo.GameRank;
 import semi.board.solve.model.vo.SolveBoard;
 
 /**
@@ -47,6 +48,10 @@ public class solveBoardList extends HttpServlet {
 		}
 		 List<SolveBoard> list = new SolveBoardDao().boardSelectAll(cPage, numPerPage);
 		 List<SolveBoard> bestList = new SolveBoardDao().boardSelectBest3();
+		 List<GameRank> rankList = new SolveBoardDao().selectRankList();
+		 
+		 
+		 System.out.println("rankList = "+rankList);
 //		 System.out.printf("[cPage=%s , numPerPage=%s]",cPage, numPerPage);
 		//전체컨텐츠수 구하기
 		 int totalContent = new SolveBoardDao().BoardCount();
@@ -97,6 +102,7 @@ public class solveBoardList extends HttpServlet {
 		
 		 request.setAttribute("list", list);
 		 request.setAttribute("bestList", bestList);
+		 request.setAttribute("rankList", rankList);
 
 		 request.setAttribute("pageBar", pageBar);
 		 request.setAttribute("cPage", cPage);

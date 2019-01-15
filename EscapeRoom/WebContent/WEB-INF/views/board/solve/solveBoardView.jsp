@@ -6,7 +6,7 @@
    SolveBoard sb = (SolveBoard)request.getAttribute("sb");
    List<BoardComment> commentList = (List<BoardComment>)request.getAttribute("commentList");
    List<BoardComment> bestCommentList = (List<BoardComment>)request.getAttribute("bestCommentList");
-   
+
 %>
 <link rel="stylesheet" href="<%=request.getContextPath()%>/css/board/solve/boardCommunityView.css" />
 <script src="<%=request.getContextPath()%>/js/jquery-3.3.1.js"></script>
@@ -96,13 +96,21 @@
                 <i><%=bc.getCommentDate() %></i>
             </dt>
              <%if(loggedInMember!= null && ("admin".equals(loggedInMember.getUserId()) ||  bc.getCommentWriter().equals(loggedInMember.getUserId()))) {%>
-            <dl class="bestEdit">
-                <div class="button" style="position:relative; top:10px;" >수정하기</div>
-                <div class="button"  style="position:relative; top:10px;" >삭제하기</div>
+           <dl class="bestEdit">
+                <div  class="bestCommentUpdate" no=<%=i %>>수정하기</div>
+                <div  no=<%=i %> class=bestUpdateEndButton>수정완료</div>
+                <div    no=<%=i %> class=bestCommentDelete onclick="deleteBestComment();">삭제하기</div>
             </dl>
+          <textarea name="bestCommentUpdateEnd" class="bestCommentUpdateEnd" cols="30" rows="10" no=<%=i %>><%=bc.getCommentContent() %></textarea>          
             <%} %>
+            
+            <!-- 베댓 삭제를 위한 폼 -->
+                    <form action="<%=request.getContextPath()%>/board/solve/solveBoardCommentDelete" name="bestCommentDeleteFrm">
+                    <input type="hidden" value="<%=bc.getCommentNo() %>" name="commentNo" class="commentNo" commentNo="<%=i%>"/>
+                    <input type="hidden" value="<%=sb.getPostNo() %>" name="postNo" id="postNo"/>
+                    </form>
 
-            <dl class="bestCommentOpinion" style="position:relative; top:-44px; left:-33px;">
+            <dl class="bestCommentOpinion"   no=<%=i %>>
             	<input type="hidden" class="BestCommentNo" value ="<%=bc.getCommentNo() %>"  commentNum="<%=i%>" />
             	추천
                 <span style="padding:10px" class="bestCommentLike" onclick="BestCommentLike(this,'<%=loggedInMember.getUserId()%>','<%=bc.getCommentWriter() %>')" commentNum="<%=i%>"><%=bc.getCommentLike() %></span>
@@ -111,9 +119,7 @@
                 <span style="padding:10px" onclick="report('<%=bc.getCommentNo()%>', '<%=bc.getCommentWriter()%>', '<%=bc.getCommentContent()%>');">신고하기</span>
             </dl>
 
-            <dd class="bestContent">
-                   <%=bc.getCommentContent() %>
-            </dd>
+            <dd class="bestContent" no="<%=i%>"><%=bc.getCommentContent() %></dd>
         </dl>
        <hr>
              <%}%> 
@@ -381,6 +387,46 @@
       });  
    
     });
+    
+    /* 베댓 수정  */
+    $(".bestCommentUpdate").on("click", function(){
+ 	   var no = $(this).attr("no");
+        $(".bestCommentUpdateEnd[no="+no+"]").css("display","inline"); //수정하기위한 text area
+        $(".bestUpdateEndButton[no="+no+"]").css("display","inline");
+        $(".bestCommentOpinion[no="+no+"]").css("display","none");
+        $(".bestContent[no="+no+"]").css("display","none");
+        $(".bestCommentUpdate[no="+no+"]").css("display","none");
+        $(".bestCommentDelete[no="+no+"]").css("display","none");
+        
+    });
+    
+    $(".bestUpdateEndButton").on("click",function(){
+ 	  var no = $(this).attr("no");
+  	  var commentUpdate = $(".bestCommentUpdateEnd[no="+no+"]").val();
+ 	  var commentNo = $(".bestCommentNo[commentNum="+no+"]").val();
+ 	  console.log("no="+no);
+ 	  console.log("commentUpdate="+commentUpdate);
+ 	  console.log("commentNo="+commentNo);
+
+ 	  var len = commentUpdate.trim();
+       if(len.length==0){
+           alert("댓글은 1자 이상 입력해주셔야합니다.");
+           return;
+        }
+ 	  
+ 	  var ref = $("[name=ref]").val();
+ 	  
+ 	  location.href = "<%=request.getContextPath()%>/board/solve/solveBoardCommentUpdate?commentUpdate="+commentUpdate+
+ 			  "&commentNo="+commentNo+"&ref="+ref;
+    });
+    /*========================================================= */
+    /* 베댓 삭제 */
+    function deleteBestComment(){
+ 	   if(!confirm("댓글을 정말로 삭제하시겠습니까?")){
+            return false;
+        }
+ 	   $("[name=bestCommentDeleteFrm]").submit();
+    }
     
     /* 수정완료버튼을 눌렀을 시 */
     $(".commentUpdateEnd").on("click", function(){
