@@ -40,6 +40,7 @@
     height: 50px;
     top: 585px;
     left: 388px;
+    opacity: 0;
 }
 #hintnote1{
     top: 148px;
@@ -123,5 +124,6 @@
 
 #show-obj img:first-of-type{
 	position: relative;
+	max-width: 700px;
 	height: 100%;
 }

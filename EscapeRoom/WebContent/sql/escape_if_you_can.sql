@@ -344,8 +344,8 @@ commit;
 --update notice set noticeLinked = 'N';
 --update notice set noticeLinked = 'Y' where noticeNo = ?
 
---drop table game_object_coment;
---drop table game_object;
+drop table game_object_coment;
+drop table game_object;
 create table game_object(
     objno number, --오브젝트의 고유 넘버
     objname varchar2(50) unique not null, --오브젝트의 고유 이름
@@ -411,7 +411,7 @@ insert into game_object_coment values(14, '"침대 밑에 뭐가 떨어져 있�
 insert into game_object_coment values(15, '"다이어리인가?? 누구꺼지"', 14);
 insert into game_object_coment values(16, '"뭔가 씌여져있다"', 14);
 
-insert into game_object values(15, 'used_diary_opened', default, default, default, 'left', 2, default, default);
+insert into game_object values(15, 'used_under_bed_diary', default, default, default, 'left', 2, default, default);
 insert into game_object_coment values(17, '"탐나는 다이어리다 너무 이뻥"', 15);
 
 insert into game_object values(16, 'hintnote1', default, default, 'diary_opened','left', 3, default, 'Y');
@@ -474,7 +474,7 @@ insert into game_object_coment values(38, '"칼보단 망치지!!"', 33);
 insert into game_object values(34, 'water', default, default, default, 'right', 1, default, default);
 insert into game_object_coment values(39, '"이런곳에 물이 왜있을까..(핥짝핥짝)"', 34);
 
-insert into game_object values(35, 'used_water', default, default, default, 'back', 3, default, 'Y');
+insert into game_object values(35, 'used_water_bs_hintnote3', default, default, default, 'back', 3, default, 'Y');
 insert into game_object_coment values(40, '"오줌으로도 가능했을걸.."', 35);
 
 insert into game_object values(36, 'window', default, default, default, 'right', 1, default, default);
@@ -490,8 +490,8 @@ insert into game_object_coment values(44, '"전등속에 뭐가 있는데.. 손�
 insert into game_object values(39, 'used_ceilinglight', default, default, default, 'ceil', 2, default, default);
 insert into game_object_coment values(45, '".....눈부셔ㅜ"', 39);
 
-insert into game_object values(39, 'key_2', default, default, default, 'ceil', 3, 1, 'Y');
-insert into game_object_coment values(46, '"샤이니 만능열쇠 key~"', 39);
+insert into game_object values(40, 'key_2', default, default, default, 'ceil', 3, 1, 'Y');
+insert into game_object_coment values(46, '"샤이니 만능열쇠 key~"', 40);
 commit;
 
 create table game_state(
@@ -522,6 +522,7 @@ create table game_state(
     bs_dollUse number default 1, --2면 찢어진상태
     bs_hintNote3Get number default 1, --2면 획득한 상태 (없어진상태)
     bs_hintNote3Use number default 1, --2면 right에 고여있는 물에 적셔져서 온전한내용이 나온 상태(인벤토리안에 있음, 없어지지않음)
+    used_water_bs_hintNote3Get number default 1,
     
     bs_smallBoxUse number default 1, --2면 열려있고 비어있는 상태
     bs_hintNote2Get number default 1, -- 달력힌트쪽지2 2면 획득한 상태, 없어진 상태(인벤토리 안에 있음)

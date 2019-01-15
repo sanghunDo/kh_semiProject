@@ -231,6 +231,7 @@ public class GameDao {
 				result = rset.getInt(objName);
 			}
 		} catch (SQLException e) {
+			System.out.println(objName+"//"+userId);
 			e.printStackTrace();
 		}
 		return result;
