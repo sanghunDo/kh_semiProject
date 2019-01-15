@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ page import = "java.util.*,semi.board.solve.model.vo.*"  %>
+<%@ page import = "java.util.*, semi.board.solve.model.vo.*"  %>
 <%@ include file="/WEB-INF/views/common/header.jsp"%>
 <html>
 <head>
