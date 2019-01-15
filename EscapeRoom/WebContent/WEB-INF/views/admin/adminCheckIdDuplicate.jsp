@@ -32,19 +32,6 @@ function adminCheckIdDuplicate(){
 	adminCheckIdDuplicateFrm.submit();
 	
 }
-
-function setUserId(userId){
-	// 부모창의 frm
-	//*opener : 자식 창이 부모창으로 값을 전달해주겠다는것
-	console.log("function setUserId(userId) 들어옴");
-	var frm = opener.document.adminMemberViewFrm;
-	frm.userId.value = userId;
-	frm.idRegister.value = 1;
-	frm.userPassword.focus();
-	
-	// 현재 창 닫기
-	self.close();
-}
 </script>
 <style>
 body{
@@ -85,9 +72,8 @@ span#duplicated{
 	<%if(isUsable){ %>
 		[<%=userId %>] 는 사용가능합니다.
 		<br /><br />
-		<button type="button" class="myBtn" onclick="setUserId('<%=userId %>');">닫기</button>
-	<%}
-	else{%>
+		<button type="button" class="myBtn" onclick="self.close();">닫기</button>
+	<%} else{%>
 		[<span id="duplicated"><%=userId %></span>]는 이미 사용중입니다.
 		<form action="<%=request.getContextPath() %>/admin/adminCheckIdDuplicate"
 	 		  method="post"

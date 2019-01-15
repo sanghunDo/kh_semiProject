@@ -2,9 +2,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ page import="java.util.*, semi.admin.controller.*, semi.member.model.vo.Member" %>
-<link href="https://fonts.googleapis.com/css?family=Amatic+SC" rel="stylesheet">
-<link href="https://fonts.googleapis.com/css?family=Noto+Serif+KR" rel="stylesheet">
-<link href="https://fonts.googleapis.com/css?family=Roboto+Slab" rel="stylesheet">
 <link rel="stylesheet" href="<%=request.getContextPath() %>/css/member/memberView.css" />
 <%
 	Member m = (Member) request.getAttribute("member");
@@ -16,13 +13,23 @@
 	String userProfileRenamedFile = m.getUserProfileRenamedFile()!=null?m.getUserProfileRenamedFile():request.getContextPath()+"images/nonProfile.png";
 %>
 <%@ include file="/WEB-INF/views/common/header.jsp"%>
+<style>
+h1{
+	text-align:center;
+}
+input #id-check{
+	outline:none;
+	border:1px solid white;
+	color:white;
+	background:black;
+	border-radius: 5px;
+	cursor:pointer;
+}
+
+</style>
 <script>
 // 회원정보 수정 유효성 검사하기
-function updateValidate(){
-	// 아이디 검사
-	var $userId_ = $("#userId_"); // 아이디
-	var getUserId = RegExp(/^[a-zA-Z]+[a-zA-Z0-9]{4,11}$/); // 아이디 유효성 검사용
-	
+function updateValidate(){	
 	// 프로필 사진 검사
 	var $userProfileOriginalFile = $("#userProfile"); // 프로필 사진명
 	var fileExt = $userProfileOriginalFile.val().substring($userProfileOriginalFile.val().lastIndexOf(".") + 1); // 확장자명 구하기용
@@ -36,28 +43,6 @@ function updateValidate(){
 	// 이메일 검사 
 	var $userEmail = $("#userEmail"); // 이메일
 	var getUserEmail = RegExp(/^[a-z0-9_+.-]+@([a-z0-9-]+\.)+[a-z0-9]{2,4}$/); // 이메일 유효성 검사용
-	
-	// 아이디 공백 확인
-	if($userId_.val() ==""){
-		alert("아이디를 입력하세요.");
-		$userId_.focus();
-		return false;
-	}
-	
-	// 아이디 유효성 검사
-	if(!getUserId.test($userId_.val())){
-		alert("아이디는 영문자와 숫자를 포함한 5~15 자리로 입력하세요.");
-		$userId_.val("");
-		$userId_.focus();
-		return false;
-	}
-	
-	// 아이디 중복검사 여부 체크
-	var $idValid = $("#idValid").val();
-	if($idValid == 0){
-		alert("아이디 중복검사를 해주세요.");
-		return false;
-	}
 	
 	// 프로필 사진 유효성 검사
 	if(!getUserProfileOriginalFile.test(fileExt) && $userProfileOriginalFile.val().length > 0){
@@ -84,42 +69,9 @@ function updateValidate(){
 	
 }
 
-// 아이디 중복 검사하기
-// adminCheckIdDupilcate 서블릿
-// 클릭시 팝업 창 띄우기
-function adminCheckIdDuplicate(){
-	var getUserId = RegExp(/^[a-zA-Z]+[a-zA-Z0-9]{4,11}$/); // 아이디 유효성 검사
-	
-	// 아이디 중복검사 폼 전송
-	var $userId = $("#userId_").val();
-	if($userId == ""){
-		alert("아이디를 입력해주세요.");
-		return;
-	}
-	
-	// 아이디 유효성 검사
-	if(!getUserId.test($userId)){
-		alert("아이디는 영문자로 시작하고, 5~12자를 채워서 영문자 또는 숫자를 입력해주세요.");
-		return;
-	}
-	
-	// 조건 만족시 팝업 창을 target으로 폼 전송
-	var target = "adminCheckIdDuplicate";
-	
-	// 첫 번째 인자인 url은 생략, form의 action값이 이를 대신한다.
-	var popup = open("", target, "left=300px, top=100px, width=450px, height=150px");
-	
-	admincheckIdDuplicateFrm.userId.value = $userId;
-	console.log("userId@adminCheckIdDuplicate()@adminMemberView.jsp = ", $userId);
-	
-	// 폼의 대상을 작성한 popup 창의 이름(target)으로 지정
-	adminCheckIdDuplicateFrm.target = target;
-	adminCheckIdDuplicateFrm.submit();
-}
-
 // 비밀번호 수정하기
 // adminPwdUpdate 서블릿
-// 비밀번호 수정 버튼 클릭시 팝업이 뜸
+// 비밀번호 수정 버튼 클릭시 팝업 요청하기
 function updatePwd(){
 	var url = "<%=request.getContextPath() %>/admin/adminPwdUpdate?userId=<%=userId_%>";
 	
@@ -132,7 +84,7 @@ function updatePwd(){
 // 회원 삭제하기
 // adminMemberDelete 서블릿
 function deleteMember(){
-	var bool = confirm("정말로 탈퇴하시겠습니까?");
+	var bool = confirm("정말로 삭제하시겠습니까?");
 	if(bool){
 		var form = document.adminMemberUpdateFrm;
 		form.action = "<%=request.getContextPath()%>/admin/adminMemberDelete";
@@ -140,36 +92,44 @@ function deleteMember(){
 	}
 }
 
+//프로필 사진 변경
+$(function(){
+    $("#userProfile").on('change', function(){
+        readURL(this);
+    });
+});
+
+function readURL(input){
+   if(input.files && input.files[0]){
+       var reader = new FileReader();
+
+       reader.onload = function(e){
+           $('#profilePre').attr('src', e.target.result);
+       }
+
+       reader.readAsDataURL(input.files[0]);
+   }
+}
 </script>
 <title>관리자용 게시판</title>
 <h1>관리자용 회원 정보 상세 보기</h1>
 <!-- 회원 한 명 정보 상세 보기 및 수정, 삭제 -->
-<form action="<%=request.getContextPath()%>/admin/adminCheckIdDuplicate" 
-	  method="post"
-	  name="adminCheckIdDuplicateFrm">
-	  <input type="hidden" name="userId"/>
-</form>
-<section id="admin-memberView-container">
-<input type="hidden" name="userIdTest" name="userIdTest" 
-	   id="userIdTest" value="<%=userId_%>"/>
+<section id="memberView-Container">
+<input type="hidden" name="userIdTest" id="userIdTest" value="<%=userId_%>"/>
 <form action="<%=request.getContextPath()%>/admin/adminMemberUpdateEnd"
 	  method="post"
 	  name="adminMemberUpdateFrm"
 	  onsubmit="return updateValidate();"
 	  enctype="multipart/form-data"> 
-	<table id="tbl-memberView">
+	<table id="tbl-MemberView">
 			<tr>
 				<th>아이디</th>
 					<td>
-						<input type="text" name="userId" id="userId_" value="<%=userId_%>" required />
+						<input type="text" name="userId" id="userId_" value="<%=userId_%>" required readonly/>
 					</td>
-					<!-- 아이디 중복검사 버튼 -->
-					<td><input type="button" id="id-check" value="중복검사" onclick="adminCheckIdDuplicate();"></td>
-					<!-- 중복검사 여부 확인용 태그 -->
-					<td><input type="hidden" name="idRegister" id="idRegister" value="0"><td>
 				</tr>
 			<tr>
-				<th>프로필 사진</th>
+				<th>프로필사진</th>
 					<td>						
 						<div id="userProfile-Div">
 						<input type="file" name="userProfile" id="userProfile" accept="image/jpg, image/jpeg, image/png, image/gif">
@@ -204,7 +164,7 @@ function deleteMember(){
 					</td>
 			</tr>
 			<tr>
-				<th>가입한 날짜</th>
+				<th>가입한날짜</th>
 					<td>
 						<%=m.getEnrollDate() %>
 					</td>
@@ -214,9 +174,13 @@ function deleteMember(){
 				<td><%=m.getCoin()%></td>
 			</tr>
 		</table>
-	<input type="submit" id="userInfoEdit" value="회원정보 수정" />
-	<input type="button" id="userPwdEdit" onclick="updatePwd();" value="비밀번호 수정" />
-	<input type="button" id="deleteMember" onclick="deleteMember();" value="회원 삭제" />
+	<input type="submit" id="editInfo-Btn" value="회원정보 수정" />
+	<input type="button" id="password-Btn" value="비밀번호 수정" onclick="updatePwd();" />
+	<input type="button" id="delete-Btn" value="회원 삭제" onclick="deleteMember();" />
+</form>
+<form action="<%=request.getContextPath()%>/admin/adminMemberDelete"
+	  method="post"
+	  name="adminMemberDeleteFrm">
 </form>
 </section>
 <%@ include file="/WEB-INF/views/common/footer.jsp" %>

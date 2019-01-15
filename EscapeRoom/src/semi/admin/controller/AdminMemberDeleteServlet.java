@@ -89,6 +89,7 @@ public class AdminMemberDeleteServlet extends HttpServlet {
 			msg = "해당 회원이 삭제되었습니다.";
 		} else {
 			msg = "해당 회원 삭제를 실패했습니다.";
+			loc = "/home";
 		}
 		
 		request.setAttribute("msg", msg); // 실패했을 시 사용

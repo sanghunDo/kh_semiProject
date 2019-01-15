@@ -6,21 +6,6 @@
 	List<Member> memberList = (List<Member>) request.getAttribute("memberList");
 	List<ReportBoard> reportList = (List<ReportBoard>) request.getAttribute("reportList");
 	List<ReportBoardComment> reportCmtList = (List<ReportBoardComment>) request.getAttribute("reportCmtList");
-=======
-<%@ page import = "java.util.*" %>
-<%@ page import = "semi.admin.controller.*" %>
-<%-- <%@ page import = "semi.admin.model.vo.ReportBoard.*" %> --%>
-<%
-	List<Member> list = (List<Member>)request.getAttribute("list");
-	/* List<ReportBoard> reportList = (List<ReportBoard>)request.getAttribute("reportList"); */
-	
-	// 신고된 게시글 목록도 불러오기
-   	
-   int cPage = (int)request.getAttribute("cPage");
-   int numPerPage = (int)request.getAttribute("numPerPage");
-   String pageBar = (String)request.getAttribute("pageBar");
- 
->>>>>>> fda3c2a1d3896f04f423bd772a9e5b17e8fb969f
 %>
 <%@ include file="/WEB-INF/views/common/header.jsp"%>
 <link href="https://fonts.googleapis.com/css?family=Roboto+Slab" rel="stylesheet">
@@ -40,6 +25,25 @@ h3{
 	margin-bottom:40px;
 }
 
+section{
+  	font-family: 'Noto Serif KR', serif;
+	border-collapse:collapse;
+	width:80%;
+	margin:0 auto;
+	color:white;
+	margin-bottom:50px;
+}
+
+table {
+   	font-family: 'Noto Serif KR', serif;
+   	width: 100%;
+   	border: 1px solid gray;
+   	border-collapse: collapse;
+   	padding: 1px;
+   	margin:0 auto;
+	background: white;
+}
+
 table a:link {
 	color: blue;
 }
@@ -50,28 +54,67 @@ table a:hover {
 	color: black;
 }
 
-section#member-list-container, #report-list-container, #report-cmt-container {
-   text-align: center;
-   width: 100%;
-   border: 1px solid gray;
-   border-collapse: collapse;
+table th, td{
+	text-align:center;
+	font-weight:bold;
+	font-size:15px;
+	padding-top:5px;
+	padding-bottom:5px;
+	border-bottom: 1px solid black;
 }
 
-table#tbl-member, #tbl-report, #tbl-report-cmt {
-   width: 100%;
-   border: 1px solid gray;
-   border-collapse: collapse;
-   padding: 1px;
-   background : white;
+img.userProfile{
+	width:100px;
+	height:100px;
+	cursor:pointer;
+}
+
+#showAll, #hide{
+	width:200px;
+	height:40px;
+	background:#353535;
+	color:white;
+	border:1px solid #353535;
+	border-radius:10px;
+	font-size:18px;
+	font-weight:bold;
+	font-family:'Noto Serif KR', serif;
+	cursor:pointer;
+}
+
+.hideThis{
+	display:none;
 }
 </style>
 <script>
+$(function(){
+	$("#showAll").on("click", function(){
+		$(".toggleTr").toggleClass("hideThis");
+		$("#hide").toggleClass("hideThis");
+		$("#showAll").toggleClass("hideThis");
+	});
+	
+	$("#hide").on("click", function(){
+		$(".toggleTr").toggleClass("hideThis");
+		$("#hide").toggleClass("hideThis");
+		$("#showAll").toggleClass("hideThis");
+	});
+	
+	$(".userProfile").on("click", function(){
+		var temp = confirm("해당 프로필 사진은 부적절한 사진입니까?");
+		if(!temp) return;
+		else{
+			alert("해당 회원은 프로필 사진이 등록되어 있지 않습니다.")
+			location.href = "<%=request.getContextPath()%>/admin/adminBoard";
+		}
+	});
+});
 </script>
 <title>관리자용 게시판</title>
-<h1>회원 목록</h1>
+<h1>전체 회원 목록</h1>
+<h3>목록에서 프로필 사진 클릭 시 바로 삭제할 수 있습니다.</h3>
 <section id="member-list-container">
 <table id="tbl-member">
-   <thead>
 	   <tr>
     	  	<th>아이디</th>
       		<th>이메일</th>
@@ -79,94 +122,71 @@ table#tbl-member, #tbl-report, #tbl-report-cmt {
       		<th>가입날짜</th>
       		<th>보유코인</th>
 	   </tr>
-   </thead>
-   <tbody>
-		<%if(memberList != null && !memberList.isEmpty()) { for (Member m : memberList){ %>
+		<%if(memberList != null && !memberList.isEmpty()) { 
+			for (int i=0; i<5; i++){%>
 		<tr>
 			<td>
 				<!-- 아이디 클릭시 회원 상세보기 페이지로 이동 -->
-				<a href="<%=request.getContextPath()%>/admin/adminMemberView?userId=<%=m.getUserId()%>">
-				<%=m.getUserId()%>
+				<input type="hidden" class="hidden" value="<%=memberList.get(i).getUserId() %>"/>
+				<a href="<%=request.getContextPath()%>/admin/adminMemberView?userId=<%=memberList.get(i).getUserId()%>">
+				<%=memberList.get(i).getUserId()%>
 				</a>
 			</td>
-			<td><%=m.getUserEmail() %></td>
+			<td><%=memberList.get(i).getUserEmail() %></td>
 			<td>
-				<%if(m.getUserProfileRenamedFile() != null){ %>
-				<img class="userProfile" src="<%=request.getContextPath() %>/upload/member/<%=m.getUserProfileRenamedFile() %>" alt="" />
+				<%if(memberList.get(i).getUserProfileRenamedFile() != null){ %>
+				<img class="userProfile" src="<%=request.getContextPath() %>/upload/member/<%=memberList.get(i).getUserProfileRenamedFile() %>" alt="" />
 				<%} else{ %>
 				<img class="userProfile" src="<%=request.getContextPath() %>/images/nonProfile.png" alt="" />
 				<%} %>
 			</td>
-			<td><%=m.getEnrollDate() %></td>
-			<td><%=m.getCoin() %></td>
+			<td><%=memberList.get(i).getEnrollDate() %></td>
+			<td><%=memberList.get(i).getCoin() %></td>
 		</tr>
-		<%} } else {  %>
+		<%} %>
+		<tr>
+			<td colspan="5">
+				<button id="showAll">▼ 전체회원 보기</button>
+			</td>
+		</tr>
+		<%for (int i=5; i<memberList.size(); i++) { %>
+				<tr class="toggleTr hideThis">
+			<td>
+				<input type="hidden" class="hidden" value="<%=memberList.get(i).getUserId() %>"/>
+				<a href="<%=request.getContextPath()%>/admin/adminMemberView?userId=<%=memberList.get(i).getUserId()%>">
+				<%=memberList.get(i).getUserId()%>
+				</a>
+			</td>
+			<td><%=memberList.get(i).getUserEmail() %></td>
+			<td>
+				<%if(memberList.get(i).getUserProfileRenamedFile() == null){ %>
+				<img class="userProfile" src="<%=request.getContextPath() %>/images/nonProfile.png" alt="" />
+				<%} else{ %>
+				<img class="userProfile" src="<%=request.getContextPath() %>/upload/member/<%=memberList.get(i).getUserProfileRenamedFile() %>" alt="" />
+				<%} %>
+			</td>
+			<td><%=memberList.get(i).getEnrollDate() %></td>
+			<td><%=memberList.get(i).getCoin() %></td>
+		</tr>
+		<%} %>
+		<tr>
+			<td colspan="5">
+				<button class="hideThis" id="hide">▲ 접기</button>
+			</td>
+		</tr>
+		<%} else {  %>
 		<tr>
 			<td>
 				데이터가 없습니다.
 			</td>
 		</tr>
-		<% }  %>
-   </tbody>
+		<% } %>
 </table>
 </section>
-<h3>전체 회원 검색</h3>
-<section id="search-container">
-	<div class="searchType">검색타입: 
-		<select id="searchType">
-			<option value="userId" >아이디</option> <!-- < %="userId".equals()?"selected":"" %> -->
-			<option value="userEmail" >이메일</option> <!-- < %="userEmail".equals()?"selected":"" %> -->
-		</select>
-	</div>
-	<!-- 아이디 검색폼 -->
-	<div class="search-userid">
-	<form action="">
-				<input type="hidden" 
-					   name="searchType"
-					   value="userId" />
-				<input type="search" 
-					   name="searchKeyword"
-					   size="25"
-					   placeholder="검색할 아이디를 입력하세요."
-					   value=""/>
-				<button type="submit">검색</button>
-			</form>
-	</div>
-	 	<!-- 이메일 검색폼 -->
-    <div class="search-useremail">
-			<form action="">
-				<input type="hidden" 
-					   name="searchType"
-					   value="memberName" />
-				<input type="search" 
-					   name="searchKeyword"
-					   size="25"
-					   placeholder="검색할 회원 이메일을 입력하세요."
-					   value=""/>
-				<button type="submit">검색</button>
-			</form>
-    </div>
-    <!-- 검색 끝 -->
-</section>
-<section id="show-search-user-result">
-<table>
-	<thead>
-		<tr>
-			<th>1</th>
-		</tr>
-	</thead>
-	<tbody>
-		<tr>
-			<td>2</td>
-		</tr>
-	</tbody>
-</table>
-</section>
-<!-- 검색된 회원 표시 -->
+<br />
 <h1>신고된 게시글 목록</h1>
 <section id="report-list-container">
 	<table id="tbl-report">
-		<thead>
 			<tr>
 				<th>카테고리</th>
 				<th>글번호</th>
@@ -175,10 +195,8 @@ table#tbl-member, #tbl-report, #tbl-report-cmt {
 				<th>신고사유</th>
 				<th>신고내용</th>
 			</tr>
-		</thead>
-		<tbody>
 			<%if(reportList != null && !reportList.isEmpty()) { 
-				 for (ReportBoard rb : reportList){ %>
+				for (ReportBoard rb : reportList) {%>
 			<tr>
 				<td><%=rb.getCategory() %></td>
 				<td>
@@ -194,61 +212,19 @@ table#tbl-member, #tbl-report, #tbl-report-cmt {
 				<td><%=rb.getReason()%></td>
 				<td><%=rb.getUserComment()%></td>
 			</tr>
-			<%} } else { %>
+			<%} } else {  %>
 			<tr>
 				<td>
 					데이터가 없습니다.
 				</td>
 			</tr>
-			<% }  %>
-		</tbody>
+		<% }  %>
 	</table>
 </section>
-<h3>신고된 게시글 검색</h3>
-<section id="search-report-container">
-	<div class="searchType">검색타입: 
-		<select id="searchType">
-			<option value="postTitle" >제목</option> <!-- < %="userId".equals()?"selected":"" %> -->
-			<option value="postContent" >내용</option> <!-- < %="userEmail".equals()?"selected":"" %> -->
-			<option value="postTitleANDContent" >제목+내용</option>
-			<option value="postWriter" >작성자</option>
-		</select>
-	</div>
-	<!-- 제목 검색폼 -->
-	<div class="search-userid">
-	<form action="">
-				<input type="hidden" 
-					   name="searchType"
-					   value="userId" />
-				<input type="search" 
-					   name="searchKeyword"
-					   size="25"
-					   placeholder="검색할 아이디를 입력하세요."
-					   value=""/>
-				<button type="submit">검색</button>
-			</form>
-	</div>
-	 	<!-- 이메일 검색폼 -->
-    <div class="search-useremail">
-			<form action="">
-				<input type="hidden" 
-					   name="searchType"
-					   value="memberName" />
-				<input type="search" 
-					   name="searchKeyword"
-					   size="25"
-					   placeholder="검색할 회원 이메일을 입력하세요."
-					   value=""/>
-				<button type="submit">검색</button>
-			</form>
-    </div>
-</section>
-    <!-- 검색 끝 -->
-<!-- 검색된 게시글 표시 -->
+<br />
 <h1>신고된 댓글 목록</h1>
 <section id="report-cmt-container">
 	<table id="tbl-report-cmt">
-		<thead>
 			<tr>
 				<th>카테고리</th>
 				<th>게시글번호</th>
@@ -258,10 +234,8 @@ table#tbl-member, #tbl-report, #tbl-report-cmt {
 				<th>신고사유</th>
 				<th>신고내용</th>
 			</tr>
-		</thead>
-		<tbody>
 			<%if(reportCmtList != null && !reportCmtList.isEmpty()) { 
-				for (ReportBoardComment rbc : reportCmtList){%>
+				for (ReportBoardComment rbc : reportCmtList) {%>
 			<tr>
 				<td><%=rbc.getCategory() %></td>
 				<!-- 글번호 클릭시  상세보기 페이지로 이동하기-->
@@ -282,47 +256,6 @@ table#tbl-member, #tbl-report, #tbl-report-cmt {
 				</td>
 			</tr>
 			<% }  %>
-		</tbody>
 	</table>
 </section>
-<h3>신고된 댓글 검색</h3>
-<section id="search-cmt-container">
-	<div class="searchType">검색타입: 
-		<select id="searchType">
-			<option value="postTitle" >제목</option> <!-- < %="userId".equals()?"selected":"" %> -->
-			<option value="postContent" >내용</option> <!-- < %="userEmail".equals()?"selected":"" %> -->
-			<option value="postTitleANDContent" >제목+내용</option>
-			<option value="postWriter" >작성자</option>
-		</select>
-	</div>
-	<!-- 제목 검색폼 -->
-	<div class="search-userid">
-	<form action="">
-				<input type="hidden" 
-					   name="searchType"
-					   value="userId" />
-				<input type="search" 
-					   name="searchKeyword"
-					   size="25"
-					   placeholder="검색할 아이디를 입력하세요."
-					   value=""/>
-				<button type="submit">검색</button>
-			</form>
-	</div>
-	 	<!-- 이메일 검색폼 -->
-    <div class="search-useremail">
-			<form action="">
-				<input type="hidden" 
-					   name="searchType"
-					   value="memberName" />
-				<input type="search" 
-					   name="searchKeyword"
-					   size="25"
-					   placeholder="검색할 회원 이메일을 입력하세요."
-					   value=""/>
-				<button type="submit">검색</button>
-			</form>
-    </div>
-</section>
-<!-- 검색된 댓글 표시 -->
 <%@ include file="/WEB-INF/views/common/footer.jsp"%>

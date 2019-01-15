@@ -19,7 +19,7 @@ import semi.admin.model.service.AdminService;
 import semi.member.model.vo.Member;
 
 /**
- * Servlet implementation class AdminMemberUpdateServlet
+ * Servlet implementation class AdminMemberUpdateEndServlet
  */
 @WebServlet("/admin/adminMemberUpdateEnd")
 public class AdminMemberUpdateEndServlet extends HttpServlet {
@@ -140,12 +140,12 @@ public class AdminMemberUpdateEndServlet extends HttpServlet {
 		} else {
 			msg = "회원 정보 수정에 실패하였습니다.";
 			String root2 = request.getContextPath();
-			response.sendRedirect(root2 + "/admin/adminMemberView?userId=" + userId);
+			response.sendRedirect(root2 + "/admin/adminBoard?userId=" + userId);
 		}
 
+      request.getRequestDispatcher(view).forward(request, response); // 실패했을 시 사용
       request.setAttribute("msg", msg); // 실패했을 시 사용
       request.setAttribute("loc", loc); // 실패했을 시 사용
-      request.getRequestDispatcher(view).forward(request, response); // 실패했을 시 사용
 
 	}
 

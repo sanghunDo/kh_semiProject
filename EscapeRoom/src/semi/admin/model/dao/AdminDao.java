@@ -701,7 +701,7 @@ public class AdminDao {
 	   int result = 0;
 	   Connection conn = null;
 	   PreparedStatement pstmt = null;
-	   String query = "delete from board_free where postno=?";
+	   String query = "delete from admin_report_board where postno=?";
 		
 	   try {
 			Class.forName("oracle.jdbc.driver.OracleDriver");
@@ -714,7 +714,7 @@ public class AdminDao {
 			
 			result = pstmt.executeUpdate();	
 			
-			if(result >0) {
+			if(result > 0) {
 				commit(conn);
 			}
 		      else {
