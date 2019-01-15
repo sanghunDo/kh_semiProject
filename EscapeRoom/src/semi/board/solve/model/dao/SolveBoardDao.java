@@ -1667,7 +1667,7 @@ public class SolveBoardDao {
       return result;
    }
 
-public List<GameRank> selectRankList() {
+   public List<GameRank> selectRankList() {
 	  List<GameRank> list = null;
       Connection conn = null;
       PreparedStatement pstmt = null;
@@ -1688,13 +1688,12 @@ public List<GameRank> selectRankList() {
          list = new ArrayList<>();
          while(rset.next()) {
             GameRank gr = new GameRank();
+            
             gr.setPlayno(rset.getInt("playno"));
             gr.setGameid(rset.getString("gameid"));
             gr.setGameruntime(rset.getInt("gameruntime"));
             gr.setGameEscapeDate(rset.getDate("gameescapedate"));
            
-         
-            
             list.add(gr);
             
          }
@@ -1708,18 +1707,13 @@ public List<GameRank> selectRankList() {
             pstmt.close();
             conn.close();
          } catch (SQLException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
          }
          
       }
-      //2. Connection 객체 생성
       
       return list;
-}
+	}
    
 }
-   
-
-   
 

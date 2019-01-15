@@ -10,6 +10,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import semi.adminMode.model.service.AdminModeService;
+import semi.adminMode.model.vo.Report_Board;
+import semi.adminMode.model.vo.Report_Comment;
 import semi.member.model.vo.Member;
 
 /**
@@ -32,9 +34,16 @@ public class GoToAdminModeServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
+		List<Report_Board> rbList = new AdminModeService().selectAllReportBoard();
+		List<Report_Comment> rcList = new AdminModeService().selectAllReportComment();
 		List<Member> memberList = new AdminModeService().selectAllMember();
 		
+		System.out.println(rbList);
+		System.out.println(rcList);
+		
 		request.setAttribute("memberList", memberList);
+		request.setAttribute("rbList", rbList);
+		request.setAttribute("rcList", rcList);
 		request.getRequestDispatcher("/WEB-INF/views/adminMode/adminMain.jsp").forward(request, response);
 	}
 

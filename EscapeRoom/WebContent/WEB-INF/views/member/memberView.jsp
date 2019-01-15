@@ -94,6 +94,16 @@ function deleteMember(){
 	
 }
 
+function deleteMember_Admin(){
+	var bool = confirm("정말로 해당회원을 탈퇴처리 하시겠습니까?");
+	if(bool){
+		var frm = document.memberUpdateFrm;
+		frm.action = "<%=request.getContextPath()%>/member/memberDelete?admin=admin";
+		frm.submit();
+	}
+	
+}
+
 // 비밀번호 변경 팝업 요청
 function updatePassword(){
 	
@@ -198,10 +208,14 @@ $(function(){
 					</td>
 				</tr>
 		</table>
-		  <input type="submit" id="editInfo-Btn" value="회원정보 수정" />
+		  <input type="submit" id="editInfo-Btn" value="회원정보 수정"
+		  	<%="admin".equals(loggedInMember.getUserId()) ? "disabled style='color:gray; cursor:default;'" : ""%>/>
 		  <input type="button" id="password-Btn" value="비밀번호 수정"
-		  		 onclick="updatePassword();" />
-		  <input type="button" id="delete-Btn" value="탈퇴" onclick="deleteMember();" />
+		  		 onclick="updatePassword();"
+		  	<%="admin".equals(loggedInMember.getUserId()) ? "disabled style='color:gray; cursor:default;'" : ""%>/>
+		  <input type="button" id="delete-Btn" value="탈퇴"
+		  	<%="admin".equals(loggedInMember.getUserId()) ? "onclick='deleteMember_Admin();'" : "onclick='deleteMember();'"%> />
+
 	</form>
 </section>
 <%@ include file="/WEB-INF/views/common/footer.jsp"%>
