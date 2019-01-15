@@ -1,6 +1,6 @@
 @charset "UTF-8";
 html{
-    background:white;
+    background:black;
 }
 
 body{
@@ -135,4 +135,36 @@ div#msgBox.none:after{
 	33%{left: -100px;}
 	66%{left: 100px;}
 	99%{left: 0px;};
+}
+
+button.choice{
+	width:200px;
+	height:50px;
+	background:black;
+	border:2px solid white;
+	color:white;
+	border-radius:10px;
+	margin-left:20px;
+	margin-right:20px;
+	font-family:'Noto Serif KR', serif;
+	font-size:25px;
+	font-weight:bold;
+	cursor:pointer;
+}
+
+table#buttonTab{
+	position:relative;
+	width:80%;
+	margin:0 auto;
+	border-collapse:collapse;
+	text-align:center;
+}
+
+table#buttonTab h4{
+	text-align:center;
+	font-family:'Noto Serif KR', serif;
+	font-size:20px;
+	font-weight:bold;
+	margin:0;
+	color:gray;
 }

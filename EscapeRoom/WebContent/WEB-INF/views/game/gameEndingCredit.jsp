@@ -10,7 +10,7 @@
 <link href="https://fonts.googleapis.com/css?family=Amatic+SC" rel="stylesheet">
 <style>
 html{
-    background:white;
+    background:black;
 }
 
 body{
