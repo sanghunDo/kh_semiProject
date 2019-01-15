@@ -23,6 +23,8 @@
 <head>
 <meta charset="UTF-8">
 <title>You Can't Escape..</title>
+<link href="https://fonts.googleapis.com/css?family=Roboto+Slab" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Noto+Serif+KR" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css?family=Amatic+SC" rel="stylesheet">
 <link rel="stylesheet" href="<%=request.getContextPath() %>/css/member/login.css" />
 <script src="<%=request.getContextPath()%>/js/jquery-3.3.1.js"></script>
@@ -60,9 +62,11 @@ function loginValidate(){
 			<tr><td><input type="button" value="JOIN US"
 				id="register-Btn" onclick="location.href='<%=request.getContextPath() %>/member/memberRegister'" /></td></tr>
 			<tr><td><input type="button" value="FIND ID" 
-				id="findId-Btn" onclick="location.href='<%=request.getContextPath() %>/member/findId'"/></td></tr>
-			<tr><td><input type="button" value="FIND PW" 
-				id="findPw-Btn" onclick="location.href='<%=request.getContextPath() %>/member/findPw'"/></td></tr>
+				id="findId-Btn" onclick="location.href='<%=request.getContextPath() %>/member/findId'"/>
+				<input type="button" value="FIND PW" 
+				id="findPw-Btn" onclick="location.href='<%=request.getContextPath() %>/member/findPw'"/>
+			</td></tr>
+			<tr><td></td></tr>
 		</table>
 	</form>
 </div>

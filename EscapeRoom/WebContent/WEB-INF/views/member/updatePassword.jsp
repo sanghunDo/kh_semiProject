@@ -11,7 +11,9 @@
 <title>회원 비밀번호 변경</title>
 <script src="<%=request.getContextPath()%>/js/jquery-3.3.1.js"></script>
 <link rel="stylesheet" href="<%=request.getContextPath() %>/css/member/updatePassword.css" />
+<link href="https://fonts.googleapis.com/css?family=Roboto+Slab" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css?family=Noto+Serif+KR" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Amatic+SC" rel="stylesheet">
 <script>
 function passwordValidate() {
 	var $userId = $("#userId");
@@ -92,6 +94,7 @@ function passwordValidate() {
 	<div id="updatePassword-Container">
 		<form action="<%=request.getContextPath() %>/member/updatePasswordEnd"
 			  name="updatePasswordFrm"
+			  id="updatePasswordFrm"
 			  method="post">
 			  <input type="hidden" name="userId" id="userId"
 			  		 value=<%=userId%> />
