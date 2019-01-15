@@ -6,16 +6,21 @@
 }
 
 /* front */
+#door{
+	top: 272px;
+    left: 345px;
+}
 #door_lock1{
     width: 41px;
 	top: 402px;
-    left: 569px;	
+    left: 569px;
+    opacity: 0;
 }
 #door_lock2{
 	top: 444px;
     left: 563px;
     width: 62px;
-	
+    opacity: 0;
 }
 #flowerpot{
 	width: 129px;
@@ -40,6 +45,7 @@
     height: 50px;
     top: 585px;
     left: 388px;
+    opacity: 0;
 }
 #hintnote1{
     top: 148px;
@@ -117,11 +123,20 @@
     width: 80px;
 }
 #water{
-	left: 669px;
-    top: 639px;
+	width: 210px;
+    left: 693px;
+    top: 555px;
+}
+
+/* ceiling */
+#ceilinglight{
+    width: 300px;
+    top: 200px;
+    left: 350px;
 }
 
 #show-obj img:first-of-type{
 	position: relative;
+	max-width: 700px;
 	height: 100%;
 }

@@ -2,7 +2,6 @@ package semi.admin.controller;
 
 import java.io.File;
 import java.io.IOException;
-import java.sql.Date;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -20,16 +19,16 @@ import semi.admin.model.service.AdminService;
 import semi.member.model.vo.Member;
 
 /**
- * Servlet implementation class AdminMemberUpdateServlet
+ * Servlet implementation class AdminMemberUpdateEndServlet
  */
-@WebServlet("/admin/adminMemberUpdate")
-public class AdminMemberUpdateServlet extends HttpServlet {
+@WebServlet("/admin/adminMemberUpdateEnd")
+public class AdminMemberUpdateEndServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public AdminMemberUpdateServlet() {
+    public AdminMemberUpdateEndServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -76,20 +75,14 @@ public class AdminMemberUpdateServlet extends HttpServlet {
 		MultipartRequest multiReq = new MultipartRequest(request, saveDirectory, maxPostSize, enc, mfrp);
 		
 		// 2. 파라미터 핸들링
-		String userId = request.getParameter("userId");
+		String userId = multiReq.getParameter("userId");
 		System.out.println("userId@AdminMemberUpdateServlet = " + userId);
 		
 		String userPassword = multiReq.getParameter("userPassword");
 		System.out.println("userPassword@AdminMemberUpdateServlet = " + userPassword);
 		
-		String userEmail = request.getParameter("userEmail");
+		String userEmail = multiReq.getParameter("userEmail");
 		System.out.println("userEmail@AdminMemberUpdateServlet = " + userEmail);
-		
-		String userProfileOriginalFile = request.getParameter("userProfileOriginalFile");
-		System.out.println("userProfileOriginalFile@AdminMemberUpdateServlet = " + userProfileOriginalFile);
-		
-		String userProfileRenamedFile = request.getParameter("userProfileRenamedFile");
-		System.out.println("userProfileRenamedFile@AdminMemberUpdateServlet = " + userProfileRenamedFile);
 		
 		// 새 프로필 사진을 첨부했을 경우
 		String userProfileOriginalFile_ = multiReq.getOriginalFileName("userProfile");
@@ -142,15 +135,15 @@ public class AdminMemberUpdateServlet extends HttpServlet {
 		String loc = "/";
 		
 		if (result > 0) {
-			msg = "성공적으로 회원 정보를 수정하였습니다.";
+			msg = "회원 정보를 수정하였습니다.";
 			loc = "/home";
 		} else {
 			msg = "회원 정보 수정에 실패하였습니다.";
 			String root2 = request.getContextPath();
-			response.sendRedirect(root2 + "/admin/adminMemberView?userId=" + userId);
+			response.sendRedirect(root2 + "/admin/adminBoard?userId=" + userId);
 		}
 
-      request.setAttribute("view", view);
+      request.getRequestDispatcher(view).forward(request, response); // 실패했을 시 사용
       request.setAttribute("msg", msg); // 실패했을 시 사용
       request.setAttribute("loc", loc); // 실패했을 시 사용
 

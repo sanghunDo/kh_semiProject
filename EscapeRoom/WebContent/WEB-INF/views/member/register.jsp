@@ -6,8 +6,9 @@
 <head>
 <meta charset="UTF-8">
 <title>You Can't Escape..</title>
-<link href="https://fonts.googleapis.com/css?family=Amatic+SC" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Noto+Serif+KR" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css?family=Roboto+Slab" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Amatic+SC" rel="stylesheet">
 <link rel="stylesheet" href="<%=request.getContextPath() %>/css/member/register.css" />
 <script src="<%=request.getContextPath()%>/js/jquery-3.3.1.js"></script>
 <script>
@@ -147,6 +148,36 @@ function checkIdDuplicate(){
 	checkIdDuplicateFrm.target = target;
 	checkIdDuplicateFrm.submit();
 }
+
+function checkEmailDuplicate(){
+	var getUserEmail = RegExp(/^[a-z0-9_+.-]+@([a-z0-9-]+\.)+[a-z0-9]{2,4}$/); // 유저 이메일 유효성 검사
+	// 이메일 중복검사폼 전송
+	var $userEmail = $("#userEmail").val(); // 유저 이메일
+	// 이메일 공백 확인
+	if($userEmail == ""){
+		alert("이메일을 입력해주세요.");
+		return;
+	}
+	
+	// 이메일 유효성 검사
+	if(!getUserEmail.test($userEmail)){
+		alert("이메일 형식에 맞게 입력해주세요.");
+		return;
+	}
+	
+	// 팝업창을 target으로 폼전송
+	var target = "checkEmailDuplicate";
+	
+	// 첫 번째 인자인 url은 생략, form의 action값이 이를 대신한다.
+	var popup = open("", target, "left=300px, top=100px, width=450px, height=190px");
+	
+	checkEmailDuplicateFrm.userEmail.value = $userEmail;
+	console.log("userEmail@checkEmailDuplicate()@register.jsp = ", $userEmail);
+	
+	// 폼의 대상을 작성한 popup을 가리키게 한다. 이때 이용하는게 popup창의 이름(target)
+	checkEmailDuplicateFrm.target = target;
+	checkEmailDuplicateFrm.submit();
+}
 </script>
 <script>
     $(function(){
@@ -173,6 +204,10 @@ function checkIdDuplicate(){
 <form action="<%=request.getContextPath()%>/member/checkIdDuplicate" method="POST"
 	  name="checkIdDuplicateFrm">
 	  <input type="hidden" name="userId"/>
+</form>
+<form action="<%=request.getContextPath()%>/member/checkEmailDuplicate" method="POST"
+	  name="checkEmailDuplicateFrm">
+	  <input type="hidden" name="userEmail"/>
 </form>
 <div id="logo" onclick="location.href='<%=request.getContextPath()%>/home'">Escape, if you can.</div>
 <section id="register-Container">
@@ -201,6 +236,8 @@ function checkIdDuplicate(){
 					<input type="email" name="userEmail" id="userEmail"
 						placeholder="이메일을 입력하세요. 예) escape@gmail.com" required />
 				</td>
+				<td><input type="button" id="email-check" value="확인" onclick="checkEmailDuplicate();"/></td>
+				<td><input type="hidden" name="emailRegister" id="emailRegister" value="0"/></td>
 			</tr>
 			<tr>
 				<td>프로필 사진</td>

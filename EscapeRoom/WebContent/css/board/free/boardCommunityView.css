@@ -188,8 +188,9 @@
         }
         .bestCommentOpinion{
             text-align: right;
-            
-        
+            position:relative; 
+            top:-113px; 
+            left:-33px;       
         }
         .bestCommentOpinion span:hover{
             cursor: pointer;
@@ -426,7 +427,7 @@ table#tbl-comment button.btn-insert2{
 }
     dl .CommentOpinion{
     position: relative;
-    top: -64px;
+    top: 52px;
         color: white;
     }
     dd .comment{
@@ -518,7 +519,9 @@ margin-left: 106px;
 	
 }
 .bestContent{
-	margin-top:-38px;
+	margin-top: -38px;
+    position: relative;
+    top: 52px;
 }
 .contentPhoto{
     width: 522px;
@@ -530,4 +533,72 @@ margin-left: 106px;
     left: 114px;	
 }
 
+.bestCommentUpdateEnd{
+	  border: 1px solid #999;
+            width: 50px;
+            text-align: center;
+            color: #666;
+            font-size: 12px;
+            padding: 7px 10px 6px;
+            border-radius: 3px;
+            margin-bottom:  12px;
+            margin: 5px;
+	position: relative;
+    top: -53px;
+    left: 20px;
+    width: 940px;
+    height: 100px;
+    resize: none;
+    display:none;
+}
+.bestUpdateEndButton{
+	  		border: 1px solid #999;
+            width: 50px;
+            text-align: center;
+            color: #666;
+            font-size: 12px;
+            padding: 7px 10px 6px;
+            border-radius: 3px;
+            margin-bottom:  12px;
+            margin: 5px;
+			 display:none;
+			 cursor:pointer;
+}
+.bestCommentUpdate{
+	 border: 1px solid #999;
+            width: 50px;
+            text-align: center;
+            color: #666;
+            font-size: 12px;
+            padding: 7px 10px 6px;
+            border-radius: 3px;
+            margin-bottom:  12px;
+            margin: 5px;
+            cursor:pointer;
+}
+.bestCommentDelete{
+	 border: 1px solid #999;
+            width: 50px;
+            text-align: center;
+            color: #666;
+            font-size: 12px;
+            padding: 7px 10px 6px;
+            border-radius: 3px;
+            margin-bottom:  12px;
+            margin: 5px;
+                        cursor:pointer;
+            
+}
 
+.bestCommentOpinion_2{
+	    text-align: right;
+    position: relative;
+    top: -38px;
+    left: -19px;
+    cursor: pointer;
+    /* color: red; */
+}
+.best-Area{
+	margin-left: 24px; 
+	height: 200px;
+}

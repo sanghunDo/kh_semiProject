@@ -1,9 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ page import="java.util.*, semi.member.model.vo.*" %>
+<%@ page import="java.util.*, semi.member.model.vo.*, semi.admin.model.vo.*" %>
 <%@ include file="/WEB-INF/views/common/header.jsp" %>
 <%
 	List<Member> memberList = (List<Member>) request.getAttribute("memberList");
+	List<ReportBoard> reportList = (List<ReportBoard>) request.getAttribute("reportList");
+	List<ReportBoardComment> reportCmtList = (List<ReportBoardComment>) request.getAttribute("reportCmtList");
 %>
 <link href="https://fonts.googleapis.com/css?family=Roboto+Slab" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css?family=Noto+Serif+KR" rel="stylesheet">
@@ -110,9 +112,21 @@ $(function(){
 		<th>사유</th>
 		<th>의견</th>
 	</tr>
+	<%if(reportList != null && !reportList.isEmpty()) {  
+		for(ReportBoard rb : reportList) { %>
 	<tr>
+		<td><%=rb.getCategory() %></td>
+		<td><%=rb.getPostNo()%></td>
+		<td><%=rb.getPostTitle()%></td>
+		<td><%=rb.getPostWriter()%></td>
+		<td><%=rb.getReason()%></td>
+		<td><%=rb.getUserComment()%></td>
+	</tr>
+	<%} }else { %>
+		<tr>
 		<td colspan="6">데이터가 없습니다.</td>
 	</tr>
+	<%} %>
 </table>
 
 <h1>&lt; 신고댓글 목록 &gt;</h1>
@@ -126,9 +140,22 @@ $(function(){
 		<th>사유</th>
 		<th>의견</th>
 	</tr>
+	<%if(reportCmtList != null && !reportCmtList.isEmpty()) { 
+		for(ReportBoardComment rbc : reportCmtList) {%>
+	<tr>
+		<td><%=rbc.getCategory() %></td>
+		<td><%=rbc.getPostNo()%></td>
+		<td><%=rbc.getCommentNo()%></td>
+		<td><%=rbc.getCommentContent()%></td>
+		<td><%=rbc.getCommentWriter()%></td>
+		<td><%=rbc.getReason()%></td>
+		<td><%=rbc.getUserComment()%></td>
+	</tr>
+	<%} } else{ %>
 	<tr>
 		<td colspan="7">데이터가 없습니다.</td>
 	</tr>
+	<%} %>
 </table>
 <h1>&lt; 전체회원 목록 &gt;</h1>
 <h3>부적절하다고 판단되는 사진을 클릭하면 강제로 삭제할 수 있습니다.</h3>
@@ -140,7 +167,6 @@ $(function(){
 		<th>가입날짜</th>
 		<th>보유코인</th>
 	</tr>
-	
 	<%if(memberList != null && !memberList.isEmpty()) { 
 		for(int i=0; i<5; i++){%>
 		<tr>
@@ -153,7 +179,7 @@ $(function(){
 			<td>
 				<%if(memberList.get(i).getUserProfileRenamedFile() == null){ %>
 				<img class="userProfile" src="<%=request.getContextPath() %>/images/nonProfile.png" alt="" />
-				<%} else{ %>				
+				<%} else{ %>
 				<img class="userProfile" src="<%=request.getContextPath() %>/upload/member/<%=memberList.get(i).getUserProfileRenamedFile() %>" alt="" />
 				<%} %>
 			</td>

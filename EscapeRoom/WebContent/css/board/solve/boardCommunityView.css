@@ -188,7 +188,9 @@
         }
         .bestCommentOpinion{
             text-align: right;
-            
+            position: relative;
+    		top: -43px;
+    		left: -33px;
         
         }
         .bestCommentOpinion span:hover{
@@ -518,7 +520,9 @@ margin-left: 106px;
 	
 }
 .bestContent{
-	margin-top:-38px;
+	
+	position: relative;
+    top: 4px
 }
 .contentPhoto{
     width: 522px;
@@ -528,6 +532,63 @@ margin-left: 106px;
     /* align-content: center; */
     position: relative;
     left: 114px;	
+}
+
+.bestCommentUpdateEnd{
+	  border: 1px solid #999;
+            width: 50px;
+            text-align: center;
+            color: #666;
+            font-size: 12px;
+            padding: 7px 10px 6px;
+            border-radius: 3px;
+            margin-bottom:  12px;
+            margin: 5px;
+	position: relative;
+    top: -53px;
+    left: 20px;
+    width: 940px;
+    height: 100px;
+    resize: none;
+    display:none;
+}
+.bestUpdateEndButton{
+	  		border: 1px solid #999;
+            width: 50px;
+            text-align: center;
+            color: #666;
+            font-size: 12px;
+            padding: 7px 10px 6px;
+            border-radius: 3px;
+            margin-bottom:  12px;
+            margin: 5px;
+			 display:none;
+			 cursor:pointer;
+}
+.bestCommentUpdate{
+	 border: 1px solid #999;
+            width: 50px;
+            text-align: center;
+            color: #666;
+            font-size: 12px;
+            padding: 7px 10px 6px;
+            border-radius: 3px;
+            margin-bottom:  12px;
+            margin: 5px;
+            cursor:pointer;
+}
+.bestCommentDelete{
+	 border: 1px solid #999;
+            width: 50px;
+            text-align: center;
+            color: #666;
+            font-size: 12px;
+            padding: 7px 10px 6px;
+            border-radius: 3px;
+            margin-bottom:  12px;
+            margin: 5px;
+                        cursor:pointer;
+            
 }
 
 

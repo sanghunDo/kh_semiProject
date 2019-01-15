@@ -83,13 +83,13 @@ public class AdminMemberDeleteServlet extends HttpServlet {
 		// 4. view단 처리
 		String view = "/WEB-INF/views/common/msg.jsp";
 		String msg = "";
-		String loc = "/";
+		String loc = "/member/logout";
 		
 		if (result > 0) {
 			msg = "해당 회원이 삭제되었습니다.";
-			loc = "home";
 		} else {
 			msg = "해당 회원 삭제를 실패했습니다.";
+			loc = "/home";
 		}
 		
 		request.setAttribute("msg", msg); // 실패했을 시 사용

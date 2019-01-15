@@ -12,7 +12,10 @@
 <meta charset="UTF-8">
 <title>아이디 중복검사</title>
 <script src="<%=request.getContextPath() %>/js/jquery-3.3.1.js"></script>
+<link href="https://fonts.googleapis.com/css?family=Roboto+Slab" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css?family=Noto+Serif+KR" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Amatic+SC" rel="stylesheet">
+<link rel="stylesheet" href="<%=request.getContextPath() %>/css/member/checkIdDuplicate.css" />
 <script>
 function checkIdDuplicate(){
 	var userId = $("#userId").val(); // 유저 아이디
@@ -46,39 +49,6 @@ function setUserId(userId){
 	self.close();
 }
 </script>
-<style>
-body{
-	background:black;
-}
-
-#checkId-Container{
-	text-align: center;
-	padding-top: 30px;
-	background:black;
-	color:white;
-	font-family:'Noto Serif KR', serif;
-	font-weight:bold;
-	font-size:20px;
-}
-
-span#duplicated{
-	color: red;
-	font-weight: bold;
-}
-
-.myBtn{
-	width:100px;
-	height:40px;
-	background:#353535;
-	color:white;
-	font-family: 'Noto Serif KR', serif;
-	font-size:18px;
-	font-weight:bold;
-	border:1px solid #353535;
-	border-radius:10px;
-	cursor:pointer;
-}
-</style>
 </head>
 <body>
 	<div id="checkId-Container">
@@ -91,7 +61,8 @@ span#duplicated{
 		[<span id="duplicated"><%=userId %></span>]는 이미 사용중입니다.
 		<form action="<%=request.getContextPath() %>/member/checkIdDuplicate"
 	 		  method="post"
-	  		 name="checkIdDuplicateFrm">
+	 		  id="checkIdDuplicateFrm"
+	  		  name="checkIdDuplicateFrm">
 		<input type="text" 
 			   name="userId"
 			   id="userId"

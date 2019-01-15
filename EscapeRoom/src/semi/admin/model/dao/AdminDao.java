@@ -1,12 +1,13 @@
 package semi.admin.model.dao;
 
-import static semi.common.JDBCTemplate.close;
+import static semi.common.JDBCTemplate.*;
 
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.Date;
+import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -14,6 +15,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 
+import semi.admin.model.vo.ReportBoard;
+import semi.admin.model.vo.ReportBoardComment;
 import semi.board.free.model.vo.FreeBoard;
 import semi.member.model.vo.Member;
 
@@ -58,7 +61,7 @@ public class AdminDao {
 			
 			//3.결과 변수를 result에 담기
 			if(rset.next()) { // 하나의 결과이므로 while 대신 if 사용
-				result = rset.getInt("login_check");
+				result = rset.getInt("logincheck");
 			}
 			
 		} catch (SQLException e) {
@@ -181,25 +184,17 @@ public class AdminDao {
    
    
    // 관리자용 전체 회원 목록 보기
-   public List<Member> selectMemberList(Connection conn, int cPage, int numPerPage) {
-      List<Member> list = null;
+   public List<Member> selectMemberList(Connection conn) {
+      List<Member> list = new ArrayList<Member>();
       PreparedStatement pstmt = null;
       ResultSet rset = null;
-      String query = prop.getProperty("selectMemberListByPaging");
+      String query = prop.getProperty("selectMemberList");
       try {
          // 쿼리문 완성하기
          pstmt = conn.prepareStatement(query);
-         int startRnum = (cPage - 1) * numPerPage + 1;
-         int endRnum = cPage * numPerPage;
-         System.out.println(startRnum);
-         System.out.println(endRnum);
-         pstmt.setInt(1, startRnum);
-         pstmt.setInt(2, endRnum);
          
          // 쿼리 실행
          rset = pstmt.executeQuery();
-         
-         list = new ArrayList<>();
          
          // 실행 후 결과를 list에 담기
          while(rset.next()) {
@@ -212,7 +207,7 @@ public class AdminDao {
             m.setCoin(rset.getInt("coin"));
             m.setHintPaper(rset.getInt("hintpaper"));
             m.setEnrollDate(rset.getDate("enrolldate"));
-             
+            
             list.add(m);
             }
          
@@ -557,27 +552,195 @@ public class AdminDao {
    // 작성자로 검색시 페이지바
       
    // 관리자용 신고 게시글 목록 보여주기
-   public List selectReportBoard(Connection conn) {
-	   List list = new ArrayList();
-	   return list;
-   }
+   public List<ReportBoard> selectReportBoard(Connection conn) {
+	   List<ReportBoard> list = null;
+	   PreparedStatement pstmt = null;
+	   ResultSet rset = null;
+	   String query = prop.getProperty("selectReportBoard");
+	   
+	   try {
+			pstmt = conn.prepareStatement(query);
+			rset = pstmt.executeQuery();
+			
+			list = new ArrayList<>();
+			
+			while(rset.next()) {
+				ReportBoard rb = new ReportBoard();
+				
+				rb.setCategory(rset.getString("category"));
+				rb.setPostNo(rset.getInt("postNo"));
+				rb.setPostTitle(rset.getString("postTitle"));
+				rb.setPostWriter(rset.getString("postWriter"));
+				rb.setReason(rset.getString("reason"));
+				rb.setUserComment(rset.getString("userComment"));
+				
+				list.add(rb);
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return list;
+	}
    
-   // 관리자용 신고 게시글 페이징
-   public int selectReportBoardCount(Connection conn) {
-	   int totalContent = 0;
-	   return totalContent;
-   }
-   
+   // 관리자용 신고 게시글 상세보기
+   public ReportBoard selectReportOne(Connection conn, int postNo) {
+	      ReportBoard rb = null;
+	      PreparedStatement pstmt = null;
+	      ResultSet rset = null;
+	      String query = prop.getProperty("selectReportOne");
+	      
+	      try {
+	         pstmt = conn.prepareStatement(query);
+	         pstmt.setInt(1, postNo);
+	         rset = pstmt.executeQuery();
+	         
+	         while(rset.next()) { 
+			rb = new ReportBoard();
+	            rb.setCategory(rset.getString("category"));
+	            rb.setPostNo(rset.getInt("postno"));
+	            rb.setPostTitle(rset.getString("posttitle"));
+	            rb.setPostWriter(rset.getString("postwriter"));
+	            rb.setReason(rset.getString("reason"));
+	            rb.setUserComment(rset.getString("usercomment"));
+	            
+	         }
+	         
+	      } catch (Exception e) {
+	         e.printStackTrace();
+	      } finally  {
+	         close(rset);
+	         close(pstmt);
+	      }
+	      
+	      return rb;
+	  }
+      
    // 관리자용 신고 댓글 목록 보여주기
-   public List selectReportBoardCmt(Connection conn) {
-	   List list = new ArrayList();
-	   return list;
-   }
+   public List<ReportBoardComment> selectReportBoardCmt(Connection conn) {
+	   List<ReportBoardComment> list = null;
+	   PreparedStatement pstmt = null;
+	   ResultSet rset = null;
+	   String query = prop.getProperty("selectReportBoardCmt");
+		
+	   try {
+			pstmt = conn.prepareStatement(query);
+			rset = pstmt.executeQuery();
+			
+			list = new ArrayList<>();
+			
+			while(rset.next()) {
+				ReportBoardComment rbc = new ReportBoardComment();
+				
+				rbc.setCategory(rset.getString("category"));
+				rbc.setPostNo(rset.getInt("postNo"));
+				rbc.setCommentNo(rset.getInt("commentNo"));
+				rbc.setCommentContent(rset.getString("commentContent"));
+				rbc.setCommentWriter(rset.getString("commentWriter"));
+				rbc.setReason(rset.getString("reason"));
+				rbc.setUserComment(rset.getString("userComment"));
+				
+				list.add(rbc);
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return list;
+	}
    
-   // 관리자용 신고 댓글 페이징
-   public int selectReportBoardCmtCount(Connection conn) {
-	   int totalComment = 0;
-	   return totalComment;
+   // 관리자용 신고 댓글 상세보기
+   public ReportBoardComment selectReportBoardCmtOne(Connection conn, int postNo) {
+	   	  ReportBoardComment rbc = null;
+	      PreparedStatement pstmt = null;
+	      ResultSet rset = null;
+	      String query = prop.getProperty("selectReportBoardCmtOne");
+	      
+	      try {
+	         pstmt = conn.prepareStatement(query);
+	         pstmt.setInt(1, postNo);
+	         rset = pstmt.executeQuery();
+	         
+	         while(rset.next()) { 
+			rbc = new ReportBoardComment();
+	            rbc.setCategory(rset.getString("category"));
+	            rbc.setPostNo(rset.getInt("postno"));
+	            rbc.setCommentNo(rset.getInt("commentno"));
+	            rbc.setCommentContent(rset.getString("commentcontent"));
+	            rbc.setCommentWriter(rset.getString("commentwriter"));
+	            rbc.setReason(rset.getString("reason"));
+	            rbc.setUserComment(rset.getString("usercomment"));
+	            
+	         }
+	         
+	      } catch (Exception e) {
+	         e.printStackTrace();
+	      } finally  {
+	         close(rset);
+	         close(pstmt);
+	      }
+	      
+	      return rbc;
+	  }
+   
+   public List<ReportBoard> selectReportByTitle(Connection conn) {
+	   List<ReportBoard> list = new ArrayList<ReportBoard>();
+	   return list;
    }
 
+   // 관리자용 신고된 게시글 삭제
+   public int deleteReportBoard(int postNo) {
+	   int result = 0;
+	   Connection conn = null;
+	   PreparedStatement pstmt = null;
+	   String query = "delete from admin_report_board where postno=?";
+		
+	   try {
+			Class.forName("oracle.jdbc.driver.OracleDriver");
+			conn = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe", 
+					"escape_if_you_can",  //DB 계정 아이디 
+					"escape_if_you_can"); //DB 계정 비밀번호
+						
+			pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1, postNo);
+			
+			result = pstmt.executeUpdate();	
+			
+			if(result > 0) {
+				commit(conn);
+			}
+		      else {
+		    	  rollback(conn);
+		      }
+			
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				pstmt.close();
+				conn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+			
+		}
+	
+		return result;
+	}
+  
+   // 관리자용 신고된 댓글 삭제
+   public int deleteReportCmt(int postNo) {
+	   return 0;
+   }
+   
 }

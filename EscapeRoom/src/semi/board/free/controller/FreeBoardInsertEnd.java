@@ -79,7 +79,7 @@ public class FreeBoardInsertEnd extends HttpServlet {
 		
 		if(result>0) {
 			int getlastNo = new FreeBoardDao().getLastSeq();
-			System.out.println("getlastNo="+getlastNo);
+			msg = "게시글이 등록되었습니다.";	
 			loc="/board/free/freeBoardView?postNo="+getlastNo;
 		}
 		else {
@@ -87,8 +87,9 @@ public class FreeBoardInsertEnd extends HttpServlet {
 			loc="/board/free/freeBoardList";
 		}
 
+		request.setAttribute("msg", msg);
 		request.setAttribute("loc", loc);
-		
+
 		request.getRequestDispatcher(view).forward(request, response);
 
 	}

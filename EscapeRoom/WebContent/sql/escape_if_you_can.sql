@@ -121,6 +121,27 @@ INSERT INTO board_free values (seq_board_free_postno.nextVal , '역삼동 맛집
 INSERT INTO board_free values (seq_board_free_postno.nextVal , '베스트3안에 드신 분들 진짜 대단', 'fghfj' , '안녕하세요 놀러왔어요!' ,null, null, default, 10, 11 , 0 , default);
 INSERT INTO board_free values (seq_board_free_postno.nextVal , '방탈출 너무 어려워요ㅜㅜ', 'qwee' , '안녕하세요 놀러왔어요!' ,null, null, default, 10, 11 , 0 , default);
 INSERT INTO board_free values (seq_board_free_postno.nextVal , '밀크티는 역시 투썸인거같네요', 'ljk' , '안녕하세요 놀러왔어요!' ,null, null, default, 10, 11 , 0 , default);
+--자유게시판 데이터 삽입
+delete from board_free; --기존에 있던 데이터 삭제
+INSERT INTO board_free values (seq_board_free_postno.nextVal , '안녕하세요', 'abcd' , '안녕하세요 방탈출게임커뮤니티는 처음이에요!' ,null, null, default, 10, 11 , 0 , default);
+INSERT INTO board_free values (seq_board_free_postno.nextVal , '좋은아침입니다', 'efg' , '안녕하세요 좋은아침입니다! 여기 게시글에 오신 분들 모두 화이팅입니다!' ,null, null, default, 10, 11 , 0 , default);
+INSERT INTO board_free values (seq_board_free_postno.nextVal , '날씨 너무 추워요', 'klm' , '손난로는 필수템..다들아시죠?' ,null, null, default, 10, 11 , 0 , default);
+INSERT INTO board_free values (seq_board_free_postno.nextVal , '다들 감기 조심!', 'nop' , '감기조심하세요!' ,null, null, default, 10, 11 , 0 , default);
+INSERT INTO board_free values (seq_board_free_postno.nextVal , '독감이 유행이라고 하더라구요', 'qrst' , '그래서 주사맞고왔어요! 다들 조심하세요' ,null, null, default, 10, 11 , 0 , default);
+INSERT INTO board_free values (seq_board_free_postno.nextVal , '얼죽아 협회회원들 계신가요?', 'uvw' , '저는 얼죽아에요 ㅋㅋ 얼어죽어도 아이스!!' ,null, null, default, 10, 11 , 0 , default);
+INSERT INTO board_free values (seq_board_free_postno.nextVal , '노래추천해주세요!', 'xyz' , '저는 신나는 노래좋아하는데 추천부탁드려요:)' ,null, null, default, 10, 11 , 0 , default);
+INSERT INTO board_free values (seq_board_free_postno.nextVal , '랭킹세웠슴당', 'qwerty' , '아싸뵤 ㅋㅋㅋㅋ한지 하루만에 랭킹세웠어요!' ,null, null, default, 10, 11 , 0 , default);
+INSERT INTO board_free values (seq_board_free_postno.nextVal , '저는 샐리가 좋더라구여 ㅋㅋ', 'fghfj' , '브라운보다는 샐리! 저같은 분계신가요?' ,null, null, default, 10, 11 , 0 , default);
+INSERT INTO board_free values (seq_board_free_postno.nextVal , '비염있으신 분 계신가요ㅜㅜ', 'sdggg' , '환절기라 죽겠어요ㅜㅜ 약없이는 일상생활불가에여ㅜㅜ' ,null, null, default, 10, 11 , 0 , default);
+INSERT INTO board_free values (seq_board_free_postno.nextVal , '섬유향수 추천!', 'nanda5050' , '랄라블라에서 산 비누향인데 정말좋아요! 강추입니다!!' ,null, null, default, 765, 256 , 0 , default);
+INSERT INTO board_free values (seq_board_free_postno.nextVal , '탑텐 패딩 후기', 'ert' , '싼맛에 샀는데 아직까지 버티고 있는걸로보아 가성비 짱입니다!' ,null, null, default, 453, 193 , 0 , default);
+INSERT INTO board_free values (seq_board_free_postno.nextVal , '역삼동 맛집가봤어요', 'ert' , '역삼역주변에 있는 쌀국수 집 가봤어요! 저는 그닥 별로 더라구요..ㅋㅋ 넘 비싸기만해서 실망했어요' ,null, null, default, 299, 168 , 0 , default);
+INSERT INTO board_free values (seq_board_free_postno.nextVal , '베스트3안에 드신 분들 진짜 대단', 'fghfj' , '진짜 모르겠던대ㅜㅜㅜㅜㅜ공략게시판에서 살아야겠어요' ,null, null, default, 10, 11 , 0 , default);
+INSERT INTO board_free values (seq_board_free_postno.nextVal , '방탈출 너무 어려워요ㅜㅜ', 'qwee' , '공략게시판에 수시로 들어가서 확인하는데도 잘모르겠다는..ㅋㅋ' ,null, null, default, 10, 11 , 0 , default);
+INSERT INTO board_free values (seq_board_free_postno.nextVal , '밀크티는 역시 투썸인거같네요', 'ljk' , '밀크티쉐이크가 짱입니다!' ,null, null, default, 10, 11 , 0 , default);
+
+commit;
+
 
 --공략게시판 (자유게시판과 구조가 같습니다.)
 create table board_solve(
@@ -230,6 +251,15 @@ create table board_comment_rank(
     constraint fk_comment_rank_commentref foreign key(commentref) references board_comment_rank(commentno) on delete cascade,
     constraint ck_comment_rank_commentreport check(commentreport in('Y', 'N')) --제약조건 : 댓글 신고여부
 );
+INSERT INTO board_comment_free values (seq_comment_free_commentno.nextVal ,1,'sldsfe2','저는 이거 말고 청포도향도 있는데 좋더라구요!다음에 써봐야겠어요! ', 32 , null ,default,22,1,default);
+INSERT INTO board_comment_free values (seq_comment_free_commentno.nextVal ,1,'erg','저는 진짜 향수는 너무 독하고 섬유향수가 딱 좋더라구요! 좋은 정보 감사합니다:) ', 32 , null ,default,18,2,default);
+INSERT INTO board_comment_free values (seq_comment_free_commentno.nextVal ,1,'erihi','올리브영 섬유향수도 좋아요~ ', 32 , null ,default,13,0,default);
+
+INSERT INTO board_comment_solve values (seq_comment_solve_commentno.nextVal ,1,'gewt2','정보 공유부탁드려요! ', 19 , null ,default,25,1,default);
+INSERT INTO board_comment_solve values (seq_comment_solve_commentno.nextVal ,1,'tetgg','1등 축하드려요~', 19 , null ,default,18,2,default);
+INSERT INTO board_comment_solve values (seq_comment_solve_commentno.nextVal ,1,'wqed','저기요 공략게시판은 자랑하라고 있는 곳아니거든요? ㅋㅋ 재수없네요 ㅋㅋ', 19 , null ,default,13,4,default);
+commit; 
+
 
 --관리자용 : 신고글 관리
 create table admin_report_board(
@@ -344,8 +374,8 @@ commit;
 --update notice set noticeLinked = 'N';
 --update notice set noticeLinked = 'Y' where noticeNo = ?
 
---drop table game_object_coment;
---drop table game_object;
+drop table game_object_coment;
+drop table game_object;
 create table game_object(
     objno number, --오브젝트의 고유 넘버
     objname varchar2(50) unique not null, --오브젝트의 고유 이름
@@ -366,6 +396,8 @@ create table game_object_coment(
     constraint fk_object_refobj foreign key(refobj) references game_object(objno)
 );
 --select v.* from(select coment, rownum as rnum from game_object_coment c join game_object o on c.refobj = o.objno where objName = 'door_lock2') v where rnum = 1;
+insert into game_object values(0, 'door', default, default, default, 'front', 1, default, default);
+insert into game_object_coment values(0, '"아 ㅈㄴ 나가고싶다!!"', 0);
 
 insert into game_object values(1, 'door_lock1', default, default, default, 'front', 1, default, default);
 insert into game_object_coment values(1, '"여기에 맞는 열쇠를 찾아야겠군."', 1);
@@ -411,7 +443,7 @@ insert into game_object_coment values(14, '"침대 밑에 뭐가 떨어져 있�
 insert into game_object_coment values(15, '"다이어리인가?? 누구꺼지"', 14);
 insert into game_object_coment values(16, '"뭔가 씌여져있다"', 14);
 
-insert into game_object values(15, 'used_diary_opened', default, default, default, 'left', 2, default, default);
+insert into game_object values(15, 'used_under_bed_diary', default, default, default, 'left', 2, default, default);
 insert into game_object_coment values(17, '"탐나는 다이어리다 너무 이뻥"', 15);
 
 insert into game_object values(16, 'hintnote1', default, default, 'diary_opened','left', 3, default, 'Y');
@@ -474,7 +506,7 @@ insert into game_object_coment values(38, '"칼보단 망치지!!"', 33);
 insert into game_object values(34, 'water', default, default, default, 'right', 1, default, default);
 insert into game_object_coment values(39, '"이런곳에 물이 왜있을까..(핥짝핥짝)"', 34);
 
-insert into game_object values(35, 'used_water', default, default, default, 'back', 3, default, 'Y');
+insert into game_object values(35, 'used_water_bs_hintnote3', default, default, default, 'back', 3, default, 'Y');
 insert into game_object_coment values(40, '"오줌으로도 가능했을걸.."', 35);
 
 insert into game_object values(36, 'window', default, default, default, 'right', 1, default, default);
@@ -484,15 +516,18 @@ insert into game_object values(37, 'letter', 'letter_opened', default, default, 
 insert into game_object_coment values(42, '"누가 쓴편지냐"', 37);
 insert into game_object_coment values(43, '"ㅈㄹ하넹ㅋㅋ"', 37);
 
-insert into game_object values(38, 'ceilinglight', default, default, default, 'ceil', 1, default, default);
+insert into game_object values(38, 'ceilinglight', default, default, default, 'ceiling', 1, default, default);
 insert into game_object_coment values(44, '"전등속에 뭐가 있는데.. 손은 닿지만 열리지가 않아"', 38);
 
-insert into game_object values(39, 'used_ceilinglight', default, default, default, 'ceil', 2, default, default);
+insert into game_object values(39, 'used_ceilinglight', default, default, default, 'ceiling', 2, default, default);
 insert into game_object_coment values(45, '".....눈부셔ㅜ"', 39);
 
-insert into game_object values(39, 'key_2', default, default, default, 'ceil', 3, 1, 'Y');
-insert into game_object_coment values(46, '"샤이니 만능열쇠 key~"', 39);
+insert into game_object values(40, 'key_2', default, default, default, 'ceiling', 3, 1, 'Y');
+insert into game_object_coment values(46, '"샤이니 만능열쇠 key~"', 40);
+
+
 commit;
+select * from game_state;
 
 create table game_state(
     userid varchar2(50) unique,
@@ -522,6 +557,7 @@ create table game_state(
     bs_dollUse number default 1, --2면 찢어진상태
     bs_hintNote3Get number default 1, --2면 획득한 상태 (없어진상태)
     bs_hintNote3Use number default 1, --2면 right에 고여있는 물에 적셔져서 온전한내용이 나온 상태(인벤토리안에 있음, 없어지지않음)
+    used_water_bs_hintNote3Get number default 1,
     
     bs_smallBoxUse number default 1, --2면 열려있고 비어있는 상태
     bs_hintNote2Get number default 1, -- 달력힌트쪽지2 2면 획득한 상태, 없어진 상태(인벤토리 안에 있음)
@@ -547,7 +583,7 @@ create table game_state(
 select * from game_state;
 --delete from game_state;
 --drop table game_state;
-update game_state set bs_batteryget=2 where userid='admin';
+update game_state set door_lock1use=2, door_lock2use=2 where userid='tkdgnstkdgns';
 commit;
 
 --신고게시글 테스트용 데이터
@@ -565,3 +601,84 @@ insert into admin_report_comment values('R', default, 8, 'cc', 'ccc', 'cccc', 'c
 insert into admin_report_comment values('F', seq_admin_support_comment.nextVal, 9, 'dd', 'ddd', 'dddd', 'ddddd');
 insert into admin_report_comment values('S', seq_admin_support_comment.nextVal, 10, 'ee', 'eee', 'eeee', 'eeeee');
 insert into admin_report_comment values('R', default, 11, 'ff', 'fff', 'ffff', 'fffff');
+
+--배드엔딩
+create table game_bad_ending(
+    no number,
+    content varchar2(1000) not null,
+    filename varchar2(50),
+    audioname varchar2(50)
+);
+
+insert into game_bad_ending(no, content) values(1,'..');
+insert into game_bad_ending(no, content) values(2,'....');
+insert into game_bad_ending(no, content) values(3,'.......?!');
+insert into game_bad_ending(no, content) values(4,'그래. 이렇게 다시봐도 꼴 보기 싫은 얼굴이구나.');
+insert into game_bad_ending(no, content) values(5,'너..누구야..');
+insert into game_bad_ending(no, content) values(6,'내얼굴이 많이변한건 그동안 피폐해진 내 삶때문이겠지.');
+insert into game_bad_ending(no, content) values(7,'날 기억하지 못한다는건,');
+insert into game_bad_ending(no, content, filename) values(8,'일말의 죄책감도 느끼지 않았다는 것으로 받아들여도 될까?', 'prologue.png');
+insert into game_bad_ending(no, content) values(9,'!?!??!?!?!??!?!!??!!!!??!');
+insert into game_bad_ending(no, content, audioname) values(10,'넌...갇혀있을 필요도 없었어...', 'reload.wav');
+insert into game_bad_ending(no, content, audioname) values(11,'!!!!!!!!!!!!!!!!', 'gun.mp3');
+
+--트루엔딩
+create table game_true_ending(
+    no number,
+    content varchar2(1000) not null,
+    filename varchar2(50),
+    audioname varchar2(50)
+);
+
+insert into game_true_ending(no, content) values(1,'..');
+insert into game_true_ending(no, content) values(2,'....');
+insert into game_true_ending(no, content) values(3,'.......?!');
+insert into game_true_ending(no, content) values(4,'그래. 이렇게 다시봐도 꼴 보기 싫은 얼굴이구나.');
+insert into game_true_ending(no, content) values(5, '너....?!');
+insert into game_true_ending(no, content, audioname) values(6, '난 들었던 총을 내려놓을 수 밖에 없었다.', 'trueEnd.mp3');
+insert into game_true_ending(no, content) values(7, '얼굴이 말이 아니네, 그런표정 짓고 있는 거 보니까.');
+insert into game_true_ending(no, content) values(8, '그래도 너 때문에 망가져사는 나에 비할건 못돼.');
+insert into game_true_ending(no, content) values(9, '넌 날 잊고 잘 살았겠지.');
+insert into game_true_ending(no, content) values(10, '생각지도 못한 사람이 내 앞에 서있다..');
+insert into game_true_ending(no, content) values(11, '맞아. 난 공부밖에 모르는 투명인간이었어.');
+insert into game_true_ending(no, content) values(12, '너가 장난으로 한 그말만 아니었어도,');
+insert into game_true_ending(no, content) values(13, '난 별 볼일 없는 내인생을 좋은 대학으로 조금이라도 바꿔볼 수 있었어.');
+insert into game_true_ending(no, content, audioname) values(14, '너 이새끼 내가 시험지 뒤에 종이 있는거 다봤다!', 'people.wav');
+insert into game_true_ending(no, content, audioname) values(15, '야.. 선생님도있는데 그렇게 크게 말하면 진짠줄알거아냐...!', 'people.wav');
+insert into game_true_ending(no, content, audioname) values(16, '내 알바아니다 ㅋㅋㅋ 장난인거 알겠지ㅋㅋㅋ', 'people.wav');
+insert into game_true_ending(no, content) values(17, '그 날 난 어김없이 선생님께 불려갔었지.');
+insert into game_true_ending(no, content, filename) values(18, '난 가정형편이 어려워서 급식비를 내지못하고 가끔 몰래 급식을 먹곤 했어.', 'past_lunch.jpg');
+insert into game_true_ending(no, content) values(19, '그 탓에 미운털이 잔뜩 박혀있었지.');
+insert into game_true_ending(no, content, filename) values(20, '내가 시험 전에 보려고 정리해놓고 여기저기 가방에 넣어둔 종이쪽지들...', 'papers.jpg');
+insert into game_true_ending(no, content) values(21, '담임은..그게 부정행위라고 우기더군.');
+insert into game_true_ending(no, content) values(22, '소문은 퍼질 수록 점점 커지는법...');
+insert into game_true_ending(no, content) values(23, '그렇게 소문을 견디지 못하고 자퇴를 선택할 수 밖에 없었지.');
+insert into game_true_ending(no, content) values(24, '나 같은 샌님 하나 없어졌다고 동요하는 아이들은 없었을 거야.');
+insert into game_true_ending(no, content) values(25, '그리고... 그 트라우마로 지금까지 이렇게 살고있지.');
+insert into game_true_ending(no, content) values(26, '세상 밖에 나갈 자신이 없어.');
+insert into game_true_ending(no, content) values(27, '난....! 정말 몰랐어...!');
+insert into game_true_ending(no, content) values(28, '늦은 사과..! 미안해..!');
+--노래꺼짐
+insert into game_true_ending(no, content) values(29, '이제서야 받게 되는구나...');
+insert into game_true_ending(no, content, audioname) values(30, '내가 내려놓은 총을 조용히 들었다..', 'footprint.wav');
+insert into game_true_ending(no, content) values(31, '총구를 겨누고 있는 눈이 공허해보인다.');
+insert into game_true_ending(no, content) values(32, '살려줘...! 부탁이야....');
+insert into game_true_ending(no, content) values(33, '.. 잘가...');
+insert into game_true_ending(no, content, audioname) values(34, '총구를 자기 머리에 갖다대고 있다...!', 'reload.wav');
+insert into game_true_ending(no, content) values(35, '???!!??!?!?!');
+insert into game_true_ending(no, content) values(36, '물론 널 갈기갈기 찢어놓고 싶은 마음이 굴뚝같지만..');
+insert into game_true_ending(no, content) values(37, '난 너를 죽일만큼 그렇게 간도 크지못해.');
+insert into game_true_ending(no, content, filename) values(38, '네가 이 버튼을 누르고 이 방을 나가면,', 'emergency.jpg');
+insert into game_true_ending(no, content) values(39, '조금 뒤엔 경찰차와 구급차가 올거야.');
+insert into game_true_ending(no, content) values(40, '그리고 그 사람들이 도착할 즈음엔 난 이 세상 사람이 아니겠지.');
+insert into game_true_ending(no, content) values(41, '달려가서 버튼을 눌렀다.. 마음을 바꿀 생각은 없는 것 같다..');
+insert into game_true_ending(no, content) values(42, '방에 갇혀있는 동안 뭐라도 느꼈길 바래.');
+insert into game_true_ending(no, content) values(43, '안돼.......!!');
+insert into game_true_ending(no, content) values(44, '너만탓하면서 내인생을 원망하던 나도참 나약해...');
+insert into game_true_ending(no, content) values(45, '내가 너한테');
+insert into game_true_ending(no, content) values(46, '마지막으로 남길...말은');
+insert into game_true_ending(no, content, filename) values(47, '죄책감으로 갚아. 난 남은 내 인생을 되돌릴 자신이 없어.', 'trueEnd.jpg');
+insert into game_true_ending(no, content, audioname) values(48, '안돼!!!!!!!!!!!!!!!!!!!!!', 'policesiren.wav');
+insert into game_true_ending(no, content, audioname) values(49, '!!!!!!!!', 'gun.mp3');
+
+commit;

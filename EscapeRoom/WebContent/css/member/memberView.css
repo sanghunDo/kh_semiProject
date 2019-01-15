@@ -2,14 +2,14 @@
 body{
 	background:black;
 	color:white;
-	font-family: 'Noto Serif KR', serif;
 }
 
 h2{
 	padding-top:10px;
-	/* margin-left:62px; */
+	font-family: 'Noto Serif KR', serif;
 	font-size:18px;
 	margin-left:190px;
+	
 }
 
 #memberView-Container{
@@ -45,6 +45,7 @@ table{
 
 th{
 	padding-bottom: 15px;
+	font-family: 'Noto Serif KR', serif;
 	text-align: center;
 }
 

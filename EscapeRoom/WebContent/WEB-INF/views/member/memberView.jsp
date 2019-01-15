@@ -101,7 +101,12 @@ function updatePassword(){
 	
 	// 팝업창 이름
 	var title = "updatePassword";
-	var status = "left=500px, top=200px, width=500px, height=250px";
+	/* var status = "left=500px, top=200px, width=500px, height=250px"; */
+	
+	var popupX = (window.screen.width / 2) - (480 / 2);
+	var popupY = (window.screen.height /2) - (380 / 2);
+	
+	var status = "left=" + popupX +", top=" + popupY +", screenX =" + popupX +", screenY=" + popupY + ",width=480px, height=380px";
 	
 	open(url, title, status);
  }
@@ -191,11 +196,6 @@ $(function(){
 						<%} // end of else : 프사 없는 경우 기본 프사 보여주기 %>
 						</div>
 					</td>
-					<!-- <td>
-						<div id="profile-Container">
-							<img id="profilePre" src="" alt="" />
-						</div>
-					</td> -->
 				</tr>
 		</table>
 		  <input type="submit" id="editInfo-Btn" value="회원정보 수정" />
