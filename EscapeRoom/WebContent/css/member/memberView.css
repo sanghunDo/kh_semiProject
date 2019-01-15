@@ -27,8 +27,18 @@ h2{
 	hegiht: 100px;
 }
 
-#userId_, #userEmail, #coin{
+#userId_, #userEmail {
 	width:275px;
+	height:25px;
+	outline:none;
+	background:black;
+	border-style:none;
+	border-bottom: 1px solid gray;
+	color:white;
+}
+
+#coin{
+	width:205px;
 	height:25px;
 	outline:none;
 	background:black;
@@ -92,6 +102,16 @@ td{
 	display:block;
 	margin:0 auto;
 	margin-top:20px;
+}
+
+#chargeCoin-Btn{
+	outline:none;
+	border:1px solid white;
+	color:white;
+	background:black;
+	border-radius: 5px;
+	cursor:pointer;
+	font-family:'Noto Serif KR', serif;
 }
 
 #null-Profile{
