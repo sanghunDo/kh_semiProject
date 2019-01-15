@@ -36,10 +36,28 @@ $(function(){
 	});
 });
 
-function deleteReport(postNo, category, userComment){
+function deleteReportBoard(postNo, category){
 	var temp = confirm("해당 글에 대한 신고를 취소하시겠습니까?");
 	if(!temp) return;
-	else location.href = "<%=request.getContextPath()%>/adminMode/deleteReport?postNo=" + postNo + "&category=" + category;
+	else location.href = "<%=request.getContextPath()%>/adminMode/deleteReportBoard?postNo=" + postNo + "&category=" + category;
+}
+
+function deleteReportComment(postNo, commentNo, category){
+	var temp = confirm("해당 댓글에 대한 신고를 취소하시겠습니까?");
+	if(!temp) return;
+	else location.href = "<%=request.getContextPath()%>/adminMode/deleteReportComment?postNo=" + postNo + "&commentNo=" + commentNo + "&category=" + category;
+}
+
+function deletePost(postNo, category){
+	var temp = confirm("해당 게시글을 삭제처리 하시겠습니까?");
+	if(!temp) return;
+	else location.href = "<%=request.getContextPath()%>/adminMode/deletePost?postNo=" + postNo + "&category=" + category;
+}
+
+function deleteComment(postNo, commentNo, category){
+	var temp = confirm("해당 댓글을 삭제처리 하시겠습니까?");
+	if(!temp) return;
+	else location.href = "<%=request.getContextPath()%>/adminMode/deleteComment?postNo=" + postNo + "&commentNo=" + commentNo + "&category=" + category;
 }
 </script>
 
@@ -70,9 +88,9 @@ function deleteReport(postNo, category, userComment){
 			<td><%=rb.getReasonChecked()%></td>
 			<td><%=rb.getUserComment()%></td>
 			<td>
-				<button class="notOK">삭제</button>
+				<button class="notOK" onclick="deletePost('<%=rb.getPostNo()%>', '<%=rb.getCategory()%>');">삭제</button>
 				&nbsp;
-				<button class="OK" onclick="deleteReport('<%=rb.getPostNo()%>', '<%=rb.getCategory()%>');">X</button>
+				<button class="OK" onclick="deleteReportBoard('<%=rb.getPostNo()%>', '<%=rb.getCategory()%>');">X</button>
 			</td>
 		</tr>
 		<%}%>
@@ -93,6 +111,7 @@ function deleteReport(postNo, category, userComment){
 		<th>작성자</th>
 		<th>사유</th>
 		<th>의견</th>
+		<th>처리</th>
 	</tr>
 	<%if(rcList != null && !rcList.isEmpty()) { 
 		for(Report_Comment rc : rcList) {%>
@@ -112,9 +131,9 @@ function deleteReport(postNo, category, userComment){
 			<td><%=rc.getReasonChecked()%></td>
 			<td><%=rc.getUserComment()%></td>
 			<td>
-				<button class="notOK">삭제</button>
+				<button class="notOK" onclick="deleteComment('<%=rc.getPostNo()%>', '<%=rc.getCommentNo() %>', '<%=rc.getCategory()%>');">삭제</button>
 				&nbsp;
-				<button class="OK">X</button>
+				<button class="OK" onclick="deleteReportComment('<%=rc.getPostNo()%>', '<%=rc.getCommentNo() %>', '<%=rc.getCategory()%>');">X</button>
 			</td>
 		</tr>
 		<%} %>

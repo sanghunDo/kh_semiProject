@@ -61,10 +61,46 @@ public class AdminModeService {
 		return list;
 	}
 
-	public int deleteReport(String category, int postNo) {
+	public int deleteReportBoard(String category, int postNo) {
 		int result = 0;
 		Connection conn = getConnection();
-		result = new AdminModeDao().deleteReport(conn, category, postNo);
+		result = new AdminModeDao().deleteReportBoard(conn, category, postNo);
+		
+		if(result > 0) commit(conn);
+		else rollback(conn);
+		
+		close(conn);
+		return result;
+	}
+
+	public int deleteReportComment(String category, int postNo, int commentNo) {
+		int result = 0;
+		Connection conn = getConnection();
+		result = new AdminModeDao().deleteReportComment(conn, category, postNo, commentNo);
+		
+		if(result > 0) commit(conn);
+		else rollback(conn);
+		
+		close(conn);
+		return result;
+	}
+
+	public int changeFreeTitleReported(int postNo) {
+		int result = 0;
+		Connection conn = getConnection();
+		result = new AdminModeDao().changeFreeTitleReported(conn, postNo);
+		
+		if(result > 0) commit(conn);
+		else rollback(conn);
+		
+		close(conn);
+		return result;
+	}
+
+	public int changeSolveTitleReported(int postNo) {
+		int result = 0;
+		Connection conn = getConnection();
+		result = new AdminModeDao().changeSolveTitleReported(conn, postNo);
 		
 		if(result > 0) commit(conn);
 		else rollback(conn);
