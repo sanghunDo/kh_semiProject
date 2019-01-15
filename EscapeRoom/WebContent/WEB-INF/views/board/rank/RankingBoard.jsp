@@ -12,6 +12,12 @@
 <link rel="stylesheet" href="<%=request.getContextPath()%>/css/board/rank/ranking.css" />
 <link href="https://fonts.googleapis.com/css?family=Abril+Fatface|East+Sea+Dokdo|Fredericka+the+Great|Noto+Serif+KR|Permanent+Marker|Song+Myung" rel="stylesheet">
 
+<script>
+	function deleteRankComment() {
+		$("[name=rankCommentDelFrm]").submit();
+	}
+</script>
+
    <h2>BEST 3</h2>
    
    <div id="top3">
@@ -112,7 +118,6 @@
             for(int i=3; i<list.size(); i++) {
          %>
          <tr>
-            <!-- AJAX 사용 해야함! -->
             <td><%=i+1%></td>
             <td><%=list.get(i).getGameId()%></td>
             <td><%=list.get(i).getEndRuntime()%></td>
@@ -123,89 +128,88 @@
    </div>
    
    <!-- 댓글 시작  -->
-   <div id="reply-container">
-   
-      <h2>Reply</h2>
-      
-      <p class="warningMessage">* 비방 및 욕설, 도배글 등은 관리자에 의해 삭제될 수 있으니 주의하시길 바랍니다. *</p>
-      
-      <div id="reply">
-      
-      	 <p>
-      	 	<!-- 0은 댓글 갯수를 받아올 것 -->
-      	 	총 <span><%=totalRankComment %></span>개의 댓글이 작성되었습니다.
-      	 </p>
-      
-      	 <hr />
-         
-         <form action="<%=request.getContextPath()%>/board/rank/RankBoardCommentInsert" name="rankCommentSubmitFrm" method="post">
-         	<input type="hidden" name="rankCommentWriter" value="<%=loggedInMember!=null?loggedInMember.getUserId():""%>" />
-         	<input type="hidden" name="rankCommentLevel" value="1" />
-         	<input type="hidden" name="rankCommentRef" value="0" />
-         	
-         	<textarea name="rankCommentContent" cols="60" rows="3"></textarea>
-         	<button type="submit" id="btn-insert">등록</button>
-         </form>
-         <hr style="margin-top:-29.5px;"/>
-         
-      </div>
-      
-      
-      <!-- 댓글 목록 테이블 -->
-      
-		 <table id="tbl-rankComment">
-		 	
-		 	<% for(RankComment rc : rankCommentList) { 
-		 		if(rc.getCommentLevel() == 1) { %>
-		 		
-		 		<tr class="rankLevel1">
-		 			<td>
-		 				<sub class="rComment-Writer">
-		 					<%=rc.getCommentWriter() %>
-		 				</sub>
-		 				<sub class="rComment-Date">
-		 					<%=rc.getCommentDate()%>
-		 				</sub>
-		 				<br />
-		 				<%=rc.getCommentContent() %>
-		 			</td>
-		 			<td>
-		 				<button id="btn-reply" value="<%=rc.getCommentNo()%>">답글</button>
-		 				
-		 				<% if(loggedInMember != null && (rc.getCommentWriter().equals(loggedInMember.getUserId()) || "admin123".equals(loggedInMember.getUserId()))) {%>
-		 				
-		 				<form action="<%=request.getContextPath()%>/board/rank/RankBoardCommentDelete" name="deleteRankCommentFrm">
-		 					<input type="hidden" name="rankCommentNo" value="<%=rc.getCommentNo()%>" />
-		 					<input type="hidden" name="rankCommentLevel" value="1" />
-		 					<button type="submit" id="btn-delete" onclick="deleteRankComment();">삭제</button>
-		 				</form>
-		 				
-		 				<%} %>
-		 			</td>
-		 		</tr>
-		 		
-		 	<%}
-		 		else {%>
-		 		
-		 		<tr class="rankLevel2">
-		 			<td>
-		 				<sub class="rComment-Writer">
-		 					<%=rc.getCommentWriter()%>
-		 				</sub>
-		 				<sub class="rComment-Date">
-		 					<%=rc.getCommentDate()%>
-		 				</sub>
-		 				<br />
-		 				<%=rc.getCommentContent()%>
-		 			</td>
-		 			
-		 			<!-- 관리자이거나 본인이 쓴 댓글(대댓글)에 대해서만 삭제버튼이 보여야하며,
-		 				 삭제 요청 처리 이후에는 현재 페이지가 다시 보여져야 한다. -->
-		 		</tr>
-		 		
-		 	<%}} %>
-		 	
-		 </table>
+   <div id="rankComment-container">
+   		<h2>Reply</h2>
+   		
+   		<p class="warningMessage">* 비방 및 욕설, 도배글 등은 관리자에 의해 삭제될 수 있으니 주의하시길 바랍니다. *</p>
+   		
+   		<div id="rankComment-editor">
+   			<p>
+   				총 <span><%=totalRankComment%></span>개의 댓글이 작성되었습니다.
+   			</p>
+   			
+   			<hr />
+   			
+   			<form action="<%=request.getContextPath()%>/board/rank/RankBoardCommentInsert" name="rankCommentSubmitFrm" method="post">
+   				<input type="hidden" name="rankCommentWriter" value="<%=loggedInMember!=null?loggedInMember.getUserId():""%>" />
+   				<input type="hidden" name="rankCommentLevel" value="1" />
+   				<input type="hidden" name="rankCommentRef" value="0" />
+   				
+   				<textarea name="rankCommentContent" cols="60" rows="3"></textarea>
+   				<button type="submit" id="btn-insert">등록</button>
+   			</form>
+   			
+   			<hr />
+   			
+   		</div>
+   		
+   		<!-- 댓글 목록 테이블 -->
+   		
+   		<table id="tbl-rankComment">
+   			<% for(RankComment rc : rankCommentList) {
+   				if(rc.getCommentLevel() == 1) { %>
+   				
+   				<tr class="rankLevel1">
+   					<td>
+   						<sub class="rComment-Writer">
+   							<%=rc.getCommentWriter()%>
+   						</sub>
+   						<sub class="rComment-Date">
+   							<%=rc.getCommentDate()%>
+   						</sub>
+   						<br />
+   						<%=rc.getCommentContent()%>
+   					</td>
+   					<td>
+   						<button id="btn-reply" value="<%=rc.getCommentNo()%>">답글</button>
+   						
+   						<% if(loggedInMember != null && (rc.getCommentWriter().equals(loggedInMember.getUserId()) || "admin123".equals(loggedInMember.getUserId()))) { %>
+   							<form action="<%=request.getContextPath()%>/board/rank/RankBoardCommentDelete" name="rankCommentDelFrm">
+   								<input type="hidden" name="rankCommentNo" value="<%=rc.getCommentNo()%>" />
+   								<input type="hidden" name="rankCommentLevel" value="1" />
+   								<button type="submit" id="btn-delete" onclick="deleteRankComment();">삭제</button>
+   							</form>
+   						<%} %>
+   					</td>
+   				</tr>
+   			<%}
+   				else {%>
+   				
+   				<tr class="rankLevel2">
+   					<td>
+   						<sub class="rComment-Writer">
+   							<%=rc.getCommentWriter()%>
+   						</sub>
+   						<sub class="rComment-Date">
+   							<%=rc.getCommentDate()%>
+   						</sub>
+   						<br />
+   						<%=rc.getCommentContent()%>
+   					</td>
+   					
+   					<td>
+   						<% if(loggedInMember != null && (rc.getCommentWriter().equals(loggedInMember.getUserId()) || "admin123".equals(loggedInMember.getUserId()))) {%>
+   						
+   							<form action="<%=request.getContextPath()%>/board/rank/RankBoardCommentDelete" name="rankCommentDelFrm">
+   								<input type="hidden" name="rankCommentNo" value="<%=rc.getCommentNo()%>" />
+   								<input type="hidden" name="rankCommentLevel" value="2" />
+   								<button type="submit" id="btn-delete" onclick="deleteRankComment();">삭제</button>
+   							</form>
+   						<%} %>
+   					</td>
+   				</tr>
+   			<%}} %>
+   		</table>
    </div>
    
 	<script>
@@ -234,12 +238,38 @@
 			}
 		});
 		
-		function deleteRankComment() {
-			if(!confirm("댓글을 정말로 삭제하시겠습니까?")) {
-				return false;
-			}
-			
-			$("[name=deleteRankCommentFrm]").submit();
-		}
+		$("#btn-reply").on('click', function() {
+			<% if(loggedInMember != null) { %>
+				/* 로그인한 경우 */
+				var tr = $("<tr></tr>");
+				var html = '<td style="display:none; text-align:left;" colspan="2">';
+				
+				html += '<form action="RankBoardCommentInsert" method="post">';
+				html += '<input type="hidden" name="rankCommentWriter" value="<%=loggedInMember.getUserId()%>">';
+				html += '<input type="hidden" name="rankCommentLevel" value="2">';
+				html += '<input type="hidden" name="rankCommentRef" value="' + $(this).val() + '">';
+				html += '<textarea name="rankCommentContent" cols="60" rows="3"></textarea>';
+				html += '<button type="submit" class="btn-insert2">답글</button></form></td>';
+				
+				tr.html(html);
+				
+				tr.insertAfter($(this).parent().parent()).children("td").slideDown(800);
+				
+				// 한번 실행 후 이벤트 핸들러를 제거한다.
+				$(this).off('click');
+				
+				// 생성된 폼에 대해 submit 이벤트 핸들러를 설치한다.
+				tr.find('form').submit(function(e) {
+					var len = $(this).find("textarea").val().trim().length;
+					
+					if(len == 0) {
+						e.preventDefault();
+					}
+				});
+			<%} else {%>
+				/* 로그인하지 않은 경우 */
+				loginAlert();
+			<% }%>
+		});
 	</script>
    <!-- 댓글 끝 -->

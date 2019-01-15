@@ -7,21 +7,17 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.google.gson.Gson;
-
-import semi.board.free.model.dao.FreeBoardDao;
-
 /**
- * Servlet implementation class FreeComment2Like
+ * Servlet implementation class postReport
  */
-@WebServlet("/board/free/freeBoardComment2Like.do")
-public class FreeComment2Like extends HttpServlet {
+@WebServlet("/board/free/freeBoardPostReport")
+public class FreeBoardPostReport extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public FreeComment2Like() {
+    public FreeBoardPostReport() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -30,18 +26,25 @@ public class FreeComment2Like extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.setCharacterEncoding("utf-8");
-		int commentNo =Integer.parseInt(request.getParameter("commentNo"));
-		int commentLikeAmount =Integer.parseInt(request.getParameter("commentLikeAmount"));
-		//String flag = request.getParameter("flag");
-		//System.out.println("commentNo"+commentNo);
-		//System.out.println("commentLikeAmount"+commentLikeAmount);
-		int result = new FreeBoardDao().updateLikey(commentNo,commentLikeAmount);
-		int likey = new FreeBoardDao().getLikey(commentNo);
-		//System.out.println("likey=대체뭐야..?"+likey);
+		int postNo = Integer.parseInt(request.getParameter("postNo"));
+		String postTitle = request.getParameter("postTitle");
+		String postWriter = request.getParameter("postWriter");
 		
-		response.setContentType("application/json; charset=utf-8");
-		new Gson().toJson(likey,response.getWriter());
+		System.out.println("postNo="+postNo);
+		System.out.println("postTitle="+postTitle);
+		System.out.println("postWriter="+postWriter);
+		
+
+		String view = "/WEB-INF/views/common/msg.jsp";
+		view = "/WEB-INF/views/board/free/PostReport.jsp";
+		
+		request.setAttribute("postNo", postNo);
+		request.setAttribute("postTitle", postTitle);
+		request.setAttribute("postWriter", postWriter);
+
+		
+		request.getRequestDispatcher(view).forward(request, response);
+
 	}
 
 	/**

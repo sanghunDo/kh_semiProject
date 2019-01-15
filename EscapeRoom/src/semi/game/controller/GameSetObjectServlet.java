@@ -17,7 +17,7 @@ import semi.game.model.vo.MainObj;
 /**
  * Servlet implementation class GameSetObjectServlet
  */
-@WebServlet({"/game/setObject", "/game/getObject"})
+@WebServlet("/game/setObject")
 public class GameSetObjectServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 

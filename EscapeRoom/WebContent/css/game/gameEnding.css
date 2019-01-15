@@ -1,0 +1,106 @@
+@charset "UTF-8";
+html{
+    background:white;
+}
+
+body{
+   width: 1008px;
+   height: 704px;
+   padding: 0px;
+   margin: 0 auto;
+   background:black;
+   position: relative;
+   overflow: hidden;
+}
+
+div#ending{
+	position: relative;
+	width: 100%;
+	height: 100%;
+	top: 0;
+}
+img#background{
+	position: fixed;
+	width: 650px;
+	height: 600px;
+	left: 200px;
+	display: none;
+}
+div#ending div#msgBox{
+	position: relative;
+	width: 80%;
+	height: 15%;
+	margin: 0 auto;
+	top: 72%;
+	border: 2px solid white;
+	background: black;
+	color: white;
+}
+div#msgBox h2{
+	position: relative;
+	display: inline-block;
+	overflow: hidden;
+	white-space: nowrap;
+	margin: 15px 0 0 20px;
+	font-family: 'Noto Serif KR', serif;
+	font-size: 180%;
+}
+@-webkit-keyframes typing {
+    from {
+        width: 0;
+    }
+    to {
+        width: 100%;
+    }
+}
+div#msgBox:before{
+	content: "? ? ?";
+	position: absolute;
+    width: 78px;
+    height: 28px;
+    border: 2px solid white;
+    border-right: 0px;
+    top: -31px;
+    left: -2px;
+    text-align: center;
+    font-family: 'Noto Serif KR', serif;
+    font-size: 21px;
+    padding-left: 8px;
+}
+div#msgBox:after{
+    position: absolute;
+    content: " ";
+    height: 37px;
+    top: -33px;
+    left: 95px;
+    border-right: 2px solid white;
+    transform: rotateZ(-35deg);
+}
+div#msgBox.me:before{
+	content: "김동호";
+	position: absolute;
+	width: 78px;
+    height: 28px;
+    border: 2px solid white;
+    border-left: 0px;
+    top: -31px;
+    left: 720px;
+    text-align: center;
+    font-family: 'Noto Serif KR', serif;
+    font-size: 21px;
+}
+div#msgBox.me:after{
+	position: absolute;
+    content: "";
+    height: 37px;
+    top: -34px;
+    left: 709px;
+    border-left: 0px solid white;
+    transform: rotateZ(35deg);
+}
+@-webkit-keyframes bang{
+	0%{left: 0px;}
+	33%{left: -100px;}
+	66%{left: 100px;}
+	99%{left: 0px;};
+}

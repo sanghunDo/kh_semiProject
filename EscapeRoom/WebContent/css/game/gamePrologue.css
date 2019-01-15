@@ -70,7 +70,7 @@ div#msgBox h2{
 	overflow: hidden;
 	white-space: nowrap;
 	margin: 15px 0 0 20px;
-	font-family: 'Song Myung', serif;
+	font-family: 'Noto Serif KR', serif;
 	font-size: 180%;
 }
 @-webkit-keyframes typing {
@@ -91,8 +91,8 @@ div#msgBox:before{
     top: -31px;
     left: -2px;
     text-align: center;
-    font-family: 'Song Myung', serif;
-    font-size: 25px;
+    font-family: 'Noto Serif KR', serif;
+    font-size: 21px;
     padding-left: 8px;
 }
 div#msgBox:after{
@@ -114,8 +114,8 @@ div#msgBox.me:before{
     top: -31px;
     left: 720px;
     text-align: center;
-    font-family: 'Song Myung', serif;
-    font-size: 25px;
+    font-family: 'Noto Serif KR', serif;
+    font-size: 21px;
 }
 div#msgBox.me:after{
 	position: absolute;

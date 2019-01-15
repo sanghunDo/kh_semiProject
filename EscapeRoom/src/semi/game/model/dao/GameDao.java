@@ -14,6 +14,7 @@ import java.util.Properties;
 
 import semi.game.model.vo.MainObj;
 import semi.game.model.vo.PrologueObj;
+import semi.game.model.vo.StoryObj;
 import semi.member.model.vo.Member;
 public class GameDao {
 	private Properties prop = new Properties();
@@ -206,8 +207,6 @@ public class GameDao {
 		int result = 0;
 		PreparedStatement pstmt = null;
 		String query = prop.getProperty(stateName);
-		System.out.println(stateName);
-		System.out.println(query);
 		try {
 			pstmt = conn.prepareStatement(query);
 			pstmt.setString(1, userId);
@@ -220,12 +219,10 @@ public class GameDao {
 		return result;
 	}
 	public int checkState(Connection conn, String objName, String userId) {
-		System.out.println(objName);
 		int result = 0;
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		String query = prop.getProperty("checkState");
-		System.out.println(userId+"/"+objName);
 		try {
 			pstmt = conn.prepareStatement(query);
 			pstmt.setString(1, userId);
@@ -237,6 +234,101 @@ public class GameDao {
 			e.printStackTrace();
 		}
 		return result;
+	}
+	public List<StoryObj> selectAllBadEnding(Connection conn) {
+		List<StoryObj> list = null;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		String query = prop.getProperty("selectAllBadEnding");
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			rset = pstmt.executeQuery();
+			
+			list = new ArrayList<>();
+			
+			while(rset.next()) {
+				StoryObj sObj = new StoryObj();
+				
+				sObj.setNo(rset.getInt("no"));
+				sObj.setContent(rset.getString("content"));
+				sObj.setFileName(rset.getString("fileName"));
+				sObj.setAudioName(rset.getString("audioName"));
+				
+				list.add(sObj);
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return list;
+	}
+	
+	public List<StoryObj> selectAllTrueEnding(Connection conn) {
+		List<StoryObj> list = null;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		String query = prop.getProperty("selectAllTrueEnding");
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			rset = pstmt.executeQuery();
+			
+			list = new ArrayList<>();
+			
+			while(rset.next()) {
+				StoryObj sObj = new StoryObj();
+				
+				sObj.setNo(rset.getInt("no"));
+				sObj.setContent(rset.getString("content"));
+				sObj.setFileName(rset.getString("fileName"));
+				sObj.setAudioName(rset.getString("audioName"));
+				
+				list.add(sObj);
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return list;
+	}
+	public MainObj getObject(Connection conn, String objName) {
+		MainObj obj = null;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String query = prop.getProperty("getObject");
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, objName);
+			rset = pstmt.executeQuery();
+			if(rset.next()) {
+				obj = new MainObj();
+				obj.setObjNo(rset.getInt("objno"));
+				obj.setObjName(rset.getString("objname"));
+				obj.setSecondName(rset.getString("secondname"));
+				obj.setThirdName(rset.getString("thirdname"));
+				obj.setParentName(rset.getString("parentname"));
+				obj.setPosition(rset.getString("position"));
+				obj.setObjLevel(rset.getInt("objlevel"));
+				obj.setRefNo(rset.getInt("refno"));
+				obj.setIsItem(rset.getString("isitem"));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return obj;
 	}
 
 }

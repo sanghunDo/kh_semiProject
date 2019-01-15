@@ -1,10 +1,26 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<<<<<<< HEAD
 <%@ page import = "java.util.*, semi.member.model.vo.*, semi.admin.model.vo.*, semi.admin.controller.*" %>
 <%
 	List<Member> memberList = (List<Member>) request.getAttribute("memberList");
 	List<ReportBoard> reportList = (List<ReportBoard>) request.getAttribute("reportList");
 	List<ReportBoardComment> reportCmtList = (List<ReportBoardComment>) request.getAttribute("reportCmtList");
+=======
+<%@ page import = "java.util.*" %>
+<%@ page import = "semi.admin.controller.*" %>
+<%-- <%@ page import = "semi.admin.model.vo.ReportBoard.*" %> --%>
+<%
+	List<Member> list = (List<Member>)request.getAttribute("list");
+	/* List<ReportBoard> reportList = (List<ReportBoard>)request.getAttribute("reportList"); */
+	
+	// 신고된 게시글 목록도 불러오기
+   	
+   int cPage = (int)request.getAttribute("cPage");
+   int numPerPage = (int)request.getAttribute("numPerPage");
+   String pageBar = (String)request.getAttribute("pageBar");
+ 
+>>>>>>> fda3c2a1d3896f04f423bd772a9e5b17e8fb969f
 %>
 <%@ include file="/WEB-INF/views/common/header.jsp"%>
 <link href="https://fonts.googleapis.com/css?family=Roboto+Slab" rel="stylesheet">

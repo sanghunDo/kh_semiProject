@@ -28,13 +28,15 @@ public class Report extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		int commentNo = Integer.parseInt(request.getParameter("commentNo"));
+		String commentWriter = request.getParameter("commentWriter");
+		String commentContent = request.getParameter("commentContent");
 		String view = "/WEB-INF/views/common/msg.jsp";
 		
-			view = "/WEB-INF/views/common/report.jsp";
+			view = "/WEB-INF/views/board/solve/report.jsp";
 			request.setAttribute("commentNo", commentNo);
+			request.setAttribute("commentWriter", commentWriter);
+			request.setAttribute("commentContent", commentContent);
 
-		
-		
 		request.getRequestDispatcher(view).forward(request, response);
 	}
 

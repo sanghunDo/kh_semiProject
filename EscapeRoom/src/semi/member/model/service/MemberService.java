@@ -34,6 +34,21 @@ public class MemberService {
 		return result;
 	}
 	
+	// 아이디 이메일 일치하는지 유무 확인
+	public int iDEmailCheck(Member m) {
+		int result = ID_NOT_EXIST;
+		
+		// DB와 연결
+		Connection conn = getConnection();
+		
+		result = new MemberDao().iDEmailCheck(conn, m);
+		
+		// 자원반납
+		close(conn);
+		
+		return result;
+	}
+	
 	// 이메일 여부 확인
 	public int emailCheck(Member m) {
 		int result = EMAIL_NOT_EXIST;
@@ -169,7 +184,7 @@ public class MemberService {
 	public int updatePassword(Member m) {
 		// DB와 연결
 		Connection conn = getConnection();
-		System.out.println("서비스ㅡㅡㅡㅡ"+m.getUserPassword());
+		System.out.println("업데이트패스워드@서비스 = "+ m.getUserPassword());
 		int result = new MemberDao().updatePassword(conn, m);
 		
 		// DML(INSERT, UPDATE, DELETE)이므로 반드시 트랜잭션처리 해야 한다.
@@ -183,7 +198,17 @@ public class MemberService {
 
 		return result;
 	}
-	
+
+//	public int temporaryPw(String userEmail, String temporary_Pw) {
+//		Connection conn = getConnection();
+//		System.out.println("임시비밀번호@서비스 = " + temporary_Pw);
+//		System.out.println("유저이메일@서비스 = " + userEmail);
+//		
+//		int result = new MemberDao().updatePassword(conn, m);
+//		return 0;
+//	}
+
+
 
 
 }

@@ -35,7 +35,7 @@ table#memberTab{
 th, td{
 	text-align:center;
 	font-weight:bold;
-	font-size:18px;
+	font-size:15px;
 	padding-top:5px;
 	padding-bottom:5px;
 }
@@ -109,8 +109,8 @@ $(function(){
 		<th>글번호</th>
 		<th>제목</th>
 		<th>작성자</th>
-		<th>사유 대분류</th>
-		<th>신고사유 세부사항</th>
+		<th>사유분류</th>
+		<th>세부사항</th>
 	</tr>
 	<%if(reportList != null && !reportList.isEmpty()) {  
 		for(ReportBoard rb : reportList) { %>
@@ -135,10 +135,10 @@ $(function(){
 		<th>카테고리</th>
 		<th>글번호</th>
 		<th>댓글번호</th>
-		<th>댓글내용</th>
+		<th>내용</th>
 		<th>작성자</th>
-		<th>사유 대분류</th>
-		<th>신고사유 세부사항</th>
+		<th>사유분류</th>
+		<th>세부사항</th>
 	</tr>
 	<%if(reportCmtList != null && !reportCmtList.isEmpty()) { 
 		for(ReportBoardComment rbc : reportCmtList) {%>
