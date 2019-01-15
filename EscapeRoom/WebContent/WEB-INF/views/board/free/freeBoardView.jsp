@@ -288,7 +288,7 @@
 	   var no = $(this).attr("no");
        $(".bestCommentUpdateEnd[no="+no+"]").css("display","inline"); //수정하기위한 text area
        $(".bestUpdateEndButton[no="+no+"]").css("display","inline");
-       $(".bestCommentOpinion[no="+no+"]").css("display","none");
+       $(".bestCommentOpinion_2[no="+no+"]").css("display","none");
        $(".bestContent[no="+no+"]").css("display","none");
        $(".bestCommentUpdate[no="+no+"]").css("display","none");
        $(".bestCommentDelete[no="+no+"]").css("display","none");

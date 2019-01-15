@@ -178,7 +178,7 @@
                     </form>
                     
                  
-                    <dl class="bestCommentOpinion">
+                    <dl class="bestCommentOpinion" no="<%=i%>">
                             <dl class="CommentOpinion">
                                 	추천    
                                 	<input type="hidden" class="commentLikeAmount" value="<%=bc.getCommentLike()%>" commentNum="<%=i%>"/>
@@ -391,6 +391,8 @@
     /* 베댓 수정  */
     $(".bestCommentUpdate").on("click", function(){
  	   var no = $(this).attr("no");
+ 	  
+ 	   
         $(".bestCommentUpdateEnd[no="+no+"]").css("display","inline"); //수정하기위한 text area
         $(".bestUpdateEndButton[no="+no+"]").css("display","inline");
         $(".bestCommentOpinion[no="+no+"]").css("display","none");
