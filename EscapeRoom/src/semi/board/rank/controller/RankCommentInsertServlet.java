@@ -37,13 +37,13 @@ public class RankCommentInsertServlet extends HttpServlet {
 		rc.setCommentContent(rankCommentContent);
 		rc.setCommentRef(rankCommentRef);
 		
+		System.out.println("확인 : " + rc);
+		
 		int result = 0;
 		result = new RankCommentService().insertRankComment(rc);
 		
 		String msg = "";
 		String loc = "/";
-		
-		request.getRequestDispatcher("/WEB-INF/views/board/rank/RankCommentInsert.jsp");
 		
 		if(result > 0) {
 			msg = "댓글을 등록하였습니다.";
@@ -51,9 +51,8 @@ public class RankCommentInsertServlet extends HttpServlet {
 		}
 		else {
 			msg = "댓글 등록에 실패했습니다.";
+			loc = "/board/rank/rankingBoardList";
 		}
-		
-		System.out.println("댓글 등록한 유저 : " + rankCommentWriter);
 		
 		request.setAttribute("msg", msg);
 		request.setAttribute("loc", loc);

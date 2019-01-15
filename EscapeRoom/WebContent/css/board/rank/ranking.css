@@ -75,49 +75,38 @@ div#from4to10 table#tbl-Rank4-10 td {
    padding : 0;
 }
 
-div#reply-container {
+div#rankComment-container {
    margin : auto;
    text-align : center;
 }
 
-div#reply-container h2 {
+div#rankComment-container h2 {
    color : white;
    font-family: 'East Sea Dokdo', cursive;
    font-size : 75px;
 }
 
-div#reply-container p.warningMessage {
+div#rankComment-container p.warningMessage {
    color : red;
    font-family: 'Noto Serif KR', serif;
    font-size : 15px;
    margin-top : -55px;
 }
 
-div#reply-container div#reply {
-   width : 950px;
-   height : 500px;
-   background : rgba(239, 239, 239, 0.5);
-   margin : auto;
-   text-align : center;
-}
-
-div#reply p {
+div#rankComment-editor p {
 	font-family: 'Song Myung', serif;
 	font-weight : bold;
 }
 
-div#reply p span {
+div#rankComment-editor p span {
 	color : red;
 	font-size : 29px;
 }
 
-div#reply textarea {
-	margin : auto;
-	margin-top : 10px;
-}
-
-div#reply form {
-	margin-top : -10px;
+table#tbl-rankComment {
+	width : 580px;
+	margin : 0 auto;
+	border-collapse : collapse;
 }
 
 button#btn-insert {
@@ -188,19 +177,19 @@ img {
 table#tbl-rankComment {
 	width : 580px;
 	margin : 0 auto;
-	margin-top : -350px;
 	border-collapse : collapse;
 }
 
 table#tbl-rankComment tr td {
 	border-bottom : 1px solid;
 	border-top : 1px solid;
-	padding : 5px;
-	line-height : 150%;
+	padding ; 5px;
+	text-align : left;
+	line-height : 120%;
 }
 
 table#tbl-rankComment tr td:first-of-type {
-	
+	padding : 5px 5px 5px 10px;
 }
 
 table#tbl-rankComment button#btn-reply {
@@ -213,6 +202,19 @@ table#tbl-rankComment button#btn-reply {
 	border-radius : 3px;
 	margin : 5px;
 	cursor : pointer;
+}
+
+table#tbl-rankComment button.btn-reply2 {
+	border : 1px solid #666;
+	text-align : center;
+	background : white;
+	color : black;
+	font-size : 12px;
+	padding : 7px 10px 6px;
+	border-radius : 3px;
+	margin : 5px;
+	cursor : pointer;
+	margin-left : 50px;
 }
 
 table#tbl-rankComment button#btn-delete {
@@ -228,11 +230,20 @@ table#tbl-rankComment button#btn-delete {
 }
 
 table#tbl-rankComment tr td:last-of-type {
+	text-align : right;
 	width : 100px;
 }
 
 table#tbl-rankComment button.btn-reply {
 	display : none;
+}
+
+table#tbl-rankComment tr:hover {
+	background : lightgray;
+}
+
+table#tbl-rankComment tr:hover button.btn-reply {
+	display : inline;
 }
 
 table#tbl-rankComment sub.rComment-Writer {
@@ -245,6 +256,7 @@ table#tbl-rankComment sub.rComment-Date {
 	font-size : 10px;
 }
 
+/* 대댓글 */
 table#tbl-rankComment tr.rankLevel2 {
 	color : black;
 	font-size : 14px;
@@ -252,6 +264,35 @@ table#tbl-rankComment tr.rankLevel2 {
 }
 
 table#tbl-rankComment tr.rankLevel2 td:first-of-type {
-	width : 800px;
-	padding-right : 300px;
+	padding-left : 100px;
+}
+
+/* 대댓글 관련 요소 */
+table#tbl-rankComment textarea {
+	margin : 4px 0 0 0;
+}
+
+table#tbl-rankComment button.btn-insert2 {
+	width : 60px;
+	height : 23px;
+	color : white;
+	background : #800080;
+	position : relative;
+	top : -5px;
+	left : 10px;
+}
+
+/* 삭제 버튼 */
+table#tbl-rankComment button#btn-delete {
+	border : 1px solid #666;
+	text-align : center;
+	background : #FB4829;
+	color : black;
+	font-size : 12px;
+	display : none;
+	border-radius : 3px;
+}
+
+table#tbl-rankComment tr:hover button#btn-delete {
+	display : inline;
 }

@@ -92,7 +92,7 @@ div#msgBox:before{
     left: -2px;
     text-align: center;
     font-family: 'Noto Serif KR', serif;
-    font-size: 25px;
+    font-size: 21px;
     padding-left: 8px;
 }
 div#msgBox:after{
@@ -115,7 +115,7 @@ div#msgBox.me:before{
     left: 720px;
     text-align: center;
     font-family: 'Noto Serif KR', serif;
-    font-size: 25px;
+    font-size: 21px;
 }
 div#msgBox.me:after{
 	position: absolute;

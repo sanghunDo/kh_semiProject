@@ -430,15 +430,15 @@ h2{
     cursor: pointer;
 }
 #coment{
-	position: relative;
-	width: 80%;
-	height: 15%;
-	margin: 0 auto;
-	top: 53%;
-	border: 2px solid white;
-	background: black;
-	color: white;
-	display: none;
+	position: absolute;
+    width: 80%;
+    height: 15%;
+    top: 73%;
+    border: 2px solid white;
+    background: black;
+    color: white;
+    left: 10%;
+    display: none;
 }
 #coment h2{
 	position: relative;

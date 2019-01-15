@@ -34,6 +34,7 @@ public class GameTrueEndingServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		List<StoryObj> scenario = new GameService().selectAllTrueEnding();
+		System.out.println(scenario);
 		int index = Integer.parseInt(request.getParameter("index"));
 		if(index<scenario.size()) {
 			response.setContentType("application/json; charset=utf-8");

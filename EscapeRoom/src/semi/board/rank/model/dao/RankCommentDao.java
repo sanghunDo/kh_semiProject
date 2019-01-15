@@ -132,10 +132,9 @@ private Properties prop = new Properties();
 		
 		int result = 0;
 		PreparedStatement pstmt = null;
-		String query = prop.getProperty("deleteRankComment");
 		
 		try {
-			pstmt = conn.prepareStatement(query);
+			pstmt = conn.prepareStatement(prop.getProperty("deleteRankComment"));
 			
 			pstmt.setInt(1, rankCommentNo);
 			

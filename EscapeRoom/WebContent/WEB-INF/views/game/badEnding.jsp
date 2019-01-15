@@ -28,10 +28,14 @@ $(window).on('keyup', function(e){
 $("#ending").on('click', {cnt:0} ,function(e){
 	var cnt = e.data.cnt++;
 	var target = $("#ending").find("h2");
-	if(cnt==4){
-		$("#msgBox").removeClass("me");
-	}
-	if(cnt==17){
+	if(cnt==3) $("#msgBox").removeClass("me");
+	if(cnt==4) $("#msgBox").addClass("me");
+	if(cnt==5) $("#msgBox").removeClass("me");
+	if(cnt==8) $("#msgBox").addClass("me");
+	if(cnt==9) $("#msgBox").removeClass("me");
+	if(cnt==10) $("#msgBox").addClass("me");
+	
+	if(cnt==11){
 		$("body, #background").css({"animation": "bang .1s", "animation-iteration-count": "3"});
 		$(this).parent().fadeOut(3000); //마지막 대사 이후 클릭시 메인게임으로 이동.
 		setTimeout(function(){
@@ -48,7 +52,7 @@ $("#ending").on('click', {cnt:0} ,function(e){
 		success: function(data){
 			target.removeAttr("style");
 			//대사에 해당되는 이미지가 있던 없던 불러와서 이미지를 추가함. 이미지가 없으면 "", 있으면 해당 파일이름.
-			if(data.fileName!=""){
+			if(data.fileName){
 				$("#background").attr("src", "<%=request.getContextPath()%>/images/game/badEnding/"+data.fileName).fadeIn(1500);
 			}
 			
@@ -63,7 +67,7 @@ $("#ending").on('click', {cnt:0} ,function(e){
 /* 클리어 기록이 있을 시 엔딩 스킵 가능 */
 $(window).on('keyup', function(e){
 	if(e.keyCode==32 || e.keyCode==13)
-		$("#prologue").trigger('click');
+		$("#ending").trigger('click');
 	if(e.keyCode==27){
 		if(confirm("엔딩을 스킵하시겠습니까?")){
 			location.href="#";

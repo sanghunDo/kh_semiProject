@@ -1,6 +1,7 @@
 package semi.board.solve.controller;
 
 import java.io.IOException;
+import java.sql.Date;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -10,8 +11,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.google.gson.Gson;
 
-import semi.board.solve.model.vo.BoardComment;
 import semi.board.solve.model.dao.SolveBoardDao;
+import semi.board.solve.model.vo.BoardComment;
 
 /**
  * Servlet implementation class solveBoardComment2Insert
@@ -50,7 +51,7 @@ public class solveBoardComment2Insert extends HttpServlet {
 		int result = new SolveBoardDao().insertComment(bc);
 //		List<BoardComment> commentList = new FreeBoardDao().selectAllCommentLevel2(ref,commentRef);
 		String comment_date = new SolveBoardDao().getDate(commentRef);
-		System.out.println("comment_date:"+comment_date);
+
 		//System.out.println("서블릿 도달"+comment2);
 		response.setContentType("application/json; charset=utf-8");
 		String data = bc.getCommentWriter()+"/"+

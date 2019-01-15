@@ -101,4 +101,11 @@ public class GameService {
 		close(conn);
 		return list;
 	}
+
+	public MainObj getObject(String objName) {
+		Connection conn = getConnection();
+		MainObj obj = new GameDao().getObject(conn, objName);
+		close(conn);
+		return obj;
+	}
 }
