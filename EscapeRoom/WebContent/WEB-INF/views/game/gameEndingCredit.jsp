@@ -102,6 +102,9 @@ div#title{
         <br><br>
         <h3>게임 구현</h3>
         <h4>정창학&nbsp;&nbsp;강선영&nbsp;&nbsp;도상훈</h4>
+		<br><br>
+        <h3>아이템 구매 결제 서비스</h3>
+        <h4>이재선</h4>
         <br><br>
         <h3>그림</h3>
         <h4>정창학&nbsp;&nbsp;강선영</h4>
