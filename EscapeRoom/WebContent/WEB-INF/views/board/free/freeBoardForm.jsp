@@ -92,7 +92,25 @@ function submitFrm(){
 }
 
 function cancel(){
-	alert("작성중인 글쓰기를 종료하시겠습니까?");
+	var title = $("input[name=title]").val().trim().length;
+	var content = $("textarea[name=content]").val().trim().length;
+	var titleVal =  $("input[name=title]").val();
+	var contentVal = $("textarea[name=content]").val();
+	console.log(title);
+	console.log(content);
+	var referrer =  document.referrer;
+	var userId = "<%=loggedInMember.getUserId()%>";
+	if(title>0 || content>0){	
+		if(!confirm("작성중인 글이 있습니다. 임시저장하시겠습니까? '취소'를 누르시면 작성하던 게시글이 삭제됩니다.")){
+			location.href = referrer; 
+		}else{ //확인버튼을 눌렀을 시
+			location.href = "<%=request.getContextPath()%>/board/freeBoard/temporaryDataInsert?userId="+userId+"&title="+titleVal+"&content="+content; 
+		}
+	} else {
+		
+		 location.href = referrer; 
+	}
+	
 }
 </script>
 </body>

@@ -31,7 +31,7 @@ function noEnter(){
     <!--new pic-->
     <hr>
     <%for(GameRank gr : rankList){
-    	if(gr.getGameid().equals(loggedInMember.getUserId())){
+    	if(loggedInMember != null && gr.getGameid().equals(loggedInMember.getUserId())){
     %>
     <div id="write" style="color:white"><a href="<%=request.getContextPath()%>/board/solve/solveBoardInsert?userId=<%=loggedInMember.getUserId()%>">글쓰기</a></div>
     <%} 

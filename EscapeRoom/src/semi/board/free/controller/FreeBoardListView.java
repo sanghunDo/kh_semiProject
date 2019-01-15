@@ -36,7 +36,7 @@ public class FreeBoardListView extends HttpServlet {
 		int postNo = Integer.parseInt(request.getParameter("postNo"));
 		String memberId = request.getParameter("loggedInMember");
 		FreeBoard fb = new FreeBoardDao().selectByPostNo(postNo);
-	
+
 		//댓글
 		List<BoardComment> commentList = new FreeBoardDao().selectAllComment(postNo);
 		List<BoardComment> bestCommentList = new FreeBoardDao().selectBestComment(postNo);

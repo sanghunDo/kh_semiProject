@@ -36,7 +36,8 @@ public class FreeBoardCommentInsertServlet extends HttpServlet {
 		int commentLevel = Integer.parseInt(request.getParameter("commentLevel"));
 		String commentContent = request.getParameter("boardCommentContent");
 		int commentRef = Integer.parseInt(request.getParameter("commentRef"));
-       
+
+        
         BoardComment bc = new BoardComment();
         bc.setRef(ref);
         bc.setCommentWriter(commentWriter);
@@ -61,6 +62,7 @@ public class FreeBoardCommentInsertServlet extends HttpServlet {
 		request.setAttribute("msg", msg);
 		request.setAttribute("loc", loc);
 		
+
 		RequestDispatcher reqDispatcher = request.getRequestDispatcher(view);
 		reqDispatcher.forward(request, response);
 	}
