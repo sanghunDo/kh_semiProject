@@ -69,7 +69,7 @@ div#msgBox:before{
 }
 div#msgBox:after{
     position: absolute;
-    content: " ";
+    content: "";
     height: 37px;
     top: -33px;
     left: 95px;
@@ -98,6 +98,38 @@ div#msgBox.me:after{
     border-left: 0px solid white;
     transform: rotateZ(35deg);
 }
+
+div#msgBox.you:before{
+	content: "이승현";
+	position: absolute;
+    width: 78px;
+    height: 28px;
+    border: 2px solid white;
+    border-right: 0px;
+    top: -31px;
+    left: -2px;
+    text-align: center;
+    font-family: 'Noto Serif KR', serif;
+    font-size: 21px;
+    padding-left: 8px;
+}
+div#msgBox.you:after{
+	position: absolute;
+    content: "";
+    height: 37px;
+    top: -33px;
+    left: 95px;
+    border-right: 2px solid white;
+    transform: rotateZ(-35deg);
+}
+
+div#msgBox.none:before{
+	content: none;
+}
+div#msgBox.none:after{
+    content: none;
+}
+
 @-webkit-keyframes bang{
 	0%{left: 0px;}
 	33%{left: -100px;}

@@ -28,10 +28,92 @@ $(window).on('keyup', function(e){
 $("#ending").on('click', {cnt:0} ,function(e){
 	var cnt = e.data.cnt++;
 	var target = $("#ending").find("h2");
-	if(cnt==4){
+	
+	if(cnt==3) $("#msgBox").removeClass("me");
+	if(cnt==4) $("#msgBox").addClass("me");
+	if(cnt==5){
+		$("#msgBox").removeClass("me");
+		$("#msgBox").addClass("none");
+	}
+	if(cnt==6) {
+		$("#msgBox").removeClass("none");
+		$("#msgBox").addClass("you");
+	}
+	if(cnt==9) {
+		$("#msgBox").addClass("me");
+		$("#msgBox").addClass("none");
+ 	}
+	if(cnt==10){
+		$("#msgBox").removeClass("none");
 		$("#msgBox").removeClass("me");
 	}
-	if(cnt==17){
+	if(cnt==13){
+		$("#msgBox").removeClass("you");
+		$("#msgBox").addClass("me");
+	}
+	if(cnt==14)$("#msgBox").removeClass("me");
+	if(cnt==15)$("#msgBox").addClass("me");
+	if(cnt==16){
+		$("#msgBox").removeClass("me");
+		$("#msgBox").addClass("you");
+	}
+	
+	if(cnt==26) {
+		$("#msgBox").removeClass("you");
+		$("#msgBox").addClass("me");
+	}
+	if(cnt==28){
+		$("#msgBox").removeClass("me");
+		$("#msgBox").addClass("you");
+	}
+	if(cnt==29) {
+		$("#msgBox").removeClass("you");
+		$("#msgBox").addClass("me");
+		$("#msgBox").addClass("none");
+	}
+	if(cnt==31)$("#msgBox").removeClass("none");
+	if(cnt==32){
+		$("#msgBox").removeClass("me");
+		$("#msgBox").addClass("you");
+	}
+	if(cnt==33) $("#msgBox").addClass("me");
+	if(cnt==33){
+		$("#msgBox").removeClass("me");
+		$("#msgBox").addClass("none");
+	}
+	if(cnt==34){
+		$("#msgBox").removeClass("none");
+		$("#msgBox").removeClass("you");
+		$("#msgBox").addClass("me");
+	}
+	if(cnt==35){
+		$("#msgBox").removeClass("me");
+		$("#msgBox").addClass("you");
+	}
+	if(cnt==40){
+		$("#msgBox").addClass("me");
+		$("#msgBox").addClass("none");
+	}
+	if(cnt==41){
+		$("#msgBox").removeClass("none");
+		$("#msgBox").removeClass("me");
+	}
+	if(cnt==42) {
+		$("#msgBox").removeClass("you");
+		$("#msgBox").addClass("me");
+	}
+	if(cnt==43){
+		$("#msgBox").removeClass("me");
+		$("#msgBox").addClass("you");
+	}
+	if(cnt==47){
+		$("#msgBox").removeClass("you");
+		$("#msgBox").addClass("me");
+	}
+	
+	if(cnt==49){
+		$("#msgBox").removeClass("me")
+		$("#msgBox").addClass("none");
 		$("body, #background").css({"animation": "bang .1s", "animation-iteration-count": "3"});
 		$(this).parent().fadeOut(3000); //마지막 대사 이후 클릭시 메인게임으로 이동.
 		setTimeout(function(){
