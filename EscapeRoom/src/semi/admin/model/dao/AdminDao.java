@@ -18,7 +18,9 @@ import java.util.Properties;
 import semi.admin.model.vo.ReportBoard;
 import semi.admin.model.vo.ReportBoardComment;
 import semi.board.free.model.vo.FreeBoard;
+import semi.board.solve.model.vo.SolveBoard;
 import semi.member.model.vo.Member;
+import semi.notice.model.vo.Notice;
 
 public class AdminDao {
    private Properties prop = new Properties();
@@ -113,18 +115,18 @@ public class AdminDao {
    }
    
    // 관리자용 회원 정보 수정하기
-   public int updateMember(Connection conn, Member m) {
+   public int updateMember(Connection conn, Member member) {
 	   int result = 0;
 	   PreparedStatement pstmt = null;
 	   String query = prop.getProperty("updateMember");
 	   
 	   try {
 		   pstmt = conn.prepareStatement(query);
-		   
-		   pstmt.setString(1, m.getUserId());
-		   pstmt.setString(2, m.getUserEmail());
-		   pstmt.setString(3, m.getUserProfileOriginalFile());
-		   pstmt.setString(4, m.getUserProfileRenamedFile());
+		  
+		   pstmt.setString(2, member.getUserEmail());
+		   pstmt.setString(3, member.getUserProfileOriginalFile());
+		   pstmt.setString(4, member.getUserProfileRenamedFile());
+		   pstmt.setString(1, member.getUserId());
 		   
 		   // UPDATE문이므로 executeUpdate() 사용
 		   result = pstmt.executeUpdate();
@@ -658,7 +660,7 @@ public class AdminDao {
 	}
    
    // 관리자용 신고 댓글 상세보기
-   public ReportBoardComment selectReportBoardCmtOne(Connection conn, int postNo) {
+   public ReportBoardComment selectReportBoardCmtOne(Connection conn, int commentNo) {
 	   	  ReportBoardComment rbc = null;
 	      PreparedStatement pstmt = null;
 	      ResultSet rset = null;
@@ -666,7 +668,7 @@ public class AdminDao {
 	      
 	      try {
 	         pstmt = conn.prepareStatement(query);
-	         pstmt.setInt(1, postNo);
+	         pstmt.setInt(1, commentNo);
 	         rset = pstmt.executeQuery();
 	         
 	         while(rset.next()) { 
@@ -716,10 +718,9 @@ public class AdminDao {
 			
 			if(result > 0) {
 				commit(conn);
-			}
-		      else {
-		    	  rollback(conn);
-		      }
+			} else {
+		    	rollback(conn);
+		    }
 			
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
@@ -739,8 +740,53 @@ public class AdminDao {
 	}
   
    // 관리자용 신고된 댓글 삭제
-   public int deleteReportCmt(int postNo) {
-	   return 0;
-   }
+   public int deleteReportCmt(int commentNo) {
+		int result = 0;
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		String query = "delete from admin_report_comment where commentno=?";
+		
+		try {
+			Class.forName("oracle.jdbc.driver.OracleDriver");
+			conn = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe", 
+					"escape_if_you_can", //아이디 
+					"escape_if_you_can");//비번
+		
+			pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1, commentNo);
+
+			result = pstmt.executeUpdate();	
+			
+			if(result >0) commit(conn);
+		      else rollback(conn);
+			
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				pstmt.close();
+				conn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+			
+		}
+	
+		return result;
+	}
+   
+   // 관리자용 자유게시판 작성글 보기
+   public List<FreeBoard> selectFreeBoard(Connection conn){
+	   	List<FreeBoard> list = null;
+		  return list;
+	  }
+   
+   // 관리자용 공략게시판 작성글 보기
+   public List<SolveBoard> selectSolveBoard(Connection conn){
+		  List<SolveBoard> list = null;
+		  return list;
+	  }
    
 }

@@ -17,7 +17,7 @@
 h1{
 	text-align:center;
 }
-input #id-check{
+#id-check{
 	outline:none;
 	border:1px solid white;
 	color:white;
@@ -25,11 +25,30 @@ input #id-check{
 	border-radius: 5px;
 	cursor:pointer;
 }
-
+#boardView-Btn{
+	outline:none;
+	font-family: 'Noto Serif KR', serif;
+	font-weight:bold;
+	border:1px solid #353535;
+	color:white;
+	background: #353535;
+	border-radius: 10px;
+	width:200px;
+	height:35px;
+	font-size:15px;
+	cursor:pointer;
+	display:block;
+	margin:0 auto;
+	margin-top:20px;
+}
 </style>
 <script>
 // 회원정보 수정 유효성 검사하기
 function updateValidate(){	
+	// 아이디 검사
+	var $userId_ = $("#userId_"); // 아이디
+	var getUserId = RegExp(/^[a-zA-Z]+[a-zA-Z0-9]{4,11}$/); // 아이디 유효성 검사용
+	
 	// 프로필 사진 검사
 	var $userProfileOriginalFile = $("#userProfile"); // 프로필 사진명
 	var fileExt = $userProfileOriginalFile.val().substring($userProfileOriginalFile.val().lastIndexOf(".") + 1); // 확장자명 구하기용
@@ -43,6 +62,28 @@ function updateValidate(){
 	// 이메일 검사 
 	var $userEmail = $("#userEmail"); // 이메일
 	var getUserEmail = RegExp(/^[a-z0-9_+.-]+@([a-z0-9-]+\.)+[a-z0-9]{2,4}$/); // 이메일 유효성 검사용
+	
+	// 아이디 공백 확인
+	if($userId_.val() ==""){
+		alert("아이디를 입력해주세요.");
+		$userId_.focus();
+		return false;
+	}
+	
+	// 아이디 유효성 검사
+	if(!getUserId.test($userId_.val())){
+		alert("아이디는 영문자와 숫자를 포함한 5~15 자리로 입력해주세요.");
+		$userId_.val("");
+		$userId_.focus();
+		return false;
+	}
+	
+	// 아이디 중복검사 여부 체크
+	var $idValid = $("#idValid").val();
+	if($idValid == 0){
+		alert("아이디 중복검사해주세요.");
+		return false;
+	}
 	
 	// 프로필 사진 유효성 검사
 	if(!getUserProfileOriginalFile.test(fileExt) && $userProfileOriginalFile.val().length > 0){
@@ -69,16 +110,35 @@ function updateValidate(){
 	
 }
 
-// 비밀번호 수정하기
-// adminPwdUpdate 서블릿
-// 비밀번호 수정 버튼 클릭시 팝업 요청하기
-function updatePwd(){
-	var url = "<%=request.getContextPath() %>/admin/adminPwdUpdate?userId=<%=userId_%>";
+// 아이디 중복검사용
+// adminCheckIdDuplicate 서블릿
+// 팝업으로 불러오기
+function adminCheckIdDuplicate(){
+	var getUserId = RegExp(/^[a-zA-Z]+[a-zA-Z0-9]{4,11}$/); // 유저 아이디 유효성 검사
+	// 아이디 중복검사폼 전송
+	var $userId = $("#userId_").val();
+	if($userId == ""){
+		alert("아이디를 입력해주세요.");
+		return;
+	}
 	
-	// 팝업창 이름
-	var title = "관리자용 회원번호 수정하기";
-	var status = "left=500px, top=200px, width=400px, height=400px";
-	open(url, title, status);
+	if(!getUserId.test($userId)){
+		alert("아이디는 영문자로 시작하고, 5~12자 영문자 또는 숫자를 입력해주세요.");
+		return;
+	}
+	
+	// 팝업창을 target으로 폼 전송
+	var target = "adminCheckIdDuplicate";
+	
+	// url은 생략, form의 action값으로 대체
+	var popup = open("", target, "left=300px, top=100px, width=450px, height=150px");
+	
+	adminCheckIdDuplicateFrm.userId.value = $userId;
+	console.log("userId@adminCheckIdDuplicate()@register.jsp = ", $userId);
+	
+	// 폼의 대상을 작성한 popup을 가리키게 한다. 이때 이용하는게 popup창의 이름(target)
+	adminCheckIdDuplicateFrm.target = target;
+	adminCheckIdDuplicateFrm.submit();
 }
 
 // 회원 삭제하기
@@ -109,12 +169,23 @@ function readURL(input){
 
        reader.readAsDataURL(input.files[0]);
    }
+   
+   $(function(){
+		$("#userId_").on("click", function(){
+			alert("아이디는 수정이 불가능합니다.");
+		});
+	});
 }
 </script>
 <title>관리자용 게시판</title>
-<h1>관리자용 회원 정보 상세 보기</h1>
-<!-- 회원 한 명 정보 상세 보기 및 수정, 삭제 -->
+<h1>관리자용 회원 정보 수정하기</h1>
+<!-- 회원 한 명 정보 상세 보기 및 수정, 탈퇴 -->
 <section id="memberView-Container">
+<form action="<%=request.getContextPath()%>/admin/adminCheckIdDuplicate"
+	  method="post"
+	  name="adminCheckIdDuplicateFrm">
+	  <input type="hidden" name="userId"/>
+</form>
 <input type="hidden" name="userIdTest" id="userIdTest" value="<%=userId_%>"/>
 <form action="<%=request.getContextPath()%>/admin/adminMemberUpdateEnd"
 	  method="post"
@@ -126,6 +197,14 @@ function readURL(input){
 				<th>아이디</th>
 					<td>
 						<input type="text" name="userId" id="userId_" value="<%=userId_%>" required readonly/>
+					</td>
+					<td>
+						<!-- 팝업으로 중복검사 불러오기 -->
+						<input type="button" id="id-check" value="중복검사" onclick="adminCheckIdDuplicate();">
+					</td>
+					<td>
+						<!-- 아이디 중복검사 여부 확인 -->
+						<input type="hidden" name="idRegister" id="idRegister" value="0">
 					</td>
 				</tr>
 			<tr>
@@ -175,9 +254,9 @@ function readURL(input){
 			</tr>
 		</table>
 	<input type="submit" id="editInfo-Btn" value="회원정보 수정" />
-	<input type="button" id="password-Btn" value="비밀번호 수정" onclick="updatePwd();" />
 	<input type="button" id="delete-Btn" value="회원 삭제" onclick="deleteMember();" />
 </form>
+<!-- <a href="<%=request.getContextPath()%>' /admin/allBoardView"><button id="boardView-Btn" >작성한 게시글 보기</button></a>  -->
 <form action="<%=request.getContextPath()%>/admin/adminMemberDelete"
 	  method="post"
 	  name="adminMemberDeleteFrm">
