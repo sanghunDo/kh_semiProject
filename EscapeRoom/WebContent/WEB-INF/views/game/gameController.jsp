@@ -26,6 +26,19 @@ function setObject(position){
 					}
 				}
 			obj_click();
+			escape();
+		}
+	});
+};
+function escape(){
+	$("#door").on('click', function(){
+		var state1 = check_state("door_lock1", "use");
+		var state2 = check_state("door_lock2", "use");
+		
+		if(state1==2&&state2==2){
+			console.log("축하합니다....");
+		}else{
+			show_coment("door", 1);
 		}
 	});
 };
@@ -40,7 +53,7 @@ function off(){
 };
 function obj_click(){
 	var position = $("#background img").prop("id")
-	$("#background>img").not(":first").each(function(){
+	$("#background>img").not(":first, #door").each(function(){
 		$(this).on('click', function(){
 			var objName = $(this).prop("id");
 			var html = "";
@@ -54,16 +67,21 @@ function obj_click(){
 				if(children.length==2){
 					var state1 = is_used(children[0]);
 					var state2 = is_used(children[1]);
+					var childName = "";
 					
-					if(state1==1&&state2==2){objName = children[0]+"_"+objName;}
-					if(state1==2&&state2==1){objName = children[1]+"_"+objName;}
 					if(state1==2&&state2==2){objName = "used_"+objName;}
+					else{
+						if(state1==1&&state2==2){objName=children[0]+"_"+objName; childName=children[0];}
+						if(state1==2&&state2==1){objName=children[1]+"_"+objName; childName=children[1];}
+						console.log(childName);
+						html += "<img src='<%=request.getContextPath()%>/images/game/gameMain/"+position+"/"+childName+".png'";
+						html +=" id='"+childName+"' onclick=get_item('"+childName+"') class='obj'>";
+					}
 				}
-				console.log(objName);
 			}
 			
-			html = "<img src='<%=request.getContextPath()%>/images/game/gameMain/clicked/"+objName+"_clicked.png'";
-			html+= " onclick=obj_hasNext('"+objName+"') class='"+objName+"'>";
+			html = "<img src='<%=request.getContextPath()%>/images/game/gameMain/clicked/"+objName+"_clicked.png'"
+				 + " onclick=obj_hasNext('"+objName+"') class='"+objName+"'>" + html;
 			
 			off();
 			$("#show-obj").html(html).show();

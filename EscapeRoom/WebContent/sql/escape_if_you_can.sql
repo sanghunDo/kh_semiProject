@@ -121,6 +121,27 @@ INSERT INTO board_free values (seq_board_free_postno.nextVal , '역삼동 맛집
 INSERT INTO board_free values (seq_board_free_postno.nextVal , '베스트3안에 드신 분들 진짜 대단', 'fghfj' , '안녕하세요 놀러왔어요!' ,null, null, default, 10, 11 , 0 , default);
 INSERT INTO board_free values (seq_board_free_postno.nextVal , '방탈출 너무 어려워요ㅜㅜ', 'qwee' , '안녕하세요 놀러왔어요!' ,null, null, default, 10, 11 , 0 , default);
 INSERT INTO board_free values (seq_board_free_postno.nextVal , '밀크티는 역시 투썸인거같네요', 'ljk' , '안녕하세요 놀러왔어요!' ,null, null, default, 10, 11 , 0 , default);
+--자유게시판 데이터 삽입
+delete from board_free; --기존에 있던 데이터 삭제
+INSERT INTO board_free values (seq_board_free_postno.nextVal , '안녕하세요', 'abcd' , '안녕하세요 방탈출게임커뮤니티는 처음이에요!' ,null, null, default, 10, 11 , 0 , default);
+INSERT INTO board_free values (seq_board_free_postno.nextVal , '좋은아침입니다', 'efg' , '안녕하세요 좋은아침입니다! 여기 게시글에 오신 분들 모두 화이팅입니다!' ,null, null, default, 10, 11 , 0 , default);
+INSERT INTO board_free values (seq_board_free_postno.nextVal , '날씨 너무 추워요', 'klm' , '손난로는 필수템..다들아시죠?' ,null, null, default, 10, 11 , 0 , default);
+INSERT INTO board_free values (seq_board_free_postno.nextVal , '다들 감기 조심!', 'nop' , '감기조심하세요!' ,null, null, default, 10, 11 , 0 , default);
+INSERT INTO board_free values (seq_board_free_postno.nextVal , '독감이 유행이라고 하더라구요', 'qrst' , '그래서 주사맞고왔어요! 다들 조심하세요' ,null, null, default, 10, 11 , 0 , default);
+INSERT INTO board_free values (seq_board_free_postno.nextVal , '얼죽아 협회회원들 계신가요?', 'uvw' , '저는 얼죽아에요 ㅋㅋ 얼어죽어도 아이스!!' ,null, null, default, 10, 11 , 0 , default);
+INSERT INTO board_free values (seq_board_free_postno.nextVal , '노래추천해주세요!', 'xyz' , '저는 신나는 노래좋아하는데 추천부탁드려요:)' ,null, null, default, 10, 11 , 0 , default);
+INSERT INTO board_free values (seq_board_free_postno.nextVal , '랭킹세웠슴당', 'qwerty' , '아싸뵤 ㅋㅋㅋㅋ한지 하루만에 랭킹세웠어요!' ,null, null, default, 10, 11 , 0 , default);
+INSERT INTO board_free values (seq_board_free_postno.nextVal , '저는 샐리가 좋더라구여 ㅋㅋ', 'fghfj' , '브라운보다는 샐리! 저같은 분계신가요?' ,null, null, default, 10, 11 , 0 , default);
+INSERT INTO board_free values (seq_board_free_postno.nextVal , '비염있으신 분 계신가요ㅜㅜ', 'sdggg' , '환절기라 죽겠어요ㅜㅜ 약없이는 일상생활불가에여ㅜㅜ' ,null, null, default, 10, 11 , 0 , default);
+INSERT INTO board_free values (seq_board_free_postno.nextVal , '섬유향수 추천!', 'nanda5050' , '랄라블라에서 산 비누향인데 정말좋아요! 강추입니다!!' ,null, null, default, 765, 256 , 0 , default);
+INSERT INTO board_free values (seq_board_free_postno.nextVal , '탑텐 패딩 후기', 'ert' , '싼맛에 샀는데 아직까지 버티고 있는걸로보아 가성비 짱입니다!' ,null, null, default, 453, 193 , 0 , default);
+INSERT INTO board_free values (seq_board_free_postno.nextVal , '역삼동 맛집가봤어요', 'ert' , '역삼역주변에 있는 쌀국수 집 가봤어요! 저는 그닥 별로 더라구요..ㅋㅋ 넘 비싸기만해서 실망했어요' ,null, null, default, 299, 168 , 0 , default);
+INSERT INTO board_free values (seq_board_free_postno.nextVal , '베스트3안에 드신 분들 진짜 대단', 'fghfj' , '진짜 모르겠던대ㅜㅜㅜㅜㅜ공략게시판에서 살아야겠어요' ,null, null, default, 10, 11 , 0 , default);
+INSERT INTO board_free values (seq_board_free_postno.nextVal , '방탈출 너무 어려워요ㅜㅜ', 'qwee' , '공략게시판에 수시로 들어가서 확인하는데도 잘모르겠다는..ㅋㅋ' ,null, null, default, 10, 11 , 0 , default);
+INSERT INTO board_free values (seq_board_free_postno.nextVal , '밀크티는 역시 투썸인거같네요', 'ljk' , '밀크티쉐이크가 짱입니다!' ,null, null, default, 10, 11 , 0 , default);
+
+commit;
+
 
 --공략게시판 (자유게시판과 구조가 같습니다.)
 create table board_solve(
@@ -366,6 +387,8 @@ create table game_object_coment(
     constraint fk_object_refobj foreign key(refobj) references game_object(objno)
 );
 --select v.* from(select coment, rownum as rnum from game_object_coment c join game_object o on c.refobj = o.objno where objName = 'door_lock2') v where rnum = 1;
+insert into game_object values(0, 'door', default, default, default, 'front', 1, default, default);
+insert into game_object_coment values(0, '"아 ㅈㄴ 나가고싶다!!"', 0);
 
 insert into game_object values(1, 'door_lock1', default, default, default, 'front', 1, default, default);
 insert into game_object_coment values(1, '"여기에 맞는 열쇠를 찾아야겠군."', 1);
@@ -484,14 +507,16 @@ insert into game_object values(37, 'letter', 'letter_opened', default, default, 
 insert into game_object_coment values(42, '"누가 쓴편지냐"', 37);
 insert into game_object_coment values(43, '"ㅈㄹ하넹ㅋㅋ"', 37);
 
-insert into game_object values(38, 'ceilinglight', default, default, default, 'ceil', 1, default, default);
+insert into game_object values(38, 'ceilinglight', default, default, default, 'ceiling', 1, default, default);
 insert into game_object_coment values(44, '"전등속에 뭐가 있는데.. 손은 닿지만 열리지가 않아"', 38);
 
-insert into game_object values(39, 'used_ceilinglight', default, default, default, 'ceil', 2, default, default);
+insert into game_object values(39, 'used_ceilinglight', default, default, default, 'ceiling', 2, default, default);
 insert into game_object_coment values(45, '".....눈부셔ㅜ"', 39);
 
-insert into game_object values(40, 'key_2', default, default, default, 'ceil', 3, 1, 'Y');
+insert into game_object values(40, 'key_2', default, default, default, 'ceiling', 3, 1, 'Y');
 insert into game_object_coment values(46, '"샤이니 만능열쇠 key~"', 40);
+
+
 commit;
 
 create table game_state(
