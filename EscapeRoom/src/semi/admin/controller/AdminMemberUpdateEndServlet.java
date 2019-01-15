@@ -118,35 +118,36 @@ public class AdminMemberUpdateEndServlet extends HttpServlet {
 			userProfileRenamedFile_ = multiReq.getParameter("oldUserRenamedProfile");			
 		}
 		
-		Member m = new Member();
-		m.setUserId(userId);
-		m.setUserPassword(userPassword);
-		m.setUserEmail(userEmail);
-		m.setUserProfileOriginalFile(userProfileOriginalFile_);
-		m.setUserProfileRenamedFile(userProfileRenamedFile_);
-		System.out.printf("[m@AdminMemberUpdateServlet = %s]\n", m);
+		Member member = new Member();
+		member.setUserId(userId);
+		member.setUserPassword(userPassword);
+		member.setUserEmail(userEmail);
+		member.setUserProfileOriginalFile(userProfileOriginalFile_);
+		member.setUserProfileRenamedFile(userProfileRenamedFile_);
+		System.out.printf("[m@AdminMemberUpdateServlet = %s]\n", member);
 		
 		// 3. 비즈니스 로직
-		int result = new AdminService().updateMember(m);
+		int result = new AdminService().updateMember(member);
 				
 		// 4. view단 처리
-		String view = "/WEB-INF/views/common/msg.jsp";
 		String msg = "";
 		String loc = "/";
+		String view = "/WEB-INF/views/common/msg.jsp";
 		
 		if (result > 0) {
 			msg = "회원 정보를 수정하였습니다.";
 			loc = "/home";
 		} else {
 			msg = "회원 정보 수정에 실패하였습니다.";
-			String root2 = request.getContextPath();
-			response.sendRedirect(root2 + "/admin/adminBoard?userId=" + userId);
+			String root2 = request.getContextPath();			
+			response.sendRedirect(root2 + "/admin/adminBoard");
+			return;
 		}
 
-      request.getRequestDispatcher(view).forward(request, response); // 실패했을 시 사용
-      request.setAttribute("msg", msg); // 실패했을 시 사용
-      request.setAttribute("loc", loc); // 실패했을 시 사용
-
+		request.setAttribute("msg", msg); // 실패했을 시 사용
+		request.setAttribute("loc", loc); // 실패했을 시 사용
+		request.getRequestDispatcher(view).forward(request, response); // 실패했을 시 사용
+		
 	}
 
 	/**
