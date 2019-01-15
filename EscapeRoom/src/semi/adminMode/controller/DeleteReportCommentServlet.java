@@ -29,10 +29,9 @@ public class DeleteReportCommentServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String category = request.getParameter("category");
-		int postNo = Integer.parseInt(request.getParameter("postNo"));
 		int commentNo = Integer.parseInt(request.getParameter("commentNo"));
 		
-		int result = new AdminModeService().deleteReportComment(category, postNo, commentNo);
+		int result = new AdminModeService().deleteReportComment(category, commentNo);
 		
 		String msg = "";
 		String loc = "/adminMode/adminMain";

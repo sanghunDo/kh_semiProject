@@ -42,10 +42,10 @@ function deleteReportBoard(postNo, category){
 	else location.href = "<%=request.getContextPath()%>/adminMode/deleteReportBoard?postNo=" + postNo + "&category=" + category;
 }
 
-function deleteReportComment(postNo, commentNo, category){
+function deleteReportComment(commentNo, category){
 	var temp = confirm("해당 댓글에 대한 신고를 취소하시겠습니까?");
 	if(!temp) return;
-	else location.href = "<%=request.getContextPath()%>/adminMode/deleteReportComment?postNo=" + postNo + "&commentNo=" + commentNo + "&category=" + category;
+	else location.href = "<%=request.getContextPath()%>/adminMode/deleteReportComment?commentNo=" + commentNo + "&category=" + category;
 }
 
 function deletePost(postNo, category){
@@ -54,10 +54,10 @@ function deletePost(postNo, category){
 	else location.href = "<%=request.getContextPath()%>/adminMode/deletePost?postNo=" + postNo + "&category=" + category;
 }
 
-function deleteComment(postNo, commentNo, category){
+function deleteComment(commentNo, category){
 	var temp = confirm("해당 댓글을 삭제처리 하시겠습니까?");
 	if(!temp) return;
-	else location.href = "<%=request.getContextPath()%>/adminMode/deleteComment?postNo=" + postNo + "&commentNo=" + commentNo + "&category=" + category;
+	else location.href = "<%=request.getContextPath()%>/adminMode/deleteComment?commentNo=" + commentNo + "&category=" + category;
 }
 </script>
 
@@ -96,7 +96,7 @@ function deleteComment(postNo, commentNo, category){
 		<%}%>
 	<%} else { %>
 		<tr>
-			<td colspan="6">데이터가 없습니다.</td>
+			<td colspan="7">데이터가 없습니다.</td>
 		</tr>
 	<%} %>
 </table>
@@ -131,15 +131,15 @@ function deleteComment(postNo, commentNo, category){
 			<td><%=rc.getReasonChecked()%></td>
 			<td><%=rc.getUserComment()%></td>
 			<td>
-				<button class="notOK" onclick="deleteComment('<%=rc.getPostNo()%>', '<%=rc.getCommentNo() %>', '<%=rc.getCategory()%>');">삭제</button>
+				<button class="notOK" onclick="deleteComment('<%=rc.getCommentNo() %>', '<%=rc.getCategory()%>');">삭제</button>
 				&nbsp;
-				<button class="OK" onclick="deleteReportComment('<%=rc.getPostNo()%>', '<%=rc.getCommentNo() %>', '<%=rc.getCategory()%>');">X</button>
+				<button class="OK" onclick="deleteReportComment('<%=rc.getCommentNo() %>', '<%=rc.getCategory()%>');">X</button>
 			</td>
 		</tr>
 		<%} %>
 	<%} else{ %>
 		<tr>
-			<td colspan="7">데이터가 없습니다.</td>
+			<td colspan="8">데이터가 없습니다.</td>
 		</tr>
 	<%} %>
 </table>

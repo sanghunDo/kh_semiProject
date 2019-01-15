@@ -73,10 +73,10 @@ public class AdminModeService {
 		return result;
 	}
 
-	public int deleteReportComment(String category, int postNo, int commentNo) {
+	public int deleteReportComment(String category, int commentNo) {
 		int result = 0;
 		Connection conn = getConnection();
-		result = new AdminModeDao().deleteReportComment(conn, category, postNo, commentNo);
+		result = new AdminModeDao().deleteReportComment(conn, category, commentNo);
 		
 		if(result > 0) commit(conn);
 		else rollback(conn);
@@ -101,6 +101,42 @@ public class AdminModeService {
 		int result = 0;
 		Connection conn = getConnection();
 		result = new AdminModeDao().changeSolveTitleReported(conn, postNo);
+		
+		if(result > 0) commit(conn);
+		else rollback(conn);
+		
+		close(conn);
+		return result;
+	}
+
+	public int changeFreeCommentReported(int commentNo) {
+		int result = 0;
+		Connection conn = getConnection();
+		result = new AdminModeDao().changeFreeCommentReported(conn, commentNo);
+		
+		if(result > 0) commit(conn);
+		else rollback(conn);
+		
+		close(conn);
+		return result;
+	}
+
+	public int changeSolveCommentReported(int commentNo) {
+		int result = 0;
+		Connection conn = getConnection();
+		result = new AdminModeDao().changeSolveCommentReported(conn, commentNo);
+		
+		if(result > 0) commit(conn);
+		else rollback(conn);
+		
+		close(conn);
+		return result;
+	}
+
+	public int changeRankCommentReported(int commentNo) {
+		int result = 0;
+		Connection conn = getConnection();
+		result = new AdminModeDao().changeRankCommentReported(conn, commentNo);
 		
 		if(result > 0) commit(conn);
 		else rollback(conn);

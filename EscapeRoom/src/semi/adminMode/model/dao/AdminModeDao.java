@@ -210,7 +210,7 @@ public class AdminModeDao {
 		return result;
 	}
 
-	public int deleteReportComment(Connection conn, String category, int postNo, int commentNo) {
+	public int deleteReportComment(Connection conn, String category, int commentNo) {
 		int result = 0;
 		PreparedStatement pstmt = null;
 		String query = prop.getProperty("deleteReportComment");
@@ -218,8 +218,7 @@ public class AdminModeDao {
 		try {
 			pstmt = conn.prepareStatement(query);
 			pstmt.setString(1, category);
-			pstmt.setInt(2, postNo);
-			pstmt.setInt(3, commentNo);
+			pstmt.setInt(2, commentNo);
 			
 			result = pstmt.executeUpdate();
 			
@@ -262,6 +261,72 @@ public class AdminModeDao {
 			pstmt = conn.prepareStatement(query);
 			pstmt.setString(1, "해당 게시물은 관리자에 의해 삭제되었습니다.");
 			pstmt.setInt(2, postNo);
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+
+	public int changeFreeCommentReported(Connection conn, int commentNo) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		
+		String query = prop.getProperty("changeFreeCommentReported");
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, "해당 댓글은 관리자에 의해 삭제되었습니다.");
+			pstmt.setInt(2, commentNo);
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+
+	public int changeSolveCommentReported(Connection conn, int commentNo) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		
+		String query = prop.getProperty("changeSolveCommentReported");
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, "해당 댓글은 관리자에 의해 삭제되었습니다.");
+			pstmt.setInt(2, commentNo);
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+
+	public int changeRankCommentReported(Connection conn, int commentNo) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		
+		String query = prop.getProperty("changeRankCommentReported");
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, "해당 댓글은 관리자에 의해 삭제되었습니다.");
+			pstmt.setInt(2, commentNo);
 			
 			result = pstmt.executeUpdate();
 			

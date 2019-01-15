@@ -40,7 +40,12 @@ public class DeletePostServlet extends HttpServlet {
 		String msg = "";
 		String loc = "/adminMode/adminMain";
 		
-		if(result > 0) msg = "삭제처리가 완료되었습니다.";
+		if(result > 0) {
+			result = new AdminModeService().deleteReportBoard(category, postNo);
+			if(result > 0) msg = "삭제처리가 완료되었습니다.";
+			else msg = "삭제처리성공, 신고처리 실패";
+		}
+		
 		else msg = "삭제 처리 실패";
 		
 		request.setAttribute("msg", msg);

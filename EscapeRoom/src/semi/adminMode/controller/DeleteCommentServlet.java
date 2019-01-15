@@ -7,6 +7,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import semi.adminMode.model.service.AdminModeService;
+
 /**
  * Servlet implementation class DeleteCommentServlet
  */
@@ -26,8 +28,29 @@ public class DeleteCommentServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+		String category = request.getParameter("category");
+		int commentNo = Integer.parseInt(request.getParameter("commentNo"));
+		
+		int result = 0;
+		
+		if("F".equals(category)) result = new AdminModeService().changeFreeCommentReported(commentNo);
+		else if("S".equals(category)) result = new AdminModeService().changeSolveCommentReported(commentNo);
+		else if("R".equals(category)) result = new AdminModeService().changeRankCommentReported(commentNo);
+		
+		String msg = "";
+		String loc = "/adminMode/adminMain";
+		
+		if(result > 0) {
+			result = new AdminModeService().deleteReportComment(category, commentNo);
+			if(result > 0) msg = "삭제처리가 완료되었습니다.";
+			else msg = "삭제처리성공, 신고처리 실패";
+		}
+		
+		else msg = "삭제 처리 실패";
+		
+		request.setAttribute("msg", msg);
+		request.setAttribute("loc", loc);
+		request.getRequestDispatcher("/WEB-INF/views/common/msg.jsp").forward(request, response);
 	}
 
 	/**
