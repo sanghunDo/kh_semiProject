@@ -85,9 +85,8 @@ function obj_click(){
 			
 			var state_ = 0;
 			if(objName!="calendar"&&objName!="under_bed_diary"&&objName.indexOf("books")==-1&&objName!="window"
-				&& objName!="letter"){
+				&& objName!="letter" && objName.indexOf("used")==-1){
 				state_ = check_state(objName, "use");
-				console.log(state_);
 			}
 			
 			if(state_==2){
@@ -127,8 +126,6 @@ function obj_click(){
 					 + " onclick=obj_hasNext('"+objName+"') class='"+objName+"'>" + html;
 			}
 			
-			console.log(objName, html);
-			
 			off();
 			$("#show-obj").html(html).show();
 			show_coment(objName, 1);
@@ -155,13 +152,12 @@ function is_usable(objName){
 	return itemList;
 };
 function check_has_item(objName, itemList){
-	console.log("ㅋㅋㅋ");
 	var position = $("#background img").prop("id");
 	var objNo = get_data(objName, "objNo");
 	var html = "<img src='<%=request.getContextPath()%>/images/game/gameMain/clicked/"+objName+".png'"; 
 		html += "class='"+objNo+"' onclick=obj_hasNext('"+objName+"')>";
 	var flag = false;
-	
+	console.log(html);
 	$("#show-obj").html(html).show();
 	off();
 	var item;

@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import semi.member.exception.MemberException;
 import semi.member.model.dao.MemberDao;
 import semi.member.model.service.MemberService;
 import semi.member.model.vo.Member;
@@ -32,6 +33,9 @@ public class MemberLoginEndServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		try {
+		
 		// 1. 파라미터 핸들링
 		String userId = request.getParameter("userId");
 		String userPassword = request.getParameter("userPassword");
@@ -135,6 +139,11 @@ public class MemberLoginEndServlet extends HttpServlet {
 			request.setAttribute("loc", loc);
 			
 			request.getRequestDispatcher(view).forward(request, response);
+		}
+		
+		} catch(Exception e) {
+			e.printStackTrace();
+			throw new MemberException("로그인 오류! 관리자에게 문의하세요.");
 		}
 		
 	}
