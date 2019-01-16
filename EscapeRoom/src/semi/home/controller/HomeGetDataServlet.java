@@ -9,6 +9,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import semi.adminMode.model.service.AdminModeService;
+import semi.adminMode.model.vo.Admin;
 import semi.board.free.model.dao.FreeBoardDao;
 import semi.board.free.model.vo.FreeBoard;
 import semi.board.rank.model.vo.Rank;
@@ -36,7 +38,7 @@ public class HomeGetDataServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
+
 		//공지사항 링크
 		Notice n = null;
 
