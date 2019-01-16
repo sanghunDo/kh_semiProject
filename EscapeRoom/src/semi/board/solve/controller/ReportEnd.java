@@ -30,11 +30,11 @@ public class ReportEnd extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		int postNo = Integer.parseInt(request.getParameter("postNo"));
 		int commentNo = Integer.parseInt(request.getParameter("commentNo"));
-		String commentWriter = request.getParameter("commentWrtier");
+		String commentWriter = request.getParameter("commentWriter");
 		String commentContent = request.getParameter("commentContent");
 		String[] reason = request.getParameterValues("reason");
 		String userComment = request.getParameter("userComment");
-
+		System.out.println("여기나옴??"+commentWriter);
 		
 		String reasonVal = "";
 		for(int i=0; i < reason.length; i++){

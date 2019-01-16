@@ -22,6 +22,10 @@ public class FreeBoard implements Serializable {
 		
 	}
 
+	public String getPostReport() {
+		return postReport;
+	}
+
 	public FreeBoard(int postNo, String postTitle, String postWriter, String postContent, String postOriginalFile,
 			String postRenamedFile, Date postDate, int postLike, int postDislike, String postReport, int postReadCount,int board_comment_cnt) {
 		

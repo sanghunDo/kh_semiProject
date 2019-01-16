@@ -69,6 +69,7 @@ public class SolveBoardDao {
             sb.setPostDate(rset.getDate("postdate"));
             sb.setPostReadCount(rset.getInt("postreadcount"));
             sb.setBoard_comment_cnt(rset.getInt("board_comment_cnt"));
+            sb.setPostReport(rset.getString("postreport"));
             
             list.add(sb);
             
@@ -408,6 +409,7 @@ public class SolveBoardDao {
             bc.setCommentDate(rset.getDate("commentdate"));
             bc.setCommentLike(rset.getInt("commentlike"));
             bc.setCommentDislike(rset.getInt("commentdislike"));
+            bc.setCommentReport(rset.getString("commentreport"));
             
             commentList.add(bc);
          }

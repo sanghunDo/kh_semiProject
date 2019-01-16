@@ -248,7 +248,7 @@ public class AdminModeDao {
 		} finally {
 			close(pstmt);
 		}
-		
+		System.out.println("여기는관리자가 자유게시판 삭제 하는 dao  result="+result);
 		return result;
 	}
 
@@ -269,7 +269,8 @@ public class AdminModeDao {
 		} finally {
 			close(pstmt);
 		}
-		
+		System.out.println("여기는관리자가  공략게시판 삭제 하는 dao  result="+result);
+
 		return result;
 	}
 
