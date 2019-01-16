@@ -6,6 +6,7 @@ import java.sql.Connection;
 import java.util.List;
 
 import semi.adminMode.model.dao.AdminModeDao;
+import semi.adminMode.model.vo.Admin;
 import semi.adminMode.model.vo.Report_Board;
 import semi.adminMode.model.vo.Report_Comment;
 import semi.board.solve.model.vo.SolveBoard;
@@ -137,6 +138,58 @@ public class AdminModeService {
 		int result = 0;
 		Connection conn = getConnection();
 		result = new AdminModeDao().changeRankCommentReported(conn, commentNo);
+		
+		if(result > 0) commit(conn);
+		else rollback(conn);
+		
+		close(conn);
+		return result;
+	}
+
+	public List<Admin> selectAllAdmin() {
+		List<Admin> list = null;
+		Connection conn = getConnection();
+		list = new AdminModeDao().selectAllAdmin(conn);
+		close(conn);
+		return list;
+	}
+
+	public int insertAdminList(String userId) {
+		int result = 0;
+		Connection conn = getConnection();
+		result = new AdminModeDao().insertAdminList(conn, userId);
+		
+		if(result > 0) commit(conn);
+		else rollback(conn);
+		
+		close(conn);
+		return result;
+	}
+
+	public int updateAdminVote(String userId) {
+		int result = 0;
+		Connection conn = getConnection();
+		result = new AdminModeDao().updateAdminVote(conn, userId);
+		
+		if(result > 0) commit(conn);
+		else rollback(conn);
+		
+		close(conn);
+		return result;
+	}
+
+	public Admin selectOneAdmin(String userId) {
+		Admin a = null;
+		Connection conn = getConnection();
+		a = new AdminModeDao().selectOneAdmin(conn, userId);
+		close(conn);
+		return a;
+	}
+
+	public int deleteAdmin(String userId) {
+		int result = 0;
+		Connection conn = getConnection();
+		result = new AdminModeDao().deleteAdmin(conn, userId);
 		
 		if(result > 0) commit(conn);
 		else rollback(conn);

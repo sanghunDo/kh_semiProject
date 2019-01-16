@@ -17,20 +17,19 @@ function setObject(position){
 		type: "get",
 		dataType: "json",
 		success: function(data){
-			console.log(data);
 			$("#background img").not(":first").remove();
 				for(var i in data){
 					var obj = data[i];
 					if(obj.position==position&&obj.objLevel==1){
 						var html; 
 						var objName = obj.objName;
-						if(data[i].objName.indexOf("books")!=-1&&data[i].objName!="door"&&
-						   data[i].objName.indexOf("calendar")!=-1&&data[i].objName.indexOf("books")!=-1&&
-						   data[i].objName.indexOf("under")!=-1){
+						if(!(objName=="calendar"||objName=="door"||objName.indexOf("books")!=-1||objName.indexOf("under")!=-1
+							||objName=="window" || objName=="letter")){
 							var state = check_state(objName, "use");
 							if(state==2) objName = "used_"+objName;
+							console.log(state);
 						} 
-						html = "<img src='<%=request.getContextPath()%>/images/game/gameMain/"+position+"/"+obj.objName+".png' id='"+objName+"' class='obj'/>";
+						html = "<img src='<%=request.getContextPath()%>/images/game/gameMain/"+position+"/"+objName+".png' id='"+objName+"' class='obj'/>";
 						$("#background").append(html);
 					}
 				}
@@ -73,7 +72,7 @@ function off(){
 };
 function obj_click(){
 	var position = $("#background img").prop("id");
-	$("#background>img").not(":first").each(function(){
+	$("#background>img").not(":first, [id*=used]").each(function(){
 		
 		if($("#show-obj").children().length!=0 || $("#pause-menu").children().length!=0
 				|| $("#store").children().length!=0 || $("#help").children().length!=0) return;
@@ -88,6 +87,7 @@ function obj_click(){
 			if(objName!="calendar"&&objName!="under_bed_diary"&&objName.indexOf("books")==-1&&objName!="window"
 				&& objName!="letter"){
 				state_ = check_state(objName, "use");
+				console.log(state_);
 			}
 			
 			if(state_==2){
@@ -111,7 +111,7 @@ function obj_click(){
 						var childName = "";
 						
 						console.log(state1, state2);
-						if(state1==1&&state2==1){
+						if(!(state1==1&&state2==1)){
 							if(state1==2&&state2==2){objName = "used_"+objName;}
 							else{
 								if(state1==1&&state2==2){objName=children[0]+"_"+objName; childName=children[0];}
@@ -187,13 +187,21 @@ function use_item(objName, objNo, itemNo){
 		if($("#inventory").offset().top<704){$("#inventory").trigger('click');}
 		$("#show-obj img:first").attr("src", "<%=request.getContextPath()%>/images/game/gameMain/"+position+"/used_"+objName+".png")
 								.attr("onclick", "obj_hasNext('"+objName+"')");
+		$("#"+objName).attr("src", "<%=request.getContextPath()%>/images/game/gameMain/"+position+"/used_"+objName+".png").attr("id", "used_"+objName);
 		show_coment("used_"+objName, 1);
 		var itemName = $("#"+itemNo).prop("class");
 		
-		update_state(objName, "use");
-		update_state(itemName, "use");
-		setObject(position);
-		
+		if(objName=="door_lock2"){
+			var state1 = check_state("battery", "use");
+			var state2 = check_state("used_safe_wire", "use");
+			if(state1==2&&state2==2){
+				update_state(objName, "use");
+			}
+		}else{
+			update_state(objName, "use");
+			update_state(itemName, "use");
+		}
+				
 		var children = find_children("used_"+objName, 2);
 		if(children.length!=0){
 			for(var i in children){
@@ -203,6 +211,7 @@ function use_item(objName, objNo, itemNo){
 			}
 		}
 		$("#"+itemNo).remove();
+		refresh_inventory();
 	}
 	else{
 		if($("#inventory").offset().top<704){$("#inventory").trigger('click');}
@@ -359,7 +368,8 @@ function refresh_inventory(){
 				if(data[i].isItem=="Y "){
 					var state1 = check_state(data[i].objName, "get");
 					var state2 = 0;
-					if((data[i].objName).indexOf("hintnote")==-1){
+					if((data[i].objName).indexOf("hintnote1")==-1&&(data[i].objName).indexOf("hintnote2")==-1
+						&&(data[i].objName).indexOf("used_water")==-1){
 						state2 = check_state(data[i].objName, "use");
 					}
 					if(state1==2&&state2!=2){

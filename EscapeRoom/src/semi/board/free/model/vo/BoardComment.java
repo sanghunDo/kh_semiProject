@@ -13,6 +13,10 @@ public class BoardComment implements Serializable {
 	//무슨 댓글에 대한 대댓글인지 만약 레벨1이면 null
 	private int commentRef;
 	private Date commentDate;
+	public String getCommentReport() {
+		return commentReport;
+	}
+
 	private int commentLike;
 	private int commentDislike;
 	private String commentReport;

@@ -1,7 +1,6 @@
 package semi.adminMode.controller;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -11,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import semi.adminMode.model.service.AdminModeService;
+import semi.adminMode.model.vo.Admin;
 import semi.adminMode.model.vo.Report_Board;
 import semi.adminMode.model.vo.Report_Comment;
 import semi.member.model.vo.Member;
@@ -35,6 +35,7 @@ public class GoToAdminModeServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
+		List<Admin> adminList = new AdminModeService().selectAllAdmin();
 		List<Report_Board> rbList = new AdminModeService().selectAllReportBoard();
 		List<Report_Comment> rcList = new AdminModeService().selectAllReportComment();
 		List<Member> memberList = new AdminModeService().selectAllMember();
@@ -68,6 +69,7 @@ public class GoToAdminModeServlet extends HttpServlet {
 			tempArr = null;
 		}
 		
+		request.setAttribute("adminList", adminList);
 		request.setAttribute("memberList", memberList);
 		request.setAttribute("rbList", rbList);
 		request.setAttribute("rcList", rcList);

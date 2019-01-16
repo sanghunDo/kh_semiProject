@@ -418,9 +418,8 @@ insert into game_object_coment values(5, '"화분이라니.. 이곳엔 어울리
 insert into game_object values(6, 'used_flowerpot', default, default, default, 'front', 2, default, default);
 insert into game_object_coment values(6, '"안에서 무언가가 반짝거린다."', 6);
 
-insert into game_object values(7, 'used_flowerpot_key_1', default, default, 'used_flowerpot', 'front', 3, 19, 'Y');
+insert into game_object values(7, 'used_flowerpot_key_1', default, default, 'used_flowerpot', 'front', 3, 21, 'Y');
 insert into game_object_coment values(7, '"열쇠 개꿀딱!"', 7);
-
 insert into game_object values(8, 'safe', default, default, default, 'front', 1, default, default);
 insert into game_object_coment values(8, '"이 안엔 뭐가 들어있는거징?"', 8);
 

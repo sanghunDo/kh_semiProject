@@ -9,18 +9,19 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import semi.adminMode.model.service.AdminModeService;
+import semi.adminMode.model.vo.Admin;
 
 /**
- * Servlet implementation class DeletePostServlet
+ * Servlet implementation class AdminWarnServlet
  */
-@WebServlet("/adminMode/deletePost")
-public class DeletePostServlet extends HttpServlet {
+@WebServlet("/adminMode/adminWarn")
+public class AdminWarnServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public DeletePostServlet() {
+    public AdminWarnServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -29,33 +30,29 @@ public class DeletePostServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String category = request.getParameter("category");
-		int postNo = Integer.parseInt(request.getParameter("postNo"));
-		System.out.println("postNo는 나오냐"+postNo);
-		System.out.println("category는 나오냐"+category);
-
-		int result = 0;
+		String userId = request.getParameter("userId");
 		
-		if("F".equals(category)) {
-			result = new AdminModeService().changeFreeTitleReported(postNo);
-		} else if("S".equals(category)) {
-			result = new AdminModeService().changeSolveTitleReported(postNo);
-		}
+		int result = new AdminModeService().updateAdminVote(userId);
 		
 		String msg = "";
 		String loc = "/adminMode/adminMain";
 		
 		if(result > 0) {
-			result = new AdminModeService().deleteReportBoard(category, postNo);
-			if(result > 0) msg = "삭제처리가 완료되었습니다.";
-			else msg = "삭제처리성공, 신고처리 실패";
+			Admin a = new AdminModeService().selectOneAdmin(userId);
+			if(a.getAdminVote() == 5) {
+				result = new AdminModeService().deleteAdmin(userId);
+				if(result > 0) msg = "해당 관리자는 경고가 5회 누적되어 관리자 자격이 박탈됩니다.";
+				else msg = "경고처리 완료 : 자격 박탈 실패";
+			}
+			
+			else msg = "해당 관리자에 대한 경고처리가 완료되었습니다.";
 		}
 		
-		else msg = "삭제 처리 실패";
+		else msg = "경고처리 실패";
 		
 		request.setAttribute("msg", msg);
 		request.setAttribute("loc", loc);
-		request.getRequestDispatcher("/WEB-INF/views/common/msg.jsp").forward(request, response);
+		request.getRequestDispatcher("/WEB-INF/views/common/msg.jsp");
 	}
 
 	/**

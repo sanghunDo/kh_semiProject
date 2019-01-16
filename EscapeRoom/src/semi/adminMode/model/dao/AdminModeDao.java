@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 
+import semi.adminMode.model.vo.Admin;
 import semi.adminMode.model.vo.Report_Board;
 import semi.adminMode.model.vo.Report_Comment;
 import semi.board.solve.model.vo.SolveBoard;
@@ -248,7 +249,7 @@ public class AdminModeDao {
 		} finally {
 			close(pstmt);
 		}
-		
+		System.out.println("여기는관리자가 자유게시판 삭제 하는 dao  result="+result);
 		return result;
 	}
 
@@ -269,7 +270,8 @@ public class AdminModeDao {
 		} finally {
 			close(pstmt);
 		}
-		
+		System.out.println("여기는관리자가  공략게시판 삭제 하는 dao  result="+result);
+
 		return result;
 	}
 
@@ -327,6 +329,128 @@ public class AdminModeDao {
 			pstmt = conn.prepareStatement(query);
 			pstmt.setString(1, "해당 댓글은 관리자에 의해 삭제되었습니다.");
 			pstmt.setInt(2, commentNo);
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+
+	public List<Admin> selectAllAdmin(Connection conn) {
+		List<Admin> list = null;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String query = prop.getProperty("selectAllAdmin");
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			rset = pstmt.executeQuery();
+			
+			list = new ArrayList<>();
+			
+			while(rset.next()) {
+				Admin a = new Admin();
+				
+				a.setAdminId(rset.getString("adminId"));
+				a.setAdminVote(rset.getInt("adminVote"));
+				
+				list.add(a);
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return list;
+	}
+
+	public int insertAdminList(Connection conn, String userId) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		
+		String query = prop.getProperty("insertAdminList");
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, userId);
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+
+	public int updateAdminVote(Connection conn, String userId) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		
+		String query = prop.getProperty("updateAdminVote");
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, userId);
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+
+	public Admin selectOneAdmin(Connection conn, String userId) {
+		Admin a = null;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String query = prop.getProperty("selectOneAdmin");
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, userId);
+			
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				a = new Admin();
+				
+				a.setAdminId(rset.getString("adminId"));
+				a.setAdminVote(rset.getInt("adminVote"));
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return a;
+	}
+
+	public int deleteAdmin(Connection conn, String userId) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		
+		String query = prop.getProperty("deleteAdmin");
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, userId);
 			
 			result = pstmt.executeUpdate();
 			
