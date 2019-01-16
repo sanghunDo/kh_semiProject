@@ -61,7 +61,7 @@ function deleteComment(commentNo, category){
 	else location.href = "<%=request.getContextPath()%>/adminMode/deleteComment?commentNo=" + commentNo + "&category=" + category;
 }
 
-function adminWarn(adminId){
+function adminWarn(userId){
 	var temp = confirm("해당 관리자에게 경고처리를 하시겠습니까?");
 	if(!temp) return;
 	else location.href = "<%=request.getContextPath()%>/adminMode/adminWarn?userId=" + userId;
@@ -186,7 +186,10 @@ function adminGrant(userId){
 			<td><%=memberList.get(i).getEnrollDate() %></td>
 			<td><%=memberList.get(i).getCoin() %></td>
 			<td>
-				<%if(adminList != null && !adminList.isEmpty()){
+				<%if("admin".equals(memberList.get(i).getUserId())) {%>
+					<button class="master" disabled>MASTER</button>				
+				<%}
+				else if(adminList != null && !adminList.isEmpty()){
 					for(int j=0; j<adminList.size(); j++){ 
 						if(memberList.get(i).getUserId().equals(adminList.get(j).getAdminId())) {%>
 							<button class="admin" disabled>관리자</button>
@@ -223,11 +226,14 @@ function adminGrant(userId){
 			<td><%=memberList.get(i).getEnrollDate() %></td>
 			<td><%=memberList.get(i).getCoin() %></td>
 			<td>
-				<%if(adminList != null && !adminList.isEmpty()){
+				<%if("admin".equals(memberList.get(i).getUserId())) {%>
+					<button class="master" disabled>MASTER</button>				
+				<%}
+				else if(adminList != null && !adminList.isEmpty()){
 					for(int j=0; j<adminList.size(); j++){ 
 						if(memberList.get(i).getUserId().equals(adminList.get(j).getAdminId())) {%>
 							<button class="admin" disabled>관리자</button>
-							<button class="adminWarn" onclick="adminWarn('<%=memberList.get(i).getUserId()%>');)">경고</button>
+							<button class="adminWarn" onclick="adminWarn('<%=memberList.get(i).getUserId()%>');">경고</button>
 							<%break;
 						}
 						else if(j == adminList.size() - 1){%>
