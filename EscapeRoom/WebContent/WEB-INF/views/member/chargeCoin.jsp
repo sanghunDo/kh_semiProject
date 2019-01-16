@@ -64,6 +64,41 @@
         var IMP = window.IMP; // 생략가능
         var radioVal = $('input[name="coin_"]:checked').val();
         var productName = $('input[name="coin_"]:checked').attr("productName");
+        IMP.init('imp92461404'); // 부여받은 "가맹점 식별코드"를 사용
+        IMP.request_pay({
+           pg : 'html_5inicis', // version 1.1.0부터 지원. html5_inicis':이니시스(웹표준결제)
+           pay_method : 'card', // 'card':신용카드, 
+           merchant_uid : 'EscapeRoom_' + new Date().getTime(),
+           name : productName, //결제창에서 보여질 이름
+           amount : radioVal, //가격 
+           buyer_email : '', // 구매자 이메일
+           // 구매자명	
+           buyer_name : '<%=userId%>', 
+           buyer_tel : '' // 구매자 연락처
+        }, function(rsp) {
+           if (rsp.success) {
+              var msg = '결제가 완료되었습니다.';
+              
+              msg += '고유ID : ' + rsp.imp_uid;
+              msg += '상점 거래ID : ' + rsp.merchant_uid;
+              msg += '결제 금액 : ' + rsp.paid_amount;
+              msg += '카드 승인번호 : ' + rsp.apply_num;
+        	  location.href ="<%=request.getContextPath()%>/member/chargeCoinEnd?userId=<%=userId%>&coin="+radioVal;
+
+
+           } else {
+              var msg = '결제에 실패하였습니다.';
+              msg += '에러내용 : ' + rsp.error_msg;
+	          alert(msg);
+           }
+        });
+     });
+	</script>
+	<%-- 	<script>
+	$("#check_module").click(function() {
+        var IMP = window.IMP; // 생략가능
+        var radioVal = $('input[name="coin_"]:checked').val();
+        var productName = $('input[name="coin_"]:checked').attr("productName");
         IMP.init('imp92461404');
         // 'iamport' 대신 부여받은 "가맹점 식별코드"를 사용
         // i'mport 관리자 페이지 -> 내정보 -> 가맹점식별코드
@@ -95,7 +130,7 @@
            //가격 
            buyer_email : '',
            buyer_name : '<%=userId%>',
-           buyer_tel : '',
+           buyer_tel : ''
      /*       m_redirect_url : 'https://www.yourdomain.com/payments/complete' */
         /*  
             모바일 결제시,
@@ -121,7 +156,7 @@
         console.log("함수끝남");
         
      });
-	</script>
+	</script> --%>
 	<%-- <script>
 		$("#check_module").click(function() {
 		   var radioVal = $('input[name="coin_"]:checked').val();

@@ -28,6 +28,17 @@
 	top: 600px;
     height: 115px;
 }
+#driver{
+	width: 146px;
+    transform: rotateZ(34deg);
+    top: 253px;
+    left: 496px;
+}
+#wire{
+	width: 50px;
+    left: 410px;
+    top: 296px;
+}
 @keyframes 
 opendoor1 { 
     20% {
@@ -90,11 +101,25 @@ opendoorright{
     left: 569px;
     opacity: 0;
 }
+#used_door_lock1{
+    width: 41px;
+    top: 402px;
+    left: 569px;
+}
 #door_lock2{
 	top: 444px;
     left: 563px;
     width: 62px;
-    opacity: 0;
+}
+#used_door_lock2{
+	top: 440px;
+    left: 556px;
+    width: 75px;
+}
+#used_used_door_lock2{
+	top: 444px;
+    left: 563px;
+    width: 62px;
 }
 #flowerpot{
 	width: 129px;
@@ -106,6 +131,11 @@ opendoorright{
 	top: 468px;
     width: 123px;
     left: 800px;
+}
+#used_safe{
+	top: 482px;
+    width: 130px;
+    left: 802px;
 }
 
 /* left */
@@ -176,7 +206,7 @@ opendoorright{
 #battery{
 	display: block;
     width: 131px;
-    top: 188px;
+    top: 225px;
     height: 43px;
     left: 409px;
     opacity: 0;
@@ -242,9 +272,20 @@ opendoorright{
     top: 200px;
     left: 350px;
 }
+#used_ceilinglight{
+    width: 300px;
+    top: 200px;
+    left: 350px;
+}
+#used_ceilinglight_key_2{
+	width: 63px;
+    left: 295px;
+    top: 53px;
+	
+}
 
 #show-obj img:first-of-type{
 	position: relative;
 	max-width: 700px;
-	height: 100%;
+	height: 120%;
 }

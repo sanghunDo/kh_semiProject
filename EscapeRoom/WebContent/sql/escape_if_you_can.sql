@@ -398,138 +398,144 @@ create table game_object_coment(
 );
 --select v.* from(select coment, rownum as rnum from game_object_coment c join game_object o on c.refobj = o.objno where objName = 'door_lock2') v where rnum = 1;
 insert into game_object values(0, 'door', default, default, default, 'front', 1, default, default);
-insert into game_object_coment values(0, '"아 ㅈㄴ 나가고싶다!!"', 0);
+insert into game_object_coment values(0, '굳게 닫힌 문이다. 부술 수 없을 것 같다.', 0);
 
 insert into game_object values(1, 'door_lock1', default, default, default, 'front', 1, default, default);
-insert into game_object_coment values(1, '"여기에 맞는 열쇠를 찾아야겠군."', 1);
+insert into game_object_coment values(1, '"여기에 맞는 열쇠를 찾아야겠어.."', 1);
 
 insert into game_object values(2, 'door_lock2', default, default, default, 'front', 1, default, default);
-insert into game_object_coment values(2, '"흔히 볼 수 있는 도어락이다. 작동이 되지 않는다."', 2);
+insert into game_object_coment values(2, '흔히 볼 수 있는 도어락이다. 작동 되지 않는다.', 2);
 
-insert into game_object values(3, 'door_lock2_charged', default, default, default, 'front', 2, default, default);
-insert into game_object_coment values(3, '"역시 비밀번호를 알아내야돼."', 3);
+insert into game_object values(3, 'used_door_lock2', default, default, default, 'front', 2, default, default);
+insert into game_object_coment values(3, '건전지를 연결할 방법이 없을까?', 3);
 
 insert into game_object values(4, 'calendar', default, default, default, 'left', 1, default, default);
-insert into game_object_coment values(4, '"날짜가 이상해,, 달력이 아닌거 같아"', 4);
+insert into game_object_coment values(4, '"날짜가 이상해.. 달력이 아닌거 같아."', 4);
 
 insert into game_object values(5, 'flowerpot', default, default, default, 'front', 1, default, default);
-insert into game_object_coment values(5, '"화분이라니.. 이곳엔 어울리지 않는걸?"', 5);
+insert into game_object_coment values(5, '화분이라니.. 이곳엔 어울리지 않는 것 같다.', 5);
 
 insert into game_object values(6, 'used_flowerpot', default, default, default, 'front', 2, default, default);
-insert into game_object_coment values(6, '"안에서 무언가가 반짝거린다."', 6);
+insert into game_object_coment values(6, '안에서 무언가 반짝거린다.', 6);
 
 insert into game_object values(7, 'used_flowerpot_key_1', default, default, 'used_flowerpot', 'front', 3, 21, 'Y');
-insert into game_object_coment values(7, '"열쇠 개꿀딱!"', 7);
+insert into game_object_coment values(7, '열쇠를 획득했다.', 7);
 insert into game_object values(8, 'safe', default, default, default, 'front', 1, default, default);
-insert into game_object_coment values(8, '"이 안엔 뭐가 들어있는거징?"', 8);
+insert into game_object_coment values(8, '"이 안엔 뭐가 들어있을까."', 8);
 
 insert into game_object values(9, 'used_safe', default, default, default, 'front', 2, default, default);
-insert into game_object_coment values(9, '"..."', 9);
+insert into game_object_coment values(9, '...', 9);
 
 insert into game_object values(10, 'wire_used_safe', default, default, default, 'front', 2, default, default);
-insert into game_object_coment values(10, '"와이어도 챙기자"', 10);
+insert into game_object_coment values(10, '전선은 쓸모가 없을까..', 10);
 
 insert into game_object values(11, 'driver_used_safe', default, default, default, 'front', 2, default, default);
-insert into game_object_coment values(11, '"전선과 드라이버만 잇으면 어디든 갈수 이쩡"', 11);
+insert into game_object_coment values(11, '드라이버는 쓸모가 없을까..', 11);
 
-insert into game_object values(12, 'used_safe_wire', default, default, 'used_safe', 'front', 3, 2, 'Y');
-insert into game_object_coment values(12, '"전선은 어디다 쓰는거징??"', 12);
+insert into game_object values(12, 'wire', default, default, 'used_safe', 'front', 3, 2, 'Y');
+insert into game_object_coment values(12, '전선을 획득했다.', 12);
 
-insert into game_object values(13, 'used_safe_driver', default, default, 'used_safe', 'front', 3, 38, 'Y');
-insert into game_object_coment values(13, '"oracle.jdbc.driver.OracleDriver..."', 13);
+insert into game_object values(13, 'driver', default, default, 'used_safe', 'front', 3, 38, 'Y');
+insert into game_object_coment values(13, '드라이버를 획득했다.', 13);
 
 insert into game_object values(14, 'under_bed_diary','diary', 'diary_opened', default, 'left', 1, default, default);
-insert into game_object_coment values(14, '"침대 밑에 뭐가 떨어져 있어"', 14);
-insert into game_object_coment values(15, '"다이어리인가?? 누구꺼지"', 14);
-insert into game_object_coment values(16, '"뭔가 씌여져있다"', 14);
+insert into game_object_coment values(14, '"침대 밑에 무언가 떨어져 있어."', 14);
+insert into game_object_coment values(15, '다이어리.. 단서가 될만 하다.', 14);
+insert into game_object_coment values(16, '알 수 없는 쪽지가 있다.', 14);
 
 insert into game_object values(15, 'used_under_bed_diary', default, default, default, 'left', 2, default, default);
-insert into game_object_coment values(17, '"탐나는 다이어리다 너무 이뻥"', 15);
+insert into game_object_coment values(17, '쪽지 말고는 아무것도 써있지 않다.', 15);
 
 insert into game_object values(16, 'hintnote1', default, default, 'diary_opened','left', 3, default, 'Y');
-insert into game_object_coment values(18, '"3-7,,, ㅋㅋ3에서 7을 어떻게 빼(문과)"', 16);
+insert into game_object_coment values(18, '쪽지를 획득했다.', 16);
 
 insert into game_object values(17, 'doll', default, default, default, 'back', 1, default, default);
-insert into game_object_coment values(19, '"불쌍한 녀석ㅋㄷㅋㄷ"', 17);
+insert into game_object_coment values(19, '웬 곰인형이 있다.', 17);
 
 insert into game_object values(18, 'used_doll', default, default, default, 'back', 2, default, default);
-insert into game_object_coment values(20, '"배를 가르자 내장이 쏟아져 나왔다."', 18);
+insert into game_object_coment values(20, '"곰인형 속에 뭔가 있어.."', 18);
 
 insert into game_object values(19, 'used_doll_hintnote3', default, default, 'used_doll', 'back', 3, 34, 'Y');
-insert into game_object_coment values(21, '"점이 3개가 있어 무슨 의미일까"', 19);
+insert into game_object_coment values(21, '쪽지를 획득했다.', 19);
 
 insert into game_object values(20, 'books_4', default, default, default, 'back', 1, default, default);
-insert into game_object_coment values(22, '"정리가 하나도 안돼있다..!!"', 20);
+insert into game_object_coment values(22, '정리가 하나도 안되어 있는 책장이다.', 20);
 
 insert into game_object values(21, 'smallbox', default, default, default, 'back', 1, default, default);
-insert into game_object_coment values(23, '"이것도 잠겨있잖아?!"', 21);
+insert into game_object_coment values(23, '"이것도 잠겨있잖아..!"', 21);
 
 insert into game_object values(22, 'used_smallbox', default, default, default, 'back', 2, default, default);
-insert into game_object_coment values(24, '"안에 쪽지가 들어있다!"', 22);
+insert into game_object_coment values(24, '안에 쪽지가 들어있다.', 22);
 
 insert into game_object values(23, 'used_smallbox_hintnote2', default, default, 'used_smallbox', 'back', 3, default, 'Y');
-insert into game_object_coment values(25, '"감이 안잡힌다.."', 23);
+insert into game_object_coment values(25, '쪽지를 획득했다.', 23);
 
 insert into game_object values(24, 'clock', 'clock_back', 'clock_opened',default, 'back', 1, default, default);
-insert into game_object_coment values(26, '"고장난건가??"', 24);
-insert into game_object_coment values(27, '"별거 없어보인다"', 24);
-insert into game_object_coment values(28, '"건전지라도 챙겨놓자"', 24);
+insert into game_object_coment values(26, '"고장난건가?"', 24);
+insert into game_object_coment values(27, '특별한게 없는 시계인듯 하다.', 24);
+insert into game_object_coment values(28, '건전지가 들어있다.', 24);
 
 insert into game_object values(25, 'used_clock', default, default, default, 'back', 2, default, default);
-insert into game_object_coment values(29, '"..."', 25);
+insert into game_object_coment values(29, '...', 25);
 
 insert into game_object values(26, 'battery', default, default, 'clock_opened', 'back', 3, 2, 'Y');
-insert into game_object_coment values(30, '"쓸모가 있을거야!"', 26);
+insert into game_object_coment values(30, '건전지를 획득했다.', 26);
 
 insert into game_object values(27, 'books_2', default, default, default, 'back', 1, default, default);
-insert into game_object_coment values(31, '"흠...이상한 숫자들이군"', 27);
+insert into game_object_coment values(31, '"흠...이상한 숫자들이야."', 27);
 
 insert into game_object values(28, 'toolbox', 'toolbox_opened', default, default, 'back', 1, default, default);
-insert into game_object_coment values(32, '"헐 09함이다! "', 28);
-insert into game_object_coment values(33, '"커터칼이랑 망치???"', 28);
+insert into game_object_coment values(32, '"공구함..! 쓸만한게 들어있을지도..!"', 28);
+insert into game_object_coment values(33, '"커터칼이랑 망치?"', 28);
 
 insert into game_object values(29, 'used_toolbox', default, default, default, 'back', 2, default, default);
-insert into game_object_coment values(34, '"..."', 29);
+insert into game_object_coment values(34, '...', 29);
 
 insert into game_object values(30, 'hammer', default, default, 'toolbox_opened', 'back', 3, 5, 'Y');
-insert into game_object_coment values(35, '"뚝배기 부수러 갑니다"', 30);
+insert into game_object_coment values(35, '망치를 획득했다.', 30);
 
 insert into game_object values(31, 'cutterknife', default, default, 'toolbox_opened', 'back', 3, 17, 'Y');
-insert into game_object_coment values(36, '"이 칼로 손목을 긋는게 나을지도.."', 31);
+insert into game_object_coment values(36, '커터칼 심을 획득했다.', 31);
 
 insert into game_object values(32, 'cutterknife_toolbox', default, default, default, 'back', 2, default, default);
-insert into game_object_coment values(37, '"망치보단 칼이지!"', 32);
+insert into game_object_coment values(37, '"이 칼로... 아니다.."', 32);
 
 insert into game_object values(33, 'hammer_toolbox', default, default, default, 'back', 2, default, default);
-insert into game_object_coment values(38, '"칼보단 망치지!!"', 33);
+insert into game_object_coment values(38, '"이 방에서 부술만한게 있었던가.."', 33);
 
 insert into game_object values(34, 'water', default, default, default, 'right', 1, default, default);
-insert into game_object_coment values(39, '"이런곳에 물이 왜있을까..(핥짝핥짝)"', 34);
+insert into game_object_coment values(39, '물인듯한데 색깔이 이상하다.', 34);
 
 insert into game_object values(35, 'used_water_hintnote3', default, default, 'used_water', 'back', 3, default, 'Y');
-insert into game_object_coment values(40, '"오줌으로도 가능했을걸.."', 35);
+insert into game_object_coment values(40, '젖은 쪽지를 획득했다.', 35);
 select * from game_object;
 insert into game_object values(36, 'window', default, default, default, 'right', 1, default, default);
-insert into game_object_coment values(41, '"win..dow,,,, window.onload=function(){}"', 36);
+insert into game_object_coment values(41, '창밖에는 암흑 뿐이다..', 36);
 
 insert into game_object values(37, 'letter', 'letter_opened', default, default, 'right', 1, default, default);
-insert into game_object_coment values(42, '"누가 쓴편지냐"', 37);
-insert into game_object_coment values(43, '"ㅈㄹ하넹ㅋㅋ"', 37);
+insert into game_object_coment values(42, '웬 편지가 놓여있다.', 37);
+insert into game_object_coment values(43, '.....나에게 하는 말인 것 같다.', 37);
 
 insert into game_object values(38, 'ceilinglight', default, default, default, 'ceiling', 1, default, default);
-insert into game_object_coment values(44, '"전등속에 뭐가 있는데.. 손은 닿지만 열리지가 않아"', 38);
+insert into game_object_coment values(44, '"전등속에 뭐가 있는데.. 손은 닿지만 열리지가 않아..!"', 38);
 
 insert into game_object values(39, 'used_ceilinglight', default, default, default, 'ceiling', 2, default, default);
-insert into game_object_coment values(45, '".....눈부셔ㅜ"', 39);
+insert into game_object_coment values(45, '여는데 성공했다..!', 39);
 
-insert into game_object values(40, 'used_ceilinglight_key_2', default, default, default, 'ceiling', 3, 1, 'Y');
-insert into game_object_coment values(46, '"샤이니 만능열쇠 key~"', 40);
+insert into game_object values(40, 'used_ceilinglight_key_2', default, default, 'used_ceilinglight', 'ceiling', 3, 1, 'Y');
+insert into game_object_coment values(46, '열쇠를 획득했다.', 40);
 
 insert into game_object values(41, 'wrong', default, default, default, null, null, null, 'N');
-insert into game_object_coment values(47, '"여기에 쓰는게 아닌것 같다..."', 41);
+insert into game_object_coment values(47, '여기에 쓰는게 아닌 것 같다."', 41);
 
 insert into game_object values(42, 'used_water', default, default, default, 'right', 2, default, 'N');
-insert into game_object_coment values(48, '"..."', 42);
+insert into game_object_coment values(48, '...', 42);
+
+insert into game_object values(43, 'used_used_door_lock2', 'keypad', default, default, 'front', 3, default, 'N');
+insert into game_object_coment values(49, '작동한다..!! 비밀번호....!', 43);
+
+insert into game_object values(44, 'used_door_lock1', default, default, default, 'front', 2, default, 'N');
+insert into game_object_coment values(50, '열렸다...!!', 44);
 
 commit;
 
@@ -549,11 +555,11 @@ create table game_state(
     safeuse number default 1,--금고 2면 열려있고 비어있는 상태
     
     ----금고 내의 아이템 전선, 드라이버
-    used_safe_wireGet number default 1, --전선 2면 획득한상태
-    used_safe_wireUse number default 1, --전선 2면 사용한 상태
+    wireGet number default 1, --전선 2면 획득한상태
+    wireUse number default 1, --전선 2면 사용한 상태
     
-    used_safe_driverGet number default 1,--드라이버 2면 획득한상태
-    used_safe_driverUse number default 1,--드라이버 2면 사용한 상태
+    driverGet number default 1,--드라이버 2면 획득한상태
+    driverUse number default 1,--드라이버 2면 사용한 상태
     
     
     --left면
@@ -587,7 +593,7 @@ create table game_state(
 );
 --update game_state set door_lock1=1, door_lock2=1, flowerpot=1, key1Get=1, key1Use=1, safe=1, wireGet=1, wireUse=1, driverGet=1, driverUse=1, hintNote1=1, bs_doll=1, bs_hintNote3Get=1, bs_hintNote3Use=1, bs_smallbox=1, bs_hintNote2=1, bs_clock=1, bs_batteryGet=1, bs_batteryUse=1, bs_toolbox=1, bs_hammerGet=1, bs_hammerUse=1, bs_cutterknifeGet=1, bs_cutterknifeUse=1, light=1, key2Get=1, key2use=1 where userid=?;
 
-select * from game_state where userid='tkdgnstkdgns';
+select * from game_state where userid='guest_4061';
 --delete from game_state;
 --drop table game_state;
 update game_state set bs_hammeruse=1, bs_hammerget=1 where userid='tkdgnstkdgns';
