@@ -24,6 +24,10 @@
     height:351px;
     z-index:2;
 }
+#used_flowerpot{
+	top: 600px;
+    height: 115px;
+}
 @keyframes 
 opendoor1 { 
     20% {
@@ -131,9 +135,18 @@ opendoorright{
 #doll{
 	top: 50px;
     left: 363px;
-    opacity: 0;	
 }
-#hintnote3{
+#used_doll{
+	top: 27px;
+    width: 104px;
+    left: 349px;
+}
+#used_smallbox{
+	width: 109px;
+    left: 374px;
+    top: 285px;
+}
+#used_doll_hintnote3{
 	width: 50px;
     left: 438px;
     top: 213px;
@@ -148,13 +161,11 @@ opendoorright{
 #smallbox{
 	top: 311px;
     left: 397px;
-    opacity: 0;	
 }
 
 #clock{
 	top: 322px;
     left: 551px;
-    opacity: 0;	
 }
 
 #books_2{
@@ -191,6 +202,12 @@ opendoorright{
     transform: rotateZ(19deg);
     opacity: 0;
 }
+#used_smallbox_hintnote2{
+	width: 95px;
+    left: 400px;
+    top: 235px;
+}
+
 
 /* right */
 #window{
@@ -207,6 +224,17 @@ opendoorright{
     left: 693px;
     top: 555px;
 }
+#used_water{
+	width: 210px;
+    left: 693px;
+    top: 555px;
+}
+#used_water_hintnote3{
+	width: 50px;
+    left: 523px;
+    top: 200px;
+}
+
 
 /* ceiling */
 #ceilinglight{
