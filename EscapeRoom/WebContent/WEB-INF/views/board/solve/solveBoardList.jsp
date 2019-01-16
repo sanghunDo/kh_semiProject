@@ -11,7 +11,13 @@
 	List<SolveBoard> list = (List<SolveBoard>)request.getAttribute("list");
 	List<SolveBoard> bestList = (List<SolveBoard>)request.getAttribute("bestList");
 	List<GameRank> rankList = (List<GameRank>)request.getAttribute("rankList");
-
+	String gameId = "";
+	for(int i=0; i<rankList.size(); i++){
+		gameId += rankList.get(i).getGameid()+"/";
+	}
+	System.out.println("gameId="+gameId);
+	
+	
 	int cPage = (int)request.getAttribute("cPage");
 	int numPerPage = (int)request.getAttribute("numPerPage");
 	String pageBar = (String)request.getAttribute("pageBar");
@@ -30,11 +36,11 @@ function noEnter(){
     <h3>공략게시판</h3>
     <!--new pic-->
     <hr>
-    <%for(GameRank gr : rankList){
-    	if(loggedInMember != null && gr.getGameid().equals(loggedInMember.getUserId())){
+    <%
+    if(loggedInMember != null && gameId.contains(loggedInMember.getUserId()) ||loggedInMember.getUserId().equals("admin")){
     %>
     <div id="write" style="color:white"><a href="<%=request.getContextPath()%>/board/solve/solveBoardInsert?userId=<%=loggedInMember.getUserId()%>">글쓰기</a></div>
-    <%} 
+    <% 
     } 
     %>
     

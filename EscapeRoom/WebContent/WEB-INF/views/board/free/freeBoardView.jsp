@@ -168,7 +168,7 @@
                         <input type="hidden" value=<%=bc.getCommentNo() %> class="commentNo" commentNum="<%=i%>" />
                         <input type="hidden" value=<%=bc.getCommentContent() %> id="commentContent"  no="<%=i %>"/>
                         <%if(loggedInMember!= null && ("admin".equals(loggedInMember.getUserId()) ||  bc.getCommentWriter().equals(loggedInMember.getUserId()))) {
-                          if(!(bc.getCommentContent().equals("해당 댓글은 관리자에 의해 삭제되었습니다.")&&bc.getCommentReport().equals("Y"))) {%>%>
+                          if(!(bc.getCommentContent().equals("해당 댓글은 관리자에 의해 삭제되었습니다.")&&bc.getCommentReport().equals("Y"))) {%>
                         <div class="commentUpdate" no="<%=i%>">수정하기</div>
                         <div class="commentUpdateEnd" no="<%=i %>">수정완료</div>
                         <div class="commentDeleteBtn" no="<%=i %>" onclick="deleteComment();">삭제하기</div>
@@ -360,7 +360,7 @@
                   html+="<div class='info'>"+ user.commentWriter + "</div>";
                   html+="<div class='level2Comment'>"+ user.commentContent + "</div>";
                   html+="<div class='level2Date'>"+ user.commentDate + "</div>";
-                  html+="<div class='level2Report' onclick=report("+user.commentNo+",'"+user.commentWriter+"','"+user.commentContent+"'"+<%=fb.getPostNo()%>+");>신고하기</div>";                               
+                  html+="<div class='level2Report' onclick=report("+user.commentNo+",'"+user.commentWriter+"','"+user.commentContent+"',"+<%=fb.getPostNo()%>+");>신고하기</div>";                               
 				  html+="<div class='level2Like' no='"+i+"' ";
 				  html+="onclick=level2Like(this,"+user.commentNo +","+"'"+user.commentWriter+"');>추천 "+user.commentLike+"</div>";
  				  /* html+="<div class='level2Like' no="+i+">추천"+user.commentLike+"</div>"; */
