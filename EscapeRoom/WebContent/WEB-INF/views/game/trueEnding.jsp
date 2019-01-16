@@ -63,6 +63,7 @@ $("#ending").on('click', {cnt:0} ,function(e){
 		$("#msgBox").removeClass("none");
 		$("#msgBox").removeClass("me");
 	}
+	
 	if(cnt==13){
 		$("#msgBox").removeClass("you");
 		$("#msgBox").addClass("me");
