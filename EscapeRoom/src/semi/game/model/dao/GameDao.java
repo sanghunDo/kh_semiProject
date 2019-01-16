@@ -207,6 +207,7 @@ public class GameDao {
 		int result = 0;
 		PreparedStatement pstmt = null;
 		String query = prop.getProperty(stateName);
+		System.out.println(stateName+"//"+query+"//"+userId);
 		try {
 			pstmt = conn.prepareStatement(query);
 			pstmt.setString(1, userId);

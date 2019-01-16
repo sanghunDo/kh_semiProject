@@ -29,7 +29,7 @@ $(function(){
     <div id="moveCeiling"><pre>                                                                           ▲</pre></div>
 	<div id="background-container">
 		<div id="background">
-			<img src="<%=request.getContextPath() %>/images/game/gameMain/game_start_again.jpeg" id="front"/>
+			<img src="<%=request.getContextPath() %>/images/game/gameMain/game_start_again.jpg" id="front"/>
 		</div>
 		<div id="sub-background">
 			<img src="<%=request.getContextPath() %>/images/game/gameMain/background.png"/>

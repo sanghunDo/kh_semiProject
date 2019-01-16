@@ -17,6 +17,7 @@ function setObject(position){
 		type: "get",
 		dataType: "json",
 		success: function(data){
+			console.log(data);
 			$("#background img").not(":first").remove();
 				for(var i in data){
 					var obj = data[i];
@@ -83,9 +84,16 @@ function obj_click(){
 			var objName = $(this).prop("id");
 			if(objName=="door") {escape(); return;}
 			
+			var state_ = 0;
+			if(objName!="calendar"&&objName!="under_bed_diary"&&objName.indexOf("books")==-1&&objName!="window"
+				&& objName!="letter"){
+				state_ = check_state(objName, "use");
+			}
 			
-			
-			if(check_state(objName, "use")==2){objName = "used_"+objName;}
+			if(state_==2){
+				html = "<img src='<%=request.getContextPath()%>/images/game/gameMain/clicked/used_"+objName+".png'"
+				 + " onclick=obj_hasNext('"+objName+"') class='"+objName+"'>";
+			}
 			else{
 				var itemList = is_usable(objName);
 				if(itemList.length!=0){check_has_item(objName, itemList); return;}
@@ -102,22 +110,24 @@ function obj_click(){
 						var state2 = check_state(children[1], "get");
 						var childName = "";
 						
-						if(state1==2&&state2==2){objName = "used_"+objName;}
-						else if(state1==1&&state2==1){
-						}
-						else{
-							if(state1==1&&state2==2){objName=children[0]+"_"+objName; childName=children[0];}
-							if(state1==2&&state2==1){objName=children[1]+"_"+objName; childName=children[1];}
-							
-							html += "<img src='<%=request.getContextPath()%>/images/game/gameMain/"+position+"/"+childName+".png'";
-							html +=" id='"+childName+"' onclick=get_item('"+childName+"') class='obj'>";
+						console.log(state1, state2);
+						if(state1==1&&state2==1){
+							if(state1==2&&state2==2){objName = "used_"+objName;}
+							else{
+								if(state1==1&&state2==2){objName=children[0]+"_"+objName; childName=children[0];}
+								if(state1==2&&state2==1){objName=children[1]+"_"+objName; childName=children[1];}
+								console.log(children[0], objName);
+								html += "<img src='<%=request.getContextPath()%>/images/game/gameMain/"+position+"/"+childName+".png'";
+								html +=" id='"+childName+"' onclick=get_item('"+childName+"') class='obj'>";
+							}
 						}
 					}
 				}
+				html = "<img src='<%=request.getContextPath()%>/images/game/gameMain/clicked/"+objName+".png'"
+					 + " onclick=obj_hasNext('"+objName+"') class='"+objName+"'>" + html;
 			}
 			
-			html = "<img src='<%=request.getContextPath()%>/images/game/gameMain/clicked/"+objName+".png'"
-				 + " onclick=obj_hasNext('"+objName+"') class='"+objName+"'>" + html;
+			console.log(objName, html);
 			
 			off();
 			$("#show-obj").html(html).show();
@@ -179,10 +189,11 @@ function use_item(objName, objNo, itemNo){
 								.attr("onclick", "obj_hasNext('"+objName+"')");
 		show_coment("used_"+objName, 1);
 		var itemName = $("#"+itemNo).prop("class");
+		
 		update_state(objName, "use");
 		update_state(itemName, "use");
-		console.log(objName, itemName);
 		setObject(position);
+		
 		var children = find_children("used_"+objName, 2);
 		if(children.length!=0){
 			for(var i in children){
@@ -201,6 +212,8 @@ function use_item(objName, objNo, itemNo){
 			$("#inventory").trigger('click');
 		}, 2000);
 	}
+	
+	obj_click();
 };
 
 function get_data(objName, flag){
