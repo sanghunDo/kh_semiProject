@@ -65,7 +65,6 @@ $(".enter-game").click(function(){
 $(function getAdminList(){
 	console.log("onload function");
 	<%if(loggedInMember != null){%>
-		console.log("if문 안에");
 		$.ajax({
 			url : "<%=request.getContextPath()%>/header",
 			type : "post",
@@ -75,7 +74,6 @@ $(function getAdminList(){
 				var aTag = $("#adminBtn");
 				for(var i in data){
 					if("<%=loggedInMember.getUserId()%>" == data[i].adminId){
-						console.log("조건");
 						$("#myMenu a:first").before("<a href='<%=request.getContextPath()%>/adminMode/adminMain' id='adminBtn'>ADMIN</a>&nbsp;&nbsp;&nbsp;&nbsp;");
 					}  
 				}
