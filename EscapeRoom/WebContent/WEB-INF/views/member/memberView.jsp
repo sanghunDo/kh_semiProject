@@ -19,6 +19,17 @@
 	String userProfileRenamedFile = m.getUserProfileRenamedFile()!=null?m.getUserProfileRenamedFile():"";
 %>
 <script>
+(function(){
+	var $userProfileOriginalFile = $("#userProfile"); // 유저 프로필 사진명
+	var fileExt = $userProfileOriginalFile.val().substring($userProfileOriginalFile.val().lastIndexOf(".") + 1); // 확장자명 구하기 위함
+	var getUserProfileOriginalFile = RegExp(/jpg|jpeg|png|gif/i); // 유저 프로필 사진 유효성 검사
+	// 프로필사진 유효성 검사
+	if(!getUserProfileOriginalFile.test(fileExt) && $userProfileOriginalFile.val().length > 0){
+		$("#userProfile").val("");
+		alert("첨부파일은 jpg, jpeg, png, gif로 된 이미지만 가능합니다.");
+		return;
+	}
+});
 /* 회원정보수정 유효성 검사 */
 function updateValidate(){
 	// 아이디 검사
@@ -37,30 +48,7 @@ function updateValidate(){
 	var $userProfileOriginalFile = $("#userProfile"); // 유저 프로필 사진명
 	var fileExt = $userProfileOriginalFile.val().substring($userProfileOriginalFile.val().lastIndexOf(".") + 1); // 확장자명 구하기 위함
 	var getUserProfileOriginalFile = RegExp(/jpg|jpeg|png|gif/i); // 유저 프로필 사진 유효성 검사
-
 	
-	// 아이디 공백 확인
-	if($userId_.val() ==""){
-		alert("아이디를 입력해주세요.");
-		$userId_.focus();
-		return false;
-	}
-	
-	// 아이디 유효성 검사
-	if(!getUserId.test($userId_.val())){
-		alert("아이디는 영문자와 숫자를 포함한 5~15 자리로 입력해주세요.");
-		$userId_.val("");
-		$userId_.focus();
-		return false;
-	}
-	
-	// 아이디중복검사여부 체크
-	var $idValid = $("#idValid").val();
-	if($idValid == 0){
-		alert("아이디 중복검사해주세요.");
-		return false;
-	}
-
 	// 이메일 공백 확인
 	if($userEmail.val() == ""){
 		alert("이메일을 입력해주세요.");
@@ -78,12 +66,19 @@ function updateValidate(){
 	
 	// 프로필사진 유효성 검사
 	if(!getUserProfileOriginalFile.test(fileExt) && $userProfileOriginalFile.val().length > 0){
+		$("#userProfile").val("");
+		$("#userProfile").attr('files', null);
+		$("#profilePre").attr('src','<%=request.getContextPath() %>/upload/member/<%=userProfileRenamedFile%>');
 		alert("첨부파일은 jpg, jpeg, png, gif로 된 이미지만 가능합니다.");
 		return false;
 	}
 
 	return true;
 }
+
+
+
+
 
 function deleteMember(){
 	var bool = confirm("정말로 탈퇴하시겠습니까?");
@@ -148,12 +143,14 @@ $(function(){
 function readURL(input){
    if(input.files && input.files[0]){
        var reader = new FileReader();
-
+		
        reader.onload = function(e){
            $('#profilePre').attr('src', e.target.result);
        }
 
        reader.readAsDataURL(input.files[0]);
+   } else{
+	   $('#profilePre').attr('src', null);
    }
 }
 
@@ -178,6 +175,7 @@ $(function(){
 	<form action="<%=request.getContextPath() %>/member/memberUpdateEnd" 
 		  method="post"
 		  name="memberUpdateFrm"
+		  id="memberUpdateFrm"
 		  onsubmit="return updateValidate();"
 		  enctype="multipart/form-data">
 		  <table id="tbl-MemberView">
@@ -219,7 +217,7 @@ $(function(){
 				<th>프로필<br />사진</th>
 					<td>
 						<div id="userProfile-Div">
-						<input type="file" name="userProfile" id="userProfile" accept="image/jpg, image/jpeg, image/png, image/gif">
+						<input type="file" name="userProfile" id="userProfile" accept="image/*">
 						
 						<!-- 프로필사진 변경시 삭제 -->
 						<input type="hidden" name="oldUserRenamedProfile" value="<%=userProfileRenamedFile%>" />
