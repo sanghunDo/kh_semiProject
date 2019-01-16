@@ -25,6 +25,7 @@ $(function(){
 <body>
 <audio autoplay id="intro" src="<%=request.getContextPath()%>/audio/mus_intronoise.ogg"></audio>
 <audio loop id="main_bgm" src="<%=request.getContextPath()%>/audio/mainGame.mp3"></audio>
+
 <div id="wrap">
    <div id="moveRight"><br><br><br><br><br><br><br><br><br><br><br><br><br><pre>       ▶</pre></div>
    <div id="moveLeft"><br><br><br><br><br><br><br><br><br><br><br><br><br>◀</div>

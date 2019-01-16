@@ -3,6 +3,8 @@
 <%
 	String userId_ = request.getParameter("userId");
 %>
+<audio id="itemitemitem" src="<%=request.getContextPath()%>/audio/item.wav"></audio>
+<audio id="opendoor" src="<%=request.getContextPath()%>/audio/opendoor.wav"></audio>
 <script>
 var position = $("#background img").prop("id");
 $(function(){
@@ -38,6 +40,8 @@ function setObject(position){
 	});
 };
 function escape(){
+	$("#main_bgm")[0].pause();
+	$("#opendoor")[0].play();
 	var state1 = check_state("door_lock1", "use");
 	var state2 = check_state("door_lock2", "use");
 	
@@ -340,6 +344,7 @@ function update_state(objName, flag){
 };
 
 function get_item(objName){
+	$("#itemitemitem")[0].play();
 	$("#show-obj img:first").attr("src", "<%=request.getContextPath()%>/images/game/gameMain/clicked/"+objName+".png");
 	$("#"+objName).remove();
 	show_coment(objName, 1);
