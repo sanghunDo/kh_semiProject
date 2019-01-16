@@ -11,7 +11,11 @@
     left: 345px;
     transform-origin: 0% 50%;
 }
-
+#key_1{
+	width: 40px;
+    top: 110px;
+    left: 607px;
+}
 #doorright{
     position: absolute;
     left: 607px;
@@ -129,7 +133,12 @@ opendoorright{
     left: 363px;
     opacity: 0;	
 }
-
+#bs_hintnote3{
+	width: 50px;
+    left: 438px;
+    top: 213px;
+    opacity: 0;
+}
 #bs_4_books{
 	top: 170px;
     left: 334px;

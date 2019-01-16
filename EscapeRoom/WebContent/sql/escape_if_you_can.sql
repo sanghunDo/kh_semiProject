@@ -525,10 +525,12 @@ insert into game_object_coment values(45, '".....눈부셔ㅜ"', 39);
 insert into game_object values(40, 'key_2', default, default, default, 'ceiling', 3, 1, 'Y');
 insert into game_object_coment values(46, '"샤이니 만능열쇠 key~"', 40);
 
+insert into game_object values(41, 'wrong', default, default, default, null, null, null, 'N');
+insert into game_object_coment values(47, '"여기에 쓰는게 아닌것 같다..."', 41);
 
 commit;
-select * from game_state;
 
+select * from game_state;
 create table game_state(
     userid varchar2(50) unique,
     
@@ -540,7 +542,7 @@ create table game_state(
     key_1Use number default 1, --2면 사용하여 인벤토리에서 없어진 상태
     
     
-    safe number default 1,--금고 2면 열려있고 비어있는 상태
+    safeuse number default 1,--금고 2면 열려있고 비어있는 상태
     
     ----금고 내의 아이템 전선, 드라이버
     wireGet number default 1, --전선 2면 획득한상태
@@ -580,10 +582,10 @@ create table game_state(
 );
 --update game_state set door_lock1=1, door_lock2=1, flowerpot=1, key1Get=1, key1Use=1, safe=1, wireGet=1, wireUse=1, driverGet=1, driverUse=1, hintNote1=1, bs_doll=1, bs_hintNote3Get=1, bs_hintNote3Use=1, bs_smallbox=1, bs_hintNote2=1, bs_clock=1, bs_batteryGet=1, bs_batteryUse=1, bs_toolbox=1, bs_hammerGet=1, bs_hammerUse=1, bs_cutterknifeGet=1, bs_cutterknifeUse=1, light=1, key2Get=1, key2use=1 where userid=?;
 
-select * from game_state;
+select * from game_state where userid='tkdgnstkdgns';
 --delete from game_state;
 --drop table game_state;
-update game_state set door_lock1use=2, door_lock2use=2 where userid='tkdgnstkdgns';
+update game_state set bs_hammeruse=1, bs_hammerget=1 where userid='tkdgnstkdgns';
 commit;
 
 --신고게시글 테스트용 데이터
