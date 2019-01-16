@@ -71,6 +71,7 @@ public class FreeBoardDao {
 				fb.setPostDate(rset.getDate("postdate"));
 				fb.setPostReadCount(rset.getInt("postreadcount"));
 				fb.setBoard_comment_cnt(rset.getInt("board_comment_cnt"));
+				fb.setPostReport(rset.getString("postreport"));
 				
 				list.add(fb);
 				
@@ -410,6 +411,7 @@ public class FreeBoardDao {
 				bc.setCommentDate(rset.getDate("commentdate"));
 				bc.setCommentLike(rset.getInt("commentlike"));
 				bc.setCommentDislike(rset.getInt("commentdislike"));
+				bc.setCommentReport(rset.getString("commentreport"));
 				
 				commentList.add(bc);
 			}

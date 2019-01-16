@@ -126,10 +126,16 @@ function noEnter(){
                 </td>
                 
                 <%if(loggedInMember!=null) {%>
+				<%if(fb.getPostTitle().equals("해당 게시물은 관리자에 의해 삭제되었습니다.")&&fb.getPostReport().equals("Y")){ %>
+					<td class="title" style="cursor:not-allowed">
+                 	<%=fb.getPostTitle() %>
+                
+                <% } else {%>
                 <td class="title">
                    <a href="<%=request.getContextPath()%>/board/free/freeBoardView?postNo=<%=fb.getPostNo()%>"> 
                    <%=fb.getPostTitle() %> [<%=fb.getBoard_comment_cnt() %>]
                 </td>
+                <%} %> 
                 <%} else { %>
                    <td class="title" onclick="noEnter();">
                    <%=fb.getPostTitle() %> [<%=fb.getBoard_comment_cnt() %>]
@@ -137,16 +143,16 @@ function noEnter(){
                 	
                 <%} %>
                 <td class="wirter">
-                	<%=fb.getPostWriter() %>
+                	<%=(fb.getPostTitle().equals("해당 게시물은 관리자에 의해 삭제되었습니다.")&&fb.getPostReport().equals("Y"))?"":fb.getPostWriter() %>
                 </td>
                 <td class="date">
-                    <%=fb.getPostDate() %>
+                    <%=(fb.getPostTitle().equals("해당 게시물은 관리자에 의해 삭제되었습니다.")&&fb.getPostReport().equals("Y"))?"":fb.getPostDate() %>
                 </td>
                 <td class="like">
-                    <%=fb.getPostLike() %>
+                    <%=(fb.getPostTitle().equals("해당 게시물은 관리자에 의해 삭제되었습니다.")&&fb.getPostReport().equals("Y"))?"":fb.getPostLike() %>
                 </td>
                 <td class="views">
-                   <%=fb.getPostReadCount() %>
+                   <%=(fb.getPostTitle().equals("해당 게시물은 관리자에 의해 삭제되었습니다.")&&fb.getPostReport().equals("Y"))?"":fb.getPostReadCount() %>
                 </td>
             </tr>
             <%}

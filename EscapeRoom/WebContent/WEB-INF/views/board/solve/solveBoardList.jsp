@@ -133,9 +133,14 @@ function noEnter(){
                 </td>
                 
                 <%if(loggedInMember!=null) {%>
-                <td class="title">
-                   <a href="<%=request.getContextPath()%>/board/solve/solveBoardView?postNo=<%=sb.getPostNo()%>"> 
-                   <%=sb.getPostTitle() %> [<%=sb.getBoard_comment_cnt() %>]
+                  <%if(sb.getPostTitle().equals("해당 게시물은 관리자에 의해 삭제되었습니다.")&&sb.getPostReport().equals("Y")){ %>
+                	<td class="title" style="cursor:not-allowed">
+                	  <%=sb.getPostTitle() %>
+                  <% } else {%>
+                  	<td class="title">
+                  	 <a href="<%=request.getContextPath()%>/board/solve/solveBoardView?postNo=<%=sb.getPostNo()%>"> 
+                  	<%=sb.getPostTitle() %> [<%=sb.getBoard_comment_cnt() %>]
+                  <%} %> 
                 </td>
                 <%} else { %>
                    <td class="title" onclick="noEnter();">
@@ -144,16 +149,16 @@ function noEnter(){
                 	
                 <%} %>
                 <td class="wirter">
-                	<%=sb.getPostWriter() %>
+                	<%=(sb.getPostTitle().equals("해당 게시물은 관리자에 의해 삭제되었습니다.")&&sb.getPostReport().equals("Y"))?"":sb.getPostWriter() %>
                 </td>
                 <td class="date">
-                    <%=sb.getPostDate() %>
+                    <%=(sb.getPostTitle().equals("해당 게시물은 관리자에 의해 삭제되었습니다.")&&sb.getPostReport().equals("Y"))?"":sb.getPostDate() %>
                 </td>
                 <td class="like">
-                    <%=sb.getPostLike() %>
+                    <%=(sb.getPostTitle().equals("해당 게시물은 관리자에 의해 삭제되었습니다.")&&sb.getPostReport().equals("Y"))?"":sb.getPostLike() %>
                 </td>
                 <td class="views">
-                   <%=sb.getPostReadCount() %>
+                   <%=(sb.getPostTitle().equals("해당 게시물은 관리자에 의해 삭제되었습니다.")&&sb.getPostReport().equals("Y"))?"":sb.getPostReadCount() %>
                 </td>
             </tr>
             <%}
