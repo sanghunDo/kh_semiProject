@@ -20,6 +20,9 @@ window.onload=function(){
 </script>
 </head>
 <body>
+<audio id="opendoor" autoplay src="<%=request.getContextPath()%>/audio/opendoor.wav"></audio>
+<audio id="prologue_bgm" src="<%=request.getContextPath()%>/audio/prologue.MP3"></audio>
+<audio id="gun" src="<%=request.getContextPath()%>/audio/gun.mp3"></audio>
 <img src="" alt="" id="background"/>
 <div id="warning">
 	<h1>! WARNING !</h1><br />
@@ -53,12 +56,17 @@ window.onload=function(){
 		if(cnt==4){
 			$("#msgBox").removeClass("me");
 		}
+		
+		if(cnt==15) $("#prologue_bgm")[0].pause();
 		if(cnt==17){
-			$("body, #background").css({"animation": "bang .1s", "animation-iteration-count": "3"});
-			$(this).parent().fadeOut(3000); //마지막 대사 이후 클릭시 메인게임으로 이동.
+			$("#gun")[0].play(); 
+			setTimeout(function(){
+				$("body, #background").css({"animation": "bang .1s", "animation-iteration-count": "5"});			
+			}, 700);
+			$(this).parent().fadeOut(4000); //마지막 대사 이후 클릭시 메인게임으로 이동.
 			setTimeout(function(){
 				location.href="<%=request.getContextPath()%>/game/gameMain?userId=<%=userId%>";
-			}, 3000);
+			}, 5000);
 		}
 		//대사 테이블에서 한 문장씩 가져옴.
 		$.ajax({
@@ -89,6 +97,11 @@ window.onload=function(){
 			}
 		}
 	});
+	
+
+ 	$(function(){
+		$("#prologue_bgm")[0].play();
+	}); 
 </script>
 </body>
 </html>
