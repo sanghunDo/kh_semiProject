@@ -1,0 +1,95 @@
+@charset "UTF-8";
+body{
+	background: black;
+	color: white;
+	font-family: 'Noto Serif KR', serif;
+}
+
+div#logo{
+	width: 500px;
+	margin: 0 auto;
+	color: white;
+	font-size: 70px;
+	font-family: 'Amatic SC', serif;
+	text-shadow: 4px 4px 2px gray;
+	letter-spacing: 4px;
+	padding-top: 50px;
+	padding-left: 80px;
+	padding-bottom: 50px;
+	cursor: pointer;
+}
+
+#chargeCoin-Container{
+	width:400px;
+	height:450px;
+	border:1px solid #5D5D5D;
+	border-radius:20px;
+	margin: 0 auto;
+	text-align: center;
+}
+
+#chargeCoinFrm{
+	margin: -25px auto
+}
+
+table{
+	font-size:15px;
+	margin:0 auto;
+	padding-top:35px;
+	margin-top: 40px;
+}
+
+table td{
+	padding:5px 10px 10px 10px;
+	text-align: start;
+}
+
+h2{
+	margin: 40px auto;
+}
+
+.coinLabel{
+	margin-left: 10px;
+}
+
+input[type='radio']:after {
+    width: 15px;
+    height: 15px;
+    border-radius: 15px;
+    top: -2px;
+    left: -1px;
+    position: relative;
+    background-color: #d1d3d1;
+    content: '';
+    display: inline-block;
+    visibility: visible;
+    border: 2px solid white;
+}
+
+input[type='radio']:checked:after {
+    width: 15px;
+    height: 15px;
+    border-radius: 15px;
+    top: -2px;
+    left: -1px;
+    position: relative;
+    background-color: #ffa500;
+    content: '';
+    display: inline-block;
+    visibility: visible;
+    border: 2px solid white;
+}
+
+#check_module{
+	outline:none;
+	background: gray;
+	border:1px solid gray;
+	border-radius:10px;
+	color:white;
+	width:250px;
+	height:35px;
+	font-family: 'Noto Serif KR', serif;
+	font-size:15px;
+	cursor:pointer;
+	margin: 30px auto;
+}
