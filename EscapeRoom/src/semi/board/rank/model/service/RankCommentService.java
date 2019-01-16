@@ -63,4 +63,87 @@ public class RankCommentService {
 		return result;
 	}
 
+	public int updateCommentLike(int rankCommentNo, int rankCommentLike) {
+		
+		int result = 0;
+		
+		Connection conn = getConnection();
+		
+		result = new RankCommentDao().updateCommentLike(conn, rankCommentNo, rankCommentLike);
+		
+		if(result > 0) commit(conn);
+		else rollback(conn);
+		
+		close(conn);
+		
+		return result;
+	}
+
+	public int getCommentLike(int rankCommentNo) {
+		
+		int result = 0;
+		
+		Connection conn = getConnection();
+		
+		result = new RankCommentDao().getCommentLike(conn, rankCommentNo);
+		
+		close(conn);
+		
+		return result;
+	}
+
+	public int updateCommentDisLike(int rankCommentNo, int rankCommentDisLike) {
+		
+		int result = 0;
+		Connection conn = getConnection();
+		
+		result = new RankCommentDao().updateCommentDisLike(conn, rankCommentNo, rankCommentDisLike);
+		
+		if(result > 0) commit(conn);
+		else rollback(conn);
+		
+		close(conn);
+		
+		return result;
+	}
+	
+	public int rankCommentUpdate(int rankCommentNo, String updateComment) {
+		
+		int result = 0;
+		Connection conn = getConnection();
+		
+		result = new RankCommentDao().rankCommentUpdate(conn, rankCommentNo, updateComment);
+		
+		if(result > 0) commit(conn);
+		else rollback(conn);
+		
+		close(conn);
+		
+		return result;
+	}
+
+	public int getCommentDisLike(int rankCommentNo) {
+		
+		int result = 0;
+		Connection conn = getConnection();
+		
+		result = new RankCommentDao().getCommentDisLike(conn, rankCommentNo);
+		
+		close(conn);
+		
+		return result;
+	}
+
+	public String getUpdateComment(int rankCommentNo) {
+		
+		String getUpdateComment = "";
+		
+		Connection conn = getConnection();
+		
+		getUpdateComment = new RankCommentDao().getUpdateComment(conn, rankCommentNo);
+		
+		close(conn);
+		
+		return getUpdateComment;
+	}
 }

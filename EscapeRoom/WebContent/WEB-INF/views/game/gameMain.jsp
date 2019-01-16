@@ -23,6 +23,8 @@ $(function(){
 </script>
 </head>
 <body>
+<audio autoplay id="intro" src="<%=request.getContextPath()%>/audio/mus_intronoise.ogg"></audio>
+<audio loop id="main_bgm" src="<%=request.getContextPath()%>/audio/mainGame.mp3"></audio>
 <div id="wrap">
    <div id="moveRight"><br><br><br><br><br><br><br><br><br><br><br><br><br><pre>       ▶</pre></div>
    <div id="moveLeft"><br><br><br><br><br><br><br><br><br><br><br><br><br>◀</div>
@@ -78,7 +80,8 @@ setTimeout(function(){
 	$("#background img:first").attr("src", "<%=request.getContextPath()%>/images/game/gameMain/"+position+"/background.png")
 	$("#background").show();
 	$("#pause").show();
-}, 3100);
+	$("#main_bgm")[0].play();
+}, 3000);
 function move(where,direction){
     $("#sub-background img:first").attr("src","<%=request.getContextPath()%>/images/game/gameMain/"+where+"/background.png");
     var here = $("#background img").prop("id"); 
@@ -380,6 +383,7 @@ $(window).on('keyup', function(e){
 }).on('beforeunload', function(){
 	opener.parent.sessionStorage.removeItem("game");
 });
+
 </script>
 </body>
 </html>

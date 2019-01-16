@@ -130,3 +130,7 @@ button.adminWarn{
 	font-size:15px;
 	display:inline-block;
 }
+
+div#rankComment-editor p{
+	color:white;
+}

@@ -32,6 +32,7 @@ public class RankingBoardListServlet extends HttpServlet {
 		List<Rank> list = new RankService().selectRankList();
 		List<Rank> finalList = new ArrayList<>();
 		List<RankComment> rCommentList = new RankCommentService().selectAllCommentList();
+		
 		int totalRankComment = new RankCommentService().selectRankCommentCount();
 		
 		for(Rank r : list) {
