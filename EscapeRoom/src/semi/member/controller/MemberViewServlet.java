@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import semi.member.exception.MemberException;
 import semi.member.model.service.MemberService;
 import semi.member.model.vo.Member;
 
@@ -28,7 +29,9 @@ public class MemberViewServlet extends HttpServlet {
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) 
+				throws ServletException, IOException { // <- 이 예외들은 Tomcat WAS에서 처리해준다.
+		try {
 		// 1. 파라미터 핸들링
 		String userId = request.getParameter("userId");
 		
@@ -55,7 +58,11 @@ public class MemberViewServlet extends HttpServlet {
 		request.setAttribute("loc", loc); // 실패했을 경우만 사용
 
 		request.getRequestDispatcher(view).forward(request, response);
+	} catch(Exception e) {
+		e.printStackTrace();
+		throw new MemberException("회원조회오류!");
 	}
+}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)

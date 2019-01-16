@@ -62,4 +62,8 @@
     <servlet-name>gotoNoticeForm</servlet-name>
     <url-pattern>/notice/noticeForm</url-pattern>
   </servlet-mapping>
+  <description>-----에러페이지 : error-code, exception-type, location-----</description>
+  <error-page>
+  	<location>/WEB-INF/views/common/error.jsp</location>
+  </error-page>
 </web-app>
