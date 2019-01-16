@@ -185,14 +185,13 @@
        
                   <td class="title">
                 <%if(td.getDataTitle()==null){ %>
+                <a href="<%=request.getContextPath()%>/board/free/freeBoardTemporaryForm?title=<%=td.getDataTitle()%>&content=<%=td.getDataContent()%>&fileName=<%=td.getDataOriginalFile()%>"> 
                 	제목없음
                 <%} else {%>
                 <%=td.getDataTitle() %>
                 <%} %>
                  </td>
-               
-               
-              
+
                 <td class="date">
                 <%=td.getDataDate() %>
                 </td>
@@ -202,6 +201,8 @@
 
         </table>
    <%} %>
+<script>
 
+</script>
 </div>
 </html>
