@@ -11,6 +11,7 @@
 <meta charset=UTF-8">
 <title>Insert title here</title>
 <script src="<%=request.getContextPath()%>/js/jquery-3.3.1.js"></script>
+<link href="https://fonts.googleapis.com/css?family=ZCOOL+QingKe+HuangYou" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css?family=Noto+Serif+KR" rel="stylesheet">
 <link rel="stylesheet" href="<%=request.getContextPath() %>/css/game/gameMain.css" />
 <link rel="stylesheet" href="<%=request.getContextPath() %>/css/game/gameObject.css" />
@@ -336,7 +337,10 @@ $("#prev").click(function(){
 $("#inventory").on('click',{flag:0},function(e){
 	var cnt = e.data.flag++;
 	if(cnt%2==0) $(this).animate({"top":"80%"});
-	else $(this).animate({"top":"100%"});
+	else {
+		$(this).animate({"top":"100%"});
+		$("#obj-list div").removeClass("selected");
+	}
 	$(this).toggleClass('on');
 	$(this).children().click(function(e){
 		e.stopPropagation();
