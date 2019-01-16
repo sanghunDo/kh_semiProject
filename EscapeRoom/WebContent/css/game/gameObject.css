@@ -11,7 +11,11 @@
     left: 345px;
     transform-origin: 0% 50%;
 }
-
+#used_flowerpot_key_1{
+	width: 40px;
+    top: 110px;
+    left: 607px;
+}
 #doorright{
     position: absolute;
     left: 607px;
@@ -124,36 +128,41 @@ opendoorright{
 
 
 /* back */
-#bs_doll{
+#doll{
 	top: 50px;
     left: 363px;
     opacity: 0;	
 }
-
-#bs_4_books{
+#hintnote3{
+	width: 50px;
+    left: 438px;
+    top: 213px;
+    opacity: 0;
+}
+#books_4{
 	top: 170px;
     left: 334px;
     opacity: 0;	
 }
 
-#bs_smallbox{
+#smallbox{
 	top: 311px;
     left: 397px;
     opacity: 0;	
 }
 
-#bs_clock{
+#clock{
 	top: 322px;
     left: 551px;
     opacity: 0;	
 }
 
-#bs_2_books{
+#books_2{
 	top: 400px;
     left: 348px;
     opacity: 0;	
 }
-#bs_battery{
+#battery{
 	display: block;
     width: 131px;
     top: 188px;
@@ -161,12 +170,12 @@ opendoorright{
     left: 409px;
     opacity: 0;
 }
-#bs_toolbox{
+#toolbox{
 	top: 565px;
     left: 471px;
     opacity: 0;	
 }
-#bs_cutterknife{
+#cutterknife{
 	display: block;
     width: 70px;
     top: 198px;
@@ -174,7 +183,7 @@ opendoorright{
     transform: rotateZ(16deg);
     opacity: 0;
 }
-#bs_hammer{
+#hammer{
 	display: block;
     width: 122px;
     top: 160px;

@@ -17,27 +17,33 @@ function setObject(position){
 		type: "get",
 		dataType: "json",
 		success: function(data){
+			console.log(data);
 			$("#background img").not(":first").remove();
 				for(var i in data){
 					var obj = data[i];
 					if(obj.position==position&&obj.objLevel==1){
-						var html = "<img src='<%=request.getContextPath()%>/images/game/gameMain/"+position+"/"+obj.objName+".png' id='"+obj.objName+"' class='obj'/>";
+						var html; 
+						var objName = obj.objName;
+						if(data[i].objName.indexOf("books")!=-1&&data[i].objName!="door"&&
+						   data[i].objName.indexOf("calendar")!=-1&&data[i].objName.indexOf("books")!=-1&&
+						   data[i].objName.indexOf("under")!=-1){
+							var state = check_state(objName, "use");
+							if(state==2) objName = "used_"+objName;
+						} 
+						html = "<img src='<%=request.getContextPath()%>/images/game/gameMain/"+position+"/"+obj.objName+".png' id='"+objName+"' class='obj'/>";
 						$("#background").append(html);
 					}
 				}
 			obj_click();
-	$("#background").append("<img src='<%=request.getContextPath()%>/images/game/gameMain/doorright.png' id='doorright'>");
 		}
 	});
-	
-	
 };
 function escape(){
 	var state1 = check_state("door_lock1", "use");
 	var state2 = check_state("door_lock2", "use");
 	
 	if(state1==2&&state2==2){
-
+		$("#background").append("<img src='<%=request.getContextPath()%>/images/game/gameMain/doorright.png' id='doorright'>");
         $("#door").css({
             "animation-name": "opendoor1",
             "animation-duration": ".5s",
@@ -63,43 +69,65 @@ function on(){
 	$("#wrap, #wrap *").removeClass("paused");
 };
 function off(){
-	$("#wrap *").not("#inventory, #background").addClass("paused");
+	$("#wrap *").not("#inventory, #inventory *, #background").addClass("paused");
 };
 function obj_click(){
 	var position = $("#background img").prop("id");
 	$("#background>img").not(":first").each(function(){
+		
+		if($("#show-obj").children().length!=0 || $("#pause-menu").children().length!=0
+				|| $("#store").children().length!=0 || $("#help").children().length!=0) return;
+		
 		$(this).on('click', function(){
-			if($(this).prop("id")=="door") {escape(); return;}
-				
-			var objName = $(this).prop("id");
-			var html = "";
+			if($("#show-obj").children().length!=0) return;
 			
-			var children = find_children(objName, 1);
-			if(children.length>0){
-				if(children.length==1){
-					var state = is_used(children);
-					if(state==2) {objName = "used_"+objName;}
-				}
-				if(children.length==2){
-					var state1 = is_used(children[0]);
-					var state2 = is_used(children[1]);
-					var childName = "";
-					
-					if(state1==2&&state2==2){objName = "used_"+objName;}
-					else{
-						if(state1==1&&state2==2){objName=children[0]+"_"+objName; childName=children[0];}
-						if(state1==2&&state2==1){objName=children[1]+"_"+objName; childName=children[1];}
+			var objName = $(this).prop("id");
+			if(objName=="door") {escape(); return;}
+			
+			var state_ = 0;
+			if(objName!="calendar"&&objName!="under_bed_diary"&&objName.indexOf("books")==-1&&objName!="window"
+				&& objName!="letter"){
+				state_ = check_state(objName, "use");
+			}
+			
+			if(state_==2){
+				html = "<img src='<%=request.getContextPath()%>/images/game/gameMain/clicked/used_"+objName+".png'"
+				 + " onclick=obj_hasNext('"+objName+"') class='"+objName+"'>";
+			}
+			else{
+				var itemList = is_usable(objName);
+				if(itemList.length!=0){check_has_item(objName, itemList); return;}
+				var html = "";
+				
+				var children = find_children(objName, 1);
+				if(children.length>0){
+					if(children.length==1){
+						var state = check_state(children[0], "get");
+						if(state==2) {objName = "used_"+objName;}
+					}
+					if(children.length==2){
+						var state1 = check_state(children[0], "get");
+						var state2 = check_state(children[1], "get");
+						var childName = "";
 						
-						if(!state1==1||state2==1){
-							html += "<img src='<%=request.getContextPath()%>/images/game/gameMain/"+position+"/"+childName+".png'";
-							html +=" id='"+childName+"' onclick=get_item('"+childName+"') class='obj'>";
+						console.log(state1, state2);
+						if(state1==1&&state2==1){
+							if(state1==2&&state2==2){objName = "used_"+objName;}
+							else{
+								if(state1==1&&state2==2){objName=children[0]+"_"+objName; childName=children[0];}
+								if(state1==2&&state2==1){objName=children[1]+"_"+objName; childName=children[1];}
+								console.log(children[0], objName);
+								html += "<img src='<%=request.getContextPath()%>/images/game/gameMain/"+position+"/"+childName+".png'";
+								html +=" id='"+childName+"' onclick=get_item('"+childName+"') class='obj'>";
+							}
 						}
 					}
 				}
+				html = "<img src='<%=request.getContextPath()%>/images/game/gameMain/clicked/"+objName+".png'"
+					 + " onclick=obj_hasNext('"+objName+"') class='"+objName+"'>" + html;
 			}
 			
-			html = "<img src='<%=request.getContextPath()%>/images/game/gameMain/clicked/"+objName+"_clicked.png'"
-				 + " onclick=obj_hasNext('"+objName+"') class='"+objName+"'>" + html;
+			console.log(objName, html);
 			
 			off();
 			$("#show-obj").html(html).show();
@@ -107,9 +135,101 @@ function obj_click(){
 		});
 	});
 };
+function is_usable(objName){
+	var itemList = [];
+	$.ajax({
+		url:"<%=request.getContextPath()%>/game/setObject",
+		type:"post",
+		dataType:"json",
+		async: false,
+		success: function(data){
+			for(var i in data){
+				if(data[i].objName==objName){
+					for(var j in data){
+						if(data[i].objNo==data[j].refNo) itemList.push(data[j].refNo);
+					}
+				}
+			}
+		}
+	});
+	return itemList;
+};
+function check_has_item(objName, itemList){
+	console.log("ㅋㅋㅋ");
+	var position = $("#background img").prop("id");
+	var objNo = get_data(objName, "objNo");
+	var html = "<img src='<%=request.getContextPath()%>/images/game/gameMain/clicked/"+objName+".png'"; 
+		html += "class='"+objNo+"' onclick=obj_hasNext('"+objName+"')>";
+	var flag = false;
+	
+	$("#show-obj").html(html).show();
+	off();
+	var item;
+	$("#obj-list div").each(function(){
+		if($(this).children().prop("id")==objNo){flag=true;item = $(this);}
+	});
+	if(flag){
+		if($("#inventory").offset().top>=704){$("#inventory").trigger('click');}
+		item.on('click', function(){
+			if(item.prop("class")=="selected"){
+				$("."+objNo).css("cursor", "pointer").attr("onclick", "use_item('"+objName+"', '"+objNo+"', '"+item.children().prop("id")+"')");
+			}
+			else{
+				$("."+objNo).css("cursor", "default").attr("onclick", "obj_hasNext('"+objName+"')");
+			}
+		});
+	}
+	else {show_coment(objName, 1);}
+};
+function use_item(objName, objNo, itemNo){
+	var position = $("#background img:first").prop("id");
+	if(objNo==itemNo){
+		if($("#inventory").offset().top<704){$("#inventory").trigger('click');}
+		$("#show-obj img:first").attr("src", "<%=request.getContextPath()%>/images/game/gameMain/"+position+"/used_"+objName+".png")
+								.attr("onclick", "obj_hasNext('"+objName+"')");
+		show_coment("used_"+objName, 1);
+		var itemName = $("#"+itemNo).prop("class");
+		
+		update_state(objName, "use");
+		update_state(itemName, "use");
+		setObject(position);
+		
+		var children = find_children("used_"+objName, 2);
+		if(children.length!=0){
+			for(var i in children){
+				var html = "<img src='<%=request.getContextPath()%>/images/game/gameMain/"+position+"/"+children[i]+".png";
+					html += "' id='"+children[i]+"' onclick=get_item('"+children[i]+"') class='obj'>";
+				$("#show-obj").append(html);
+			}
+		}
+		$("#"+itemNo).remove();
+	}
+	else{
+		if($("#inventory").offset().top<704){$("#inventory").trigger('click');}
+		show_coment("wrong", 1);
+		setTimeout(function(){
+			$("#coment").hide();
+			$("#inventory").trigger('click');
+		}, 2000);
+	}
+	
+	obj_click();
+};
 
-function is_used(children){
-	return check_state(children, "get");
+function get_data(objName, flag){
+	var result;
+	$.ajax({
+		url: "<%=request.getContextPath()%>/game/getObject?objName="+objName,
+		type: "get",
+		dataType: "json",
+		async: false,
+		success: function(data){
+			switch(flag){
+			case "objNo": result = data.objNo; break;
+			}
+		}
+	});
+	return result;
 };
 function obj_hasNext(objName){
 	var position = $("#background img").prop("id");
@@ -142,7 +262,6 @@ function obj_hasNext(objName){
 					var children = find_children(cName, 2);
 					if(children.length>0){
 						for(var i in children){
-							console.log(children[i]);
 							var html_ = "<img src='<%=request.getContextPath()%>/images/game/gameMain/"+position+"/"+children[i]+".png'";
 								html_ +=" id='"+children[i]+"' onclick=get_item('"+children[i]+"') class='obj'>";
 							$target.after(html_);
@@ -212,7 +331,7 @@ function update_state(objName, flag){
 };
 
 function get_item(objName){
-	$("#show-obj img:first").attr("src", "<%=request.getContextPath()%>/images/game/gameMain/clicked/"+objName+"_clicked.png");
+	$("#show-obj img:first").attr("src", "<%=request.getContextPath()%>/images/game/gameMain/clicked/"+objName+".png");
 	$("#"+objName).remove();
 	show_coment(objName, 1);
 	
@@ -224,6 +343,7 @@ function get_item(objName){
 			if(data.isItem=="Y "){
 				update_state(objName, "get");
 				refresh_inventory();
+				$("#"+objName).remove();
 			}
 		}
 	});
@@ -242,8 +362,9 @@ function refresh_inventory(){
 					if((data[i].objName).indexOf("hintnote")==-1){
 						state2 = check_state(data[i].objName, "use");
 					}
-					if(state1==2&&state2<2){
-						var html = "<img src='<%=request.getContextPath()%>/images/game/gameMain/"+data[i].position+"/"+data[i].objName+".png'>";
+					if(state1==2&&state2!=2){
+						var html = "<img src='<%=request.getContextPath()%>/images/game/gameMain/"+data[i].position+"/"+data[i].objName+".png'";
+							html += "id='"+data[i].refNo+"' class='"+data[i].objName+"'>";
 						$("#obj"+cnt++).html(html);
 					}
 				}
