@@ -17,6 +17,10 @@ public class BoardComment implements Serializable {
 	private int commentDislike;
 	private String commentReport;
 	
+	public String getCommentReport() {
+		return commentReport;
+	}
+
 	public BoardComment() {
 		
 	}

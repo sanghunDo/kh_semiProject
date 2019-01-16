@@ -241,6 +241,7 @@ public class MemberDao {
 		return loggedInMember;
 	}
 	
+	// 이메일
 	public Member selectEmail(Connection conn, String userEmail) {
 		Member loggedInMember = null;
 
@@ -317,7 +318,8 @@ public class MemberDao {
 
 		return result;
 	}
-
+	
+	// 회원가입
 	public int insertMember(Connection conn, Member member) {
 		int result = 0;
 
@@ -350,7 +352,8 @@ public class MemberDao {
 
 		return result;
 	}
-
+	
+	// 회원정보수정
 	public int updateMember(Connection conn, Member member) {
 		int result = 0;
 
@@ -378,7 +381,8 @@ public class MemberDao {
 
 		return result;
 	}
-
+	
+	// 회원 탈퇴
 	public int deleteMember(Connection conn, String userId) {
 		int result = 0;
 		
@@ -405,7 +409,7 @@ public class MemberDao {
 		return result;
 	}
 
-
+	// 비밀번호 변경
 	public int updatePassword(Connection conn, Member m) {
 		int result = 0;
 		PreparedStatement pstmt = null;
@@ -419,6 +423,35 @@ public class MemberDao {
 			pstmt.setString(1, m.getUserPassword());
 			pstmt.setString(2, m.getUserId());
 			System.out.println("멤버다오 업데이트 패스워드 : "+m.getUserPassword());
+			
+			// 2. 쿼리문 실행 : 완성된 쿼리를 가지고 있는 pstmt실행(파라미터 없음)
+			// DML : INSERT, UPDATE, DELETE => excuteUpdate()
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+	
+	// 코인 충전
+	public int chargeCoin(Connection conn, Member m) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String query = prop.getProperty("chargeCoin");
+		
+		try {
+			// 1. Statement객체 생성
+			pstmt = conn.prepareStatement(query);
+			
+			// 미완성된 쿼리문
+			pstmt.setInt(1, m.getCoin());
+			pstmt.setString(2, m.getUserId());
+			
+			System.out.println("멤버다오 코인 충전 : "+m.getUserId());
 			
 			// 2. 쿼리문 실행 : 완성된 쿼리를 가지고 있는 pstmt실행(파라미터 없음)
 			// DML : INSERT, UPDATE, DELETE => excuteUpdate()
@@ -467,6 +500,8 @@ public class MemberDao {
 		
 		return encUserPassword;
 	}
+	
+
 
 
 

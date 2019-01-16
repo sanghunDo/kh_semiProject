@@ -117,7 +117,7 @@
                 <span style="padding:10px" class="bestCommentLike" onclick="BestCommentLike(this,'<%=loggedInMember.getUserId()%>','<%=bc.getCommentWriter() %>')" commentNum="<%=i%>"><%=bc.getCommentLike() %></span>
                                 비추천
                 <span style="padding:10px" class="bestCommentDisike" onclick="BestCommentDislike(this,'<%=loggedInMember.getUserId()%>','<%=bc.getCommentWriter()%>')" commentNum="<%=i%>"><%=bc.getCommentDislike() %></span>
-                <span style="padding:10px" onclick="report('<%=bc.getCommentNo()%>', '<%=bc.getCommentWriter()%>', '<%=bc.getCommentContent()%>');">신고하기</span>
+                <span style="padding:10px" onclick="report('<%=bc.getCommentNo()%>', '<%=bc.getCommentWriter()%>', '<%=bc.getCommentContent()%>','<%=fb.getPostNo()%>');">신고하기</span>
             </dl>
 
             <dd class="bestContent" no=<%=i %>>
@@ -160,18 +160,19 @@
                    %>
                  <dl class="comment-Area">
                     <dt class="commentWriter">
-                        <%=bc.getCommentWriter()%>
-                        <i><%=bc.getCommentDate() %></i>
+                          <%=(bc.getCommentContent().equals("해당 댓글은 관리자에 의해 삭제되었습니다.")&&bc.getCommentReport().equals("Y"))?"":bc.getCommentWriter()%>
+                        <i><%=(bc.getCommentContent().equals("해당 댓글은 관리자에 의해 삭제되었습니다.")&&bc.getCommentReport().equals("Y"))?"":bc.getCommentDate() %></i>
                     </dt>
                     
                    <dl style="display: inline-flex; position: relative; left: 177px; top: -46px;">
                         <input type="hidden" value=<%=bc.getCommentNo() %> class="commentNo" commentNum="<%=i%>" />
                         <input type="hidden" value=<%=bc.getCommentContent() %> id="commentContent"  no="<%=i %>"/>
-                        <%if(loggedInMember!= null && ("admin".equals(loggedInMember.getUserId()) ||  bc.getCommentWriter().equals(loggedInMember.getUserId()))) {%>
+                        <%if(loggedInMember!= null && ("admin".equals(loggedInMember.getUserId()) ||  bc.getCommentWriter().equals(loggedInMember.getUserId()))) {
+                          if(!(bc.getCommentContent().equals("해당 댓글은 관리자에 의해 삭제되었습니다.")&&bc.getCommentReport().equals("Y"))) {%>%>
                         <div class="commentUpdate" no="<%=i%>">수정하기</div>
                         <div class="commentUpdateEnd" no="<%=i %>">수정완료</div>
                         <div class="commentDeleteBtn" no="<%=i %>" onclick="deleteComment();">삭제하기</div>
-                        <%} %>
+                        <%}} %>
                  </dl>
                  
                  <!-- 댓글 삭제를 위한 폼 -->
@@ -181,6 +182,8 @@
                     </form>
                     
                  
+   <%if(!(bc.getCommentContent().equals("해당 댓글은 관리자에 의해 삭제되었습니다.")&&bc.getCommentReport().equals("Y"))) { %>
+
                     <dl class="bestCommentOpinion">
                             <dl class="CommentOpinion">
                                 	추천    
@@ -189,18 +192,24 @@
                        				비추천
                        				<input type="hidden" class="commentDisAmount" value="<%=bc.getCommentDislike()%>" commentNum="<%=i%>"/>
                                     <span style="padding:10px" class="comment1Dislike" onclick="commentDislike(this,'<%=loggedInMember.getUserId()%>' ,'<%=bc.getCommentWriter()%>');" commentNum="<%=i%>"><%=bc.getCommentDislike()%></span>
-                                    <span style="padding:10px" onclick="report('<%=bc.getCommentNo()%>', '<%=bc.getCommentWriter()%>', '<%=bc.getCommentContent()%>');">신고하기</span>        
+                                    <span style="padding:10px" onclick="report('<%=bc.getCommentNo()%>', '<%=bc.getCommentWriter()%>', '<%=bc.getCommentContent()%>' ,'<%=fb.getPostNo()%>');">신고하기</span>        
                             </dl>
                     </dl>
-        
+        <%} %>
                     <dd class="comment_">
                     <textarea name="comment-Update" no="<%=i%>" class="comment-Update" cols="60" rows="3"><%=bc.getCommentContent() %></textarea>
                     <dd class="comment-Content">
+                      <br />
+                    <br />
+                    <br /><br />
                             <%=bc.getCommentContent() %>
                     </dd>
                     
+    <%if(!(bc.getCommentContent().equals("해당 댓글은 관리자에 의해 삭제되었습니다.")&&bc.getCommentReport().equals("Y"))) { %>
                    
                     <span class="level2CommentWrite" level2No="<%=i%>">답글보기</span>       
+               <%} %>     
+           
            </div> 
         
              <div class="level2CommentWriteDiv" level2No="<%=i%>">
@@ -351,7 +360,7 @@
                   html+="<div class='info'>"+ user.commentWriter + "</div>";
                   html+="<div class='level2Comment'>"+ user.commentContent + "</div>";
                   html+="<div class='level2Date'>"+ user.commentDate + "</div>";
-                  html+="<div class='level2Report' onclick=report("+user.commentNo+",'"+user.commentWriter+"','"+user.commentContent+"');>신고하기</div>";                               
+                  html+="<div class='level2Report' onclick=report("+user.commentNo+",'"+user.commentWriter+"','"+user.commentContent+"'"+<%=fb.getPostNo()%>+");>신고하기</div>";                               
 				  html+="<div class='level2Like' no='"+i+"' ";
 				  html+="onclick=level2Like(this,"+user.commentNo +","+"'"+user.commentWriter+"');>추천 "+user.commentLike+"</div>";
  				  /* html+="<div class='level2Like' no="+i+">추천"+user.commentLike+"</div>"; */
@@ -557,19 +566,20 @@
     	open(url, title, status);
     }
     /*댓글신고하기*/
-    function report(item, item2, item3){
+    function report(item, item2, item3 , postNo){
     	var commentNo = item;
     	var commentWrtier = item2;
     	var commentContent = item3;
+    	var postNo = postNo;
     	
-    	console.log("commentWrtier="+commentWrtier+" commentContent="+commentContent);
+    	console.log(postNo);
     	
         if(commentWrtier=="<%=loggedInMember.getUserId()%>"){
  		   alert("자신의 댓글은 신고하실 수 없습니다.");
  		   return;
  	   }
     	
-        var url = "<%=request.getContextPath() %>/board/free/freeBoardCommentReport?commentNo="+commentNo+"&commentWriter="+commentWrtier+"&commentContent="+commentContent;
+        var url = "<%=request.getContextPath() %>/board/free/freeBoardCommentReport?commentNo="+commentNo+"&commentWriter="+commentWrtier+"&commentContent="+commentContent+"&postNo="+postNo;
     	   
     	   // 팝업창 이름
         var title = "Report";

@@ -144,7 +144,9 @@ public class SolveBoard implements Serializable {
 	public void setPostReport(String postReport) {
 		this.postReport = postReport;
 	}
-	
+	public String getPostReport() {
+		return postReport;
+	}
 	
 
 	

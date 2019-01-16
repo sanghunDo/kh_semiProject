@@ -69,6 +69,7 @@ public class SolveBoardDao {
             sb.setPostDate(rset.getDate("postdate"));
             sb.setPostReadCount(rset.getInt("postreadcount"));
             sb.setBoard_comment_cnt(rset.getInt("board_comment_cnt"));
+            sb.setPostReport(rset.getString("postreport"));
             
             list.add(sb);
             
@@ -408,6 +409,7 @@ public class SolveBoardDao {
             bc.setCommentDate(rset.getDate("commentdate"));
             bc.setCommentLike(rset.getInt("commentlike"));
             bc.setCommentDislike(rset.getInt("commentdislike"));
+            bc.setCommentReport(rset.getString("commentreport"));
             
             commentList.add(bc);
          }
@@ -1620,12 +1622,12 @@ public class SolveBoardDao {
       return result;
    }
 
-   public int insertReportComment(int commentNo, String commentWriter, String commentContent, String reasonVal,
+   public int insertReportComment(int postNo, int commentNo, String commentWriter, String commentContent, String reasonVal,
          String userComment) {
       Connection conn = null;
       int result = 0;
       PreparedStatement pstmt = null;
-      String query = "INSERT INTO admin_report_comment values ('S', default, ?, ?, ?, ?, ?)";
+      String query = "INSERT INTO admin_report_comment values ('S', ?, ?, ?, ?, ?, ?)";
          
       try {
          Class.forName("oracle.jdbc.driver.OracleDriver");
@@ -1635,11 +1637,12 @@ public class SolveBoardDao {
          
          pstmt = conn.prepareStatement(query);
          //쿼리문미완성
-         pstmt.setInt(1, commentNo);
-         pstmt.setString(2, commentContent);
-         pstmt.setString(3, commentWriter);
-         pstmt.setString(4, reasonVal);
-         pstmt.setString(5, userComment);
+         pstmt.setInt(1, postNo);
+         pstmt.setInt(2, commentNo);
+         pstmt.setString(3, commentContent);
+         pstmt.setString(4, commentWriter);
+         pstmt.setString(5, reasonVal);
+         pstmt.setString(6, userComment);
 
 
          //쿼리 실행

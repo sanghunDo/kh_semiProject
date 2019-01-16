@@ -29,7 +29,7 @@ $(function(){
     <div id="moveCeiling"><pre>                                                                           ▲</pre></div>
 	<div id="background-container">
 		<div id="background">
-			<img src="<%=request.getContextPath() %>/images/game/gameMain/game_start_again.jpeg" id="front"/>
+			<img src="<%=request.getContextPath() %>/images/game/gameMain/game_start_again.jpg" id="front"/>
 		</div>
 		<div id="sub-background">
 			<img src="<%=request.getContextPath() %>/images/game/gameMain/background.png"/>
@@ -351,6 +351,7 @@ $("#obj-list div").each(function(){
 	});
 });
 $("#pause").on("click", {flag:1}, function(e){
+	if($("#show-obj").children().length!=0 || $("#store").children().length!=0 || $("#help").children().length!=0) return;
 	var $target = $(this);
 	var cnt = e.data.flag++;
 	$("#wrap div").not("#pause, #pause-menu-container, #pause-menu-container div, #message, #hint, #hint *, #background").toggleClass("paused");
@@ -370,6 +371,7 @@ $("#pause").on("click", {flag:1}, function(e){
 
 $(window).on('keyup', function(e){
 	if(e.keyCode==27){
+		if($("#show-obj").children().length!=0 || $("#store").children().length!=0 || $("#help").children().length!=0) return;
 		$("#pause").trigger("click");
 	}
 	if(e.keyCode==87&&isCtrl==true){

@@ -9,7 +9,10 @@ import static semi.common.JDBCTemplate.*;
 import semi.admin.model.dao.AdminDao;
 import semi.admin.model.vo.ReportBoard;
 import semi.admin.model.vo.ReportBoardComment;
+import semi.board.free.model.vo.FreeBoard;
+import semi.board.solve.model.vo.SolveBoard;
 import semi.member.model.vo.Member;
+import semi.notice.model.vo.Notice;
 
 public class AdminService {
 	// 로그인 관련 상수
@@ -40,16 +43,17 @@ public class AdminService {
 	}
 	
 	// 관리자용 회원 수정하기
-	public int updateMember(Member m) {
+	public int updateMember(Member member) {
 		Connection conn = getConnection();
 		int result = 0;
-		result = new AdminDao().updateMember(conn, m);
+		result = new AdminDao().updateMember(conn, member);
 		
 		// DML의 update문이므로 트랜잭션 처리
-		if(result>0)
+		if(result > 0) {
 			commit(conn);
-		else 
+		} else { 
 			rollback(conn);
+		}
 		close(conn);
 		return result;
 	}
@@ -193,9 +197,9 @@ public class AdminService {
 		  return list;
 	  }
 	  
-	  public ReportBoardComment selectReportBoardCmtOne(int postNo) {
+	  public ReportBoardComment selectReportBoardCmtOne(int commentNo) {
 		  Connection conn = getConnection();
-		  ReportBoardComment rbc = new AdminDao().selectReportBoardCmtOne(conn, postNo);
+		  ReportBoardComment rbc = new AdminDao().selectReportBoardCmtOne(conn, commentNo);
 		  close(conn);
 		  return rbc;
 	  }
@@ -213,5 +217,21 @@ public class AdminService {
 	  // 제목과 내용으로 신고된 게시글 검색하기
 	  
 	  // 작성자로 신고된 게시글 검색하기
+	  
+	  // 관리자용 자유게시판 작성글 보기
+	  public List<FreeBoard> selectFreeBoard(){
+		  Connection conn = getConnection();
+		  List<FreeBoard> list = new AdminDao().selectFreeBoard(conn);
+		  close(conn);
+		  return list;
+	  }
+	   
+	  // 관리자용 공략게시판 작성글 보기
+	  public List<SolveBoard> selectSolveBoard(){
+		  Connection conn = getConnection();
+		  List<SolveBoard> list = new AdminDao().selectSolveBoard(conn);
+		  close(conn);
+		  return list;
+	  }
 
 }

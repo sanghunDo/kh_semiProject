@@ -15,7 +15,7 @@ import com.josephoconnell.html.HTMLInputFilter;
 import com.oreilly.servlet.MultipartRequest;
 
 import semi.board.free.model.dao.FreeBoardDao;
-import semi.board.free.model.vo.FreeBoard;
+import semi.board.free.model.vo.*;
 import semi.common.MyFileRenamePolicy;
 
 /**
@@ -53,44 +53,78 @@ public class FreeBoardInsertEnd extends HttpServlet {
 		MultipartRequest multiReq = new MultipartRequest(request, saveDirectory, maxPostSize, "UTF-8", 
 				new MyFileRenamePolicy());
 		
-		String postTitle = multiReq.getParameter("title"); 
+		String postTitle = multiReq.getParameter("title")==null?"":multiReq.getParameter("title"); 
 		String postWriter= multiReq.getParameter("writer");
-	    String postContent  = multiReq.getParameter("content");
+	    String postContent  = multiReq.getParameter("content")==null?"":multiReq.getParameter("content"); 
 	    postContent = new HTMLInputFilter().filter(postContent);//boardContent전달하고 다시 돌려받음.
 		String originalFileName = multiReq.getOriginalFileName("up_file");
 		String renamedFileName = multiReq.getFilesystemName("up_file"); // 2018~.jpg
+		String flag = multiReq.getParameter("flag"); 
 
-		FreeBoard fb = new FreeBoard();
+		if(flag.equals("false")) {
+			FreeBoard fb = new FreeBoard();
+			
+			fb.setPostTitle(postTitle);
+			fb.setPostWriter(postWriter);
+			fb.setPostContent(postContent);
+			fb.setPostOriginalFile(originalFileName);
+			fb.setPostRenamedFile(renamedFileName);
+			System.out.printf("[%s]\n", fb);
+			
+			int result = new FreeBoardDao().insertPost(fb);
+		   
 		
-		fb.setPostTitle(postTitle);
-		fb.setPostWriter(postWriter);
-		fb.setPostContent(postContent);
-		fb.setPostOriginalFile(originalFileName);
-		fb.setPostRenamedFile(renamedFileName);
-		System.out.printf("[%s]\n", fb);
-		
-		int result = new FreeBoardDao().insertPost(fb);
-	   
+			String view = "/WEB-INF/views/common/msg.jsp";
+			String msg = "";
+			String loc = "/";
+			
+			if(result>0) {
+				int getlastNo = new FreeBoardDao().getLastSeq();
+				msg = "게시글이 등록되었습니다.";	
+				loc="/board/free/freeBoardView?postNo="+getlastNo;
+			}
+			else {
+				msg = "게시글 등록에 실패했습니다.";	
+				loc="/board/free/freeBoardList";
+			}
+
+			request.setAttribute("msg", msg);
+			request.setAttribute("loc", loc);
+
+			request.getRequestDispatcher(view).forward(request, response);
+		} else {
+			
+			TemporaryData td = new TemporaryData();
+			td.setDataTitle(postTitle);
+			td.setDataWriter(postWriter);
+			td.setDataContent(postContent);
+			td.setDataOriginalFile(originalFileName);
+			td.setDataRenamedFile(renamedFileName);
 	
-		String view = "/WEB-INF/views/common/msg.jsp";
-		String msg = "";
-		String loc = "/";
+			
+			int result = new FreeBoardDao().insertTemporaryData(td);
+		   
+		
+			String view = "/WEB-INF/views/common/msg.jsp";
+			String msg = "";
+			String loc = "/";
+			
+			if(result>0) {
+				msg = "임시저장 되었습니다.";	
+				loc="/board/free/freeBoardList";
+			}
+			else {
+				msg = "임시저장에 실패했습니다.";	
+				loc="/board/free/freeBoardList";
+			}
+
+			request.setAttribute("msg", msg);
+			request.setAttribute("loc", loc);
+
+			request.getRequestDispatcher(view).forward(request, response);
+		}
 		
 		
-		if(result>0) {
-			int getlastNo = new FreeBoardDao().getLastSeq();
-			msg = "게시글이 등록되었습니다.";	
-			loc="/board/free/freeBoardView?postNo="+getlastNo;
-		}
-		else {
-			msg = "게시글 등록에 실패했습니다.";	
-			loc="/board/free/freeBoardList";
-		}
-
-		request.setAttribute("msg", msg);
-		request.setAttribute("loc", loc);
-
-		request.getRequestDispatcher(view).forward(request, response);
 
 	}
 
