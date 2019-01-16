@@ -204,7 +204,7 @@ function adminGrant(userId){
 			</td>
 		</tr>
 		<%} %>
-		<tr><td colspan="5"><button id="showAll">▼ 전체회원 보기</button></td></tr>
+		<tr><td colspan="6"><button id="showAll">▼ 전체회원 보기</button></td></tr>
 		<%for(int i=5; i<memberList.size(); i++) { %>
 		<tr class="toggleTr hideThis">
 			<td>
@@ -241,9 +241,9 @@ function adminGrant(userId){
 			</td>
 		</tr>
 		<%} %>
-		<tr><td colspan="5"><button class="hideThis" id="hide">▲ 접기</button></td></tr>
+		<tr><td colspan="6"><button class="hideThis" id="hide">▲ 접기</button></td></tr>
 	<%} else{ %>
-		<tr><td colspan="5">데이터가 없습니다.</td></tr>
+		<tr><td colspan="6">데이터가 없습니다.</td></tr>
 	<%} %>
 	
 </table>

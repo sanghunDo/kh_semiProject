@@ -65,7 +65,7 @@ div#title{
     <div id="endingCredit-Container">
         <h1>- Escape, if you can. -</h1>
         <br><br>
-        <h4>정창학&nbsp;&nbsp;이소희&nbsp;&nbsp;이재선&nbsp;&nbsp;강선영&nbsp;&nbsp;도상훈&nbsp;&nbsp;한주리&nbsp;&nbsp;신혜영</h4>
+        <h4>정창학&nbsp;&nbsp;이재선&nbsp;&nbsp;강선영&nbsp;&nbsp;도상훈&nbsp;&nbsp;한주리&nbsp;&nbsp;신혜영&nbsp;&nbsp;이소희</h4>
         <br><br>        
         <h3>SourceTree 및 Git</h3>
         <h4>도상훈</h4>
@@ -95,7 +95,7 @@ div#title{
         <h4>강선영</h4>
         <br><br>
         <h3>관리자 모드</h3>
-        <h4>이소희</h4>
+        <h4>강선영</h4>
         <br><br>
         <h3>메인화면 및 헤더 UI</h3>
         <h4>도상훈</h4>
