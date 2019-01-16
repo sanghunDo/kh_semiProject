@@ -177,3 +177,9 @@ div#modify-Notice{
 span.cPage{
 	color:red;
 }
+
+table#notice-Table td.none{
+	font-family:'Noto Serif KR', serif;
+	color:white;
+	font-size:20px;
+}

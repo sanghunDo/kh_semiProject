@@ -52,7 +52,11 @@ public class HomeGetDataServlet extends HttpServlet {
 		//랭킹 1위 정보
 		Rank r = new HomeService().selectRankTop();
 
-		int runtime = (int) r.getGameruntime() / 1000;
+		int runtime = 0;
+		
+		if(r != null) {
+			runtime = (int) r.getGameruntime() / 1000;
+		}
         
         int hours = runtime / 3600;
         int minutes = (runtime % 3600) / 60;
@@ -70,7 +74,14 @@ public class HomeGetDataServlet extends HttpServlet {
            endRuntime += seconds + "초";
         }
         
-        Rank modifiedR = new Rank(r.getGameId(), r.getGameruntime(), r.getUserprofilerenamedfile(), r.getGameescapedate(), endRuntime);
+        Rank modifiedR = null;
+        
+        if(r != null) {
+        	modifiedR = new Rank(r.getGameId(), r.getGameruntime(), r.getUserprofilerenamedfile(), r.getGameescapedate(), endRuntime);        	
+        }
+        else {
+        	modifiedR = new Rank();
+        }
 		
 		//자유게시판 인기게시물 top3
 		List<FreeBoard> list_free = new FreeBoardDao().boardSelectBest3();

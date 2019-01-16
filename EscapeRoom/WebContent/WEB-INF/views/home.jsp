@@ -20,7 +20,7 @@
 	if(linkedNotice != null && "N".equals(linkedNotice.getNoticeUrgent())) {
 		category = "<공지사항>"; 
 	}
-	else{
+	else if(linkedNotice != null && "Y".equals(linkedNotice.getNoticeUrgent())){
 		category = "<긴급공지>";
 	}
 	
@@ -37,10 +37,13 @@
 		<%} %>
 	</div>
 	<div id="notice-Link">
-		
-		<a href="<%=request.getContextPath()%>/notice/noticeView?noticeNo=<%=linkedNotice.getNoticeNo()%>">
-			<h3 id="ani-Text"><%=category %>&nbsp;&nbsp;<%=linkedNotice.getNoticeTitle() %></h3>
-		</a>
+		<%if(linkedNotice.getNoticeNo() == 0) {%>
+			<h3 id="ani-Text" disabled>플레이해주셔서 감사합니다.</h3>
+		<%} else{%>
+			<a href="<%=request.getContextPath()%>/notice/noticeView?noticeNo=<%=linkedNotice.getNoticeNo()%>">
+				<h3 id="ani-Text"><%=category %>&nbsp;&nbsp;<%=linkedNotice.getNoticeTitle() %></h3>
+			</a>
+		<%} %>
 	</div>
 	
 	<div id="rank-One">
@@ -58,6 +61,9 @@
 						<img id="rankOne-Profile" src="<%=request.getContextPath() %>/images/nonProfile.png" alt="" />
 						<%} %>
 						<table id="player-Details">
+							<%if(r.getGameId() == null) {%>
+							<tr><td>데이터가 존재하지 않습니다.</td></tr>
+							<%} else{%>
 							<tr>
 								<th>아이디 </th>
 								<td><%=r.getGameId() %></td>
@@ -70,6 +76,7 @@
 								<th>클리어 날짜  </th>
 								<td><%=r.getGameescapedate() %></td>
 							</tr>
+							<%} %>
 						</table>
 					</div>
 				</td>
@@ -96,7 +103,7 @@
 			</tr>
 			<%if(list_free == null || list_free.isEmpty()) { %>
 			<tr><td colspan="6"></td></tr>
-			<tr><td colspan="6">게시글이 없습니다.</td></tr>
+			<tr><td colspan="6">데이터가 없거나 게시글이 존재하지 않습니다.</td></tr>
 			<%} else{
 				for(FreeBoard fb : list_free){%>
 				<tr>
@@ -129,7 +136,7 @@
 			</tr>
 			<%if(list_solve == null || list_solve.isEmpty()) { %>
 			<tr><td colspan="6"></td></tr>
-			<tr><td colspan="6">게시글이 없습니다.</td></tr>
+			<tr><td colspan="6">데이터가 없거나 게시글이 존재하지 않습니다.</td></tr>
 			<%} else{
 				for(SolveBoard sb : list_solve){%>
 				<tr>
