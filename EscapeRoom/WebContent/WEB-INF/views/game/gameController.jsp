@@ -85,15 +85,19 @@ function obj_click(){
 					var state2 = is_used(children[1]);
 					var childName = "";
 					
+					if(state1==1&&state2==1){
+						for(var i in data){
+							html += "<img src='<%=request.getContextPath()%>/images/game/gameMain/"+position+"/"+children[i]+".png'";
+							html +=" id='"+children[i]+"' onclick=get_item('"+children[i]+"') class='obj'>";	
+						}
+					}
 					if(state1==2&&state2==2){objName = "used_"+objName;}
 					else{
 						if(state1==1&&state2==2){objName=children[0]+"_"+objName; childName=children[0];}
 						if(state1==2&&state2==1){objName=children[1]+"_"+objName; childName=children[1];}
 						
-						if(!state1==1||state2==1){
-							html += "<img src='<%=request.getContextPath()%>/images/game/gameMain/"+position+"/"+childName+".png'";
-							html +=" id='"+childName+"' onclick=get_item('"+childName+"') class='obj'>";
-						}
+						html += "<img src='<%=request.getContextPath()%>/images/game/gameMain/"+position+"/"+childName+".png'";
+						html +=" id='"+childName+"' onclick=get_item('"+childName+"') class='obj'>";
 					}
 				}
 			}
