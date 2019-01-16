@@ -6,7 +6,6 @@
 					semi.board.solve.model.vo.*,
 					java.util.*" %>
 <%@ include file="/WEB-INF/views/common/header.jsp" %>
-
 <%
 	Rank r = (Rank) request.getAttribute("rankTop");
 	Notice linkedNotice = (Notice) request.getAttribute("linkedNotice");
@@ -27,12 +26,9 @@
 	
 	List<FreeBoard> list_free = (List<FreeBoard>) request.getAttribute("list_free");
 	List<SolveBoard> list_solve = (List<SolveBoard>) request.getAttribute("list_solve");
-
 %>
-
 <link rel="stylesheet" href="<%=request.getContextPath() %>/css/home/home.css" />
 <link href="https://fonts.googleapis.com/css?family=Noto+Serif+KR" rel="stylesheet">
-
 
 <div id="main-Container">
 	<div id="admin-Container">

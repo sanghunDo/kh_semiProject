@@ -2,13 +2,13 @@
     pageEncoding="UTF-8"%>
 <%@ page import="semi.member.model.vo.*" %>
 <% 
-	Member loggedInMember = (Member)session.getAttribute("loggedInMember"); 
+	Member loggedInMember = (Member)session.getAttribute("loggedInMember");
 %>
 <!DOCTYPE>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>You Can't Escape..</title>
+<title>You Can't Escape.</title>
 <link href="https://fonts.googleapis.com/css?family=Roboto+Slab" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css?family=Noto+Serif+KR" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css?family=Amatic+SC" rel="stylesheet">
@@ -22,13 +22,8 @@
 			<%if(loggedInMember == null) {%>
                 <a href="<%=request.getContextPath()%>/member/login">LOGIN</a>
 			<%}else{ %>
-				<%if("admin".equals(loggedInMember.getUserId())){ %>
-					<%-- <a href="<%=request.getContextPath()%>/admin/adminBoard">ADMIN</a> --%>
-					<a href="<%=request.getContextPath()%>/adminMode/adminMain">ADMIN</a>
-					&nbsp;&nbsp;
-				<%} %>
                 <a href="<%=request.getContextPath()%>/member/memberView?userId=<%=loggedInMember.getUserId()%>">MY PAGE</a>
-                	&nbsp;&nbsp;
+                &nbsp;&nbsp;
                 <a href="<%=request.getContextPath()%>/member/logout">LOGOUT</a>
 			<%} %>
 			</div>
@@ -47,20 +42,52 @@
 			<button class="enter-game" >ENTER GAME</button>
 		</div>
 	</header>
-	<script>
-	$(".enter-game").click(function(){
-		var pop;
-		var url = "<%=request.getContextPath()%>/game/gameStart?userId=<%=loggedInMember!=null?loggedInMember.getUserId():"guest"%>";
-		var status = "width=1024px, height=678px";
-		pop = sessionStorage.getItem("game");
+	
+<script>
+$(".enter-game").click(function(){
+	var pop;
+	var url = "<%=request.getContextPath()%>/game/gameStart?userId=<%=loggedInMember!=null?loggedInMember.getUserId():"guest"%>";
+	var status = "width=1024px, height=678px";
+	pop = sessionStorage.getItem("game");
+	
+	if(pop || pop != null) {alert("이미 게임이 실행중입니다."); return;} //팝업창이 열려있는 경우 중복실행 방지.
 		
-		if(pop || pop != null) {alert("이미 게임이 실행중입니다."); return;} //팝업창이 열려있는 경우 중복실행 방지.
-			
-		if(<%=loggedInMember==null%>){
-			var check = confirm("비로그인 시 랭킹등록이 불가합니다. 계속 진행하시겠습니까?");
-			if(!check){return;}
-		}
-		pop = open(url, "game", status);
-		sessionStorage.setItem("game", pop);
-	});
-	</script>
+	if(<%=loggedInMember==null%>){
+		var check = confirm("비로그인 시 랭킹등록이 불가합니다. 계속 진행하시겠습니까?");
+		if(!check){return;}
+	}
+	pop = open(url, "game", status);
+	sessionStorage.setItem("game", pop);
+});
+
+
+
+$(function getAdminList(){
+	console.log("onload function");
+	<%if(loggedInMember != null){%>
+		console.log("if문 안에");
+		$.ajax({
+			url : "<%=request.getContextPath()%>/header",
+			type : "post",
+			dataType : "json",
+			success : function(data){
+				console.log(data);
+				var aTag = $("#adminBtn");
+				for(var i in data){
+					if("<%=loggedInMember.getUserId()%>" == data[i].adminId){
+						console.log("조건");
+						$("#myMenu a:first").before("<a href='<%=request.getContextPath()%>/adminMode/adminMain' id='adminBtn'>ADMIN</a>&nbsp;&nbsp;&nbsp;&nbsp;");
+					}  
+				}
+				
+			}, error : function(jqxhr, textStatus, errorThrown){
+				console.log("ajax처리 실패!");
+				console.log(jqxhr);
+				console.log(textStatus);
+				console.log(errorThrown);
+			}
+		});
+	<%}%>
+});
+
+</script>
