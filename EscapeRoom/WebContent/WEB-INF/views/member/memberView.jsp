@@ -130,10 +130,10 @@ function chargeCoin(){
 	// 팝업창 이름
 	var title = "chargeCoin";
 	
-	var popupX = (window.screen.width / 2) - (480 / 2);
-	var popupY = (window.screen.height /2) - (380 / 2);
+	var popupX = (window.screen.width / 2) - (1024 / 2);
+	var popupY = (window.screen.height /2) - (900 / 2);
 	
-	var status = "left=" + popupX +", top=" + popupY +", screenX =" + popupX +", screenY=" + popupY + ",width=480px, height=380px";
+	var status = "left=" + popupX +", top=" + popupY +", screenX =" + popupX +", screenY=" + popupY + ",width=1300px, height=700px";
 	
 	open(url, title, status);
 }
