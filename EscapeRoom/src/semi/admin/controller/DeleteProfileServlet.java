@@ -14,7 +14,6 @@ import semi.member.model.vo.Member;
 /**
  * Servlet implementation class DeleteProfileServlet
  */
-@WebServlet("/adminMode/deleteProfile")
 public class DeleteProfileServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
