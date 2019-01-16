@@ -116,7 +116,7 @@
                 <span style="padding:10px" class="bestCommentLike" onclick="BestCommentLike(this,'<%=loggedInMember.getUserId()%>','<%=bc.getCommentWriter() %>')" commentNum="<%=i%>"><%=bc.getCommentLike() %></span>
                                 비추천
                 <span style="padding:10px" class="bestCommentDisike" onclick="BestCommentDislike(this,'<%=loggedInMember.getUserId()%>','<%=bc.getCommentWriter()%>')" commentNum="<%=i%>"><%=bc.getCommentDislike() %></span>
-                <span style="padding:10px" onclick="report('<%=bc.getCommentNo()%>', '<%=bc.getCommentWriter()%>', '<%=bc.getCommentContent()%>');">신고하기</span>
+                <span style="padding:10px" onclick="report('<%=bc.getCommentNo()%>', '<%=bc.getCommentWriter()%>', '<%=bc.getCommentContent()%>','<%=sb.getPostNo()%>');">신고하기</span>
             </dl>
 
             <dd class="bestContent" no="<%=i%>"><%=bc.getCommentContent() %></dd>
@@ -186,7 +186,7 @@
                        				비추천
                        				<input type="hidden" class="commentDisAmount" value="<%=bc.getCommentDislike()%>" commentNum="<%=i%>"/>
                                     <span style="padding:10px" class="comment1Dislike" onclick="commentDislike(this,'<%=loggedInMember.getUserId()%>' ,'<%=bc.getCommentWriter()%>');" commentNum="<%=i%>"><%=bc.getCommentDislike()%></span>
-                                    <span style="padding:10px" onclick="report('<%=bc.getCommentNo()%>', '<%=bc.getCommentWriter()%>', '<%=bc.getCommentContent()%>');">신고하기</span>        
+                                    <span style="padding:10px" onclick="report('<%=bc.getCommentNo()%>', '<%=bc.getCommentWriter()%>', '<%=bc.getCommentContent()%>' ,'<%=sb.getPostNo()%>');">신고하기</span>        
                             </dl>
                     </dl>
         
@@ -313,7 +313,7 @@
                           html+="<div class='info'>"+ user.commentWriter + "</div>";
                           html+="<div class='level2Comment'>"+ user.commentContent + "</div>";
                           html+="<div class='level2Date'>"+ user.commentDate + "</div>";
-                          html+="<div class='level2Report' onclick=report("+user.commentNo+",'"+user.commentWriter+"','"+user.commentContent+"');>신고하기</div>";                               
+                          html+="<div class='level2Report' onclick=report("+user.commentNo+",'"+user.commentWriter+"','"+user.commentContent+"'"+<%=sb.getPostNo()%>+");>신고하기</div>";                               
         				  html+="<div class='level2Like' no='"+i+"' ";
         				  html+="onclick=level2Like(this,"+user.commentNo +","+"'"+user.commentWriter+"');>추천 "+user.commentLike+"</div>";
          				  /* html+="<div class='level2Like' no="+i+">추천"+user.commentLike+"</div>"; */
@@ -545,18 +545,20 @@
 	 }
 	 
 	  /*댓글 신고하기*/
-    function report(item, item2, item3){
+    function report(item, item2, item3 , postNo){
     	var commentNo = item;
     	var commentWrtier = item2;
     	var commentContent = item3;
+    	var postNo = postNo;
     	
+    	console.log(postNo);
     	if(commentWrtier == '<%=loggedInMember.getUserId()%>'){
     		alert("자신의 댓글은 신고하실 수 없습니다.");
     		return;
     	}
     	
     	
-        var url = "<%=request.getContextPath() %>/board/solve/solveBoardCommentReport?commentNo="+commentNo+"&commentWriter="+commentWrtier+"&commentContent="+commentContent;
+        var url = "<%=request.getContextPath() %>/board/solve/solveBoardCommentReport?commentNo="+commentNo+"&commentWriter="+commentWrtier+"&commentContent="+commentContent+"&postNo="+postNo;
     	   
     	   // 팝업창 이름
         var title = "Report";

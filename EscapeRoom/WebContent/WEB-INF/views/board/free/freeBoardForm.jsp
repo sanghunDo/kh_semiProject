@@ -27,6 +27,7 @@
             <col width="30px">
         </colgroup>
         <form action="<%=request.getContextPath() %>/board/free/freeBoardInsertEnd" name="writeFrm" enctype="multipart/form-data" method="post">
+            
             <tr>
                 <th scope="col">제목</th>
                 <td class="title">
@@ -52,8 +53,9 @@
                         <input type="file" name="up_file">
                 </td>
             </tr>
+            <input type="hidden" value="false" name="flag" />
          </form>  
-            
+         
         <!--     <tr>
                 <th scope="col">첨부파일1</th>
                 <td>			
@@ -77,6 +79,8 @@
             </tr> -->
     </table>
     
+    <div id="DataBox" onclick="dataBox();">임시저장보관함</div>
+    <div id="temporaryData" onclick="temporaryData();">임시저장하기</div>
     <div class="button" id="submit" onclick="submitFrm();">등록</div>
     <div class="button" id="cancel" onclick="cancel();">취소</div>
 
@@ -92,7 +96,46 @@ function submitFrm(){
 }
 
 function cancel(){
-	alert("작성중인 글쓰기를 종료하시겠습니까?");
+	var title = $("input[name=title]").val().trim().length;
+	var content = $("textarea[name=content]").val().trim().length;
+	var titleVal =  $("input[name=title]").val();
+	var contentVal = $("textarea[name=content]").val();
+	
+	var referrer =  document.referrer;
+	var userId = "<%=loggedInMember.getUserId()%>";
+	if(title>0 || content>0){	
+		if(!confirm("작성중인 글이 있습니다. 임시저장하시겠습니까? '취소'를 누르시면 작성하던 게시글이 삭제됩니다.")){
+			location.href = referrer; 
+		}else{ //확인버튼을 눌렀을 시
+			$("[name=flag]").attr("value","true");
+			$("[name=writeFrm]").submit(); 
+		}
+	} else {
+		 location.href = referrer; 
+	}
+	
+}
+
+function temporaryData(){
+	var title = $("input[name=title]").val().trim().length;
+	var content = $("textarea[name=content]").val().trim().length;
+	if(title==0&&content==0){
+		alert("제목과 내용을 작성해주세요.");
+		return;
+	}
+	
+	$("[name=flag]").attr("value","true");
+	$("[name=writeFrm]").submit(); 
+}
+
+function dataBox(){
+	var url = "<%=request.getContextPath() %>/board/free/freeBoardTemporaryBox?userId=<%=loggedInMember.getUserId()%>";
+	   
+	   // 팝업창 이름
+ 	var title = "DataBox";
+	var status = "left=500px, top=200px, width=600px, height=600px";
+	   
+	open(url, title, status);
 }
 </script>
 </body>

@@ -26,38 +26,35 @@ function setObject(position){
 					}
 				}
 			obj_click();
-			escape();
+	$("#background").append("<img src='<%=request.getContextPath()%>/images/game/gameMain/doorright.png' id='doorright'>");
 		}
 	});
 	
 	
 };
 function escape(){
-	$("#door").on('click', function(){
-		var state1 = check_state("door_lock1", "use");
-		var state2 = check_state("door_lock2", "use");
-		
-		if(state1==2&&state2==2){
-            $("#door").css({
-                "animation-name": "opendoor1",
-                "animation-duration": "0.5s",
-                "animation-iteration-count": "1",
-                "animation-fill-mode": "forwards"
-            });
-            $("#doorright").css({
-                "animation-name": "opendoorright",
-                "animation-duration": ".5s",
-                "animation-iteration-count": "1",
-                "animation-fill-mode": "forwards"
-            });
-			$("body").fadeOut(2000);
-			setTimeout(function(){
-				location.href="<%=request.getContextPath()%>/game/goToEndingChoice";
-			}, 1500);
-		}else{
-			show_coment("door", 1);
-		}
-	});
+	var state1 = check_state("door_lock1", "use");
+	var state2 = check_state("door_lock2", "use");
+	
+	if(state1==2&&state2==2){
+
+        $("#door").css({
+            "animation-name": "opendoor1",
+            "animation-duration": ".5s",
+            "animation-iteration-count": "1",
+            "animation-fill-mode": "forwards"
+        });
+        $("#doorright").css({
+            "animation-name": "opendoorright",
+            "animation-duration": ".5s",
+            "animation-iteration-count": "1",
+            "animation-fill-mode": "forwards"
+        });
+		$("body").fadeOut(2000);
+		setTimeout(function(){
+			location.href="<%=request.getContextPath()%>/game/goToEndingChoice";
+		}, 1500);
+	}else{show_coment("door", 1);}
 };
 function on(){
 	if($("#inventory").offset().top<704){$("#inventory").trigger('click');}
@@ -66,12 +63,14 @@ function on(){
 	$("#wrap, #wrap *").removeClass("paused");
 };
 function off(){
-	$("#wrap *").not("#inventory").addClass("paused");
+	$("#wrap *").not("#inventory, #background").addClass("paused");
 };
 function obj_click(){
-	var position = $("#background img").prop("id")
-	$("#background>img").not(":first, #door").each(function(){
+	var position = $("#background img").prop("id");
+	$("#background>img").not(":first").each(function(){
 		$(this).on('click', function(){
+			if($(this).prop("id")=="door") {escape(); return;}
+				
 			var objName = $(this).prop("id");
 			var html = "";
 			
@@ -90,9 +89,11 @@ function obj_click(){
 					else{
 						if(state1==1&&state2==2){objName=children[0]+"_"+objName; childName=children[0];}
 						if(state1==2&&state2==1){objName=children[1]+"_"+objName; childName=children[1];}
-						console.log(childName);
-						html += "<img src='<%=request.getContextPath()%>/images/game/gameMain/"+position+"/"+childName+".png'";
-						html +=" id='"+childName+"' onclick=get_item('"+childName+"') class='obj'>";
+						
+						if(!state1==1||state2==1){
+							html += "<img src='<%=request.getContextPath()%>/images/game/gameMain/"+position+"/"+childName+".png'";
+							html +=" id='"+childName+"' onclick=get_item('"+childName+"') class='obj'>";
+						}
 					}
 				}
 			}
@@ -141,6 +142,7 @@ function obj_hasNext(objName){
 					var children = find_children(cName, 2);
 					if(children.length>0){
 						for(var i in children){
+							console.log(children[i]);
 							var html_ = "<img src='<%=request.getContextPath()%>/images/game/gameMain/"+position+"/"+children[i]+".png'";
 								html_ +=" id='"+children[i]+"' onclick=get_item('"+children[i]+"') class='obj'>";
 							$target.after(html_);

@@ -26,12 +26,14 @@ public class CommentReport extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		int postNo = Integer.parseInt(request.getParameter("postNo"));
 		int commentNo = Integer.parseInt(request.getParameter("commentNo"));
 		String commentWriter = request.getParameter("commentWriter");
 		String commentContent = request.getParameter("commentContent");
 		String view = "/WEB-INF/views/common/msg.jsp";
 		
 			view = "/WEB-INF/views/board/free/report.jsp";
+			request.setAttribute("postNo", postNo);
 			request.setAttribute("commentNo", commentNo);
 			request.setAttribute("commentWriter", commentWriter);
 			request.setAttribute("commentContent", commentContent);

@@ -1,6 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<<<<<<< HEAD
 <%@ page import = "java.util.*, semi.member.model.vo.*, semi.admin.model.vo.*, semi.admin.controller.*" %>
 <%
 	List<Member> memberList = (List<Member>) request.getAttribute("memberList");
@@ -238,12 +237,15 @@ $(function(){
 				for (ReportBoardComment rbc : reportCmtList) {%>
 			<tr>
 				<td><%=rbc.getCategory() %></td>
-				<!-- 글번호 클릭시  상세보기 페이지로 이동하기-->
-				<td><a href="<%=request.getContextPath() %>/admin/adminReportCmtView?postNo=<%=rbc.getPostNo()%>">
+				
+				<td>
 					<%=rbc.getPostNo()%>
-					</a>
 				</td>
-				<td><%=rbc.getCommentNo() %></td>
+				<td><!-- 댓글번호 클릭시  상세보기 페이지로 이동하기-->
+					<a href="<%=request.getContextPath() %>/admin/adminReportCmtView?commentNo=<%=rbc.getCommentNo()%>">
+					<%=rbc.getCommentNo() %>
+					</a>
+					</td>
 				<td><%=rbc.getCommentContent()%></td>
 				<td><%=rbc.getCommentWriter()%></td>
 				<td><%=rbc.getReason()%></td>

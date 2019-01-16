@@ -9,6 +9,72 @@
 #door{
 	top: 272px;
     left: 345px;
+    transform-origin: 0% 50%;
+}
+
+#doorright{
+    position: absolute;
+    left: 607px;
+    top: 292px;
+    transform: perspective(1300px) rotateY(90deg);
+    height:351px;
+    z-index:2;
+}
+@keyframes 
+opendoor1 { 
+    20% {
+        transform:perspective(1300px) rotateY(-20deg);
+    }
+    
+    40% {
+        transform:perspective(1300px) rotateY(-40deg);
+    }
+    50%{
+        transform:perspective(1300px) rotateY(-50deg);
+    }
+    
+    80% {
+        transform:perspective(1300px) rotateY(-80deg);
+    }
+    100% {
+        transform:perspective(1300px) rotateY(-80deg);
+    }
+}
+@keyframes
+opendoorright{
+    20%{
+        left: 594px;
+        top: 272px;
+        height: 376px;
+        transform:perspective(1300px) rotateY(72deg);
+    }
+    40%{
+        left: 562px;
+        top: 258px;
+        height: 403px;
+        transform:perspective(1300px) rotateY(64deg);
+
+    }
+    50%{
+        left: 534px;
+        top: 253px;
+        height: 411px;
+        transform:perspective(1300px) rotateY(40deg);
+
+    }
+    80%{
+        left: 392px;
+        top: 240px;
+        height: 435px;
+        transform:perspective(1300px) rotateY(30deg);
+    }
+    100%{
+        left: 392px;
+        top: 240px;
+        height: 435px;
+        transform:perspective(1300px) rotateY(30deg);
+
+    }
 }
 #door_lock1{
     width: 41px;
@@ -61,6 +127,7 @@
 #bs_doll{
 	top: 50px;
     left: 363px;
+    opacity: 0;	
 }
 
 #bs_4_books{
@@ -72,16 +139,19 @@
 #bs_smallbox{
 	top: 311px;
     left: 397px;
+    opacity: 0;	
 }
 
 #bs_clock{
 	top: 322px;
     left: 551px;
+    opacity: 0;	
 }
 
 #bs_2_books{
 	top: 400px;
-    left: 348px;	
+    left: 348px;
+    opacity: 0;	
 }
 #bs_battery{
 	display: block;
@@ -94,6 +164,7 @@
 #bs_toolbox{
 	top: 565px;
     left: 471px;
+    opacity: 0;	
 }
 #bs_cutterknife{
 	display: block;

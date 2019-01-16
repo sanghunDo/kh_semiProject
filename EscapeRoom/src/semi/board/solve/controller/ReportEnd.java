@@ -28,6 +28,7 @@ public class ReportEnd extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		int postNo = Integer.parseInt(request.getParameter("postNo"));
 		int commentNo = Integer.parseInt(request.getParameter("commentNo"));
 		String commentWriter = request.getParameter("commentWrtier");
 		String commentContent = request.getParameter("commentContent");
@@ -41,7 +42,7 @@ public class ReportEnd extends HttpServlet {
 		}
 		
 		int result = new SolveBoardDao().reportComment(commentNo);
-		int Insertreport = new SolveBoardDao().insertReportComment(commentNo,commentWriter,commentContent,reasonVal,userComment);		
+		int Insertreport = new SolveBoardDao().insertReportComment(postNo,commentNo,commentWriter,commentContent,reasonVal,userComment);		
 		
 		
 		String view = "/WEB-INF/views/common/msg.jsp";

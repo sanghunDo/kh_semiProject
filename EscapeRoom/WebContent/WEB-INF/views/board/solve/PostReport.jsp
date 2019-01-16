@@ -55,18 +55,19 @@
 </div>
 <script>
 function check(){
-	var cnt = 0;
-	if($("[name=reason]").prop("checked")){
-		cnt++;
+	reason = document.getElementsByName("reason");
+	var check ="";
+
+		check += reason[0].checked;
+		check += reason[1].checked;
+		check += reason[2].checked;
+		check += reason[3].checked;
+
+	if(check=="falsefalsefalsefalse"){
+	      alert("최소 1개라도 선택하셔야 합니다.");
+	} else {
+		  $("[name=reportFrm]").submit();
 	}
-	
-	if(cnt==0){
-		alert("최소 1개라도 선택하셔야 합니다.");
-		return;
-	}
-	
-	$("[name=reportFrm]").submit();
-	
 }
 
 
