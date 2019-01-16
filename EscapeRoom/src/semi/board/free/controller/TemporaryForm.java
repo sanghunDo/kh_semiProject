@@ -27,24 +27,21 @@ public class TemporaryForm extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		boolean flag = true;
-		
-		String title = request.getParameter("title").equals("null")?"":request.getParameter("fileName");
-		String content = request.getParameter("content");
-		String fileName = request.getParameter("fileName").equals("null")?"":request.getParameter("fileName");
-		
-		if(flag==true) {
-			 // 팝업창을 닫기 위한 코드
-            String script = "self.close();";
-            // jsp에 전달하기 위해 속성으로 전달
-            request.setAttribute("script", script);
-		}
-		
+		int dataNo = Integer.parseInt(request.getParameter("dataNo"));
+		String dataTitle = request.getParameter("dataTitle").equals("null")?"":request.getParameter("dataTitle");
+		String dataContent = request.getParameter("dataContent").equals("null")?"":request.getParameter("dataContent");
+		String file = request.getParameter("file").equals("null")?"":request.getParameter("file");
+		System.out.println("dataNo="+dataNo);
+		System.out.println("dataTitle="+dataTitle);
+		System.out.println("dataContent="+dataContent);
+		System.out.println("file="+file);
+
 		String view = "/WEB-INF/views/board/free/tempoaryForm.jsp";
-		request.setAttribute("title", title);
-		request.setAttribute("content", content);
-		request.setAttribute("fileName", fileName);
-		 
+		request.setAttribute("dataNo", dataNo);
+		request.setAttribute("title", dataTitle);
+		request.setAttribute("content", dataContent);
+		request.setAttribute("fileName", file);
+
          // jsp에 전달하기 위해 속성으로 전달
         
 		request.getRequestDispatcher(view).forward(request, response);

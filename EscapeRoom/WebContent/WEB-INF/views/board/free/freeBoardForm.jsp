@@ -56,27 +56,6 @@
             <input type="hidden" value="false" name="flag" />
          </form>  
          
-        <!--     <tr>
-                <th scope="col">첨부파일1</th>
-                <td>			
-                        <input type="file" name="up_file">
-                        <input type="checkbox">첨부파일삭제
-                </td>
-            </tr>
-            <tr>
-                    <th scope="col">첨부파일2</th>
-                    <td>			
-                            <input type="file" name="up_file">
-                            <input type="checkbox">첨부파일삭제
-                    </td>
-            </tr>
-            <tr>
-                    <th scope="col">첨부파일3</th>
-                    <td>			
-                            <input type="file" name="up_file">
-                            <input type="checkbox">첨부파일삭제
-                    </td>
-            </tr> -->
     </table>
     
     <div id="DataBox" onclick="dataBox();">임시저장보관함</div>

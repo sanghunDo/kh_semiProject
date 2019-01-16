@@ -16,6 +16,7 @@ import com.oreilly.servlet.multipart.FileRenamePolicy;
 
 import semi.board.free.model.dao.FreeBoardDao;
 import semi.board.free.model.vo.FreeBoard;
+import semi.board.free.model.vo.TemporaryData;
 import semi.common.MyFileRenamePolicy;
 
 /**
@@ -55,14 +56,16 @@ public class FreeBoardListUpdateEnd extends HttpServlet {
 		MultipartRequest multiReq = new MultipartRequest(request, saveDirectory, maxPostSize, enc, frp);
 		
 		int postNo = Integer.parseInt(multiReq.getParameter("postNo"));
-		String postTitle = multiReq.getParameter("title");
+		String postTitle = multiReq.getParameter("title")==null?"":multiReq.getParameter("title"); 
 		String postWriter = multiReq.getParameter("writer");
-		String postContent = multiReq.getParameter("content");
+		String postContent = multiReq.getParameter("content")==null?"":multiReq.getParameter("content"); 
 		
 		String renamedFileName = multiReq.getFilesystemName("up_file");
 		String originalFileName = multiReq.getOriginalFileName("up_file");
 
 		String oldFile  = multiReq.getParameter("old_renamed_file");
+		String flag = multiReq.getParameter("flag"); 
+
 		//글쓰기 
 		File f = multiReq.getFile("up_file");
 		//1.업로드한 파일이 있는 경우
@@ -99,7 +102,7 @@ public class FreeBoardListUpdateEnd extends HttpServlet {
 			renamedFileName = multiReq.getParameter("old_renamed_file"); //null값에 파라미터로 받은 거 넣어줌
 		
 		}
-		
+if(flag.equals("false")) {
 		FreeBoard fb = new FreeBoard();
 		fb.setPostNo(postNo);
 		fb.setPostTitle(postTitle);
@@ -115,7 +118,7 @@ public class FreeBoardListUpdateEnd extends HttpServlet {
 		String loc = "/board/free/freeBoardView?postNo="+postNo ;
 		
 		if(result >0 ) {
-			msg ="게시물 수정성공";
+			msg ="게시물 수정되었습니다.";
 			
 		}else {
 			msg = "수정실패";
@@ -123,7 +126,41 @@ public class FreeBoardListUpdateEnd extends HttpServlet {
 		request.setAttribute("msg", msg);
 		request.setAttribute("loc", loc);
 		request.getRequestDispatcher(view).forward(request, response);
-	}
+	
+} else {
+			
+			TemporaryData td = new TemporaryData();
+			td.setDataTitle(postTitle);
+			td.setDataWriter(postWriter);
+			td.setDataContent(postContent);
+			td.setDataOriginalFile(originalFileName);
+			td.setDataRenamedFile(renamedFileName);
+	
+			
+			int result = new FreeBoardDao().insertTemporaryData(td);
+		   
+		
+			String view = "/WEB-INF/views/common/msg.jsp";
+			String msg = "";
+			String loc = "/";
+			
+			if(result>0) {
+				msg = "임시저장 되었습니다.";	
+				loc="/board/free/freeBoardList";
+			}
+			else {
+				msg = "임시저장에 실패했습니다.";	
+				loc="/board/free/freeBoardList";
+			}
+
+			request.setAttribute("msg", msg);
+			request.setAttribute("loc", loc);
+
+			request.getRequestDispatcher(view).forward(request, response);
+}
+		
+		
+		}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)

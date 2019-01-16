@@ -8,7 +8,8 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
+<script src="<%=request.getContextPath()%>/js/jquery-3.3.1.js"></script>
+<title>임시보관함</title>
 </head>
  <style>
         body{
@@ -173,7 +174,11 @@
 
          <tbody>
              
-<%for(TemporaryData td : boxList) {%>
+<%for(int i=0; i<boxList.size(); i++) {
+	TemporaryData td = boxList.get(i);
+
+
+%>
             <table class="sub_news" border="1" cellspacing="0" summary="게시판의 글제목리스트">
                     <colgroup>
                        
@@ -182,27 +187,39 @@
                   
                     </colgroup>
             <tr>
-       
-                  <td class="title">
+                <td class="title">
                 <%if(td.getDataTitle()==null){ %>
-                <a href="<%=request.getContextPath()%>/board/free/freeBoardTemporaryForm?title=<%=td.getDataTitle()%>&content=<%=td.getDataContent()%>&fileName=<%=td.getDataOriginalFile()%>"> 
-                	제목없음
+                	
+                	<span onclick="check(<%=td.getDataNo() %>,'<%=td.getDataTitle() %>','<%=td.getDataContent() %>','<%=td.getDataOriginalFile() %>');">제목없음</span>
+                	<input type="hidden" value="제목없음"  no="<%=i%>"/>
                 <%} else {%>
-                <%=td.getDataTitle() %>
+                	<span onclick="check(<%=td.getDataNo() %>,'<%=td.getDataTitle() %>','<%=td.getDataContent() %>','<%=td.getDataOriginalFile() %>');"><%=td.getDataTitle() %></span>
+    				<input type="hidden" value="<%=td.getDataTitle() %>" no="<%=i%>"/>
                 <%} %>
-                 </td>
+                </td>
 
                 <td class="date">
                 <%=td.getDataDate() %>
+               	<input type="hidden" value="<%=td.getDataDate() %>"  no="<%=i%>"/>
                 </td>
             
             </tr>
+      
          </tbody>
 
         </table>
-   <%} %>
+  </div> 
 <script>
+function check(item1, item2, item3, item4){
+	var dataNo = item1;
+	var dataTitle = item2;
+	var dataContent = item3;
+	var fileName = item4;
+    opener.location.href= "<%=request.getContextPath()%>/board/free/freeBoardTemporaryForm?dataNo="+dataNo+"&dataTitle="+dataTitle+"&dataContent="+dataContent+"&file="+fileName;
+    window.close();
 
+}
 </script>
-</div>
+
+<%} %>
 </html>
