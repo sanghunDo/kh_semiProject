@@ -120,6 +120,7 @@ function off(){
 };
 function obj_click(){
 	var position = $("#background img").prop("id");
+	if($("#inventory").offset().top<704){$("#inventory").trigger('click');}
 	$("#background>img").not(":first").each(function(){
 		
 		if($("#show-obj").children().length!=0 || $("#pause-menu").children().length!=0
@@ -348,7 +349,7 @@ function obj_hasNext(objName){
 };
 function open_safe(){
 	$("#show-obj").empty();
-	show_coment("", "", '"비밀번호 486.."');
+	show_coment("", "", '"암호가 걸려있어.."');
 	var html = "<img src='<%=request.getContextPath()%>/images/game/gameMain/front/safe_keypad.png' id='largeKeypad'>";
     	html += "<div id='kp'>";
     	html +=	"<td><h1 name='1' class='num'   id='num1'>1</h1></td>";
@@ -396,7 +397,7 @@ function open_safe(){
             	$("#show-obj img:first").attr("src", img).removeAttr("id");
             	$("#show-obj *").not(":first").remove();
             	$("#safe").attr("src", img).attr("id", "used_safe");
-            	show_coment("","","쓸데없어 보인당!");
+            	show_coment("","","금고가 열렸다..!");
             	update_state("safe", "use");
             	var children = find_children("used_safe", 2);
             	for(var i in children){
