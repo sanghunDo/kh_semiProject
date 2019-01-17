@@ -26,32 +26,32 @@
 			<table>
 				<tr>
 					<td>
-						<input type="radio" name="coin_" id="1000" value=1000 productName="1,000코인 충전" checked />
-						<label for="1000" class="coinLabel">1,000 코인 충전</label>
+						<input type="radio" name="coin_" id="1000" value=100 productName="100코인 충전" checked />
+						<label for="1000" class="coinLabel">100 코인 충전</label>
 					</td>
 				</tr>
 				<tr>
 					<td>
-						<input type="radio" name="coin_" id="3000" value=3000 productName="3,000코인 충전"/>
-						<label for="3000" class="coinLabel">3,000 코인 충전</label>
+						<input type="radio" name="coin_" id="3000" value=300 productName="300코인 충전"/>
+						<label for="3000" class="coinLabel">300 코인 충전</label>
 					</td>
 				</tr>
 				<tr>
 					<td>
-						<input type="radio" name="coin_" id="5000" value=5000 productName="5,000코인 충전" />
-						<label for="5000" class="coinLabel">5,000 코인 충전</label>
+						<input type="radio" name="coin_" id="5000" value=500 productName="500코인 충전" />
+						<label for="5000" class="coinLabel">500 코인 충전</label>
 					</td>
 				</tr>
 				<tr>
 					<td>
-						<input type="radio" name="coin_" id="7000" value=7000 productName="7,000코인 충전" />
-						<label for="7000" class="coinLabel">7,000 코인 충전</label>
+						<input type="radio" name="coin_" id="7000" value=700 productName="700코인 충전" />
+						<label for="7000" class="coinLabel">700 코인 충전</label>
 					</td>
 				</tr>
 				<tr>
 					<td>
-						<input type="radio" name="coin_" id="10000" value=10000 productName="10,000코인 충전" />
-						<label for="10000" class="coinLabel">10,000 코인 충전</label>
+						<input type="radio" name="coin_" id="10000" value=1000 productName="1,000코인 충전" />
+						<label for="10000" class="coinLabel">1,000 코인 충전</label>
 					</td>
 				</tr>
 			</table>

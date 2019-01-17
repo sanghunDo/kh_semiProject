@@ -200,15 +200,14 @@
    					<td>
    						<button class="btn-reply" value="<%=rc.getCommentNo()%>">답글</button>
    						
-   						<% if(loggedInMember != null){
-   							if(rc.getCommentWriter().equals(loggedInMember.getUserId()) || "admin".equals(loggedInMember.getUserId())) {%>
+   						<% if(loggedInMember != null && (rc.getCommentWriter().equals(loggedInMember.getUserId()) || "admin".equals(loggedInMember.getUserId()))) { %>
    							<form action="<%=request.getContextPath()%>/board/rank/RankBoardCommentDelete" name="rankCommentDelFrm">
    								<input type="hidden" name="rankCommentNo" value="<%=rc.getCommentNo()%>" />
    								<input type="hidden" name="rankCommentLevel" value="1" />
    								<button type="submit" id="btn-delete" onclick="deleteRankComment();">삭제</button>
    							</form>
+   							
    							<button type="submit" class="btn-update">수정</button>
-   							<%} %>
    						<%} %>
    					</td>
    				</tr>
@@ -249,6 +248,19 @@
    </div>
    
 	<script>
+		/* 중복 방지! */
+		var doubleSubmitFlag = false;
+		
+		function doubleSubmitCheck() {
+			if(doubleSubmitFlag) {
+				return doubleSubmitFlag;
+			}
+			else {
+				doubleSubmitFlag = true;
+				return false;
+			}
+		}
+	
 		$("[name=rankCommentContent]").on('click', function() {
 			if(<%=loggedInMember == null%>)
 				loginAlert();
@@ -311,9 +323,10 @@
 		/* 수정하기 버튼 눌렀을 때
 		   - 답글과 똑같은 형식으로 하는 이유는 본인이 작성했던 원래의 댓글을 수정 중 까먹을 수 있기 때문이다.*/		
 		$(".btn-update").on('click', function() {
-			<% if(loggedInMember != null) { %>
+			
 			/* var rankCommentNum = $("[name=rankCommentNo]").val(); */
 			/* console.log(rankCommentNum); */
+			<% if(loggedInMember != null) { %>
 			var tr = $("<tr></tr>");
 			var html = '<td style="display:none; text-align:left;" colspan="2">';
 			
@@ -340,16 +353,16 @@
 					e.preventDefault();
 				}
 			});
-			<%} else {%>
-			/* 로그인하지 않은 경우 */
-			loginAlert();
-		<% }%>
+			<% }
+				else {%>
+				loginAlert();
+			<%}%>
 		});
 		
 		$(".rComment-like").on('click', function() {
 			<% if(loggedInMember != null) {%>
 			
-				var commentWriter = $("[name=rankCommentWriter]").val();
+				var commentWriter = $(this).parent().find(".rComment-Writer").html().trim();
 				
 				if(!confirm("해당 댓글을 추천하시겠습니까?")) {
 					return false;
@@ -359,7 +372,12 @@
 					alert("본인이 작성한 댓글은 추천 및 비추천을 하실 수 없습니다.");
 					return false;
 				}
-				console.log();
+				
+				if(doubleSubmitCheck()) {
+					alert("추천은 한번만 하실 수 있습니다.");
+					return false;
+				}
+			
 			<%} else {%>
 				loginAlert();
 				return false;
@@ -369,14 +387,20 @@
 		$(".rComment-dislike").on('click', function() {
 			<% if(loggedInMember != null) {%>
 			
-				var cw = $("[name=rankCommentWriter]").val();
+				var cw = $(this).parent().find(".rComment-Writer").html().trim();
 				
 				if(!confirm("해당 댓글을 비추천하시겠습니까?")) {
 					return false;
 				}
 				
-				if(cw == "<%=loggedInMember.getUserId()%>") {
+				if(cw=="<%=loggedInMember.getUserId()%>") {
 					alert("본인이 작성한 댓글에는 추천 및 비추천을 하실 수 없습니다.");
+					return false;
+				}
+				
+				if(doubleSubmitCheck()) {
+					alert("비추천은 한번만 하실 수 있습니다.");
+					return false;
 				}
 			<%}
 			else {%>
@@ -386,14 +410,27 @@
 		});
 		
 		function report(item) {
-			var rankCommentNo = item;
+			<%if(loggedInMember != null) {%>
 			
-			var url = "<%=request.getContextPath()%>/board/rank/rankCommentReport?rankCommentNo="+rankCommentNo;
+				var cw = $(".rankLevel1").parent().find(".rComment-Writer").html().trim();
+				var rankCommentNo = item;
 			
-			var title = "댓글 신고";
-			var status = "left = 500px, top=200px, width=600px, height=600px";
+				var url = "<%=request.getContextPath()%>/board/rank/rankCommentReport?rankCommentNo="+rankCommentNo;
 			
-			open(url, title, status);
+				var title = "댓글 신고";
+				var status = "left = 500px, top=200px, width=600px, height=600px";
+			
+				if(cw=="<%=loggedInMember.getUserId()%>") {
+					alert("본인이 작성한 댓글은 신고할 수 없습니다.");
+					return false;
+				}
+				else {
+					open(url, title, status);
+				}
+			<%} else {%>
+			loginAlert();
+			return false;
+			<%}%>
 		}
 		
 		</script>

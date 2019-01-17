@@ -15,20 +15,19 @@
 <img src="" alt="" id="background"/>
 <div id="ending">
 	<div id="msgBox" class="none">
-		<div>
-			<h2>문밖은 고요한 정적과 찬 공기만 가득하다.</h2>
-			<h2>문앞에 총 한 자루가 놓여있다.</h2>
-			<h2>총을 획득하시겠습니까?</h2>
-			<table id="buttonTab">
-				<tr>
-					<td><button class="choice" id="yes">예</button></td>
-					<td><button class="choice" id="no">아니오</button></td>
-				</tr>
-				<tr>
-					<td colspan="2"><h4>( 총의 획득까지 클리어시간으로 기록됩니다. )</h4></td>
-				</tr>			
-			</table>
-		</div>
+		<div><h2>문밖은 고요한 정적과 찬 공기만 가득하다.</h2></div>
+		<div><h2>문앞에 총 한 자루가 놓여있다.</h2></div>
+		<div><h2>총을 획득하시겠습니까?</h2></div>
+		<img id="choice_gun" src="<%=request.getContextPath() %>/images/game/choice/gun.png" alt="" />
+		<table id="buttonTab">
+			<tr>
+				<td><button class="choice" id="yes">예</button></td>
+				<td><button class="choice" id="no">아니오</button></td>
+			</tr>
+			<tr>
+				<td colspan="2"><h4>( 총의 획득까지 클리어시간으로 기록됩니다. )</h4></td>
+			</tr>			
+		</table>
 	</div>
 </div>
 <script>
@@ -47,19 +46,28 @@ $(window).on('keyup', function(e){
 	opener.parent.sessionStorage.removeItem("game");
 });
 
-/* $(function(){
+$(function(){
+	$("#msgBox").css("display", "none");
+	$("#msgBox").fadeIn(1000);
 	$("#msgBox").find("h2").css("display", "none");
 	$("#buttonTab").css("display", "none");
-}); */
+	$("#choice_gun").css("display", "none");
+});
 
-/* $("#ending").on('click', {cnt:0} ,function(e){
+ $("#ending").on('click', {cnt:0} ,function(e){
 	var cnt = e.data.cnt++;
-	var target = $("#ending").find("h2");
-	target.text(data.content);
+	var target = $("#ending").find("h2").eq(cnt);
+	target.show();
+	
+	$("#ending").find("h2").eq(cnt-1).hide();
+	
+	if(cnt==1) $("#choice_gun").fadeIn(1000);
+	if(cnt==3) $("#buttonTab").show();
+
 	target.parent().css("width",target.outerWidth());
-	var length = data.content.length;
+	var length = target.text().length;
 	target.attr("style", "animation:typing "+(length/40)+"s steps("+length+", end)");
-}); */
+});
 
 $("#yes").on("click", function(){
 	clearInterval(rInterval);
@@ -72,7 +80,6 @@ $("#no").on("click", function(){
 	var record = $("[type=hidden]").val();
 	location.href = "<%=request.getContextPath()%>/game/goToTrueEnding?userId=<%=userId%>&record="+record;
 });
-
 
 </script>
 </body>

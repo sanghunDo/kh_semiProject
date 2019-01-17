@@ -151,7 +151,7 @@ private Properties prop = new Properties();
 		return result;
 	}
 
-	public int updateCommentLike(Connection conn, int rankCommentNo, int rankCommentLike) {
+	public int updateCommentLike(Connection conn, int rankCommentNo) {
 		
 		int result = 0;
 		PreparedStatement pstmt = null;
