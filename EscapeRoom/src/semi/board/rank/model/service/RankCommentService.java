@@ -63,13 +63,13 @@ public class RankCommentService {
 		return result;
 	}
 
-	public int updateCommentLike(int rankCommentNo, int rankCommentLike) {
+	public int updateCommentLike(int rankCommentNo) {
 		
 		int result = 0;
 		
 		Connection conn = getConnection();
 		
-		result = new RankCommentDao().updateCommentLike(conn, rankCommentNo, rankCommentLike);
+		result = new RankCommentDao().updateCommentLike(conn, rankCommentNo);
 		
 		if(result > 0) commit(conn);
 		else rollback(conn);
