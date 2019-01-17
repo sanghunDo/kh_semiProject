@@ -37,7 +37,7 @@ public class RankingBoardListServlet extends HttpServlet {
 		if(!list.isEmpty()&&list.size()!=0) {
 			for(Rank r : list) {
 				String endRuntime = "";
-				if(r==null ||  r.getEndRuntime()==null) {continue;}
+				
 				int runtime = (int)r.getGameruntime() / 1000;
 				
 				int hours = runtime / 3600;

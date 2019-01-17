@@ -359,13 +359,14 @@ $("#obj-list div").each(function(){
 	});
 });
 $("#pause").on("click", {flag:1}, function(e){
-	if($("#show-obj").children().length!=0 || $("#store").children().length!=0 || $("#help").children().length!=0) return;
 	var $target = $(this);
 	var cnt = e.data.flag++;
 	$("#wrap div").not("#pause, #pause-menu-container, #pause-menu-container div, #message, #hint, #hint *, #background").toggleClass("paused");
 	if(cnt%2!=0){
+		if($("#show-obj").children().length!=0) return;
 		$target.children().attr("src", "<%=request.getContextPath()%>/images/game/gameMain/play.png");
 		$("#pause-menu-container").show();
+		$("#pause-menu").show();
 		show_pause_menu("pause-menu");
 		clearInterval(record);
 		$("#main_bgm")[0].pause();
@@ -373,6 +374,8 @@ $("#pause").on("click", {flag:1}, function(e){
 	else{
 		$target.children().attr("src", "<%=request.getContextPath()%>/images/game/gameMain/pause.png");
 		$("#pause-menu-container").hide();
+		$("#pause-menu-container").children().empty();
+		$("#pause-menu-container").children().not("#pause_menu").hide();
 		$("#pause-menu").html("");
 		record = setInterval(timer, 1000);
 		$("#main_bgm")[0].play();
