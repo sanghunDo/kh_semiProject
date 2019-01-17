@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%
+	int postNo = (int)request.getAttribute("postNo");	
 	int commentNo = (int)request.getAttribute("commentNo");
 	String commentWriter = (String)request.getAttribute("commentWriter");
 	String commentContent = (String)request.getAttribute("commentContent");
@@ -25,6 +26,7 @@
 	<h3 id="subtitle">게시물 / 댓글 신고하기</h3>
 	<form action="<%=request.getContextPath()%>/board/solve/solveBoardCommentReportEnd" name="reportFrm">
 		<h4>1. 게시글을 신고한 이유가 무엇인가요?</h4>
+		<input type="hidden" name="postNo" value="<%=postNo %>" />
 		<input type="hidden" name="commentNo" value="<%=commentNo %>" />
 		<input type="hidden" name="commentWriter" value="<%=commentWriter %>" />
 		<input type="hidden" name="commentContent" value="<%=commentContent %>" />
@@ -55,18 +57,19 @@
 </div>
 <script>
 function check(){
-	var cnt = 0;
-	if($("[name=reason]").prop("checked")){
-		cnt++;
+	reason = document.getElementsByName("reason");
+	var check ="";
+
+		check += reason[0].checked;
+		check += reason[1].checked;
+		check += reason[2].checked;
+		check += reason[3].checked;
+
+	if(check=="falsefalsefalsefalse"){
+	      alert("최소 1개라도 선택하셔야 합니다.");
+	} else {
+		  $("[name=reportFrm]").submit();
 	}
-	
-	if(cnt==0){
-		alert("최소 1개라도 선택하셔야 합니다.");
-		return;
-	}
-	
-	$("[name=reportFrm]").submit();
-	
 }
 
 </script>

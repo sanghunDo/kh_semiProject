@@ -17,13 +17,13 @@ import semi.member.model.vo.Member;
  * Servlet implementation class adminReportCmtViewServlet
  */
 @WebServlet("/admin/adminReportCmtView")
-public class adminReportCmtViewServlet extends HttpServlet {
+public class AdminReportCmtViewServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public adminReportCmtViewServlet() {
+    public AdminReportCmtViewServlet() {
         super();
         // TODO Auto-generated constructor stub
     }

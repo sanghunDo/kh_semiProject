@@ -50,7 +50,7 @@ div#title{
         top:800px;
     }
     100%{
-        top:-3600px;
+        top:-4500px;
     }
 }
 
@@ -67,8 +67,14 @@ div#title{
         <br><br>
         <h4>정창학&nbsp;&nbsp;이소희&nbsp;&nbsp;이재선&nbsp;&nbsp;강선영&nbsp;&nbsp;도상훈&nbsp;&nbsp;한주리&nbsp;&nbsp;신혜영</h4>
         <br><br>        
-        <h3>코드 병합</h3>
+        <h3>SourceTree 및 Git</h3>
         <h4>도상훈</h4>
+        <br><br>
+        <h3>커뮤니티 데이터베이스</h3>
+        <h4>강선영</h4>
+        <br><br>
+        <h3>게임 데이터베이스</h3>
+        <h4>도상훈&nbsp;&nbsp;정창학</h4>
         <br><br>
         <h3>회원정보</h3>
         <h4>이재선</h4>
@@ -82,13 +88,10 @@ div#title{
         <h3>랭킹게시판</h3>
         <h4>한주리</h4>
         <br><br>
-        <h3>공지사항</h3>
-        <h4>강선영</h4>
+        <h3>댓글</h3>
+        <h4>신혜영&nbsp;&nbsp;한주리</h4>
         <br><br>
-        <h3>홈</h3>
-        <h4>강선영</h4>
-        <br><br>
-        <h3>데이터베이스</h3>
+        <h3>공지사항 및 홈</h3>
         <h4>강선영</h4>
         <br><br>
         <h3>관리자 모드</h3>
@@ -97,17 +100,26 @@ div#title{
         <h3>메인화면 및 헤더 UI</h3>
         <h4>도상훈</h4>
         <br><br>
+        <h3>메인 게임</h3>
+        <h4>도상훈&nbsp;&nbsp;정창학</h4>
+		<br><br>
+        <h3>게임 알고리즘</h3>
+        <h4>도상훈</h4>
+		<br><br>
         <h3>게임 시나리오</h3>
-        <h4>정창학&nbsp;&nbsp;강선영&nbsp;&nbsp;도상훈</h4>
+        <h4>정창학&nbsp;&nbsp;강선영</h4>
         <br><br>
-        <h3>게임 구현</h3>
-        <h4>정창학&nbsp;&nbsp;강선영&nbsp;&nbsp;도상훈</h4>
+        <h3>스토리 및 선택지</h3>
+        <h4>강선영</h4>
 		<br><br>
         <h3>아이템 구매 결제 서비스</h3>
         <h4>이재선</h4>
         <br><br>
         <h3>그림</h3>
         <h4>정창학&nbsp;&nbsp;강선영</h4>
+        <br><br>
+        <h3>자막</h3>
+        <h4>도상훈</h4>
         <br><br>
         <h3>효과음</h3>
         <h4>강선영</h4>

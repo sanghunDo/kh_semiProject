@@ -217,21 +217,5 @@ public class AdminService {
 	  // 제목과 내용으로 신고된 게시글 검색하기
 	  
 	  // 작성자로 신고된 게시글 검색하기
-	  
-	  // 관리자용 자유게시판 작성글 보기
-	  public List<FreeBoard> selectFreeBoard(){
-		  Connection conn = getConnection();
-		  List<FreeBoard> list = new AdminDao().selectFreeBoard(conn);
-		  close(conn);
-		  return list;
-	  }
-	   
-	  // 관리자용 공략게시판 작성글 보기
-	  public List<SolveBoard> selectSolveBoard(){
-		  Connection conn = getConnection();
-		  List<SolveBoard> list = new AdminDao().selectSolveBoard(conn);
-		  close(conn);
-		  return list;
-	  }
 
 }

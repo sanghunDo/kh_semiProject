@@ -7,13 +7,19 @@ import java.nio.charset.Charset;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.sql.Connection;
+import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Base64;
+import java.util.List;
 import java.util.Properties;
 
+import semi.board.free.model.vo.FreeBoard;
+import semi.board.solve.model.vo.SolveBoard;
 import semi.member.model.vo.Member;
+import semi.notice.model.vo.Notice;
 
 import static semi.common.JDBCTemplate.*;
 
@@ -241,6 +247,7 @@ public class MemberDao {
 		return loggedInMember;
 	}
 	
+	// 이메일
 	public Member selectEmail(Connection conn, String userEmail) {
 		Member loggedInMember = null;
 
@@ -317,7 +324,8 @@ public class MemberDao {
 
 		return result;
 	}
-
+	
+	// 회원가입
 	public int insertMember(Connection conn, Member member) {
 		int result = 0;
 
@@ -350,7 +358,8 @@ public class MemberDao {
 
 		return result;
 	}
-
+	
+	// 회원정보수정
 	public int updateMember(Connection conn, Member member) {
 		int result = 0;
 
@@ -378,7 +387,8 @@ public class MemberDao {
 
 		return result;
 	}
-
+	
+	// 회원 탈퇴
 	public int deleteMember(Connection conn, String userId) {
 		int result = 0;
 		
@@ -405,7 +415,7 @@ public class MemberDao {
 		return result;
 	}
 
-
+	// 비밀번호 변경
 	public int updatePassword(Connection conn, Member m) {
 		int result = 0;
 		PreparedStatement pstmt = null;
@@ -419,6 +429,35 @@ public class MemberDao {
 			pstmt.setString(1, m.getUserPassword());
 			pstmt.setString(2, m.getUserId());
 			System.out.println("멤버다오 업데이트 패스워드 : "+m.getUserPassword());
+			
+			// 2. 쿼리문 실행 : 완성된 쿼리를 가지고 있는 pstmt실행(파라미터 없음)
+			// DML : INSERT, UPDATE, DELETE => excuteUpdate()
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+	
+	// 코인 충전
+	public int chargeCoin(Connection conn, Member m) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String query = prop.getProperty("chargeCoin");
+		
+		try {
+			// 1. Statement객체 생성
+			pstmt = conn.prepareStatement(query);
+			
+			// 미완성된 쿼리문
+			pstmt.setInt(1, m.getCoin());
+			pstmt.setString(2, m.getUserId());
+			
+			System.out.println("멤버다오 코인 충전 : "+m.getUserId());
 			
 			// 2. 쿼리문 실행 : 완성된 쿼리를 가지고 있는 pstmt실행(파라미터 없음)
 			// DML : INSERT, UPDATE, DELETE => excuteUpdate()
@@ -467,10 +506,127 @@ public class MemberDao {
 		
 		return encUserPassword;
 	}
+	
+	   // 자유게시판 작성글 보기
+	   public List<FreeBoard> selectFreeBoard(Connection conn, String userId){
+		   List<FreeBoard> list = null;
+		   PreparedStatement pstmt = null;
+		   ResultSet rset = null;
+		   String query = "select * from board_free where userid = ?";
+		   
+		   try {
+				Class.forName("oracle.jdbc.driver.OracleDriver");
+				conn = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe", 
+						"escape_if_you_can",  //DB 계정 아이디 
+						"escape_if_you_can"); //DB 계정 비밀번호
+				pstmt = conn.prepareStatement(query);
+				pstmt.setString(1, userId);
+				rset = pstmt.executeQuery();
 
+				list = new ArrayList<>();
+				while(rset.next()) {
+					FreeBoard fb = new FreeBoard();
+					
+					fb.setPostNo(rset.getInt("postno"));
+					fb.setPostTitle(rset.getString("posttitle"));
+					fb.setPostDate(rset.getDate("postdate"));
+					fb.setPostLike(rset.getInt("postlike"));
+					fb.setPostDislike(rset.getInt("postdislike"));
+					fb.setPostReadCount(rset.getInt("postreadcount"));
 
+					list.add(fb);
+					} 
+				} catch (ClassNotFoundException e) {
+					e.printStackTrace();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				} finally {
+					close(rset);
+					close(pstmt);
+				}
+				
+				return list;
+			}
+				   
+	   // 공략게시판 작성글 보기
+	   public List<SolveBoard> selectSolveBoard(Connection conn, String userId){
+			  List<SolveBoard> list = null;
+			  PreparedStatement pstmt = null;
+			  ResultSet rset = null;
+			  String query = "select * from board_solve where userid = ?";
+			  
+			  try {
+					Class.forName("oracle.jdbc.driver.OracleDriver");
+					conn = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe", 
+							"escape_if_you_can",  //DB 계정 아이디 
+							"escape_if_you_can"); //DB 계정 비밀번호
+					
+					pstmt = conn.prepareStatement(query);
+					pstmt.setString(1, userId);
+					rset = pstmt.executeQuery();
+					
+					list = new ArrayList<>();
+					while(rset.next()) {
+						SolveBoard sb = new SolveBoard();
+						
+						sb.setPostNo(rset.getInt("postno"));
+						sb.setPostTitle(rset.getString("posttitle"));
+						sb.setPostDate(rset.getDate("postdate"));
+						sb.setPostLike(rset.getInt("postlike"));
+						sb.setPostDislike(rset.getInt("postdislike"));
+						sb.setPostReadCount(rset.getInt("postreadcount"));
 
+						list.add(sb);
+						} 
+					} catch (ClassNotFoundException e) {
+						e.printStackTrace();
+					} catch (SQLException e) {
+						e.printStackTrace();
+					} finally {
+						close(rset);
+						close(pstmt);
+					}
+					
+					return list;
+				}
 
+	   // 공지게시판 작성글 보기
+	   public List<Notice> selectNoticeBoard(Connection conn, int noticeNo) {
+		   List<Notice> list = null;
+		   PreparedStatement pstmt = null;
+		   ResultSet rset = null;
+		   String query = "select * from notice where noticeno = ?";
+		   
+		   try {
 
+				Class.forName("oracle.jdbc.driver.OracleDriver");
+				conn = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe", 
+						"escape_if_you_can",  //DB 계정 아이디 
+						"escape_if_you_can"); //DB 계정 비밀번호
+				pstmt = conn.prepareStatement(query);
+				pstmt.setInt(1, noticeNo);
+				rset = pstmt.executeQuery();
+				
+				list = new ArrayList<>();
+				while(rset.next()) {
+					Notice n = new Notice();
+					
+					n.setNoticeNo(rset.getInt("noticeno"));
+					n.setNoticeTitle(rset.getString("noticetitle"));
+					n.setNoticeDate(rset.getDate("noticedate"));
+
+					list.add(n);
+					} 
+				} catch (ClassNotFoundException e) {
+					e.printStackTrace();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				} finally {
+					close(rset);
+					close(pstmt);
+				}
+		   
+		   return list;
+	   }
 
 }

@@ -1,0 +1,87 @@
+@charset "UTF-8";
+
+h1{
+	color:white;
+	font-family:'Noto Serif KR', serif;
+	text-align:center;
+}
+
+h3{
+	color:white;
+	font-family:'Noto Serif KR', serif;
+	text-align:center;
+	margin-top:20px;
+	margin-bottom:40px;
+}
+
+table#memberTab{
+	font-family: 'Noto Serif KR', serif;
+	border-collapse:collapse;
+	width:80%;
+	margin:0 auto;
+	color:white;
+}
+
+th, td{
+	text-align:center;
+	font-weight:bold;
+	font-size:15px;
+	padding-top:5px;
+	padding-bottom:5px;
+}
+
+th{
+	border-bottom: 1px solid white;
+}
+
+img.userProfile{
+	width:100px;
+	height:100px;
+	cursor:pointer;
+}
+
+#showAll, #hide{
+	width:200px;
+	height:40px;
+	background:#353535;
+	color:white;
+	border:1px solid #353535;
+	border-radius:10px;
+	font-size:18px;
+	font-weight:bold;
+	font-family:'Noto Serif KR', serif;
+	cursor:pointer;
+}
+
+.hideThis{
+	display:none;
+}
+
+#report_Post, #report_Comment{
+	font-family: 'Noto Serif KR', serif;
+	border-collapse:collapse;
+	width:100%;
+	margin:0 auto;
+	color:white;
+	margin-bottom:50px;
+}
+
+button.notOK{
+	background:red;
+	color:white;
+	border:1px solid red;
+	border-radius:5px;
+	font-family:'Noto Serif KR', serif;
+	font-weight:bold;
+	cursor:pointer;
+}
+
+button.OK{
+	background:green;
+	color:white;
+	border:1px solid green;
+	border-radius:50%;
+	font-family:'Noto Serif KR', serif;
+	font-weight:bold;
+	cursor:pointer;
+}

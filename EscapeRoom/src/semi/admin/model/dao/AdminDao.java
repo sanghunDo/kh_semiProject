@@ -777,16 +777,4 @@ public class AdminDao {
 		return result;
 	}
    
-   // 관리자용 자유게시판 작성글 보기
-   public List<FreeBoard> selectFreeBoard(Connection conn){
-	   	List<FreeBoard> list = null;
-		  return list;
-	  }
-   
-   // 관리자용 공략게시판 작성글 보기
-   public List<SolveBoard> selectSolveBoard(Connection conn){
-		  List<SolveBoard> list = null;
-		  return list;
-	  }
-   
 }

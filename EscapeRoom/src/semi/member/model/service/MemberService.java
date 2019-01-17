@@ -6,9 +6,13 @@ import static semi.common.JDBCTemplate.getConnection;
 import static semi.common.JDBCTemplate.rollback;
 
 import java.sql.Connection;
+import java.util.List;
 
+import semi.board.free.model.vo.FreeBoard;
+import semi.board.solve.model.vo.SolveBoard;
 import semi.member.model.dao.MemberDao;
 import semi.member.model.vo.Member;
+import semi.notice.model.vo.Notice;
 
 public class MemberService {
 	// 로그인 관련 상수
@@ -198,7 +202,25 @@ public class MemberService {
 
 		return result;
 	}
-
+	
+	// 코인 충전
+	public int chargeCoin(Member m) {
+		Connection conn = getConnection();
+		System.out.println("코인충전@서비스 = " + m.getCoin());
+		int result = new MemberDao().chargeCoin(conn, m);
+		
+		if (result > 0) {
+			commit(conn);
+		} else {
+			rollback(conn);
+		}
+		
+		close(conn);
+		
+		return result;
+	}
+	
+	// 이메일 있는지 확인
 	public Member selectEmail(String userEmail) {
 		Member loggedInMember = null;
 
@@ -215,7 +237,29 @@ public class MemberService {
 		return loggedInMember;
 	}
 
+	  // 자유게시판 작성글 보기
+	  public List<FreeBoard> selectFreeBoard(String userId){
+		  Connection conn = getConnection();
+		  List<FreeBoard> list = new MemberDao().selectFreeBoard(conn, userId);
+		  close(conn);
+		  return list;
+	  }
+	
+	  // 공략게시판 작성글 보기
+	  public List<SolveBoard> selectSolveBoard(String userId){
+		  Connection conn = getConnection();
+		  List<SolveBoard> list = new MemberDao().selectSolveBoard(conn, userId);
+		  close(conn);
+		  return list;
+	  }
 
+	  // 공지게시판 작성글 보기
+	public List<Notice> selectNoticeBoard(int noticeNo) {
+		Connection conn = getConnection();
+		  List<Notice> list = new MemberDao().selectNoticeBoard(conn, noticeNo);
+		  close(conn);
+		  return list;
+	}
 
 
 }

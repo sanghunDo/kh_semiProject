@@ -1,4 +1,4 @@
-package semi.admin.controller;
+package semi.adminMode.controller;
 
 import java.io.IOException;
 
@@ -8,20 +8,19 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import semi.admin.model.service.AdminService;
-import semi.member.model.vo.Member;
+import semi.adminMode.model.service.AdminModeService;
 
 /**
- * Servlet implementation class DeleteProfileServlet
+ * Servlet implementation class DeletePostServlet
  */
-@WebServlet("/DeleteProfileServlet")
-public class DeleteProfileServlet extends HttpServlet {
+@WebServlet("/adminMode/deletePost")
+public class DeletePostServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public DeleteProfileServlet() {
+    public DeletePostServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -30,21 +29,25 @@ public class DeleteProfileServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		String category = request.getParameter("category");
+		int postNo = Integer.parseInt(request.getParameter("postNo"));
+		
 		int result = 0;
 		
-		String userId = request.getParameter("userId");
-		Member m = new AdminService().selectOne(userId);
+		if("F".equals(category)) result = new AdminModeService().changeFreeTitleReported(postNo);
+		else if("S".equals(category)) result = new AdminModeService().changeSolveTitleReported(postNo);
 		
 		String msg = "";
-		String loc = "/admin/adminBoard";
-
-		if(result > 0) 
-			msg = "해당 회원의 프로필 사진이 삭제되었습니다.";
+		String loc = "/adminMode/adminMain";
 		
-		else 
-			msg = "해당 회원은 프로필 사진이 등록되어 있지 않습니다.";
+		if(result > 0) {
+			result = new AdminModeService().deleteReportBoard(category, postNo);
+			if(result > 0) msg = "삭제처리가 완료되었습니다.";
+			else msg = "삭제처리성공, 신고처리 실패";
+		}
 		
-			
+		else msg = "삭제 처리 실패";
+		
 		request.setAttribute("msg", msg);
 		request.setAttribute("loc", loc);
 		request.getRequestDispatcher("/WEB-INF/views/common/msg.jsp").forward(request, response);

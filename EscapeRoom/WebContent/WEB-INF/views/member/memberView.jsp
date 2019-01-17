@@ -18,6 +18,24 @@
 	String userProfileOriginalFile = m.getUserProfileOriginalFile()!=null?m.getUserProfileOriginalFile():"";	
 	String userProfileRenamedFile = m.getUserProfileRenamedFile()!=null?m.getUserProfileRenamedFile():"";
 %>
+<style>
+button {
+	outline:none;
+	font-family: 'Noto Serif KR', serif;
+	font-weight:bold;
+	border:1px solid #353535;
+	color:white;
+	background: #353535;
+	border-radius: 10px;
+	width:200px;
+	height:35px;
+	font-size:15px;
+	cursor:pointer;
+	display:block;
+	margin:0 auto;
+	margin-top:20px;
+}
+</style>
 <script>
 /* 회원정보수정 유효성 검사 */
 function updateValidate(){
@@ -121,6 +139,22 @@ function updatePassword(){
 	
 	open(url, title, status);
  }
+ 
+// 코인 충전 팝업 요청
+function chargeCoin(){
+	
+	var url = "<%=request.getContextPath()%>/member/chargeCoin?userId=<%=userId_%>";
+	
+	// 팝업창 이름
+	var title = "chargeCoin";
+	
+	var popupX = (window.screen.width / 2) - (480 / 2);
+	var popupY = (window.screen.height /2) - (380 / 2);
+	
+	var status = "left=" + popupX +", top=" + popupY +", screenX =" + popupX +", screenY=" + popupY + ",width=480px, height=380px";
+	
+	open(url, title, status);
+}
 
 // 프로필 사진 변경
 $(function(){
@@ -193,6 +227,10 @@ $(function(){
 		  				   id="coin"
 		  				   value="<%=coin %>"
 		  				   readonly />
+		  			<input type="button" 
+		  				   id="chargeCoin-Btn"
+		  				   value="코인충전"
+		  				   onclick="chargeCoin();" />
 		  		</td>
 		  	</tr>
 			<tr>
@@ -234,5 +272,6 @@ $(function(){
 		  	<%="admin".equals(loggedInMember.getUserId()) ? "onclick='deleteMember_Admin();'" : "onclick='deleteMember();'"%> />
 
 	</form>
+<!-- <a href="< %=request.getContextPath()%>/member/allBoardView?userId="< %=loggedInMember.getUserId() %>><button>작성글 보기</button></a> -->
 </section>
 <%@ include file="/WEB-INF/views/common/footer.jsp"%>
