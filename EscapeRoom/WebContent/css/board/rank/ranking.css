@@ -347,13 +347,10 @@ table#tbl-rankComment button.btn-update {
 	background : white;
 	color : black;
 	font-size : 12px;
-	padding : 7px 10px 6px;
-	border-radius : 3px;
-	margin : 5px;
-	cursor : pointer;
 	display : none;
+	border-radius : 3px;
+	margin-top : -47px;
 	margin-right : 105px;
-	margin-top : -52px;
 }
 
 table#tbl-rankComment tr:hover button.btn-update {

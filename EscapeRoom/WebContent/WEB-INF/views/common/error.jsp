@@ -3,7 +3,7 @@
     pageEncoding="UTF-8" isErrorPage="true"%>
     <!-- isErrorPage="true"이면 내장객체를 사용할 수 있다.  -->
 <%
-	String errMsg = exception!=null?exception.getMessage():String.valueOf(response.getStatus());
+ 	String errMsg = exception!=null?exception.getMessage():String.valueOf(response.getStatus()); 
 %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
