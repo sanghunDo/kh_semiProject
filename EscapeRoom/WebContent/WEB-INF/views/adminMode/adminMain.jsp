@@ -27,15 +27,13 @@ $(function(){
 		$("#showAll").toggleClass("hideThis");
 	});
 	
-	$(".userProfile").on("click", function(){
-		var temp = confirm("해당 사진이 게시되기에 부적절한 사진입니까?");
-		if(!temp) return;
-		else{
-			location.href = "<%=request.getContextPath()%>/adminMode/deleteProfile?userId=" + 
-					$(this).parent().siblings(".hiddenVal").val();
-		}
-	});
 });
+
+function deleteProfile(userId){
+	var temp = confirm("해당 사진이 게시되기에 부적절한 사진입니까?");
+	if(!temp) return;
+	else location.href = "<%=request.getContextPath()%>/adminMode/deleteProfile?userId=" + userId;
+}
 
 function deleteReportBoard(postNo, category){
 	var temp = confirm("해당 글에 대한 신고를 취소하시겠습니까?");
@@ -171,16 +169,15 @@ function adminGrant(userId){
 		for(int i=0; i<5; i++){%>
 		<tr>
 			<td>
-				<input type="hidden" class="hiddenVal" value="<%=memberList.get(i).getUserId() %>"/>
 				<a href="<%=request.getContextPath()%>/member/memberView?userId=<%=memberList.get(i).getUserId()%>">
 					<%=memberList.get(i).getUserId() %></a>
 			</td>
 			<td><%=memberList.get(i).getUserEmail() %></td>
 			<td>
 				<%if(memberList.get(i).getUserProfileRenamedFile() == null){ %>
-				<img class="userProfile" src="<%=request.getContextPath() %>/images/nonProfile.png" alt="" />
+				<img class="userProfile" onclick="deleteProfile('<%=memberList.get(i).getUserId()%>');" src="<%=request.getContextPath() %>/images/nonProfile.png" alt="" />
 				<%} else{ %>
-				<img class="userProfile" src="<%=request.getContextPath() %>/upload/member/<%=memberList.get(i).getUserProfileRenamedFile() %>" alt="" />
+				<img class="userProfile" onclick="deleteProfile('<%=memberList.get(i).getUserId()%>');" src="<%=request.getContextPath() %>/upload/member/<%=memberList.get(i).getUserProfileRenamedFile() %>" alt="" />
 				<%} %>
 			</td>
 			<td><%=memberList.get(i).getEnrollDate() %></td>
@@ -211,16 +208,15 @@ function adminGrant(userId){
 		<%for(int i=5; i<memberList.size(); i++) { %>
 		<tr class="toggleTr hideThis">
 			<td>
-				<input type="hidden" value="<%=memberList.get(i).getUserId() %>"/>
 				<a href="<%=request.getContextPath()%>/member/memberView?userId=<%=memberList.get(i).getUserId()%>">
 					<%=memberList.get(i).getUserId() %></a>
 			</td>
 			<td><%=memberList.get(i).getUserEmail() %></td>
 			<td>
 				<%if(memberList.get(i).getUserProfileRenamedFile() == null){ %>
-				<img class="userProfile" src="<%=request.getContextPath() %>/images/nonProfile.png" alt="" />
+				<img class="userProfile" onclick="deleteProfile('<%=memberList.get(i).getUserId()%>');" src="<%=request.getContextPath() %>/images/nonProfile.png" alt="" />
 				<%} else{ %>				
-				<img class="userProfile" src="<%=request.getContextPath() %>/upload/member/<%=memberList.get(i).getUserProfileRenamedFile() %>" alt="" />
+				<img class="userProfile" onclick="deleteProfile('<%=memberList.get(i).getUserId()%>');" src="<%=request.getContextPath() %>/upload/member/<%=memberList.get(i).getUserProfileRenamedFile() %>" alt="" />
 				<%} %>
 			</td>
 			<td><%=memberList.get(i).getEnrollDate() %></td>
