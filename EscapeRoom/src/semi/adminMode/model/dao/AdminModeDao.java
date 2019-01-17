@@ -76,8 +76,7 @@ public class AdminModeDao {
 		
 		try {
 			pstmt = conn.prepareStatement(query);
-			pstmt.setString(1, null);
-			pstmt.setString(2, userId);
+			pstmt.setString(1, userId);
 			
 			result = pstmt.executeUpdate();
 			
