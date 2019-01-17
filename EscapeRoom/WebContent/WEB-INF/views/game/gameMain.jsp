@@ -83,7 +83,7 @@ setTimeout(function(){
 	$("#background").show();
 	$("#pause").show();
 	$("#main_bgm")[0].play();
-}, 3000);
+}, 3100);
 function move(where,direction){
     $("#sub-background img:first").attr("src","<%=request.getContextPath()%>/images/game/gameMain/"+where+"/background.png");
     var here = $("#background img").prop("id"); 
@@ -368,12 +368,14 @@ $("#pause").on("click", {flag:1}, function(e){
 		$("#pause-menu-container").show();
 		show_pause_menu("pause-menu");
 		clearInterval(record);
+		$("#main_bgm")[0].pause();
 	}
 	else{
 		$target.children().attr("src", "<%=request.getContextPath()%>/images/game/gameMain/pause.png");
 		$("#pause-menu-container").hide();
 		$("#pause-menu").html("");
 		record = setInterval(timer, 1000);
+		$("#main_bgm")[0].play();
 	}
 });
 

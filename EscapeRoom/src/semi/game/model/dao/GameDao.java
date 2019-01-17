@@ -332,5 +332,21 @@ public class GameDao {
 		
 		return obj;
 	}
+	public int insertRank(Connection conn, String userId, int record) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String query = prop.getProperty("insertRank");
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, userId);
+			pstmt.setInt(2, record);
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
+	}
 
 }

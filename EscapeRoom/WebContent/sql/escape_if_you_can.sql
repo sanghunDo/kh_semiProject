@@ -292,7 +292,6 @@ create table game_prologue(
     content varchar2(1000) not null,
     filename varchar2(50)
 );
-
 insert into game_prologue(no, content) values(1,'..');
 insert into game_prologue(no, content) values(2,'....');
 insert into game_prologue(no, content) values(3,'.......?!');
@@ -465,7 +464,7 @@ insert into game_object values(21, 'smallbox', default, default, default, 'back'
 insert into game_object_coment values(23, '"이것도 잠겨있잖아..!"', 21);
 
 insert into game_object values(22, 'used_smallbox', default, default, default, 'back', 2, default, default);
-insert into game_object_coment values(24, '안에 쪽지가 들어있다.', 22);
+insert into game_object_coment values(24, '.....', 22);
 
 insert into game_object values(23, 'used_smallbox_hintnote2', default, default, 'used_smallbox', 'back', 3, default, 'Y');
 insert into game_object_coment values(25, '쪽지를 획득했다.', 23);

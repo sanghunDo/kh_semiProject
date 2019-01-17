@@ -311,7 +311,7 @@
 		/* 수정하기 버튼 눌렀을 때
 		   - 답글과 똑같은 형식으로 하는 이유는 본인이 작성했던 원래의 댓글을 수정 중 까먹을 수 있기 때문이다.*/		
 		$(".btn-update").on('click', function() {
-			
+			<% if(loggedInMember != null) { %>
 			/* var rankCommentNum = $("[name=rankCommentNo]").val(); */
 			/* console.log(rankCommentNum); */
 			var tr = $("<tr></tr>");
@@ -340,6 +340,10 @@
 					e.preventDefault();
 				}
 			});
+			<%} else {%>
+			/* 로그인하지 않은 경우 */
+			loginAlert();
+		<% }%>
 		});
 		
 		$(".rComment-like").on('click', function() {
@@ -355,7 +359,7 @@
 					alert("본인이 작성한 댓글은 추천 및 비추천을 하실 수 없습니다.");
 					return false;
 				}
-			
+				console.log();
 			<%} else {%>
 				loginAlert();
 				return false;

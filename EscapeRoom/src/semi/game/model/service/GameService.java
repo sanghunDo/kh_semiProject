@@ -108,4 +108,12 @@ public class GameService {
 		close(conn);
 		return obj;
 	}
+
+	public void insertRank(String userId, int record) {
+		Connection conn = getConnection();
+		int result = new GameDao().insertRank(conn, userId, record);
+		if(result>0)commit(conn);
+		else rollback(conn);
+		close(conn);
+	}
 }
