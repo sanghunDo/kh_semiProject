@@ -550,7 +550,6 @@ create table game_state(
     used_flowerpot_key_1Get number default 1, --화분속 열쇠1 2면 획득한상태 (깨진화분만 있는 상태)
     used_flowerpot_key_1Use number default 1, --2면 사용하여 인벤토리에서 없어진 상태
     
-    
     safeuse number default 1,--금고 2면 열려있고 비어있는 상태
     
     ----금고 내의 아이템 전선, 드라이버
@@ -569,7 +568,7 @@ create table game_state(
     used_doll_hintNote3Get number default 1, --2면 획득한 상태 (없어진상태)
     used_doll_hintNote3Use number default 1, --2면 right에 고여있는 물에 적셔져서 온전한내용이 나온 상태(인벤토리안에 있음, 없어지지않음)
     used_water_hintNote3Get number default 1,
-    
+
     smallBoxUse number default 1, --2면 열려있고 비어있는 상태
     used_smallbox_hintNote2Get number default 1, -- 달력힌트쪽지2 2면 획득한 상태, 없어진 상태(인벤토리 안에 있음)
     clockUse number default 1, --2면 건전지가 빠져있는 상태
@@ -581,7 +580,7 @@ create table game_state(
     hammerUse number default 1, --2면 사용한 상태
     cutterknifeGet number default 1, --2면 획득한 상태
     cutterknifeUse number default 1, --2면 사용한 상태
-    
+  update game_state set door_lock1use=1, door_lock2use=1, flowerpotuse=1, used_flowerpot_key_1get=1,  used_flowerpot_key_1use=1, safeuse=1, wireget=1, wireuse=1, driverget=1, driveruse=1, hintnote1get=1, dolluse=1, used_doll_hintnote3get=1, used_doll_hintnote3use=1, used_water_hintnote3get=1, smallboxuse=1, used_smallbox_hintnote2get=1, clockuse=1, batteryget=1, batteryuse=1, toolboxuse=1, hammerget=1, hammeruse=1, cutterknifeget=1, cutterknifeuse=1, wateruse=1, ceilinglightuse=1, used_ceilinglight_key_2get=1,used_ceilinglight_key_2use=1 where userid=?
     --right
     wateruse number default 1,
     --ceiling
