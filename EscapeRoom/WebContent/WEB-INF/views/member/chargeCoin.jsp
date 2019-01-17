@@ -70,7 +70,7 @@
            pay_method : 'card', // 'card':신용카드, 
            merchant_uid : 'EscapeRoom_' + new Date().getTime(),
            name : productName, //결제창에서 보여질 이름
-           amount : radioVal, //가격 
+           amount : radioVal * 10, //가격 
            buyer_email : '', // 구매자 이메일
            // 구매자명	
            buyer_name : '<%=userId%>', 
