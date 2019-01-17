@@ -11,6 +11,8 @@
 	List<SolveBoard> list = (List<SolveBoard>)request.getAttribute("list");
 	List<SolveBoard> bestList = (List<SolveBoard>)request.getAttribute("bestList");
 	List<GameRank> rankList = (List<GameRank>)request.getAttribute("rankList");
+	System.out.println(rankList);
+	
 	String gameId = "";
 	for(int i=0; i<rankList.size(); i++){
 		gameId += rankList.get(i).getGameid()+"/";
@@ -37,7 +39,7 @@ function noEnter(){
     <!--new pic-->
     <hr>
     <%
-    if(loggedInMember != null && gameId.contains(loggedInMember.getUserId()) ||loggedInMember.getUserId().equals("admin")){
+    if(loggedInMember != null && gameId.contains(loggedInMember.getUserId())){
     %>
     <div id="write" style="color:white"><a href="<%=request.getContextPath()%>/board/solve/solveBoardInsert?userId=<%=loggedInMember.getUserId()%>">글쓰기</a></div>
     <% 
