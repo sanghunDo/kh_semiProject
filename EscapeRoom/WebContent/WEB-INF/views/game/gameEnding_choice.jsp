@@ -81,7 +81,6 @@ $("#no").on("click", function(){
 	location.href = "<%=request.getContextPath()%>/game/goToTrueEnding?userId=<%=userId%>&record="+record;
 });
 
-
 </script>
 </body>
 </html>
