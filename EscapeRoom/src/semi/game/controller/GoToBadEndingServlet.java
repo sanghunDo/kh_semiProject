@@ -32,7 +32,7 @@ public class GoToBadEndingServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String userId = request.getParameter("userId");
-		int record = Integer.parseInt(request.getParameter("record"));
+		int record = Integer.parseInt(request.getParameter("record"))*1000;
 		if(!userId.contains("guest")) {
 			new GameService().insertRank(userId, record);
 		}

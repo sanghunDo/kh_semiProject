@@ -3,6 +3,8 @@
 <%
 	String userId_ = request.getParameter("userId");
 %>
+<audio id="itemitemitem" src="<%=request.getContextPath()%>/audio/item.wav"></audio>
+<audio id="opendoor" src="<%=request.getContextPath()%>/audio/opendoor.wav"></audio>
 <script>
 var position = $("#background img").prop("id");
 $(function(){
@@ -464,6 +466,7 @@ function update_state(objName, flag){
 };
 
 function get_item(objName){
+	$("#itemitemitem")[0].play();
 	$("#show-obj img:first").attr("src", "<%=request.getContextPath()%>/images/game/gameMain/clicked/"+objName+".png");
 	show_coment(objName, 1);
 	
