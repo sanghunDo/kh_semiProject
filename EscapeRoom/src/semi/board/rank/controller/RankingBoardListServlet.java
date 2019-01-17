@@ -37,23 +37,21 @@ public class RankingBoardListServlet extends HttpServlet {
 		if(!list.isEmpty()&&list.size()!=0) {
 			for(Rank r : list) {
 				String endRuntime = "";
-				if(r==null) {endRuntime="게임 기록이 없습니다.";}
-				else {
-					int runtime = (int)r.getGameruntime() / 1000;
-					
-					int hours = runtime / 3600;
-					int minutes = (runtime % 3600) / 60;
-					int seconds = runtime % 60;
-					
-					if(hours >= 1) {
-						endRuntime += hours + "시간 " + minutes + "분 " + seconds + "초";
-					}
-					else if(hours < 1 && minutes >= 1) {
-						endRuntime += minutes + "분" + seconds + "초";
-					}
-					else if(hours < 1 && minutes < 1) {
-						endRuntime += seconds + "초";
-					}
+				if(r==null ||  r.getEndRuntime()==null) {continue;}
+				int runtime = (int)r.getGameruntime() / 1000;
+				
+				int hours = runtime / 3600;
+				int minutes = (runtime % 3600) / 60;
+				int seconds = runtime % 60;
+				
+				if(hours >= 1) {
+					endRuntime += hours + "시간 " + minutes + "분 " + seconds + "초";
+				}
+				else if(hours < 1 && minutes >= 1) {
+					endRuntime += minutes + "분" + seconds + "초";
+				}
+				else if(hours < 1 && minutes < 1) {
+					endRuntime += seconds + "초";
 				}
 				
 				Rank modifiedR = new Rank(r.getGameId(), r.getGameruntime(), r.getUserprofilerenamedfile(), r.getGameescapedate(), endRuntime);
