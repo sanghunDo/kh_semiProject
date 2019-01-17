@@ -94,6 +94,8 @@ function escape(){
                     "animation-iteration-count": "1",
                     "animation-fill-mode": "forwards"
                 });
+    			$("#main_bgm")[0].pause();
+    			$("#opendoor")[0].play();
         		$("body").fadeOut(4000);
         		setTimeout(function(){
         			location.href="<%=request.getContextPath()%>/game/goToEndingChoice?userId=<%=userId_%>&record="+$("[type=hidden]").val();
