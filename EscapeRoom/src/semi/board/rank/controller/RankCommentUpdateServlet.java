@@ -1,4 +1,4 @@
-package semi.admin.controller;
+package semi.board.rank.controller;
 
 import java.io.IOException;
 
@@ -8,42 +8,40 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import semi.admin.model.service.AdminService;
-import semi.member.model.vo.Member;
+import semi.board.rank.model.service.RankCommentService;
 
 /**
- * Servlet implementation class DeleteProfileServlet
+ * Servlet implementation class RankCommentUpdateServlet
  */
-public class DeleteProfileServlet extends HttpServlet {
+@WebServlet("/board/rank/RankBoardCommentUpdate")
+public class RankCommentUpdateServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public DeleteProfileServlet() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		int result = 0;
+		request.setCharacterEncoding("utf-8");
 		
-		String userId = request.getParameter("userId");
-		Member m = new AdminService().selectOne(userId);
+//		int rankCommentNo = Integer.parseInt(request.getParameter("rankCommentNo"));
+		
+		int rankCommentNo = Integer.parseInt(request.getParameter("rankCommentNo"));
+		String updateComment = request.getParameter("rankCommentUpdateContent");
+		
+		
+		String getUpdateComment = new RankCommentService().getUpdateComment(rankCommentNo);		
+		int result = new RankCommentService().rankCommentUpdate(rankCommentNo, updateComment);
 		
 		String msg = "";
-		String loc = "/admin/adminBoard";
-
-		if(result > 0) 
-			msg = "해당 회원의 프로필 사진이 삭제되었습니다.";
+		String loc = "/board/rank/rankingBoardList";
 		
-		else 
-			msg = "해당 회원은 프로필 사진이 등록되어 있지 않습니다.";
+		if(result > 0) {
+			msg = "댓글 수정을 완료하였습니다.";
+		}
+		else {
+			msg = "댓글 수정에 실패했습니다.";
+		}
 		
-			
 		request.setAttribute("msg", msg);
 		request.setAttribute("loc", loc);
 		request.getRequestDispatcher("/WEB-INF/views/common/msg.jsp").forward(request, response);

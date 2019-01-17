@@ -1,6 +1,6 @@
 package semi.board.rank.model.dao;
 
-import static semi.common.JDBCTemplate.close;
+import static semi.common.JDBCTemplate.*;
 
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -88,6 +88,8 @@ private Properties prop = new Properties();
 				rc.setCommentContent(rset.getString("commentcontent"));
 				rc.setCommentRef(rset.getInt("commentref"));
 				rc.setCommentDate(rset.getDate("commentdate"));
+				rc.setCommentLike(rset.getInt("commentlike"));
+				rc.setCommentDisLike(rset.getInt("commentdislike"));
 				
 				rCommentList.add(rc);
 			}
@@ -137,6 +139,145 @@ private Properties prop = new Properties();
 			pstmt = conn.prepareStatement(prop.getProperty("deleteRankComment"));
 			
 			pstmt.setInt(1, rankCommentNo);
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+
+	public int updateCommentLike(Connection conn, int rankCommentNo, int rankCommentLike) {
+		
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String query = prop.getProperty("updateRankCommentLike");
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			
+//			pstmt.setInt(1, rankCommentLike);
+			pstmt.setInt(1, rankCommentNo);
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+	
+	public int updateCommentDisLike(Connection conn, int rankCommentNo, int rankCommentDisLike) {
+		
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String query = prop.getProperty("updateRankCommentDisLike");
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			
+//			pstmt.setInt(1, rankCommentDisLike);
+			pstmt.setInt(1, rankCommentNo);
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+
+	public int getCommentLike(Connection conn, int rankCommentNo) {
+		
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String query = prop.getProperty("getRankCommentLike");
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			
+			pstmt.setInt(1, rankCommentNo);
+			
+			result = pstmt.executeUpdate();
+					
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+
+	public int getCommentDisLike(Connection conn, int rankCommentNo) {
+		
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String query = prop.getProperty("getRankCommentDisLike");
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			
+			pstmt.setInt(1, rankCommentNo);
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+
+	public String getUpdateComment(Connection conn, int rankCommentNo) {
+		
+		String getUpdateComment = "";
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String query = prop.getProperty("getUpdateComment");
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			
+			pstmt.setInt(1, rankCommentNo);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				getUpdateComment = rset.getString("commentcontent");
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return getUpdateComment;
+	}
+
+	public int rankCommentUpdate(Connection conn, int rankCommentNo, String updateComment) {
+		
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String query = prop.getProperty("rankCommentUpdate");
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			
+			pstmt.setString(1, updateComment);
+			pstmt.setInt(2, rankCommentNo);
 			
 			result = pstmt.executeUpdate();
 			

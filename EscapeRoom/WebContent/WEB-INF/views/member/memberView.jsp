@@ -81,7 +81,7 @@ function updateValidate(){
 
 
 function deleteMember(){
-	var bool = confirm("정말로 탈퇴하시겠습니까?");
+	var bool = confirm("정말로 탈퇴하시겠습니까? (관리자 권한이 있는 회원은 임의로 탈퇴가 불가능합니다.)");
 	if(bool){
 		var frm = document.memberUpdateFrm;
 		frm.action = "<%=request.getContextPath()%>/member/memberDelete";

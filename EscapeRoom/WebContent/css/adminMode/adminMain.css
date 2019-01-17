@@ -97,6 +97,17 @@ button.adminGrant{
 	font-size:15px;
 }
 
+button.master{
+	background:white;
+	color:black;
+	width:123px;
+	font-family:'Noto Serif KR', serif;
+	border-radius:5px;
+	border:1px solid white;
+	font-size:15px;
+	font-weight:bold;
+}
+
 button.admin{
 	background:#353535;
 	width:70px;
@@ -118,4 +129,8 @@ button.adminWarn{
 	border:1px solid maroon;
 	font-size:15px;
 	display:inline-block;
+}
+
+div#rankComment-editor p{
+	color:white;
 }

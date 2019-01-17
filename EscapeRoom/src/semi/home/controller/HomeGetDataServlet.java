@@ -9,6 +9,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import semi.adminMode.model.service.AdminModeService;
+import semi.adminMode.model.vo.Admin;
 import semi.board.free.model.dao.FreeBoardDao;
 import semi.board.free.model.vo.FreeBoard;
 import semi.board.rank.model.vo.Rank;
@@ -36,7 +38,7 @@ public class HomeGetDataServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
+
 		//공지사항 링크
 		Notice n = null;
 
@@ -50,7 +52,11 @@ public class HomeGetDataServlet extends HttpServlet {
 		//랭킹 1위 정보
 		Rank r = new HomeService().selectRankTop();
 
-		int runtime = (int) r.getGameruntime() / 1000;
+		int runtime = 0;
+		
+		if(r != null) {
+			runtime = (int) r.getGameruntime() / 1000;
+		}
         
         int hours = runtime / 3600;
         int minutes = (runtime % 3600) / 60;
@@ -68,7 +74,14 @@ public class HomeGetDataServlet extends HttpServlet {
            endRuntime += seconds + "초";
         }
         
-        Rank modifiedR = new Rank(r.getGameId(), r.getGameruntime(), r.getUserprofilerenamedfile(), r.getGameescapedate(), endRuntime);
+        Rank modifiedR = null;
+        
+        if(r != null) {
+        	modifiedR = new Rank(r.getGameId(), r.getGameruntime(), r.getUserprofilerenamedfile(), r.getGameescapedate(), endRuntime);        	
+        }
+        else {
+        	modifiedR = new Rank();
+        }
 		
 		//자유게시판 인기게시물 top3
 		List<FreeBoard> list_free = new FreeBoardDao().boardSelectBest3();

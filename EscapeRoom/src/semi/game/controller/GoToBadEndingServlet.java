@@ -31,6 +31,12 @@ public class GoToBadEndingServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		String userId = request.getParameter("userId");
+		int record = Integer.parseInt(request.getParameter("record"))*1000;
+		if(!userId.contains("guest")) {
+			new GameService().insertRank(userId, record);
+		}
+		
 		request.getRequestDispatcher("/WEB-INF/views/game/badEnding.jsp").forward(request, response);
 	}
 

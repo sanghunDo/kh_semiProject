@@ -10,6 +10,9 @@
 <link rel="stylesheet" href="<%=request.getContextPath() %>/css/game/gameEnding.css" />
 </head>
 <body>
+<audio autoplay src="<%=request.getContextPath()%>/audio/footprint.wav"></audio>
+<audio id="gun" src="<%=request.getContextPath()%>/audio/gun.mp3"></audio>
+
 <img src="" alt="" id="background"/>
 <div id="ending">
 	<div id="msgBox" class="me">
@@ -25,6 +28,14 @@ $(window).on('keyup', function(e){
 	opener.parent.sessionStorage.removeItem("game");
 });
 
+$(function(){
+	$("body").hide();
+	
+	setTimeout(function(){
+		$("body").fadeIn(2000);		
+	}, 2000);
+});
+
 $("#ending").on('click', {cnt:0} ,function(e){
 	var cnt = e.data.cnt++;
 	var target = $("#ending").find("h2");
@@ -36,11 +47,14 @@ $("#ending").on('click', {cnt:0} ,function(e){
 	if(cnt==10) $("#msgBox").addClass("me");
 	
 	if(cnt==11){
-		$("body, #background").css({"animation": "bang .1s", "animation-iteration-count": "3"});
-		$(this).parent().fadeOut(3000); //마지막 대사 이후 클릭시 메인게임으로 이동.
+		$("#gun")[0].play();
+		setTimeout(function(){
+			$("body, #background").css({"animation": "bang .1s", "animation-iteration-count": "5"});			
+		}, 700);
+		$(this).parent().fadeOut(4000);
 		setTimeout(function(){
 			location.href="<%=request.getContextPath()%>/game/endingCredit";
-		}, 3000);
+		}, 5000);
 	}
 	
 	//대사 테이블에서 한 문장씩 가져옴.
@@ -55,7 +69,7 @@ $("#ending").on('click', {cnt:0} ,function(e){
 			if(data.fileName){
 				$("#background").attr("src", "<%=request.getContextPath()%>/images/game/badEnding/"+data.fileName).fadeIn(1500);
 			}
-			
+
 			target.text(data.content);
 			target.parent().css("width",target.outerWidth());
 			var length = data.content.length;

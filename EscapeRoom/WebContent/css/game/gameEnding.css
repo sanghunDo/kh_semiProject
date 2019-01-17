@@ -152,10 +152,26 @@ button.choice{
 	cursor:pointer;
 }
 
+button.choice:hover{
+	width:200px;
+	height:50px;
+	background:black;
+	border:2px solid red;
+	color:red;
+	border-radius:10px;
+	margin-left:20px;
+	margin-right:20px;
+	font-family:'Noto Serif KR', serif;
+	font-size:25px;
+	font-weight:bold;
+	cursor:pointer;
+}
+
 table#buttonTab{
 	position:relative;
 	width:80%;
 	margin:0 auto;
+	margin-top:17px;
 	border-collapse:collapse;
 	text-align:center;
 }
@@ -167,4 +183,23 @@ table#buttonTab h4{
 	font-weight:bold;
 	margin:0;
 	color:gray;
+}
+
+@keyframes backAni{
+	0%{
+		background:black;
+	}
+	100%{
+		background:gray;
+	}
+}
+
+img#choice_gun{
+	position: fixed;
+	width: 350px;
+	height: 430px;
+	left: 200px;
+	top:77px;
+	left:340px;
+	display: none;
 }

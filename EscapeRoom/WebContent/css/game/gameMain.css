@@ -448,7 +448,7 @@ h2{
 	overflow: hidden;
 	white-space: nowrap;
 	margin: 15px 0 0 20px;
-	font-family: 'Song Myung', serif;
+	font-family: 'Noto Serif KR', serif;
 	font-size: 180%;
 }
 @-webkit-keyframes typing {
@@ -523,4 +523,97 @@ h2{
    transition-duration:3s,1s;
    transform: translateY(30px);
    cursor:pointer;
+}
+/* #son{
+    display:block;
+    position:absolute;
+    opacity:0;
+} */
+#password{
+    display : none;
+}
+.num{
+    position: absolute;
+    cursor:pointer;
+    opacity : 1;
+    text-shadow: 0px 0px red;
+    font-family: 'ZCOOL QingKe HuangYou', cursive;
+    font-size : 50px;
+	padding-top: 0px;
+}
+h1{
+    width:50px;
+    height:50px;
+    text-shadow:0 0 3px black;
+}
+#num1{
+    left: 376px;
+    top: 52px;
+}
+#num2{
+    left: 472px;
+    top: 50px;
+}
+#num3{
+    left: 580px;
+    top: 52px;
+}
+#num4{
+    left: 376px;
+    top: 123px;
+}
+#num5{
+    left: 472px;
+    top: 125px;
+}
+#num6{
+	left: 578px;
+    top: 125px;
+}
+#num7{
+	left: 376px;
+    top: 193px;
+}
+#num8{
+    left: 472px;
+    top: 195px;
+}
+#num9{
+    left: 578px;
+    top: 195px;
+}
+#num11{
+    left: 376px;
+    top: 271px;
+}
+#num0{
+    left: 473px;
+    top: 269px;
+}
+#num12{
+    left: 573px;
+    top: 270px;
+}
+
+/*버튼 누르는 애니메이션*/
+    @keyframes 
+
+    clicked { 
+            50% {
+                color: white;
+                text-shadow: 0 0 30px black;
+            }
+            
+            100% {
+                color: black;
+                text-shadow: 0 0 0px black;
+            }
+    }
+#largeKeypad{
+    width: 380px;
+    height: 444px;
+}
+
+.clicked{
+    animation: clicked .8s 1 forwards;
 }

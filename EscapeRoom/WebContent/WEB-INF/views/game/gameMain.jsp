@@ -11,6 +11,7 @@
 <meta charset=UTF-8">
 <title>Insert title here</title>
 <script src="<%=request.getContextPath()%>/js/jquery-3.3.1.js"></script>
+<link href="https://fonts.googleapis.com/css?family=ZCOOL+QingKe+HuangYou" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css?family=Noto+Serif+KR" rel="stylesheet">
 <link rel="stylesheet" href="<%=request.getContextPath() %>/css/game/gameMain.css" />
 <link rel="stylesheet" href="<%=request.getContextPath() %>/css/game/gameObject.css" />
@@ -23,6 +24,9 @@ $(function(){
 </script>
 </head>
 <body>
+<audio autoplay id="intro" src="<%=request.getContextPath()%>/audio/mus_intronoise.ogg"></audio>
+<audio loop id="main_bgm" src="<%=request.getContextPath()%>/audio/mainGame.mp3"></audio>
+
 <div id="wrap">
    <div id="moveRight"><br><br><br><br><br><br><br><br><br><br><br><br><br><pre>       ▶</pre></div>
    <div id="moveLeft"><br><br><br><br><br><br><br><br><br><br><br><br><br>◀</div>
@@ -78,6 +82,7 @@ setTimeout(function(){
 	$("#background img:first").attr("src", "<%=request.getContextPath()%>/images/game/gameMain/"+position+"/background.png")
 	$("#background").show();
 	$("#pause").show();
+	$("#main_bgm")[0].play();
 }, 3100);
 function move(where,direction){
     $("#sub-background img:first").attr("src","<%=request.getContextPath()%>/images/game/gameMain/"+where+"/background.png");
@@ -336,7 +341,10 @@ $("#prev").click(function(){
 $("#inventory").on('click',{flag:0},function(e){
 	var cnt = e.data.flag++;
 	if(cnt%2==0) $(this).animate({"top":"80%"});
-	else $(this).animate({"top":"100%"});
+	else {
+		$(this).animate({"top":"100%"});
+		$("#obj-list div").removeClass("selected");
+	}
 	$(this).toggleClass('on');
 	$(this).children().click(function(e){
 		e.stopPropagation();
@@ -360,12 +368,14 @@ $("#pause").on("click", {flag:1}, function(e){
 		$("#pause-menu-container").show();
 		show_pause_menu("pause-menu");
 		clearInterval(record);
+		$("#main_bgm")[0].pause();
 	}
 	else{
 		$target.children().attr("src", "<%=request.getContextPath()%>/images/game/gameMain/pause.png");
 		$("#pause-menu-container").hide();
 		$("#pause-menu").html("");
 		record = setInterval(timer, 1000);
+		$("#main_bgm")[0].play();
 	}
 });
 
@@ -380,6 +390,7 @@ $(window).on('keyup', function(e){
 }).on('beforeunload', function(){
 	opener.parent.sessionStorage.removeItem("game");
 });
+
 </script>
 </body>
 </html>

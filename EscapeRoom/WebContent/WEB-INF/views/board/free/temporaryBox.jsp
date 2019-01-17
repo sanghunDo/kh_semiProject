@@ -150,7 +150,7 @@
     </style>
 </head>
 
-<body>
+<body style="width:550px;">
 <div class="container">
     <h4 style="color:white">임시보관함</h4>
     <hr>
@@ -172,13 +172,14 @@
             </tr>
          </thead>
 
-         <tbody>
              
 <%for(int i=0; i<boxList.size(); i++) {
 	TemporaryData td = boxList.get(i);
 
 
 %>
+
+         <tbody>
             <table class="sub_news" border="1" cellspacing="0" summary="게시판의 글제목리스트">
                     <colgroup>
                        
@@ -186,6 +187,12 @@
                         <col width="30px">
                   
                     </colgroup>
+                    
+            <%if(boxList == null || boxList.isEmpty()) { %>
+             	<tr>
+               		<td colspan="6" align="center">임시저장된 데이터가 없습니다.</td>
+           		 </tr>
+            <%} else {%>
             <tr>
                 <td class="title">
                 <%if(td.getDataTitle()==null){ %>
@@ -221,5 +228,5 @@ function check(item1, item2, item3, item4){
 }
 </script>
 
-<%} %>
+<%} }%>
 </html>

@@ -4,12 +4,22 @@
 <%@ page import="java.util.*, semi.notice.model.vo.*, semi.member.model.vo.*" %>
 <%
 	List<Notice> list = (List<Notice>)request.getAttribute("list");
-	int listSize = list.size();
+	int listSize = 0;
+	if(list != null && !list.isEmpty()){
+		listSize = list.size();
+	}
 	
-	Notice n1 = list.get(0);
-	Notice n2 = (listSize % 4 == 2 || listSize % 4 == 3 || listSize % 4 == 0) ? list.get(1) : null;
-	Notice n3 = (listSize % 4 == 3 || listSize % 4 == 0) ? list.get(2) : null;
-	Notice n4 = (listSize % 4 == 0) ? list.get(3) : null;
+	Notice n1 = null;
+	Notice n2 = null;
+	Notice n3 = null;
+	Notice n4 = null;
+	
+	if(list!= null && !list.isEmpty()){
+		n1 = list.get(0);
+		n2 = (listSize % 4 == 2 || listSize % 4 == 3 || listSize % 4 == 0) ? list.get(1) : null;
+		n3 = (listSize % 4 == 3 || listSize % 4 == 0) ? list.get(2) : null;
+		n4 = (listSize % 4 == 0) ? list.get(3) : null;		
+	}
 
 	int cPage = (int)request.getAttribute("cPage");
 	int numPerPage = (int)request.getAttribute("numPerPage");
@@ -31,7 +41,7 @@ function goToNoticeForm(){
 </div>
 <table id="notice-Table">
 <%if(list.size() == 0){ %>
-	<tr><td>게시물이 존재하지 않습니다.</td></tr>
+	<tr><td class="none">데이터가 없거나 게시물이 존재하지 않습니다.</td></tr>
 <%} else{%>
 	<tr>		
 		<%if(n1 != null){ %>
