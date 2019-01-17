@@ -11,6 +11,12 @@
     left: 345px;
     transform-origin: 0% 50%;
 }
+#door_keypad{
+	width: 332px;
+    height: 444px;
+    height: 500px;
+    top: 12px;
+}
 #used_flowerpot_key_1{
 	width: 40px;
     top: 110px;
@@ -177,10 +183,9 @@ opendoorright{
     top: 285px;
 }
 #used_doll_hintnote3{
-	width: 50px;
-    left: 438px;
-    top: 213px;
-    opacity: 0;
+	width: 73px;
+    left: 434px;
+    top: 279px;
 }
 #books_4{
 	top: 170px;
@@ -217,25 +222,28 @@ opendoorright{
     opacity: 0;	
 }
 #cutterknife{
-	display: block;
-    width: 70px;
-    top: 198px;
-    left: 368px;
-    transform: rotateZ(16deg);
+    display: block;
+    width: 72px;
+    top: 228px;
+    left: 338px;
+    transform: rotateZ(67deg);
     opacity: 0;
 }
 #hammer{
-	display: block;
-    width: 122px;
+    display: block;
+    width: 51px;
+    height: 194px;
     top: 160px;
-    left: 551px;
-    transform: rotateZ(19deg);
+    left: 630px;
+    transform: rotateZ(62deg);
     opacity: 0;
 }
 #used_smallbox_hintnote2{
-	width: 95px;
+	width: 97px;
     left: 400px;
-    top: 235px;
+    top: 161px;
+    transform: rotateZ(-61deg);
+
 }
 
 

@@ -41,13 +41,15 @@ function setObject(position){
 						$("#background").append(html);
 					}
 				}
-			obj_click();
 		}
 	});
+	setTimeout(function(){
+		obj_click();
+	}, 1500)
 };
 function escape(){
 	$("#show-obj").empty();
-	var html = "<img src='<%=request.getContextPath()%>/images/game/gameMain/front/door_lock2_keypad.png' id='largeKeypad'>";
+	var html = "<img src='<%=request.getContextPath()%>/images/game/gameMain/front/door_lock2_keypad.png' id='door_keypad'>";
     	html += "<div id='kp'>";
     	html +=	"<td><h1 name='1' class='num'   id='num1'>1</h1></td>";
     	html += "<h1 name='2' class='num'   id='num2'>2</h1>";
@@ -94,7 +96,7 @@ function escape(){
                 });
         		$("body").fadeOut(4000);
         		setTimeout(function(){
-        			location.href="<%=request.getContextPath()%>/game/goToEndingChoice";
+        			location.href="<%=request.getContextPath()%>/game/goToEndingChoice?userId=<%=userId_%>&record="+$("[type=hidden]").val();
         		}, 5000);
             } else{
             	on();
@@ -132,8 +134,10 @@ function obj_click(){
 			}
 			
 			if(state_==2){
-				html = "<img src='<%=request.getContextPath()%>/images/game/gameMain/clicked/used_"+objName+".png'"
-				 + " onclick=obj_hasNext('"+objName+"') class='"+objName+"'>";
+				if(objName!="used_safe"){
+					html = "<img src='<%=request.getContextPath()%>/images/game/gameMain/clicked/used_"+objName+".png'"
+				 	+ " onclick=obj_hasNext('"+objName+"') class='"+objName+"'>";
+				}
 			}
 			else{
 				var itemList = is_usable(objName);
@@ -157,7 +161,9 @@ function obj_click(){
 						var childName = "";
 						console.log(children, state1, state2);
 						if(!(state1==1&&state2==1)){
-							if(state1==2&&state2==2){objName = "used_"+objName;}
+							if(state1==2&&state2==2){
+								if(objName!="used_safe") objName = "used_"+objName;
+							}
 							else{
 								if(state1==1&&state2==2){objName=children[0]+"_"+objName; childName=children[0];}
 								if(state1==2&&state2==1){objName=children[1]+"_"+objName; childName=children[1];}
@@ -222,7 +228,7 @@ function check_has_item(objName, itemList){
 };
 function use_item(objName, objNo, item){
 	var position = $("#background img:first").prop("id");
-	console.log(objNo, item, $("."+item).prop("id"));
+	
 	if(objNo==$("."+item).prop("id")){
 		if($("."+item).prop("class")=="wire"){
 			if(check_state("battery","use")==1){
@@ -233,8 +239,16 @@ function use_item(objName, objNo, item){
 		}
 		
 		if($("#inventory").offset().top<704){$("#inventory").trigger('click');}
+		
 		$("#show-obj img:first").attr("src", "<%=request.getContextPath()%>/images/game/gameMain/"+position+"/used_"+objName+".png")
-								.attr("onclick", "obj_hasNext('"+objName+"')");
+
+		if(objName=="used_door_lock2"){
+			$("#show-obj img:first").attr("onclick", "escape()");
+		}else{
+			$("#show-obj img:first").attr("onclick", "obj_hasNext('"+objName+"')");
+		}
+		
+		
 		$("#"+objName).attr("src", "<%=request.getContextPath()%>/images/game/gameMain/"+position+"/used_"+objName+".png").attr("id", "used_"+objName);
 		show_coment("used_"+objName, 1);
 		
@@ -465,6 +479,7 @@ function get_item(objName){
 	});
 };
 function refresh_inventory(){
+	$("#obj-list div").empty();
 	var cnt = 1;
 	$.ajax({
 		url:"<%=request.getContextPath()%>/game/setObject",
@@ -479,7 +494,7 @@ function refresh_inventory(){
 						&&(data[i].objName).indexOf("used_water")==-1){
 						state2 = check_state(data[i].objName, "use");
 					}
-					console.log(state1, state2);
+					
 					if(state1==2&&state2!=2){
 						var html = "<img src='<%=request.getContextPath()%>/images/game/gameMain/"+data[i].position+"/"+data[i].objName+".png'";
 							html += "id='"+data[i].refNo+"' class='"+data[i].objName+"'>";

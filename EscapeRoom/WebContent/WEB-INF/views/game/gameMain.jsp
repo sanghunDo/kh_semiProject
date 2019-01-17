@@ -82,7 +82,7 @@ setTimeout(function(){
 	$("#background").show();
 	$("#pause").show();
 	$("#main_bgm")[0].play();
-}, 3000);
+}, 3100);
 function move(where,direction){
     $("#sub-background img:first").attr("src","<%=request.getContextPath()%>/images/game/gameMain/"+where+"/background.png");
     var here = $("#background img").prop("id"); 

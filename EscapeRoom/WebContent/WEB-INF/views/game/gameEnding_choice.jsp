@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<% String userId = (String)request.getAttribute("userId"); int record = (int)request.getAttribute("record"); %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -10,6 +11,7 @@
 <link rel="stylesheet" href="<%=request.getContextPath() %>/css/game/gameEnding.css" />
 </head>
 <body>
+<input type="hidden" value=<%=record+1 %> />
 <img src="" alt="" id="background"/>
 <div id="ending">
 	<div id="msgBox" class="none">
@@ -30,6 +32,13 @@
 	</div>
 </div>
 <script>
+var rInterval;
+$(function(){
+	var sec = $("[type=hidden]").val();
+	rInterval = setInterval(function(){
+		$("[type=hidden]").val(++sec);	
+	}, 1000);
+});
 $(window).on('keyup', function(e){
 	if(e.keyCode==87&&isCtrl==true){
 		opener.parent.sessionStorage.removeItem("game");
@@ -53,11 +62,15 @@ $(window).on('keyup', function(e){
 }); */
 
 $("#yes").on("click", function(){
-	location.href = "<%=request.getContextPath()%>/game/goToBadEnding";
+	clearInterval(rInterval);
+	var record = $("[type=hidden]").val();
+	location.href = "<%=request.getContextPath()%>/game/goToBadEnding?userId=<%=userId%>&record="+record;
 });
 
 $("#no").on("click", function(){
-	location.href = "<%=request.getContextPath()%>/game/goToTrueEnding";
+	clearInterval(rInterval);
+	var record = $("[type=hidden]").val();
+	location.href = "<%=request.getContextPath()%>/game/goToTrueEnding?userId=<%=userId%>&record="+record;
 });
 
 
