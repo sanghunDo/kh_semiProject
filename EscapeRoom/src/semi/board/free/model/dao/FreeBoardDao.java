@@ -71,6 +71,7 @@ public class FreeBoardDao {
 				fb.setPostDate(rset.getDate("postdate"));
 				fb.setPostReadCount(rset.getInt("postreadcount"));
 				fb.setBoard_comment_cnt(rset.getInt("board_comment_cnt"));
+				fb.setPostReport(rset.getString("postreport"));
 				
 				list.add(fb);
 				
@@ -410,6 +411,7 @@ public class FreeBoardDao {
 				bc.setCommentDate(rset.getDate("commentdate"));
 				bc.setCommentLike(rset.getInt("commentlike"));
 				bc.setCommentDislike(rset.getInt("commentdislike"));
+				bc.setCommentReport(rset.getString("commentreport"));
 				
 				commentList.add(bc);
 			}
@@ -1135,8 +1137,6 @@ public class FreeBoardDao {
 				
 			}
 			
-		
-			System.out.println("Dao안에 lastSeq="+lastSeq);
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		} catch (SQLException e) {
@@ -1670,7 +1670,7 @@ public class FreeBoardDao {
 		PreparedStatement pstmt = null;
 		Connection conn = null;
 		String query = 
-	    "INSERT INTO temporary_data  values ( SEQ_TEMPORARY_DATA_POSTNO.nextVal , ?, ?, ? ,?,?, default)";
+	    "INSERT INTO temporary_data_free  values ( SEQ_temporary_data_POSTNO.nextVal , ?, ?, ? ,?,?, default)";
 		
 		try {
 			Class.forName("oracle.jdbc.driver.OracleDriver");
@@ -1714,7 +1714,7 @@ public class FreeBoardDao {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
-		String query = "select * from temporary_data where datawriter = ?";
+		String query = "select * from temporary_data_free where datawriter = ?";
 		
 		try {
 			Class.forName("oracle.jdbc.driver.OracleDriver");
@@ -1759,5 +1759,44 @@ public class FreeBoardDao {
 	
 		
 		return list;
+	}
+
+	/*임시보관함 데이터 삭제*/
+	public int deleteTemporaryData(int dataNo) {
+		int result = 0;
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		String query = "delete from temporary_data_free where datano=?";
+		try {
+			Class.forName("oracle.jdbc.driver.OracleDriver");
+			conn = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe", 
+					"escape_if_you_can", //아이디 
+					"escape_if_you_can");//비번
+			
+			
+			pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1, dataNo);
+			
+			
+			result = pstmt.executeUpdate();	
+			
+			if(result >0) commit(conn);
+		      else rollback(conn);
+			
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				pstmt.close();
+				conn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+			
+		}
+	
+		return result;
 	}
 }

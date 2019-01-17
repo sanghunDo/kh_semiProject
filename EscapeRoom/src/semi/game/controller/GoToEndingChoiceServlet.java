@@ -26,6 +26,11 @@ public class GoToEndingChoiceServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		String userId = request.getParameter("userId");
+		int record = Integer.parseInt(request.getParameter("record"));
+		
+		request.setAttribute("userId", userId);
+		request.setAttribute("record", record);
 		request.getRequestDispatcher("/WEB-INF/views/game/gameEnding_choice.jsp").forward(request, response);
 	}
 

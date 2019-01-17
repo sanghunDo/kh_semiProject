@@ -32,6 +32,8 @@ public class TemporaryBox extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String userId = request.getParameter("userId");
+		   // 팝업창을 닫기 위한 코드
+        // jsp에 전달하기 위해 속성으로 전달
 		
 		String view = "/WEB-INF/views/board/free/temporaryBox.jsp";
 		List<TemporaryData> boxList = new FreeBoardDao().selectTemporaryData(userId);

@@ -31,11 +31,16 @@ public class DeletePostServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String category = request.getParameter("category");
 		int postNo = Integer.parseInt(request.getParameter("postNo"));
-		
+		System.out.println("postNo는 나오냐"+postNo);
+		System.out.println("category는 나오냐"+category);
+
 		int result = 0;
 		
-		if("F".equals(category)) result = new AdminModeService().changeFreeTitleReported(postNo);
-		else if("S".equals(category)) result = new AdminModeService().changeSolveTitleReported(postNo);
+		if("F".equals(category)) {
+			result = new AdminModeService().changeFreeTitleReported(postNo);
+		} else if("S".equals(category)) {
+			result = new AdminModeService().changeSolveTitleReported(postNo);
+		}
 		
 		String msg = "";
 		String loc = "/adminMode/adminMain";

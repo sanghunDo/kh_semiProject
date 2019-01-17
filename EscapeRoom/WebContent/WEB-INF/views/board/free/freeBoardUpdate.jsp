@@ -59,14 +59,14 @@ function check(){
             <tr>
                 <th scope="col">글쓴이</th>
                 <td class="wirter">
-                       <%=fb.getPostWriter() %>
+					<input type="hidden" name="writer" value="<%=loggedInMember.getUserId() %>" />
+
+                    <%=fb.getPostWriter() %>
                 </td>
             </tr>
             <tr>
                 <td class="content">     
-                        <textarea name="content" id="content" cols="30" rows="10" style="margin-top: 3px; width: 1004px; height: 506px; resize:none;">
-                        <%=fb.getPostContent() %>
-                        </textarea>
+                       <textarea name="content" id="content" cols="30" rows="10" style="margin-top: 3px; width: 1004px; height: 506px; resize:none;"><%=fb.getPostContent() %></textarea>
                 </td>
             </tr>
             <tr>
@@ -104,17 +104,89 @@ function check(){
             </tr>
             -->
     </table>
+   <input type="hidden" value="false" name="flag" />  
+
 </form>
-   
-    <div class="button" id="submit" onclick="return validate();">등록</div>
-    <div class="button" id="cancel" onclick="goList();">취소</div>
+    <div id="DataBox" onclick="dataBox();">임시저장보관함</div>
+    <div id="temporaryData" onclick="temporaryData();">임시저장하기</div>
+    <div class="button" id="submit" onclick="submitFrm();">등록</div>
+    <div class="button" id="cancel" onclick="cancel();">취소</div>
 
 </div>
 <script>
-function goList(){
 
-	 var referrer =  document.referrer;
-	 location.href = referrer; 
+function submitFrm(){
+	var content = $("textarea[name=content]");
+	if(content.val().trim().length  ==  0 ){
+		alert("내용을 입력하세요");
+		return;
+	}
+	$("[name=updateForm]").submit();
 }
+
+function cancel(){
+	var title = $("input[name=title]").val().trim().length;
+	var content = $("textarea[name=content]").val().trim().length;
+	var titleVal =  $("input[name=title]").val();
+	var contentVal = $("textarea[name=content]").val();
+	
+	var referrer =  document.referrer;
+	var userId = "<%=loggedInMember.getUserId()%>";
+	if(title>0 || content>0){	
+		if(!confirm("작성중인 글이 있습니다. 임시저장하시겠습니까? '취소'를 누르시면 작성하던 게시글이 삭제됩니다.")){
+			location.href = referrer; 
+		}else{ //확인버튼을 눌렀을 시
+			$("[name=flag]").attr("value","true");
+			$("[name=updateForm]").submit(); 
+		}
+	} else {
+		 location.href = referrer; 
+	}
+	
+}
+
+$(document).keydown(function(event){
+	if(event.keyCode) code = event.keyCode;
+	else if(event.which) code = event.which;
+	var title = $("input[name=title]").val().trim().length;
+	var content = $("textarea[name=content]").val().trim().length;
+	console.log(title);
+	console.log(content);
+   if(title>0 || content>0){
+		   if((code==0 || code==116)){
+				if(!confirm("작성중인 글이 있습니다. 임시저장하시겠습니까? '취소'를 누르시면 작성하던 게시글이 삭제됩니다.")){
+					location.href = referrer; 
+				}else{ //확인버튼을 눌렀을 시
+					$("[name=flag]").attr("value","true");
+					$("[name=writeFrm]").submit(); 
+				}
+		   }
+     }
+});
+});
+
+
+function temporaryData(){
+	var title = $("input[name=title]").val().trim().length;
+	var content = $("textarea[name=content]").val().trim().length;
+	if(title==0&&content==0){
+		alert("제목과 내용을 작성해주세요.");
+		return;
+	}
+	
+	$("[name=flag]").attr("value","true");
+	$("[name=updateForm]").submit(); 
+}
+
+function dataBox(){
+	var url = "<%=request.getContextPath() %>/board/free/freeBoardTemporaryBox?userId=<%=loggedInMember.getUserId()%>";
+	   
+	   // 팝업창 이름
+ 	var title = "DataBox";
+	var status = "left=500px, top=200px, width=600px, height=600px";
+	   
+	open(url, title, status);
+}
+
 </script>
 </html>

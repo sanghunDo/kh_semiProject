@@ -5,6 +5,7 @@
 				semi.adminMode.model.vo.*" %>
 <%@ include file="/WEB-INF/views/common/header.jsp" %>
 <%
+	List<Admin> adminList = (List<Admin>) request.getAttribute("adminList");
 	List<Member> memberList = (List<Member>) request.getAttribute("memberList");
 	List<Report_Board> rbList = (List<Report_Board>) request.getAttribute("rbList");
 	List<Report_Comment> rcList = (List<Report_Comment>) request.getAttribute("rcList");
@@ -26,15 +27,13 @@ $(function(){
 		$("#showAll").toggleClass("hideThis");
 	});
 	
-	$(".userProfile").on("click", function(){
-		var temp = confirm("해당 사진이 게시되기에 부적절한 사진입니까?");
-		if(!temp) return;
-		else{
-			location.href = "<%=request.getContextPath()%>/adminMode/deleteProfile?userId=" + 
-					$(this).parent().siblings(".hiddenVal").val();
-		}
-	});
 });
+
+function deleteProfile(userId){
+	var temp = confirm("해당 사진이 게시되기에 부적절한 사진입니까?");
+	if(!temp) return;
+	else location.href = "<%=request.getContextPath()%>/adminMode/deleteProfile?userId=" + userId;
+}
 
 function deleteReportBoard(postNo, category){
 	var temp = confirm("해당 글에 대한 신고를 취소하시겠습니까?");
@@ -58,6 +57,18 @@ function deleteComment(commentNo, category){
 	var temp = confirm("해당 댓글을 삭제처리 하시겠습니까?");
 	if(!temp) return;
 	else location.href = "<%=request.getContextPath()%>/adminMode/deleteComment?commentNo=" + commentNo + "&category=" + category;
+}
+
+function adminWarn(userId){
+	var temp = confirm("해당 관리자에게 경고처리를 하시겠습니까?");
+	if(!temp) return;
+	else location.href = "<%=request.getContextPath()%>/adminMode/adminWarn?userId=" + userId;
+}
+
+function adminGrant(userId){
+	var temp = confirm("해당 회원에게 관리자 권한을 부여하시겠습니까?");
+	if(!temp) return;
+	else location.href = "<%=request.getContextPath()%>/adminMode/adminGrant?userId=" + userId;
 }
 </script>
 
@@ -152,50 +163,89 @@ function deleteComment(commentNo, category){
 		<th>프로필사진</th>
 		<th>가입날짜</th>
 		<th>보유코인</th>
+		<th>권한</th>
 	</tr>
 	<%if(memberList != null && !memberList.isEmpty()) { 
 		for(int i=0; i<5; i++){%>
 		<tr>
 			<td>
-				<input type="hidden" class="hiddenVal" value="<%=memberList.get(i).getUserId() %>"/>
 				<a href="<%=request.getContextPath()%>/member/memberView?userId=<%=memberList.get(i).getUserId()%>">
 					<%=memberList.get(i).getUserId() %></a>
 			</td>
 			<td><%=memberList.get(i).getUserEmail() %></td>
 			<td>
 				<%if(memberList.get(i).getUserProfileRenamedFile() == null){ %>
-				<img class="userProfile" src="<%=request.getContextPath() %>/images/nonProfile.png" alt="" />
+				<img class="userProfile" onclick="deleteProfile('<%=memberList.get(i).getUserId()%>');" src="<%=request.getContextPath() %>/images/nonProfile.png" alt="" />
 				<%} else{ %>
-				<img class="userProfile" src="<%=request.getContextPath() %>/upload/member/<%=memberList.get(i).getUserProfileRenamedFile() %>" alt="" />
+				<img class="userProfile" onclick="deleteProfile('<%=memberList.get(i).getUserId()%>');" src="<%=request.getContextPath() %>/upload/member/<%=memberList.get(i).getUserProfileRenamedFile() %>" alt="" />
 				<%} %>
 			</td>
 			<td><%=memberList.get(i).getEnrollDate() %></td>
 			<td><%=memberList.get(i).getCoin() %></td>
+			<td>
+				<%if("admin".equals(memberList.get(i).getUserId())) {%>
+					<button class="master" disabled>MASTER</button>				
+				<%}
+				else if(adminList != null && !adminList.isEmpty()){
+					for(int j=0; j<adminList.size(); j++){ 
+						if(memberList.get(i).getUserId().equals(adminList.get(j).getAdminId())) {%>
+							<button class="admin" disabled>관리자</button>
+							<button class="adminWarn" onclick="adminWarn('<%=memberList.get(i).getUserId()%>');">경고</button>
+							<%break;
+						}
+						else if(j == adminList.size() - 1){%>
+							<button class="adminGrant" onclick="adminGrant('<%=memberList.get(i).getUserId()%>');">관리자 등록</button>
+						<%}
+						else continue;
+					}
+				} else{%>
+					데이터 X
+				<%} %>
+			</td>
 		</tr>
 		<%} %>
-		<tr><td colspan="5"><button id="showAll">▼ 전체회원 보기</button></td></tr>
+		<tr><td colspan="6"><button id="showAll">▼ 전체회원 보기</button></td></tr>
 		<%for(int i=5; i<memberList.size(); i++) { %>
 		<tr class="toggleTr hideThis">
 			<td>
-				<input type="hidden" value="<%=memberList.get(i).getUserId() %>"/>
 				<a href="<%=request.getContextPath()%>/member/memberView?userId=<%=memberList.get(i).getUserId()%>">
 					<%=memberList.get(i).getUserId() %></a>
 			</td>
 			<td><%=memberList.get(i).getUserEmail() %></td>
 			<td>
 				<%if(memberList.get(i).getUserProfileRenamedFile() == null){ %>
-				<img class="userProfile" src="<%=request.getContextPath() %>/images/nonProfile.png" alt="" />
+				<img class="userProfile" onclick="deleteProfile('<%=memberList.get(i).getUserId()%>');" src="<%=request.getContextPath() %>/images/nonProfile.png" alt="" />
 				<%} else{ %>				
-				<img class="userProfile" src="<%=request.getContextPath() %>/upload/member/<%=memberList.get(i).getUserProfileRenamedFile() %>" alt="" />
+				<img class="userProfile" onclick="deleteProfile('<%=memberList.get(i).getUserId()%>');" src="<%=request.getContextPath() %>/upload/member/<%=memberList.get(i).getUserProfileRenamedFile() %>" alt="" />
 				<%} %>
 			</td>
 			<td><%=memberList.get(i).getEnrollDate() %></td>
 			<td><%=memberList.get(i).getCoin() %></td>
+			<td>
+				<%if("admin".equals(memberList.get(i).getUserId())) {%>
+					<button class="master" disabled>MASTER</button>				
+				<%}
+				else if(adminList != null && !adminList.isEmpty()){
+					for(int j=0; j<adminList.size(); j++){ 
+						if(memberList.get(i).getUserId().equals(adminList.get(j).getAdminId())) {%>
+							<button class="admin" disabled>관리자</button>
+							<button class="adminWarn" onclick="adminWarn('<%=memberList.get(i).getUserId()%>');">경고</button>
+							<%break;
+						}
+						else if(j == adminList.size() - 1){%>
+							<button class="adminGrant" onclick="adminGrant('<%=memberList.get(i).getUserId()%>');">관리자 등록</button>
+						<%}
+						else continue;
+					}
+				} else{%>
+					데이터 X
+				<%} %>
+			</td>
 		</tr>
 		<%} %>
-		<tr><td colspan="5"><button class="hideThis" id="hide">▲ 접기</button></td></tr>
+		<tr><td colspan="6"><button class="hideThis" id="hide">▲ 접기</button></td></tr>
 	<%} else{ %>
-		<tr><td colspan="5">데이터가 없습니다.</td></tr>
+		<tr><td colspan="6">데이터가 없습니다.</td></tr>
 	<%} %>
 	
 </table>

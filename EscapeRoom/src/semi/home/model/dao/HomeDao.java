@@ -48,6 +48,8 @@ public class HomeDao {
 	            r.setUserprofilerenamedfile(rset.getString("userprofilerenamedfile"));
 	            r.setGameruntime(rset.getLong("gameruntime"));
 	            r.setGameescapedate(rset.getDate("gameescapedate"));
+	            
+	            break;
 	         }
 			
 		} catch (SQLException e) {

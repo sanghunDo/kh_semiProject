@@ -11,7 +11,13 @@
 	List<SolveBoard> list = (List<SolveBoard>)request.getAttribute("list");
 	List<SolveBoard> bestList = (List<SolveBoard>)request.getAttribute("bestList");
 	List<GameRank> rankList = (List<GameRank>)request.getAttribute("rankList");
-
+	String gameId = "";
+	for(int i=0; i<rankList.size(); i++){
+		gameId += rankList.get(i).getGameid()+"/";
+	}
+	System.out.println("gameId="+gameId);
+	
+	
 	int cPage = (int)request.getAttribute("cPage");
 	int numPerPage = (int)request.getAttribute("numPerPage");
 	String pageBar = (String)request.getAttribute("pageBar");
@@ -30,11 +36,11 @@ function noEnter(){
     <h3>공략게시판</h3>
     <!--new pic-->
     <hr>
-    <%for(GameRank gr : rankList){
-    	if(loggedInMember != null && gr.getGameid().equals(loggedInMember.getUserId())){
+    <%
+    if(loggedInMember != null && gameId.contains(loggedInMember.getUserId()) ||loggedInMember.getUserId().equals("admin")){
     %>
     <div id="write" style="color:white"><a href="<%=request.getContextPath()%>/board/solve/solveBoardInsert?userId=<%=loggedInMember.getUserId()%>">글쓰기</a></div>
-    <%} 
+    <% 
     } 
     %>
     
@@ -133,9 +139,14 @@ function noEnter(){
                 </td>
                 
                 <%if(loggedInMember!=null) {%>
-                <td class="title">
-                   <a href="<%=request.getContextPath()%>/board/solve/solveBoardView?postNo=<%=sb.getPostNo()%>"> 
-                   <%=sb.getPostTitle() %> [<%=sb.getBoard_comment_cnt() %>]
+                  <%if(sb.getPostTitle().equals("해당 게시물은 관리자에 의해 삭제되었습니다.")&&sb.getPostReport().equals("Y")){ %>
+                	<td class="title" style="cursor:not-allowed">
+                	  <%=sb.getPostTitle() %>
+                  <% } else {%>
+                  	<td class="title">
+                  	 <a href="<%=request.getContextPath()%>/board/solve/solveBoardView?postNo=<%=sb.getPostNo()%>"> 
+                  	<%=sb.getPostTitle() %> [<%=sb.getBoard_comment_cnt() %>]
+                  <%} %> 
                 </td>
                 <%} else { %>
                    <td class="title" onclick="noEnter();">
@@ -144,16 +155,16 @@ function noEnter(){
                 	
                 <%} %>
                 <td class="wirter">
-                	<%=sb.getPostWriter() %>
+                	<%=(sb.getPostTitle().equals("해당 게시물은 관리자에 의해 삭제되었습니다.")&&sb.getPostReport().equals("Y"))?"":sb.getPostWriter() %>
                 </td>
                 <td class="date">
-                    <%=sb.getPostDate() %>
+                    <%=(sb.getPostTitle().equals("해당 게시물은 관리자에 의해 삭제되었습니다.")&&sb.getPostReport().equals("Y"))?"":sb.getPostDate() %>
                 </td>
                 <td class="like">
-                    <%=sb.getPostLike() %>
+                    <%=(sb.getPostTitle().equals("해당 게시물은 관리자에 의해 삭제되었습니다.")&&sb.getPostReport().equals("Y"))?"":sb.getPostLike() %>
                 </td>
                 <td class="views">
-                   <%=sb.getPostReadCount() %>
+                   <%=(sb.getPostTitle().equals("해당 게시물은 관리자에 의해 삭제되었습니다.")&&sb.getPostReport().equals("Y"))?"":sb.getPostReadCount() %>
                 </td>
             </tr>
             <%}

@@ -5,6 +5,7 @@
 	int commentNo = (int)request.getAttribute("commentNo");
 	String commentWriter = (String)request.getAttribute("commentWriter");
 	String commentContent = (String)request.getAttribute("commentContent");
+	
 
 %>
 

@@ -10,6 +10,13 @@
 <link rel="stylesheet" href="<%=request.getContextPath() %>/css/game/gameEnding.css" />
 </head>
 <body>
+<audio id="footprint" autoplay src="<%=request.getContextPath()%>/audio/footprint.wav"></audio>
+<audio id="gun" src="<%=request.getContextPath()%>/audio/gun.mp3"></audio>
+<audio id="people" src="<%=request.getContextPath()%>/audio/people.wav"></audio>
+<audio id="policesiren" src="<%=request.getContextPath()%>/audio/policesiren.wav"></audio>
+<audio id="reload" src="<%=request.getContextPath()%>/audio/reload.wav"></audio>
+<audio id="trueEnd" src="<%=request.getContextPath()%>/audio/trueEnd.mp3"></audio>
+
 <img src="" alt="" id="background"/>
 <div id="ending">
 	<div id="msgBox" class="me">
@@ -25,6 +32,14 @@ $(window).on('keyup', function(e){
 	opener.parent.sessionStorage.removeItem("game");
 });
 
+$(function(){
+	$("body").hide();
+	
+	setTimeout(function(){
+		$("body").fadeIn(2000);		
+	}, 2000);
+});
+
 $("#ending").on('click', {cnt:0} ,function(e){
 	var cnt = e.data.cnt++;
 	var target = $("#ending").find("h2");
@@ -38,6 +53,7 @@ $("#ending").on('click', {cnt:0} ,function(e){
 	if(cnt==6) {
 		$("#msgBox").removeClass("none");
 		$("#msgBox").addClass("you");
+		$("#trueEnd")[0].play();
 	}
 	if(cnt==9) {
 		$("#msgBox").addClass("me");
@@ -47,9 +63,11 @@ $("#ending").on('click', {cnt:0} ,function(e){
 		$("#msgBox").removeClass("none");
 		$("#msgBox").removeClass("me");
 	}
+	
 	if(cnt==13){
 		$("#msgBox").removeClass("you");
 		$("#msgBox").addClass("me");
+		$("#people")[0].play();
 	}
 	if(cnt==14)$("#msgBox").removeClass("me");
 	if(cnt==15)$("#msgBox").addClass("me");
@@ -62,6 +80,9 @@ $("#ending").on('click', {cnt:0} ,function(e){
 		$("#msgBox").removeClass("you");
 		$("#msgBox").addClass("me");
 	}
+	
+	if(cnt==27) $("#trueEnd")[0].pause();
+	
 	if(cnt==28){
 		$("#msgBox").removeClass("me");
 		$("#msgBox").addClass("you");
@@ -70,6 +91,7 @@ $("#ending").on('click', {cnt:0} ,function(e){
 		$("#msgBox").removeClass("you");
 		$("#msgBox").addClass("me");
 		$("#msgBox").addClass("none");
+		$("#footprint")[0].play();
 	}
 	if(cnt==31)$("#msgBox").removeClass("none");
 	if(cnt==32){
@@ -80,6 +102,7 @@ $("#ending").on('click', {cnt:0} ,function(e){
 	if(cnt==33){
 		$("#msgBox").removeClass("me");
 		$("#msgBox").addClass("none");
+		$("#reload")[0].play();
 	}
 	if(cnt==34){
 		$("#msgBox").removeClass("none");
@@ -109,16 +132,20 @@ $("#ending").on('click', {cnt:0} ,function(e){
 	if(cnt==47){
 		$("#msgBox").removeClass("you");
 		$("#msgBox").addClass("me");
+		$("#policesiren")[0].play();
 	}
 	
 	if(cnt==49){
 		$("#msgBox").removeClass("me")
 		$("#msgBox").addClass("none");
-		$("body, #background").css({"animation": "bang .1s", "animation-iteration-count": "3"});
-		$(this).parent().fadeOut(3000); //마지막 대사 이후 클릭시 메인게임으로 이동.
+		$("#gun")[0].play();
+		setTimeout(function(){
+			$("body, #background").css({"animation": "bang .1s", "animation-iteration-count": "5"});			
+		}, 700);
+		$(this).parent().fadeOut(4000);
 		setTimeout(function(){
 			location.href="<%=request.getContextPath()%>/game/endingCredit";
-		}, 3000);
+		}, 5000);
 	}
 	
 	//대사 테이블에서 한 문장씩 가져옴.

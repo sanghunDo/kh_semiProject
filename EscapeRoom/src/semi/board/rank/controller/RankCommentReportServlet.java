@@ -1,4 +1,4 @@
-package semi.extra_admin.controller;
+package semi.board.rank.controller;
 
 import java.io.IOException;
 import javax.servlet.ServletException;
@@ -8,26 +8,27 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * Servlet implementation class AdminGrantServlet
+ * Servlet implementation class RankCommentReportServlet
  */
-@WebServlet("/admin/adminGrant")
-public class AdminGrantServlet extends HttpServlet {
+@WebServlet("/board/rank/rankCommentReport")
+public class RankCommentReportServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public AdminGrantServlet() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+		
+		request.setCharacterEncoding("utf-8");
+		
+		int rankCommentNo = Integer.parseInt(request.getParameter("rankCommentNo"));
+		
+		String view = "/WEB-INF/views/common/msg.jsp";
+		
+		view = "/WEB-INF/views/common/report.jsp";
+		
+		request.setAttribute("rankCommentNo", rankCommentNo);
+		request.getRequestDispatcher(view).forward(request, response);
 	}
 
 	/**

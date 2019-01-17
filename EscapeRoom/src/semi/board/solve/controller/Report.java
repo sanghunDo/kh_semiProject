@@ -32,7 +32,6 @@ public class Report extends HttpServlet {
 		String commentWriter = request.getParameter("commentWriter");
 		String commentContent = request.getParameter("commentContent");
 		String view = "/WEB-INF/views/common/msg.jsp";
-		
 			view = "/WEB-INF/views/board/solve/report.jsp";
 			request.setAttribute("postNo", postNo);
 			request.setAttribute("commentNo", commentNo);

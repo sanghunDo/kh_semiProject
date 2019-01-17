@@ -56,27 +56,6 @@
             <input type="hidden" value="false" name="flag" />
          </form>  
          
-        <!--     <tr>
-                <th scope="col">첨부파일1</th>
-                <td>			
-                        <input type="file" name="up_file">
-                        <input type="checkbox">첨부파일삭제
-                </td>
-            </tr>
-            <tr>
-                    <th scope="col">첨부파일2</th>
-                    <td>			
-                            <input type="file" name="up_file">
-                            <input type="checkbox">첨부파일삭제
-                    </td>
-            </tr>
-            <tr>
-                    <th scope="col">첨부파일3</th>
-                    <td>			
-                            <input type="file" name="up_file">
-                            <input type="checkbox">첨부파일삭제
-                    </td>
-            </tr> -->
     </table>
     
     <div id="DataBox" onclick="dataBox();">임시저장보관함</div>
@@ -127,6 +106,31 @@ function temporaryData(){
 	$("[name=flag]").attr("value","true");
 	$("[name=writeFrm]").submit(); 
 }
+$(document).ready(function()
+		 {
+
+	
+
+	$(document).keydown(function(event){
+	if(event.keyCode) code = event.keyCode;
+	else if(event.which) code = event.which;
+	var title = $("input[name=title]").val().trim().length;
+	var content = $("textarea[name=content]").val().trim().length;
+	console.log(title);
+	console.log(content);
+   if(title>0 || content>0){
+		   if((code==0 || code==116)){
+				if(!confirm("작성중인 글이 있습니다. 임시저장하시겠습니까? '취소'를 누르시면 작성하던 게시글이 삭제됩니다.")){
+					location.href = referrer; 
+				}else{ //확인버튼을 눌렀을 시
+					$("[name=flag]").attr("value","true");
+					$("[name=writeFrm]").submit(); 
+				}
+		   }
+     }
+});
+});
+
 
 function dataBox(){
 	var url = "<%=request.getContextPath() %>/board/free/freeBoardTemporaryBox?userId=<%=loggedInMember.getUserId()%>";

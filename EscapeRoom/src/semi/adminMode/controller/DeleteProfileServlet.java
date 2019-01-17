@@ -35,10 +35,13 @@ public class DeleteProfileServlet extends HttpServlet {
 		
 		String userId = request.getParameter("userId");
 		Member m = new MemberService().selectOne(userId);
-		
+		System.out.println(userId);
+		System.out.println(m);
 		String msg = "";
 		String loc = "/adminMode/adminMain";
 
+		result = new AdminModeService().deleteProfile(userId);
+		
 		if(result > 0) msg = "해당 회원의 프로필 사진이 삭제되었습니다.";
 		else msg = "해당 회원은 프로필 사진이 등록되어 있지 않습니다.";
 			

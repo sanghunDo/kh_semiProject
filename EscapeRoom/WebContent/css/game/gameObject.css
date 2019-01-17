@@ -11,7 +11,17 @@
     left: 345px;
     transform-origin: 0% 50%;
 }
-
+#door_keypad{
+	width: 332px;
+    height: 444px;
+    height: 500px;
+    top: 12px;
+}
+#used_flowerpot_key_1{
+	width: 40px;
+    top: 110px;
+    left: 607px;
+}
 #doorright{
     position: absolute;
     left: 607px;
@@ -19,6 +29,21 @@
     transform: perspective(1300px) rotateY(90deg);
     height:351px;
     z-index:2;
+}
+#used_flowerpot{
+	top: 600px;
+    height: 115px;
+}
+#driver{
+	width: 146px;
+    transform: rotateZ(34deg);
+    top: 253px;
+    left: 496px;
+}
+#wire{
+	width: 50px;
+    left: 410px;
+    top: 296px;
 }
 @keyframes 
 opendoor1 { 
@@ -82,11 +107,25 @@ opendoorright{
     left: 569px;
     opacity: 0;
 }
+#used_door_lock1{
+    width: 41px;
+    top: 402px;
+    left: 569px;
+}
 #door_lock2{
 	top: 444px;
     left: 563px;
     width: 62px;
-    opacity: 0;
+}
+#used_door_lock2{
+	top: 440px;
+    left: 556px;
+    width: 75px;
+}
+#used_used_door_lock2{
+	top: 444px;
+    left: 563px;
+    width: 62px;
 }
 #flowerpot{
 	width: 129px;
@@ -98,6 +137,11 @@ opendoorright{
 	top: 468px;
     width: 123px;
     left: 800px;
+}
+#used_safe{
+	top: 482px;
+    width: 130px;
+    left: 802px;
 }
 
 /* left */
@@ -124,64 +168,84 @@ opendoorright{
 
 
 /* back */
-#bs_doll{
+#doll{
 	top: 50px;
     left: 363px;
-    opacity: 0;	
 }
-
-#bs_4_books{
+#used_doll{
+	top: 27px;
+    width: 104px;
+    left: 349px;
+}
+#used_smallbox{
+	width: 109px;
+    left: 374px;
+    top: 285px;
+}
+#used_doll_hintnote3{
+	width: 73px;
+    left: 434px;
+    top: 279px;
+}
+#books_4{
 	top: 170px;
     left: 334px;
     opacity: 0;	
 }
 
-#bs_smallbox{
+#smallbox{
 	top: 311px;
     left: 397px;
-    opacity: 0;	
 }
 
-#bs_clock{
+#clock{
 	top: 322px;
     left: 551px;
-    opacity: 0;	
 }
 
-#bs_2_books{
+#books_2{
 	top: 400px;
     left: 348px;
     opacity: 0;	
 }
-#bs_battery{
+#battery{
 	display: block;
     width: 131px;
-    top: 188px;
+    top: 225px;
     height: 43px;
     left: 409px;
     opacity: 0;
 }
-#bs_toolbox{
+#toolbox{
 	top: 565px;
     left: 471px;
     opacity: 0;	
 }
-#bs_cutterknife{
-	display: block;
-    width: 70px;
-    top: 198px;
-    left: 368px;
-    transform: rotateZ(16deg);
+#cutterknife{
+    display: block;
+    width: 72px;
+    top: 228px;
+    left: 338px;
+    transform: rotateZ(67deg);
     opacity: 0;
 }
-#bs_hammer{
-	display: block;
-    width: 122px;
+#hammer{
+    display: block;
+    width: 51px;
+    height: 194px;
     top: 160px;
-    left: 551px;
-    transform: rotateZ(19deg);
+    left: 630px;
+    transform: rotateZ(62deg);
     opacity: 0;
 }
+#used_smallbox_hintnote2{
+	width: 97px;
+    left: 400px;
+    top: 161px;
+    transform: rotateZ(-61deg);
+
+}
+
 
 /* right */
 #window{
@@ -198,6 +262,17 @@ opendoorright{
     left: 693px;
     top: 555px;
 }
+#used_water{
+	width: 210px;
+    left: 693px;
+    top: 555px;
+}
+#used_water_hintnote3{
+	width: 50px;
+    left: 523px;
+    top: 200px;
+}
+
 
 /* ceiling */
 #ceilinglight{
@@ -205,9 +280,20 @@ opendoorright{
     top: 200px;
     left: 350px;
 }
+#used_ceilinglight{
+    width: 300px;
+    top: 200px;
+    left: 350px;
+}
+#used_ceilinglight_key_2{
+	width: 63px;
+    left: 295px;
+    top: 53px;
+	
+}
 
 #show-obj img:first-of-type{
 	position: relative;
 	max-width: 700px;
-	height: 100%;
+	height: 120%;
 }
